@@ -5,15 +5,27 @@ import { fitDixonColes, predictMatch } from "@/lib/models/dixon-coles";
 import { derive1X2, deriveOverUnder } from "@/lib/betting/markets";
 import { DixonColesParams } from "@/lib/types";
 
-let cachedParams: DixonColesParams | null = null;
-let lastFit = 0;
+const paramCache = new Map<string, { params: DixonColesParams; time: number }>();
 
-async function getParams(): Promise<DixonColesParams> {
-  if (cachedParams && Date.now() - lastFit < 3600000) return cachedParams;
-  const matches = await fetchOpenFootballMatches();
-  cachedParams = fitDixonColes(matches);
-  lastFit = Date.now();
-  return cachedParams;
+async function getParams(season: string): Promise<DixonColesParams> {
+  const cached = paramCache.get(season);
+  if (cached && Date.now() - cached.time < 3600000) return cached.params;
+  // Include current season + prior season for better estimates
+  const seasons = [season];
+  const prev = getPriorSeason(season);
+  if (prev) seasons.push(prev);
+  const matches = await fetchOpenFootballMatches(seasons);
+  const params = fitDixonColes(matches);
+  paramCache.set(season, { params, time: Date.now() });
+  return params;
+}
+
+function getPriorSeason(s: string): string | null {
+  const map: Record<string, string> = {
+    "2025-26": "2024-25", "2024-25": "2023-24", "2023-24": "2022-23",
+    "2022-23": "2021-22", "2021-22": "2020-21", "2020-21": "2019-20",
+  };
+  return map[s] || null;
 }
 
 export async function GET(request: NextRequest) {
@@ -22,7 +34,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const [params, oddsMatches] = await Promise.all([
-      getParams(),
+      getParams(season),
       fetchMatchesWithOdds(season),
     ]);
 

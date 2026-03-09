@@ -116,6 +116,7 @@ function normalizeUKTeamName(name: string): string {
     "Udinese": "Udinese",
     "Venezia": "Venezia",
     "Verona": "Verona",
+    "Pisa": "Pisa",
   };
   return ukMap[name] ?? name;
 }

@@ -14,7 +14,7 @@ interface StandingRow {
 
 export default function StandingsPage() {
   const [teams, setTeams] = useState<StandingRow[]>([]);
-  const [season, setSeason] = useState("2024-25");
+  const [season, setSeason] = useState("2025-26");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [matchCount, setMatchCount] = useState(0);

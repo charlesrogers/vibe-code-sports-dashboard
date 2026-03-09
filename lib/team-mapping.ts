@@ -28,6 +28,7 @@ const TEAM_MAP: Record<string, SourceMap> = {
   "Udinese": { footballData: "Udinese Calcio", openfootball: "Udinese Calcio", understat: "Udinese" },
   "Venezia": { footballData: "Venezia FC", openfootball: "Venezia FC", understat: "Venezia" },
   "Verona": { footballData: "Hellas Verona FC", openfootball: "Hellas Verona FC", understat: "Verona" },
+  "Pisa": { footballData: "AC Pisa 1909", openfootball: "AC Pisa 1909", understat: "Pisa" },
   // Previous season teams that may appear in historical data
   "Salernitana": { footballData: "US Salernitana 1919", openfootball: "US Salernitana 1919", understat: "Salernitana" },
   "Sassuolo": { footballData: "US Sassuolo Calcio", openfootball: "US Sassuolo Calcio", understat: "Sassuolo" },

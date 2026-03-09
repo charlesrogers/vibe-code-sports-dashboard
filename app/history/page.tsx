@@ -142,7 +142,7 @@ function calculateTeamTable(matches: MatchWithOdds[]): TeamSeason[] {
 }
 
 export default function HistoryPage() {
-  const [season, setSeason] = useState("2024-25");
+  const [season, setSeason] = useState("2025-26");
   const [matches, setMatches] = useState<MatchWithOdds[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<"overview" | "table" | "matches">("overview");

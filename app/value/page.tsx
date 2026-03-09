@@ -27,7 +27,7 @@ interface Summary {
 }
 
 export default function ValueBetsPage() {
-  const [season, setSeason] = useState("2024-25");
+  const [season, setSeason] = useState("2025-26");
   const [minEdge, setMinEdge] = useState(5);
   const [bets, setBets] = useState<ValueBet[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);

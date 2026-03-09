@@ -14,7 +14,7 @@ interface OpenFootballSeason {
   matches: OpenFootballMatch[];
 }
 
-const SEASONS = ["2024-25", "2023-24", "2022-23"];
+const SEASONS = ["2025-26", "2024-25", "2023-24", "2022-23"];
 
 export async function fetchOpenFootballMatches(seasons: string[] = SEASONS): Promise<Match[]> {
   const all: Match[] = [];
@@ -52,5 +52,39 @@ export async function fetchOpenFootballMatches(seasons: string[] = SEASONS): Pro
 }
 
 export async function fetchCurrentSeasonMatches(): Promise<Match[]> {
-  return fetchOpenFootballMatches(["2024-25"]);
+  return fetchOpenFootballMatches(["2025-26"]);
+}
+
+export interface UpcomingFixture {
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  round?: number;
+}
+
+export async function fetchUpcomingFixtures(season: string = "2025-26"): Promise<UpcomingFixture[]> {
+  try {
+    const url = `https://raw.githubusercontent.com/openfootball/football.json/master/${season}/it.1.json`;
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+
+    const data: OpenFootballSeason = await res.json();
+    const roundRegex = /(\d+)/;
+    const fixtures: UpcomingFixture[] = [];
+
+    for (const m of data.matches) {
+      if (m.score?.ft) continue; // skip played matches
+      const roundMatch = m.round.match(roundRegex);
+      fixtures.push({
+        date: m.date,
+        homeTeam: normalizeTeamName(m.team1, "openfootball"),
+        awayTeam: normalizeTeamName(m.team2, "openfootball"),
+        round: roundMatch ? parseInt(roundMatch[1]) : undefined,
+      });
+    }
+
+    return fixtures.sort((a, b) => a.date.localeCompare(b.date));
+  } catch {
+    return [];
+  }
 }

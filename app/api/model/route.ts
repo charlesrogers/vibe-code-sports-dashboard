@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ params: cached.params, elo: cached.elo, season: cacheKey });
     }
 
-    const seasons = season ? [season] : ["2024-25", "2023-24", "2022-23"];
+    const seasons = season ? [season] : ["2025-26", "2024-25", "2023-24"];
     const matches = await fetchOpenFootballMatches(seasons);
 
     if (matches.length === 0) {
