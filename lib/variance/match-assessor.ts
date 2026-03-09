@@ -105,12 +105,19 @@ export function assessMatch(
   homeVariance: TeamVariance,
   awayVariance: TeamVariance
 ): MatchVarianceAssessment {
-  // Compute edge: home regression benefit minus away regression benefit
-  const homeEdge =
-    homeVariance.regressionConfidence * directionSign(homeVariance);
-  const awayEdge =
-    awayVariance.regressionConfidence * directionSign(awayVariance);
-  const varianceEdge = homeEdge - awayEdge;
+  // Compute edge: how much regression favors one side vs the other
+  // Scale variance into a probability-like edge:
+  //   Use totalVariance (goal gap) to generate a percentage edge
+  //   ~5 goal gap → ~5% edge, ~10 goal gap → ~10% edge
+  // Negative totalVariance = underperforming = will improve
+  // So a negative home totalVariance HELPS home, positive HURTS home
+  const homeRegressionBenefit =
+    (-homeVariance.totalVariance / 100) * homeVariance.regressionConfidence;
+  const awayRegressionBenefit =
+    (-awayVariance.totalVariance / 100) * awayVariance.regressionConfidence;
+
+  // Net edge: positive = regression favors home
+  const varianceEdge = homeRegressionBenefit - awayRegressionBenefit;
 
   let edgeSide: MatchVarianceAssessment["edgeSide"] = "neutral";
   if (varianceEdge > 0.02) edgeSide = "home";
@@ -118,16 +125,16 @@ export function assessMatch(
 
   const edgeMagnitude = classifyMagnitude(varianceEdge);
 
-  const maxConfidence = Math.max(
-    homeVariance.regressionConfidence,
-    awayVariance.regressionConfidence
-  );
+  // Require BOTH: meaningful edge AND the favored side has a non-neutral signal
+  const favoredVariance = varianceEdge > 0 ? homeVariance : awayVariance;
   const hasBet =
-    Math.abs(varianceEdge) >= 0.04 && maxConfidence >= 0.6;
+    Math.abs(varianceEdge) >= 0.04 &&
+    favoredVariance.regressionConfidence >= 0.6 &&
+    favoredVariance.signal !== "neutral";
 
   const betSide = hasBet ? edgeSide : null;
   const confidence = hasBet
-    ? Math.min(maxConfidence, Math.abs(varianceEdge) * 5)
+    ? Math.min(favoredVariance.regressionConfidence, 0.95)
     : 0;
 
   const betReasoning = buildReasoning(
