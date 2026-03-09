@@ -12,6 +12,7 @@ const links = [
   { href: "/predictor", label: "Predictor" },
   { href: "/value", label: "Value Bets" },
   { href: "/ted", label: "Ted" },
+  { href: "/ensemble", label: "Ensemble" },
   { href: "/history", label: "History" },
   { href: "/xg", label: "xG" },
   { href: "/fixtures", label: "Fixtures" },
