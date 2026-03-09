@@ -17,9 +17,70 @@ interface DataSourcesResponse {
   criticalMessage: string | null;
 }
 
-async function checkUnderstatXg(): Promise<DataSourceStatus> {
-  const name = "Understat Venue-Split xG";
-  const usedBy = ["Ted Variance Model", "xG Analysis", "Value Bets"];
+async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
+  const name = "Understat xG (Live API)";
+  const usedBy = ["Ted Variance Model", "xG Analysis"];
+
+  try {
+    const res = await fetch(
+      "https://understat.com/getLeagueData/Serie_A/2025",
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        signal: AbortSignal.timeout(10000),
+      }
+    );
+
+    if (!res.ok) {
+      return {
+        name,
+        status: "broken",
+        lastUpdated: null,
+        detail: `API returned HTTP ${res.status}`,
+        critical: true,
+        usedBy,
+      };
+    }
+
+    const data = await res.json();
+    const teamCount = data?.teams ? Object.keys(data.teams).length : 0;
+
+    if (teamCount === 0) {
+      return {
+        name,
+        status: "broken",
+        lastUpdated: null,
+        detail: "API responded but returned no team data",
+        critical: true,
+        usedBy,
+      };
+    }
+
+    return {
+      name,
+      status: "healthy",
+      lastUpdated: new Date().toISOString(),
+      detail: `Live API responding with ${teamCount} teams and venue-split xG`,
+      critical: true,
+      usedBy,
+    };
+  } catch (e) {
+    return {
+      name,
+      status: "broken",
+      lastUpdated: null,
+      detail: `Fetch failed: ${e instanceof Error ? e.message : String(e)}`,
+      critical: true,
+      usedBy,
+    };
+  }
+}
+
+async function checkUnderstatXgCache(): Promise<DataSourceStatus> {
+  const name = "Understat xG (File Cache)";
+  const usedBy = ["Ted Variance Model (fallback)"];
   const filePath = path.join(process.cwd(), "data", "xg-venue-split", "serieA.json");
 
   try {
@@ -28,8 +89,8 @@ async function checkUnderstatXg(): Promise<DataSourceStatus> {
         name,
         status: "missing",
         lastUpdated: null,
-        detail: "Cache file not found at data/xg-venue-split/serieA.json",
-        critical: true,
+        detail: "Cache file not found — run: node scripts/scrape-understat.js",
+        critical: false,
         usedBy,
       };
     }
@@ -44,7 +105,7 @@ async function checkUnderstatXg(): Promise<DataSourceStatus> {
         status: "broken",
         lastUpdated: null,
         detail: "Cache file exists but has no scrapedAt timestamp",
-        critical: true,
+        critical: false,
         usedBy,
       };
     }
@@ -53,32 +114,21 @@ async function checkUnderstatXg(): Promise<DataSourceStatus> {
     const ageMs = Date.now() - scrapedDate.getTime();
     const ageHours = ageMs / (1000 * 60 * 60);
 
-    if (ageHours <= 24) {
-      return {
-        name,
-        status: "healthy",
-        lastUpdated: scrapedAt,
-        detail: `Scraped ${ageHours.toFixed(1)} hours ago with ${data.teams?.length ?? "?"} teams`,
-        critical: true,
-        usedBy,
-      };
-    } else {
-      return {
-        name,
-        status: "stale",
-        lastUpdated: scrapedAt,
-        detail: `Scraped ${ageHours.toFixed(1)} hours ago — data is older than 24h`,
-        critical: true,
-        usedBy,
-      };
-    }
+    return {
+      name,
+      status: ageHours <= 48 ? "healthy" : "stale",
+      lastUpdated: scrapedAt,
+      detail: `Cached ${ageHours.toFixed(1)} hours ago with ${data.teams?.length ?? "?"} teams`,
+      critical: false,
+      usedBy,
+    };
   } catch (e) {
     return {
       name,
       status: "broken",
       lastUpdated: null,
       detail: `Error reading cache: ${e instanceof Error ? e.message : String(e)}`,
-      critical: true,
+      critical: false,
       usedBy,
     };
   }
@@ -273,7 +323,8 @@ async function checkInjuryData(): Promise<DataSourceStatus> {
 
 export async function GET() {
   const sources = await Promise.all([
-    checkUnderstatXg(),
+    checkUnderstatLiveApi(),
+    checkUnderstatXgCache(),
     checkFotmobXg(),
     checkOpenFootball(),
     checkOddsApi(),

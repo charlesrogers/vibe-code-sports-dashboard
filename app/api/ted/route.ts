@@ -6,10 +6,9 @@ import {
   calculateTeamVariance,
 } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
-import {
-  loadVenueSplitXg,
-  getVenueXgForFixture,
-} from "@/lib/venue-split-xg";
+import { fetchUnderstatVenueSplitXg } from "@/lib/understat";
+import { loadVenueSplitXg, getVenueXgForFixture } from "@/lib/venue-split-xg";
+import type { VenueSplitXg } from "@/lib/understat";
 import type { League } from "@/lib/openfootball";
 
 export async function GET(request: NextRequest) {
@@ -17,74 +16,81 @@ export async function GET(request: NextRequest) {
     "serieA") as League;
 
   try {
-    // Load venue-split xG from Understat scrape cache
-    const venueSplit = loadVenueSplitXg(league);
+    // 1. Try live Understat API for venue-split xG (best source)
+    let venueSplits: VenueSplitXg[] | null = null;
+    let xgSource = "none";
 
-    // Fall back to Fotmob overall xG if no venue-split data
-    const fotmobData = venueSplit
-      ? []
-      : await fetchTeamXgFromFotmob(league);
+    try {
+      venueSplits = await fetchUnderstatVenueSplitXg(league);
+      xgSource = "understat-live";
+    } catch (e) {
+      console.warn("Understat live API failed, trying file cache:", e);
+      // 2. Fall back to file cache from Playwright scrape
+      const cached = loadVenueSplitXg(league);
+      if (cached) {
+        venueSplits = cached.teams;
+        xgSource = "understat-cache";
+      }
+    }
+
+    // 3. Fall back to Fotmob overall xG (no venue splits)
+    const fotmobData =
+      venueSplits && venueSplits.length > 0
+        ? []
+        : await fetchTeamXgFromFotmob(league);
+
+    if ((!venueSplits || venueSplits.length === 0) && fotmobData.length === 0) {
+      xgSource = "fotmob";
+    }
 
     const fixtures = await fetchUpcomingFixtures("2025-26", league);
 
-    if (!venueSplit && fotmobData.length === 0) {
+    if (
+      (!venueSplits || venueSplits.length === 0) &&
+      fotmobData.length === 0
+    ) {
       return NextResponse.json(
-        { error: "No xG data available" },
+        { error: "No xG data available from any source" },
         { status: 503 }
       );
     }
 
-    // When we have venue splits, calculate variance per team per venue
-    // The overall team table still uses overall stats for display
-    const overallXgData = venueSplit
-      ? venueSplit.teams.map((t) => t.overall)
+    const hasVenueSplits = venueSplits !== null && venueSplits.length > 0;
+
+    // Overall team table uses overall stats for display
+    const overallXgData = hasVenueSplits
+      ? venueSplits!.map((t) => t.overall)
       : fotmobData;
     const teams = calculateAllVariance(overallXgData);
 
-    // For match assessment: use venue-specific variance
-    // Home team → their HOME xG stats
-    // Away team → their AWAY xG stats
-    // This is Ted's key principle: "never use overall season numbers"
+    // Match assessment: venue-specific variance when available
     const assessments = fixtures
       .map((f) => {
-        if (venueSplit) {
-          // Venue-split mode (correct Ted approach)
+        if (hasVenueSplits) {
           const { homeXg, awayXg } = getVenueXgForFixture(
             f.homeTeam,
             f.awayTeam,
-            venueSplit.teams
+            venueSplits!
           );
           if (!homeXg || !awayXg) return null;
 
           const homeV = calculateTeamVariance(homeXg);
           const awayV = calculateTeamVariance(awayXg);
           const assessment = assessMatch(homeV, awayV);
-          return {
-            ...assessment,
-            round: f.round ?? null,
-            date: f.date,
-          };
+          return { ...assessment, round: f.round ?? null, date: f.date };
         } else {
-          // Fallback: overall variance (not ideal, but works without scrape)
           const varianceMap = new Map(teams.map((t) => [t.team, t]));
           const homeV = varianceMap.get(f.homeTeam);
           const awayV = varianceMap.get(f.awayTeam);
           if (!homeV || !awayV) return null;
           const assessment = assessMatch(homeV, awayV);
-          return {
-            ...assessment,
-            round: f.round ?? null,
-            date: f.date,
-          };
+          return { ...assessment, round: f.round ?? null, date: f.date };
         }
       })
-      .filter(
-        (a): a is NonNullable<typeof a> => a !== null
-      );
+      .filter((a): a is NonNullable<typeof a> => a !== null);
 
     const bets = assessments.filter((a) => a.hasBet);
 
-    // Organize by round
     const rounds = [
       ...new Set(
         assessments
@@ -95,8 +101,8 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       league,
-      usingVenueSplits: !!venueSplit,
-      scrapedAt: venueSplit?.scrapedAt ?? null,
+      usingVenueSplits: hasVenueSplits,
+      xgSource,
       teams,
       assessments,
       bets,

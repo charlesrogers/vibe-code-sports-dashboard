@@ -11,13 +11,9 @@
 import fs from "fs";
 import path from "path";
 import type { TeamXg } from "./types";
+import type { VenueSplitXg } from "./understat";
 
-export interface VenueSplitXg {
-  team: string;
-  home: TeamXg;
-  away: TeamXg;
-  overall: TeamXg;
-}
+export type { VenueSplitXg };
 
 interface CachedData {
   league: string;

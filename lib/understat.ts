@@ -1,65 +1,129 @@
-import { TeamXg } from "./types";
+/**
+ * Understat xG data fetcher — direct HTTP API (no browser needed)
+ *
+ * Provides per-match xG data with home/away flags, enabling the
+ * venue-split analysis Ted Knutson requires.
+ *
+ * "Knutson never uses a team's overall season xGD.
+ *  He always breaks it into home and away splits."
+ */
+
+import type { TeamXg } from "./types";
 import { normalizeTeamName } from "./team-mapping";
 
-// Understat embeds JSON data in script tags as:
-// var teamsData = JSON.parse('\x7B...\x7D')
-// We fetch the HTML, extract the JSON, and parse it.
-
-function decodeUnderstatString(encoded: string): string {
-  // Understat uses hex escapes like \x22 for " and \x27 for '
-  return encoded.replace(/\\x([0-9a-fA-F]{2})/g, (_, hex) =>
-    String.fromCharCode(parseInt(hex, 16))
-  );
+export interface VenueSplitXg {
+  team: string;
+  home: TeamXg;
+  away: TeamXg;
+  overall: TeamXg;
 }
 
-export async function fetchTeamXg(season: number = 2024): Promise<TeamXg[]> {
-  try {
-    const url = `https://understat.com/league/Serie_A/${season}`;
-    const res = await fetch(url, {
-      next: { revalidate: 21600 }, // 6 hours
-      headers: { "User-Agent": "Mozilla/5.0" },
-    });
+interface UnderstatMatch {
+  h_a: "h" | "a";
+  xG: number;
+  xGA: number;
+  scored: number;
+  missed: number;
+  date: string;
+}
 
-    if (!res.ok) throw new Error(`Understat returned ${res.status}`);
+interface UnderstatTeamData {
+  id: string;
+  title: string;
+  history: UnderstatMatch[];
+}
 
-    const html = await res.text();
+interface UnderstatLeagueData {
+  teams: Record<string, UnderstatTeamData>;
+}
 
-    // Extract teamsData JSON from script tags
-    const teamsMatch = html.match(/var\s+teamsData\s*=\s*JSON\.parse\('(.+?)'\)/);
-    if (!teamsMatch) throw new Error("Could not find teamsData in Understat HTML");
+const LEAGUE_SLUGS: Record<string, string> = {
+  serieA: "Serie_A",
+  serieB: "Serie_B",
+  premierLeague: "EPL",
+  laLiga: "La_liga",
+  bundesliga: "Bundesliga",
+  ligue1: "Ligue_1",
+};
 
-    const decoded = decodeUnderstatString(teamsMatch[1]);
-    const teamsData = JSON.parse(decoded);
+function aggregateMatches(team: string, matches: UnderstatMatch[]): TeamXg {
+  const xGFor = matches.reduce((s, m) => s + m.xG, 0);
+  const xGAgainst = matches.reduce((s, m) => s + m.xGA, 0);
+  const goalsFor = matches.reduce((s, m) => s + m.scored, 0);
+  const goalsAgainst = matches.reduce((s, m) => s + m.missed, 0);
 
-    const results: TeamXg[] = [];
+  return {
+    team,
+    xGFor: Math.round(xGFor * 100) / 100,
+    xGAgainst: Math.round(xGAgainst * 100) / 100,
+    goalsFor,
+    goalsAgainst,
+    xGDiff: Math.round((xGFor - xGAgainst) * 100) / 100,
+    overperformance: Math.round((goalsFor - xGFor) * 100) / 100,
+    matches: matches.length,
+  };
+}
 
-    for (const teamId of Object.keys(teamsData)) {
-      const team = teamsData[teamId];
-      const history: any[] = team.history || [];
+/**
+ * Fetch venue-split xG data directly from Understat's HTTP API.
+ * No Playwright or headless browser needed.
+ */
+export async function fetchUnderstatVenueSplitXg(
+  league: string = "serieA",
+  season: string = "2025"
+): Promise<VenueSplitXg[]> {
+  const slug = LEAGUE_SLUGS[league];
+  if (!slug) throw new Error(`Unsupported league for Understat: ${league}`);
 
-      let xGFor = 0, xGAgainst = 0, goalsFor = 0, goalsAgainst = 0;
-      for (const match of history) {
-        xGFor += parseFloat(match.xG || 0);
-        xGAgainst += parseFloat(match.xGA || 0);
-        goalsFor += parseInt(match.scored || 0);
-        goalsAgainst += parseInt(match.missed || 0);
-      }
-
-      const name = normalizeTeamName(team.title, "understat");
-
-      results.push({
-        team: name,
-        xGFor: Math.round(xGFor * 100) / 100,
-        xGAgainst: Math.round(xGAgainst * 100) / 100,
-        goalsFor,
-        goalsAgainst,
-        xGDiff: Math.round((xGFor - xGAgainst) * 100) / 100,
-        overperformance: Math.round((goalsFor - xGFor) * 100) / 100,
-        matches: history.length,
-      });
+  const res = await fetch(
+    `https://understat.com/getLeagueData/${slug}/${season}`,
+    {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      next: { revalidate: 3600 }, // 1 hour cache
     }
+  );
 
-    return results.sort((a, b) => b.xGDiff - a.xGDiff);
+  if (!res.ok) {
+    throw new Error(`Understat API returned ${res.status}`);
+  }
+
+  const data: UnderstatLeagueData = await res.json();
+
+  if (!data.teams || Object.keys(data.teams).length === 0) {
+    throw new Error("Understat returned no team data");
+  }
+
+  const results: VenueSplitXg[] = [];
+
+  for (const [, team] of Object.entries(data.teams)) {
+    const name = normalizeTeamName(team.title, "understat");
+    const homeMatches = team.history.filter((m) => m.h_a === "h");
+    const awayMatches = team.history.filter((m) => m.h_a === "a");
+
+    results.push({
+      team: name,
+      home: aggregateMatches(name, homeMatches),
+      away: aggregateMatches(name, awayMatches),
+      overall: aggregateMatches(name, team.history),
+    });
+  }
+
+  return results.sort((a, b) => b.overall.xGDiff - a.overall.xGDiff);
+}
+
+/**
+ * Legacy: fetch overall xG (no venue split).
+ * Used as fallback by other parts of the app.
+ */
+export async function fetchTeamXg(
+  season: number = 2025
+): Promise<TeamXg[]> {
+  try {
+    const splits = await fetchUnderstatVenueSplitXg("serieA", String(season));
+    return splits.map((s) => s.overall);
   } catch (e) {
     console.warn("Understat fetch failed:", e);
     return [];
