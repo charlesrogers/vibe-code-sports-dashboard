@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# odds data (local collection, not code)
+/data/odds-snapshots/

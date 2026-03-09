@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/collect-odds?league=serieA",
+      "schedule": "0 8,14,20 * * *"
+    },
+    {
+      "path": "/api/collect-odds?league=serieB",
+      "schedule": "0 10,18 * * *"
+    }
+  ]
+}
