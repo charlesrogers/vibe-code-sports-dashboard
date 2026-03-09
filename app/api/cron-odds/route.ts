@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const state = loadSchedulerState();
+  const state = await loadSchedulerState();
   const results: Record<string, unknown> = { timestamp: new Date().toISOString(), actions: [] };
   const actions: unknown[] = [];
 
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
       }
 
       // Record the poll
-      recordPoll(league, requestsUsed);
+      await recordPoll(league, requestsUsed);
 
       actions.push({
         league,
@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
   results.actions = actions;
 
   // Include budget summary
-  const updatedState = loadSchedulerState();
+  const updatedState = await loadSchedulerState();
   const monthKey = new Date().toISOString().slice(0, 7);
   results.budget = {
     monthlyUsed: updatedState.pollCount[monthKey] || 0,

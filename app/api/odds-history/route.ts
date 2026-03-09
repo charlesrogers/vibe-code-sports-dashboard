@@ -7,11 +7,11 @@ export async function GET(request: NextRequest) {
 
   try {
     const [stats, apiStatus] = await Promise.all([
-      Promise.resolve(getCollectionStats(league)),
+      getCollectionStats(league),
       checkApiStatus(),
     ]);
 
-    const snapshots = loadSnapshots(league);
+    const snapshots = await loadSnapshots(league);
     const matchHistories = buildMatchHistory(snapshots);
 
     // Summary of line movements

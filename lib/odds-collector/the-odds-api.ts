@@ -309,7 +309,7 @@ export async function collectAndSaveOdds(
   }
 
   if (allSnapshots.length > 0) {
-    saveSnapshots(league, allSnapshots);
+    await saveSnapshots(league, allSnapshots);
   }
 
   return {
@@ -508,7 +508,7 @@ export async function collectDeepOdds(
   }
 
   if (allSnapshots.length > 0) {
-    saveSnapshots(league, allSnapshots);
+    await saveSnapshots(league, allSnapshots);
   }
 
   return { saved: allSnapshots.length, deepEvents: deepCount, requestsUsed };

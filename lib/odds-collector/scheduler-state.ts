@@ -1,46 +1,27 @@
 /**
  * Persistent state for the odds collection scheduler.
- * Tracks when we last polled each league and monthly request counts.
+ * Uses storage adapter (file locally, Vercel Blob in production).
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
-import { join } from "path";
 import type { SchedulerState } from "./scheduler";
+import { getStorage } from "./storage";
 
-const DATA_DIR = join(process.cwd(), "data", "odds-snapshots");
-const STATE_FILE = join(DATA_DIR, "_scheduler-state.json");
-
-function ensureDir() {
-  if (!existsSync(DATA_DIR)) {
-    mkdirSync(DATA_DIR, { recursive: true });
-  }
+export async function loadSchedulerState(): Promise<SchedulerState> {
+  return getStorage().loadSchedulerState();
 }
 
-export function loadSchedulerState(): SchedulerState {
-  ensureDir();
-  if (!existsSync(STATE_FILE)) {
-    return { lastPoll: {}, pollCount: {} };
-  }
-  try {
-    return JSON.parse(readFileSync(STATE_FILE, "utf-8"));
-  } catch {
-    return { lastPoll: {}, pollCount: {} };
-  }
+export async function saveSchedulerState(state: SchedulerState): Promise<void> {
+  await getStorage().saveSchedulerState(state);
 }
 
-export function saveSchedulerState(state: SchedulerState): void {
-  ensureDir();
-  writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
-}
-
-export function recordPoll(league: string, requestsUsed: number): SchedulerState {
-  const state = loadSchedulerState();
+export async function recordPoll(league: string, requestsUsed: number): Promise<SchedulerState> {
+  const state = await loadSchedulerState();
   const now = new Date().toISOString();
   const monthKey = now.slice(0, 7); // "YYYY-MM"
 
   state.lastPoll[league] = now;
   state.pollCount[monthKey] = (state.pollCount[monthKey] || 0) + requestsUsed;
 
-  saveSchedulerState(state);
+  await saveSchedulerState(state);
   return state;
 }
