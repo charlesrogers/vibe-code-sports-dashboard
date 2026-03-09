@@ -7,26 +7,30 @@
 
 import type { ModelHealth, DataSourceStatus } from "@/lib/types";
 
-async function checkUnderstat(): Promise<DataSourceStatus> {
+async function checkFotmob(): Promise<DataSourceStatus> {
   const now = new Date().toISOString();
   try {
-    const res = await fetch("https://understat.com/league/Serie_A/2024", {
-      headers: { "User-Agent": "Mozilla/5.0" },
-      signal: AbortSignal.timeout(5000),
-    });
+    const res = await fetch(
+      "https://www.fotmob.com/api/leagues?id=55&ccode3=USA",
+      {
+        headers: { "User-Agent": "Mozilla/5.0" },
+        signal: AbortSignal.timeout(5000),
+      }
+    );
     if (!res.ok) {
-      return { name: "Understat (xG)", available: false, lastChecked: now, detail: `HTTP ${res.status}` };
+      return { name: "Fotmob (xG)", available: false, lastChecked: now, detail: `HTTP ${res.status}` };
     }
-    const html = await res.text();
-    const hasData = /var\s+teamsData/.test(html);
+    const data = await res.json();
+    const teams = data?.stats?.teams || [];
+    const hasXg = teams.some((s: any) => s.fetchAllUrl?.includes("expected_goals_team"));
     return {
-      name: "Understat (xG)",
-      available: hasData,
+      name: "Fotmob (xG)",
+      available: hasXg,
       lastChecked: now,
-      detail: hasData ? undefined : "Page loaded but teamsData not found",
+      detail: hasXg ? undefined : "API responded but xG stats not found",
     };
   } catch (e: any) {
-    return { name: "Understat (xG)", available: false, lastChecked: now, detail: e.message };
+    return { name: "Fotmob (xG)", available: false, lastChecked: now, detail: e.message };
   }
 }
 
@@ -42,8 +46,6 @@ function checkOddsApi(): DataSourceStatus {
 }
 
 function checkFootballDataUK(): DataSourceStatus {
-  // football-data.co.uk is a static CSV source — always available unless site is down
-  // We don't probe it live to save time; mark as available
   return {
     name: "Football-Data.co.uk (odds history)",
     available: true,
@@ -52,7 +54,6 @@ function checkFootballDataUK(): DataSourceStatus {
 }
 
 function checkOpenFootball(): DataSourceStatus {
-  // openfootball is local JSON data bundled in the repo — always available
   return {
     name: "OpenFootball (match results)",
     available: true,
@@ -61,14 +62,14 @@ function checkOpenFootball(): DataSourceStatus {
 }
 
 export async function checkModelHealth(): Promise<ModelHealth> {
-  const [understat, oddsApi] = await Promise.all([
-    checkUnderstat(),
+  const [fotmob, oddsApi] = await Promise.all([
+    checkFotmob(),
     Promise.resolve(checkOddsApi()),
   ]);
 
   const sources: DataSourceStatus[] = [
     checkOpenFootball(),
-    understat,
+    fotmob,
     oddsApi,
     checkFootballDataUK(),
   ];
@@ -83,7 +84,6 @@ export async function checkModelHealth(): Promise<ModelHealth> {
     confidence = "high";
     message = "All data sources available";
   } else if (missing.some((s) => s.name.includes("OpenFootball"))) {
-    // Core match data missing — model can't run at all
     confidence = "low";
     message = "Core match data unavailable — predictions unreliable";
   } else if (missingCount >= 2) {
