@@ -221,6 +221,56 @@ async function checkFootballDataUk(): Promise<DataSourceStatus> {
   }
 }
 
+async function checkInjuryData(): Promise<DataSourceStatus> {
+  const name = "Fotmob Injuries";
+  const usedBy = ["Ted Variance Model", "Match Previews"];
+
+  try {
+    // Quick check: fetch one team to see if the API works
+    const res = await fetch(
+      "https://www.fotmob.com/api/teams?id=8636&ccode3=USA",
+      {
+        headers: { "User-Agent": "Mozilla/5.0" },
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+
+    if (!res.ok) {
+      return {
+        name,
+        status: "broken",
+        lastUpdated: null,
+        detail: `Fotmob team API returned HTTP ${res.status}`,
+        critical: false,
+        usedBy,
+      };
+    }
+
+    const data = await res.json();
+    const hasSquad = data?.squad?.squad?.length > 0;
+
+    return {
+      name,
+      status: hasSquad ? "healthy" : "stale",
+      lastUpdated: new Date().toISOString(),
+      detail: hasSquad
+        ? "Injury and squad data available via Fotmob team API"
+        : "API responding but squad data missing",
+      critical: false,
+      usedBy,
+    };
+  } catch (e) {
+    return {
+      name,
+      status: "broken",
+      lastUpdated: null,
+      detail: `Fetch failed: ${e instanceof Error ? e.message : String(e)}`,
+      critical: false,
+      usedBy,
+    };
+  }
+}
+
 export async function GET() {
   const sources = await Promise.all([
     checkUnderstatXg(),
@@ -228,6 +278,7 @@ export async function GET() {
     checkOpenFootball(),
     checkOddsApi(),
     checkFootballDataUk(),
+    checkInjuryData(),
   ]);
 
   const criticalIssues = sources.filter(
