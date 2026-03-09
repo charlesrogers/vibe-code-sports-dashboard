@@ -41,6 +41,8 @@ interface MatchAssessment {
   betSide: string | null;
   betReasoning: string;
   confidence: number;
+  round: number | null;
+  date: string;
 }
 
 interface TedData {
@@ -48,6 +50,7 @@ interface TedData {
   teams: TeamVariance[];
   assessments: MatchAssessment[];
   bets: MatchAssessment[];
+  rounds: number[];
   summary: {
     teamsAnalyzed: number;
     matchesAssessed: number;
@@ -59,23 +62,23 @@ interface TedData {
 function SignalBadge({ signal }: { signal: TeamVariance["signal"] }) {
   const config: Record<string, { label: string; className: string }> = {
     strong_positive: {
-      label: "Strong +",
+      label: "Overperforming",
       className: "bg-red-900/50 text-red-400 border border-red-800",
     },
     weak_positive: {
-      label: "Weak +",
+      label: "Slightly Over",
       className: "bg-red-900/30 text-red-300 border border-red-900",
     },
     neutral: {
-      label: "Neutral",
+      label: "Fair",
       className: "bg-zinc-800 text-zinc-400 border border-zinc-700",
     },
     weak_negative: {
-      label: "Weak -",
+      label: "Slightly Under",
       className: "bg-green-900/30 text-green-300 border border-green-900",
     },
     strong_negative: {
-      label: "Strong -",
+      label: "Underperforming",
       className: "bg-green-900/50 text-green-400 border border-green-800",
     },
   };
@@ -95,10 +98,10 @@ function DirectionArrow({
   direction: TeamVariance["regressionDirection"];
 }) {
   if (direction === "improve")
-    return <span className="text-green-400 font-bold">&uarr;</span>;
+    return <span className="text-green-400 font-bold" title="Results should improve">&uarr;</span>;
   if (direction === "decline")
-    return <span className="text-red-400 font-bold">&darr;</span>;
-  return <span className="text-zinc-500">&mdash;</span>;
+    return <span className="text-red-400 font-bold" title="Results should decline">&darr;</span>;
+  return <span className="text-zinc-500" title="Stable">&mdash;</span>;
 }
 
 function ConfidenceBar({ value }: { value: number }) {
@@ -123,9 +126,6 @@ function ConfidenceBar({ value }: { value: number }) {
 }
 
 function VarianceColor({ value, inverted }: { value: number; inverted?: boolean }) {
-  // For attack: positive = overperforming (will regress DOWN = bad = red)
-  // For defense: positive = conceding more than expected (bad = red), negative = conceding less (good = green)
-  // inverted flips the color logic (used for defense where negative is good)
   const effective = inverted ? -value : value;
   const color =
     Math.abs(value) < 1
@@ -141,11 +141,109 @@ function VarianceColor({ value, inverted }: { value: number; inverted?: boolean 
   );
 }
 
+function MatchCard({ match, showVerdict }: { match: MatchAssessment; showVerdict: boolean }) {
+  const edgeAbs = Math.abs(match.varianceEdge);
+  const edgePct = (edgeAbs * 100).toFixed(1);
+
+  return (
+    <div className={`rounded-xl p-4 ${match.hasBet ? "bg-zinc-900 ring-1 ring-green-900/50" : "bg-zinc-900/60"}`}>
+      {/* Date */}
+      <div className="mb-2 text-[10px] text-zinc-500">{match.date}</div>
+
+      {/* Teams */}
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex-1 text-right">
+          <span className={`font-medium ${match.betSide === "home" ? "text-green-400" : "text-zinc-200"}`}>
+            {match.homeTeam}
+          </span>
+        </div>
+        <div className="mx-3 text-xs text-zinc-600">vs</div>
+        <div className="flex-1">
+          <span className={`font-medium ${match.betSide === "away" ? "text-green-400" : "text-zinc-200"}`}>
+            {match.awayTeam}
+          </span>
+        </div>
+      </div>
+
+      {/* Variance bars side by side */}
+      <div className="mb-3 grid grid-cols-2 gap-3 text-[11px]">
+        <div className="space-y-1">
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Atk variance</span>
+            <VarianceColor value={match.homeVariance.attackVariance} />
+          </div>
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Def variance</span>
+            <VarianceColor value={match.homeVariance.defenseVariance} inverted />
+          </div>
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Total</span>
+            <span className={`font-mono font-bold ${Math.abs(match.homeVariance.totalVariance) < 3 ? "text-zinc-400" : match.homeVariance.totalVariance > 0 ? "text-red-400" : "text-green-400"}`}>
+              {match.homeVariance.totalVariance > 0 ? "+" : ""}{match.homeVariance.totalVariance.toFixed(1)}
+            </span>
+          </div>
+          <SignalBadge signal={match.homeVariance.signal} />
+        </div>
+        <div className="space-y-1">
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Atk variance</span>
+            <VarianceColor value={match.awayVariance.attackVariance} />
+          </div>
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Def variance</span>
+            <VarianceColor value={match.awayVariance.defenseVariance} inverted />
+          </div>
+          <div className="flex justify-between">
+            <span className="text-zinc-500">Total</span>
+            <span className={`font-mono font-bold ${Math.abs(match.awayVariance.totalVariance) < 3 ? "text-zinc-400" : match.awayVariance.totalVariance > 0 ? "text-red-400" : "text-green-400"}`}>
+              {match.awayVariance.totalVariance > 0 ? "+" : ""}{match.awayVariance.totalVariance.toFixed(1)}
+            </span>
+          </div>
+          <SignalBadge signal={match.awayVariance.signal} />
+        </div>
+      </div>
+
+      {/* Verdict */}
+      {showVerdict && (
+        <div className={`rounded-lg p-3 text-xs leading-relaxed ${match.hasBet ? "bg-green-950/30 border border-green-900/40" : "bg-zinc-800/50"}`}>
+          {match.hasBet ? (
+            <>
+              <div className="mb-1 flex items-center gap-2">
+                <span className="rounded bg-green-900/60 px-2 py-0.5 text-[10px] font-bold text-green-400">
+                  BET {match.betSide?.toUpperCase()}
+                </span>
+                <span className="font-mono text-green-400">{edgePct}% edge</span>
+                <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                  match.edgeMagnitude === "strong" ? "bg-green-900/50 text-green-400"
+                    : match.edgeMagnitude === "moderate" ? "bg-yellow-900/50 text-yellow-400"
+                    : "bg-zinc-800 text-zinc-400"
+                }`}>
+                  {match.edgeMagnitude}
+                </span>
+                <ConfidenceBar value={match.confidence} />
+              </div>
+              <p className="text-zinc-300">{match.betReasoning}</p>
+            </>
+          ) : (
+            <div className="text-zinc-500">
+              <span className="rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-400 mr-2">PASS</span>
+              {match.betReasoning}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function TedPage() {
   const [data, setData] = useState<TedData | null>(null);
   const [league, setLeague] = useState("serieA");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedRound, setSelectedRound] = useState<number | null>(null);
+  const [showGuide, setShowGuide] = useState(false);
+  const [showTable, setShowTable] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -157,8 +255,12 @@ export default function TedPage() {
           const err = await res.json();
           throw new Error(err.error || `HTTP ${res.status}`);
         }
-        const json = await res.json();
+        const json: TedData = await res.json();
         setData(json);
+        // Auto-select first round
+        if (json.rounds.length > 0) {
+          setSelectedRound(json.rounds[0]);
+        }
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : "Failed to load data");
       } finally {
@@ -188,265 +290,246 @@ export default function TedPage() {
 
   const leagueLabel = league === "serieB" ? "Serie B" : "Serie A";
 
+  // Filter to selected round
+  const roundMatches = selectedRound
+    ? data.assessments.filter((a) => a.round === selectedRound)
+    : data.assessments;
+  const roundBets = roundMatches.filter((a) => a.hasBet);
+
+  // Navigate rounds
+  const roundIdx = data.rounds.indexOf(selectedRound ?? -1);
+  const prevRound = roundIdx > 0 ? data.rounds[roundIdx - 1] : null;
+  const nextRound = roundIdx < data.rounds.length - 1 ? data.rounds[roundIdx + 1] : null;
+
   return (
     <div>
-      <div className="mb-4 text-sm text-zinc-400">
-        Ted Knutson&apos;s variance betting model for {leagueLabel} 2025-26.
-        Identifies regression-to-mean opportunities by decomposing attack and
-        defense variance from xG expectations.
+      {/* Header */}
+      <div className="mb-2 flex items-start justify-between">
+        <div>
+          <div className="mb-1 text-sm text-zinc-400">
+            Variance Betting Model for {leagueLabel} 2025-26
+          </div>
+          <div className="text-[11px] text-zinc-600">
+            Identifies regression-to-mean opportunities. Green = underperforming xG (due to improve). Red = overperforming (due to decline).
+          </div>
+        </div>
+        <button
+          onClick={() => setShowGuide(!showGuide)}
+          className="shrink-0 rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
+        >
+          {showGuide ? "Hide" : "How to use"}
+        </button>
       </div>
 
-      {/* Controls */}
-      <div className="mb-6">
+      {/* How to use guide */}
+      {showGuide && (
+        <div className="mb-6 rounded-xl bg-zinc-900 p-4 text-xs leading-relaxed text-zinc-300 space-y-3 border border-zinc-800">
+          <h3 className="text-sm font-medium text-white">How to Read This Page</h3>
+          <div>
+            <span className="font-medium text-blue-400">1. Pick a matchday</span> using the arrows or dropdown below. Each matchday shows the actual fixtures for that round.
+          </div>
+          <div>
+            <span className="font-medium text-blue-400">2. Read the variance numbers.</span> Each team has attack variance (goals vs xG) and defense variance (goals conceded vs xGA):
+            <ul className="mt-1 ml-4 space-y-1 text-zinc-400">
+              <li><span className="text-green-400">Green negative</span> = underperforming (scoring fewer than xG, or conceding fewer than xGA). Results should <strong>improve</strong>.</li>
+              <li><span className="text-red-400">Red positive</span> = overperforming (scoring more than xG, or conceding more than xGA). Results should <strong>decline</strong>.</li>
+              <li><span className="text-zinc-400">Grey</span> = within normal range, no signal.</li>
+            </ul>
+          </div>
+          <div>
+            <span className="font-medium text-blue-400">3. Look at the verdict.</span> Each match gets BET or PASS:
+            <ul className="mt-1 ml-4 space-y-1 text-zinc-400">
+              <li><span className="text-green-400 font-bold">BET</span> = edge {"\u2265"} 4%, confidence high. The favored side is due for positive regression while their opponent is due for negative regression.</li>
+              <li><span className="text-zinc-400">PASS</span> = no meaningful edge, or both teams have similar variance profiles.</li>
+            </ul>
+          </div>
+          <div>
+            <span className="font-medium text-blue-400">4. Key insight from Ted Knutson:</span> Defensive underperformance (conceding way more than xGA) is the <strong>most reliable</strong> regression signal. Attack overperformance (scoring way more than xG) is <strong>fragile</strong> and regresses fast. Only bet ~30% of matches.
+          </div>
+        </div>
+      )}
+
+      {/* Controls row */}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
         <LeagueSelector value={league} onChange={setLeague} />
+
+        {/* Round navigator */}
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => prevRound && setSelectedRound(prevRound)}
+            disabled={!prevRound}
+            className="rounded-lg bg-zinc-800 px-2.5 py-1.5 text-sm text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            &larr;
+          </button>
+          <select
+            value={selectedRound ?? ""}
+            onChange={(e) => setSelectedRound(parseInt(e.target.value))}
+            className="rounded-lg bg-zinc-800 px-3 py-1.5 text-sm text-white outline-none"
+          >
+            {data.rounds.map((r) => {
+              const rMatches = data.assessments.filter((a) => a.round === r);
+              const rBets = rMatches.filter((a) => a.hasBet);
+              return (
+                <option key={r} value={r}>
+                  Matchday {r} ({rMatches.length} matches{rBets.length > 0 ? `, ${rBets.length} bet${rBets.length > 1 ? "s" : ""}` : ""})
+                </option>
+              );
+            })}
+          </select>
+          <button
+            onClick={() => nextRound && setSelectedRound(nextRound)}
+            disabled={!nextRound}
+            className="rounded-lg bg-zinc-800 px-2.5 py-1.5 text-sm text-zinc-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            &rarr;
+          </button>
+        </div>
+
+        <button
+          onClick={() => setShowTable(!showTable)}
+          className="ml-auto rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
+        >
+          {showTable ? "Hide table" : "Show full table"}
+        </button>
       </div>
 
-      {/* Section 1: Model Summary */}
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {/* Round summary */}
+      <div className="mb-4 grid grid-cols-3 gap-3">
         <div className="rounded-xl bg-zinc-900 p-3 text-center">
-          <div className="text-xl font-bold text-blue-400">
-            {data.summary.teamsAnalyzed}
-          </div>
-          <div className="text-[10px] text-zinc-500">Teams Analyzed</div>
+          <div className="text-xl font-bold text-purple-400">{roundMatches.length}</div>
+          <div className="text-[10px] text-zinc-500">Matches This Round</div>
         </div>
         <div className="rounded-xl bg-zinc-900 p-3 text-center">
-          <div className="text-xl font-bold text-purple-400">
-            {data.summary.matchesAssessed}
-          </div>
-          <div className="text-[10px] text-zinc-500">Matches Assessed</div>
-        </div>
-        <div className="rounded-xl bg-zinc-900 p-3 text-center">
-          <div className="text-xl font-bold text-green-400">
-            {data.summary.betsFound}
-          </div>
-          <div className="text-[10px] text-zinc-500">Bets Found</div>
+          <div className="text-xl font-bold text-green-400">{roundBets.length}</div>
+          <div className="text-[10px] text-zinc-500">Variance Bets</div>
         </div>
         <div className="rounded-xl bg-zinc-900 p-3 text-center">
           <div className="text-xl font-bold text-yellow-400">
-            {data.summary.selectivity}%
+            {roundMatches.length > 0 ? Math.round((roundBets.length / roundMatches.length) * 100) : 0}%
           </div>
           <div className="text-[10px] text-zinc-500">Selectivity</div>
         </div>
       </div>
 
-      {/* Section 2: Smart Bet Cards */}
-      {data.bets.length > 0 && (
-        <div className="mb-8">
-          <h2 className="mb-3 text-sm font-medium text-zinc-400">
-            Variance Bets
+      {/* Bet cards first (if any) */}
+      {roundBets.length > 0 && (
+        <div className="mb-4">
+          <h2 className="mb-2 text-sm font-medium text-green-400">
+            Variance Bets &mdash; Matchday {selectedRound}
           </h2>
           <div className="space-y-3">
-            {data.bets.map((bet, i) => (
-              <div key={i} className="rounded-xl bg-zinc-900 p-4">
-                {/* Teams header */}
-                <div className="mb-3 flex items-center justify-between">
-                  <div className="flex-1 text-right">
-                    <span
-                      className={`text-lg font-medium ${
-                        bet.betSide === "home"
-                          ? "text-green-400"
-                          : "text-zinc-300"
-                      }`}
-                    >
-                      {bet.homeTeam}
-                    </span>
-                  </div>
-                  <div className="mx-4 text-sm text-zinc-500">vs</div>
-                  <div className="flex-1">
-                    <span
-                      className={`text-lg font-medium ${
-                        bet.betSide === "away"
-                          ? "text-green-400"
-                          : "text-zinc-300"
-                      }`}
-                    >
-                      {bet.awayTeam}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Variance breakdown */}
-                <div className="mb-3 grid grid-cols-2 gap-4 text-xs">
-                  <div>
-                    <div className="mb-1 text-zinc-500">{bet.homeTeam}</div>
-                    <div className="flex gap-3">
-                      <div>
-                        <span className="text-zinc-500">Atk: </span>
-                        <VarianceColor value={bet.homeVariance.attackVariance} />
-                      </div>
-                      <div>
-                        <span className="text-zinc-500">Def: </span>
-                        <VarianceColor
-                          value={bet.homeVariance.defenseVariance}
-                          inverted
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-1">
-                      <SignalBadge signal={bet.homeVariance.signal} />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mb-1 text-zinc-500">{bet.awayTeam}</div>
-                    <div className="flex gap-3">
-                      <div>
-                        <span className="text-zinc-500">Atk: </span>
-                        <VarianceColor value={bet.awayVariance.attackVariance} />
-                      </div>
-                      <div>
-                        <span className="text-zinc-500">Def: </span>
-                        <VarianceColor
-                          value={bet.awayVariance.defenseVariance}
-                          inverted
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-1">
-                      <SignalBadge signal={bet.awayVariance.signal} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Confidence & Edge */}
-                <div className="mb-3 flex items-center gap-4 text-xs">
-                  <div>
-                    <span className="text-zinc-500">Edge: </span>
-                    <span
-                      className={`font-mono font-bold ${
-                        bet.edgeMagnitude === "strong"
-                          ? "text-green-400"
-                          : bet.edgeMagnitude === "moderate"
-                            ? "text-yellow-400"
-                            : "text-zinc-300"
-                      }`}
-                    >
-                      {(Math.abs(bet.varianceEdge) * 100).toFixed(1)}%
-                    </span>
-                    <span
-                      className={`ml-1 rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-                        bet.edgeMagnitude === "strong"
-                          ? "bg-green-900/50 text-green-400"
-                          : bet.edgeMagnitude === "moderate"
-                            ? "bg-yellow-900/50 text-yellow-400"
-                            : "bg-zinc-800 text-zinc-400"
-                      }`}
-                    >
-                      {bet.edgeMagnitude}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span className="text-zinc-500">Confidence:</span>
-                    <ConfidenceBar value={bet.confidence} />
-                  </div>
-                </div>
-
-                {/* Reasoning */}
-                <div className="rounded-lg bg-zinc-800/50 p-3 text-xs leading-relaxed text-zinc-300">
-                  {bet.betReasoning}
-                </div>
-              </div>
+            {roundBets.map((match, i) => (
+              <MatchCard key={i} match={match} showVerdict />
             ))}
           </div>
         </div>
       )}
 
-      {data.bets.length === 0 && (
-        <div className="mb-8 rounded-xl bg-zinc-900 p-6 text-center">
-          <div className="text-lg font-medium text-zinc-400">
-            No variance bets found
+      {/* All matches for the round */}
+      <div className="mb-6">
+        <h2 className="mb-2 text-sm font-medium text-zinc-400">
+          {roundBets.length > 0 ? "Other Matches" : "All Matches"} &mdash; Matchday {selectedRound}
+        </h2>
+        <div className="space-y-2">
+          {roundMatches
+            .filter((m) => !m.hasBet)
+            .map((match, i) => (
+              <MatchCard key={i} match={match} showVerdict />
+            ))}
+        </div>
+        {roundMatches.filter((m) => !m.hasBet).length === 0 && roundBets.length > 0 && (
+          <div className="rounded-xl bg-zinc-900/40 p-4 text-center text-xs text-zinc-500">
+            Every match this round has a variance bet. Unusual selectivity &mdash; consider being more cautious.
           </div>
-          <div className="mt-1 text-xs text-zinc-500">
-            Discipline is the edge. Only ~30% of matches should have a bet.
+        )}
+      </div>
+
+      {/* Team variance table (collapsible) */}
+      {showTable && (
+        <div className="mb-4">
+          <h2 className="mb-3 text-sm font-medium text-zinc-400">
+            Full Team Variance Table
+          </h2>
+          <div className="overflow-x-auto rounded-xl bg-zinc-900 p-3">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-zinc-800 text-left text-zinc-500">
+                  <th className="pb-2 pr-3">Team</th>
+                  <th className="pb-2 px-2 text-right">xG</th>
+                  <th className="pb-2 px-2 text-right">Goals</th>
+                  <th className="pb-2 px-2 text-right">xGA</th>
+                  <th className="pb-2 px-2 text-right">GA</th>
+                  <th className="pb-2 px-2 text-right">Atk Var</th>
+                  <th className="pb-2 px-2 text-right">Def Var</th>
+                  <th className="pb-2 px-2 text-right">Total</th>
+                  <th className="pb-2 px-2 text-center">Signal</th>
+                  <th className="pb-2 px-2 text-center">Dir</th>
+                  <th className="pb-2 px-2">Confidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.teams.map((t) => (
+                  <tr
+                    key={t.team}
+                    className="border-b border-zinc-800/50 hover:bg-zinc-800/30"
+                  >
+                    <td className="py-2 pr-3 font-medium text-zinc-200 whitespace-nowrap">
+                      {t.team}
+                    </td>
+                    <td className="py-2 px-2 text-right font-mono text-zinc-400">
+                      {t.xG.toFixed(1)}
+                    </td>
+                    <td className="py-2 px-2 text-right font-mono text-zinc-300">
+                      {t.goals}
+                    </td>
+                    <td className="py-2 px-2 text-right font-mono text-zinc-400">
+                      {t.xGA.toFixed(1)}
+                    </td>
+                    <td className="py-2 px-2 text-right font-mono text-zinc-300">
+                      {t.goalsConceded}
+                    </td>
+                    <td className="py-2 px-2 text-right">
+                      <VarianceColor value={t.attackVariance} />
+                    </td>
+                    <td className="py-2 px-2 text-right">
+                      <VarianceColor value={t.defenseVariance} inverted />
+                    </td>
+                    <td className="py-2 px-2 text-right">
+                      <span
+                        className={`font-mono font-bold ${
+                          Math.abs(t.totalVariance) < 3
+                            ? "text-zinc-400"
+                            : t.totalVariance > 0
+                              ? "text-red-400"
+                              : "text-green-400"
+                        }`}
+                      >
+                        {t.totalVariance > 0 ? "+" : ""}
+                        {t.totalVariance.toFixed(1)}
+                      </span>
+                    </td>
+                    <td className="py-2 px-2 text-center">
+                      <SignalBadge signal={t.signal} />
+                    </td>
+                    <td className="py-2 px-2 text-center">
+                      <DirectionArrow direction={t.regressionDirection} />
+                    </td>
+                    <td className="py-2 px-2">
+                      <ConfidenceBar value={t.regressionConfidence} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
 
-      {/* Section 3: Team Variance Table */}
-      <div className="mb-4">
-        <h2 className="mb-3 text-sm font-medium text-zinc-400">
-          Team Variance Table
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-zinc-800 text-left text-zinc-500">
-                <th className="pb-2 pr-3">Team</th>
-                <th className="pb-2 px-2 text-right">xG</th>
-                <th className="pb-2 px-2 text-right">G</th>
-                <th className="pb-2 px-2 text-right">xGA</th>
-                <th className="pb-2 px-2 text-right">GA</th>
-                <th className="pb-2 px-2 text-right">Atk Var</th>
-                <th className="pb-2 px-2 text-right">Def Var</th>
-                <th className="pb-2 px-2 text-right">Total</th>
-                <th className="pb-2 px-2 text-center">Signal</th>
-                <th className="pb-2 px-2 text-center">Dir</th>
-                <th className="pb-2 px-2">Confidence</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.teams.map((t) => (
-                <tr
-                  key={t.team}
-                  className="border-b border-zinc-800/50 hover:bg-zinc-800/30"
-                >
-                  <td className="py-2 pr-3 font-medium text-zinc-200 whitespace-nowrap">
-                    {t.team}
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono text-zinc-400">
-                    {t.xG.toFixed(1)}
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono text-zinc-300">
-                    {t.goals}
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono text-zinc-400">
-                    {t.xGA.toFixed(1)}
-                  </td>
-                  <td className="py-2 px-2 text-right font-mono text-zinc-300">
-                    {t.goalsConceded}
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    <VarianceColor value={t.attackVariance} />
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    <VarianceColor value={t.defenseVariance} inverted />
-                  </td>
-                  <td className="py-2 px-2 text-right">
-                    <span
-                      className={`font-mono font-bold ${
-                        Math.abs(t.totalVariance) < 3
-                          ? "text-zinc-400"
-                          : t.totalVariance > 0
-                            ? "text-red-400"
-                            : "text-green-400"
-                      }`}
-                    >
-                      {t.totalVariance > 0 ? "+" : ""}
-                      {t.totalVariance.toFixed(1)}
-                    </span>
-                  </td>
-                  <td className="py-2 px-2 text-center">
-                    <SignalBadge signal={t.signal} />
-                  </td>
-                  <td className="py-2 px-2 text-center">
-                    <DirectionArrow direction={t.regressionDirection} />
-                  </td>
-                  <td className="py-2 px-2">
-                    <ConfidenceBar value={t.regressionConfidence} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <p className="mt-4 text-xs text-zinc-600">
-        Based on Ted Knutson&apos;s variance model. Attack variance: goals minus
-        xG (red = overperforming, will regress down). Defense variance:
-        goals conceded minus xGA (red = underperforming defensively, reliable
-        regression signal). Signal colors: green = regression favorable
-        (results should improve), red = regression unfavorable (results should
-        decline).
+        Variance model based on Ted Knutson&apos;s methodology. xG data from Fotmob.
+        Attack variance = goals minus xG. Defense variance = goals conceded minus xGA.
+        Green = regression favorable (results should improve). Red = regression unfavorable (results should decline).
       </p>
     </div>
   );

@@ -10,7 +10,6 @@ export async function GET(request: NextRequest) {
     "serieA") as League;
 
   try {
-    // Fetch xG data and upcoming fixtures in parallel
     const [xgData, fixtures] = await Promise.all([
       fetchTeamXgFromFotmob(league),
       fetchUpcomingFixtures("2025-26", league),
@@ -23,19 +22,21 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Calculate variance for all teams
     const teams = calculateAllVariance(xgData);
-
-    // Build variance lookup by team name
     const varianceMap = new Map(teams.map((t) => [t.team, t]));
 
-    // Assess upcoming matches
+    // Assess upcoming matches — include round + date from fixture
     const assessments = fixtures
       .map((f) => {
         const homeV = varianceMap.get(f.homeTeam);
         const awayV = varianceMap.get(f.awayTeam);
         if (!homeV || !awayV) return null;
-        return assessMatch(homeV, awayV);
+        const assessment = assessMatch(homeV, awayV);
+        return {
+          ...assessment,
+          round: f.round ?? null,
+          date: f.date,
+        };
       })
       .filter(
         (a): a is NonNullable<typeof a> => a !== null
@@ -43,11 +44,15 @@ export async function GET(request: NextRequest) {
 
     const bets = assessments.filter((a) => a.hasBet);
 
+    // Organize by round
+    const rounds = [...new Set(assessments.map((a) => a.round).filter((r): r is number => r !== null))].sort((a, b) => a - b);
+
     return NextResponse.json({
       league,
       teams,
       assessments,
       bets,
+      rounds,
       summary: {
         teamsAnalyzed: teams.length,
         matchesAssessed: assessments.length,
