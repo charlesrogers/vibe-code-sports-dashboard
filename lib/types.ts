@@ -69,3 +69,18 @@ export interface TeamRating {
   overall: number;
   elo: number;
 }
+
+// Model health / data source availability
+export interface DataSourceStatus {
+  name: string;
+  available: boolean;
+  lastChecked: string;
+  detail?: string;
+}
+
+export interface ModelHealth {
+  confidence: "high" | "medium" | "low";
+  sources: DataSourceStatus[];
+  missingCount: number;
+  message: string;
+}

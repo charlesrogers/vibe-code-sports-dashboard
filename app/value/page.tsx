@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import SeasonSelector from "../components/season-selector";
 import LeagueSelector from "../components/league-selector";
+import ModelHealthBadge from "../components/model-health-badge";
+import type { ModelHealth } from "@/lib/types";
 
 interface ValueBet {
   date: string;
@@ -35,6 +37,11 @@ export default function ValueBetsPage() {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "W" | "L">("all");
+  const [health, setHealth] = useState<ModelHealth | null>(null);
+
+  useEffect(() => {
+    fetch("/api/model-health").then((r) => r.json()).then(setHealth).catch(() => {});
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -58,6 +65,11 @@ export default function ValueBetsPage() {
 
   return (
     <div>
+      {health && health.confidence !== "high" && (
+        <div className="mb-4">
+          <ModelHealthBadge health={health} />
+        </div>
+      )}
       {/* Controls */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <LeagueSelector value={league} onChange={setLeague} />

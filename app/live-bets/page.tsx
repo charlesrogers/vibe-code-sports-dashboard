@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import LeagueSelector from "../components/league-selector";
+import ModelHealthBadge from "../components/model-health-badge";
+import type { ModelHealth } from "@/lib/types";
 
 interface Prediction {
   date: string;
@@ -26,6 +28,11 @@ export default function LiveBetsPage() {
   const [loading, setLoading] = useState(true);
   const [selectedRound, setSelectedRound] = useState<number | "all">("all");
   const [sortBy, setSortBy] = useState<"date" | "homeProb" | "overUnder">("date");
+  const [health, setHealth] = useState<ModelHealth | null>(null);
+
+  useEffect(() => {
+    fetch("/api/model-health").then((r) => r.json()).then(setHealth).catch(() => {});
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -63,6 +70,11 @@ export default function LiveBetsPage() {
 
   return (
     <div>
+      {health && health.confidence !== "high" && (
+        <div className="mb-4">
+          <ModelHealthBadge health={health} />
+        </div>
+      )}
       <div className="mb-4 text-sm text-zinc-400">
         Dixon-Coles model predictions for upcoming {league === "serieB" ? "Serie B" : "Serie A"} 2025-26 fixtures. Fair odds have zero margin — compare with your bookmaker to find value.
       </div>

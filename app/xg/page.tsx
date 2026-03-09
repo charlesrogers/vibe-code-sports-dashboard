@@ -2,11 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { TeamXg } from "@/lib/types";
+import type { ModelHealth } from "@/lib/types";
+import ModelHealthBadge from "../components/model-health-badge";
 
 export default function XgDashboardPage() {
   const [xgData, setXgData] = useState<TeamXg[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<"xGDiff" | "xGFor" | "xGAgainst" | "overperformance">("xGDiff");
+  const [health, setHealth] = useState<ModelHealth | null>(null);
+
+  useEffect(() => {
+    fetch("/api/model-health").then((r) => r.json()).then(setHealth).catch(() => {});
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -26,9 +33,10 @@ export default function XgDashboardPage() {
 
   if (loading) return <div className="py-20 text-center text-zinc-500">Loading xG data from Understat...</div>;
   if (xgData.length === 0) return (
-    <div className="py-20 text-center text-zinc-500">
-      <p className="text-lg">xG data unavailable</p>
-      <p className="mt-2 text-sm">Understat may be temporarily inaccessible. Try again later.</p>
+    <div className="py-20 text-center">
+      {health && <div className="mx-auto mb-4 max-w-md"><ModelHealthBadge health={health} /></div>}
+      <p className="text-lg text-zinc-500">xG data unavailable</p>
+      <p className="mt-2 text-sm text-zinc-500">Understat may be temporarily inaccessible. Try again later.</p>
     </div>
   );
 
