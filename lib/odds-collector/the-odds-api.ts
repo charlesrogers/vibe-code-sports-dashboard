@@ -2,13 +2,21 @@
  * The Odds API client
  *
  * Free tier: 500 requests/month, no credit card
- * Returns live odds from 15+ bookmakers including Pinnacle (sharpest)
+ * Returns live odds from 59 bookmakers across 4 regions (eu,uk,us,au)
  *
- * Strategy for 500 calls/month:
- * - Serie A h2h: 3x/day = 90/month
- * - Serie A totals: 1x/day = 30/month
- * - Serie B h2h: 2x/day = 60/month
- * - Total: ~180/month, well within budget
+ * Two endpoints:
+ * 1. BULK (/sports/{key}/odds/) — ALL matches, 1 request
+ *    Markets: h2h, totals, spreads (combinable = still 1 request)
+ *    This is the workhorse for daily collection.
+ *
+ * 2. PER-EVENT (/sports/{key}/events/{id}/odds/) — 1 match, 1 request
+ *    Markets: h2h, totals, spreads, btts, alternate_totals, player_goal_scorer_anytime
+ *    Use selectively for deep data on specific matches.
+ *
+ * Budget (500 free/month):
+ *   Bulk: Serie A + B, 3x + 2x/day = 5 req/day = 150/month
+ *   Per-event: ~10 key matches/week × 4 = ~40/month
+ *   Total: ~190/month, well within budget
  *
  * Sign up at: https://the-odds-api.com/
  * Set ODDS_API_KEY in .env.local
@@ -44,6 +52,7 @@ interface OddsAPIResponse {
         name: string;
         price: number;
         point?: number;
+        description?: string; // player name for goalscorer markets
       }[];
     }[];
   }[];
@@ -136,7 +145,8 @@ export async function fetchLiveOdds(
   const sportKey = SPORT_KEYS[league];
   if (!sportKey) throw new Error(`Unknown league: ${league}`);
 
-  const url = `${BASE_URL}/sports/${sportKey}/odds/?apiKey=${API_KEY}&regions=eu&markets=${markets}&oddsFormat=decimal`;
+  // All 4 regions = 59 bookmakers instead of 25, same 1 API request
+  const url = `${BASE_URL}/sports/${sportKey}/odds/?apiKey=${API_KEY}&regions=eu,uk,us,au&markets=${markets}&oddsFormat=decimal`;
 
   const res = await fetch(url);
   if (!res.ok) {
@@ -169,6 +179,7 @@ export async function fetchLiveOdds(
 
       const odds: BookmakerOdds = {
         bookmaker: bk.title,
+        bookmakerKey: bk.key,
         homeOdds: homeOutcome.price,
         drawOdds: drawOutcome?.price || 0,
         awayOdds: awayOutcome.price,
@@ -179,8 +190,26 @@ export async function fetchLiveOdds(
       if (totalsMarket) {
         const over = totalsMarket.outcomes.find((o) => o.name === "Over" && o.point === 2.5);
         const under = totalsMarket.outcomes.find((o) => o.name === "Under" && o.point === 2.5);
-        if (over) odds.overOdds = over.price;
+        if (over) { odds.overOdds = over.price; odds.overLine = 2.5; }
         if (under) odds.underOdds = under.price;
+      }
+
+      // Check BTTS market
+      const bttsMarket = bk.markets.find((m) => m.key === "btts");
+      if (bttsMarket) {
+        const yes = bttsMarket.outcomes.find((o) => o.name === "Yes");
+        const no = bttsMarket.outcomes.find((o) => o.name === "No");
+        if (yes) odds.bttsYes = yes.price;
+        if (no) odds.bttsNo = no.price;
+      }
+
+      // Check spreads market (Asian Handicap)
+      const spreadsMarket = bk.markets.find((m) => m.key === "spreads");
+      if (spreadsMarket) {
+        const homeSpread = spreadsMarket.outcomes.find((o) => o.name === event.home_team);
+        const awaySpread = spreadsMarket.outcomes.find((o) => o.name === event.away_team);
+        if (homeSpread) { odds.spreadHome = homeSpread.price; odds.spreadLine = homeSpread.point; }
+        if (awaySpread) odds.spreadAway = awaySpread.price;
       }
 
       bookmakers.push(odds);
@@ -217,17 +246,296 @@ export async function fetchLiveOdds(
 
 /**
  * Fetch and save odds snapshot (call this on a schedule)
+ * Pass comma-separated markets: "h2h", "h2h,totals", "h2h,totals,btts"
+ * Each market = 1 API request
  */
+// Core markets that can be combined in one call
+const CORE_MARKETS = new Set(["h2h", "totals", "spreads"]);
+// Additional markets that need separate calls
+const EXTRA_MARKETS = new Set(["btts", "draw_no_bet"]);
+
 export async function collectAndSaveOdds(
-  league: "serieA" | "serieB" = "serieA"
-): Promise<{ saved: number; remaining: string }> {
-  const snapshots = await fetchLiveOdds(league, "h2h");
-  saveSnapshots(league, snapshots);
+  league: "serieA" | "serieB" = "serieA",
+  markets: string = "h2h,totals"
+): Promise<{ saved: number; marketsPolled: string[]; requestsUsed: number }> {
+  const marketList = markets.split(",").map((m) => m.trim()).filter(Boolean);
+  let requestsUsed = 0;
+  let allSnapshots: OddsSnapshot[] = [];
+
+  // Split into core (combinable) and extra (separate calls)
+  const coreMarkets = marketList.filter((m) => CORE_MARKETS.has(m));
+  const extraMarkets = marketList.filter((m) => EXTRA_MARKETS.has(m));
+
+  // Fetch core markets in one call
+  if (coreMarkets.length > 0) {
+    try {
+      const snapshots = await fetchLiveOdds(league, coreMarkets.join(","));
+      allSnapshots = snapshots;
+      requestsUsed++;
+    } catch (e) {
+      console.warn("Core markets fetch failed:", e);
+    }
+  }
+
+  // Fetch extra markets separately (merge into existing snapshots)
+  for (const extra of extraMarkets) {
+    try {
+      const extraSnaps = await fetchLiveOdds(league, extra);
+      requestsUsed++;
+      // Merge extra data into existing snapshots by matchId
+      for (const snap of extraSnaps) {
+        const existing = allSnapshots.find((s) => s.matchId === snap.matchId);
+        if (existing) {
+          // Merge bookmaker data
+          for (const bk of snap.bookmakers) {
+            const existingBk = existing.bookmakers.find((b) => b.bookmaker === bk.bookmaker);
+            if (existingBk) {
+              if (bk.bttsYes) existingBk.bttsYes = bk.bttsYes;
+              if (bk.bttsNo) existingBk.bttsNo = bk.bttsNo;
+              if (bk.spreadHome) existingBk.spreadHome = bk.spreadHome;
+              if (bk.spreadAway) existingBk.spreadAway = bk.spreadAway;
+              if (bk.spreadLine) existingBk.spreadLine = bk.spreadLine;
+            } else {
+              existing.bookmakers.push(bk);
+            }
+          }
+        } else {
+          allSnapshots.push(snap);
+        }
+      }
+    } catch (e) {
+      console.warn(`Extra market ${extra} fetch failed:`, e);
+    }
+  }
+
+  if (allSnapshots.length > 0) {
+    saveSnapshots(league, allSnapshots);
+  }
 
   return {
-    saved: snapshots.length,
-    remaining: "check logs",
+    saved: allSnapshots.length,
+    marketsPolled: marketList,
+    requestsUsed,
   };
+}
+
+// Extended markets only available on per-event endpoint
+const EVENT_MARKETS = "h2h,totals,spreads,btts,alternate_totals,player_goal_scorer_anytime";
+
+/**
+ * Fetch deep odds for a single event (per-event endpoint)
+ * Returns btts, alternate totals, goalscorer props — not available on bulk endpoint
+ * Costs 1 API request per event
+ */
+export async function fetchEventOdds(
+  league: "serieA" | "serieB",
+  eventId: string
+): Promise<OddsSnapshot | null> {
+  if (!API_KEY) throw new Error("ODDS_API_KEY not set");
+
+  const sportKey = SPORT_KEYS[league];
+  if (!sportKey) throw new Error(`Unknown league: ${league}`);
+
+  const url = `${BASE_URL}/sports/${sportKey}/events/${eventId}/odds/?apiKey=${API_KEY}&regions=eu,uk,us,au&markets=${EVENT_MARKETS}&oddsFormat=decimal`;
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    const text = await res.text();
+    console.warn(`Event odds error ${res.status}: ${text}`);
+    return null;
+  }
+
+  const remaining = res.headers.get("x-requests-remaining");
+  const used = res.headers.get("x-requests-used");
+  console.log(`Odds API quota: ${used} used, ${remaining} remaining (event ${eventId})`);
+
+  const event: OddsAPIResponse = await res.json();
+  const now = new Date().toISOString();
+
+  const bookmakers: BookmakerOdds[] = [];
+  let bestHome = 0, bestDraw = 0, bestAway = 0;
+  let pinnHome: number | undefined, pinnDraw: number | undefined, pinnAway: number | undefined;
+
+  for (const bk of event.bookmakers) {
+    const h2hMarket = bk.markets.find((m) => m.key === "h2h");
+    if (!h2hMarket) continue;
+
+    const homeOutcome = h2hMarket.outcomes.find((o) => o.name === event.home_team);
+    const drawOutcome = h2hMarket.outcomes.find((o) => o.name === "Draw");
+    const awayOutcome = h2hMarket.outcomes.find((o) => o.name === event.away_team);
+    if (!homeOutcome || !awayOutcome) continue;
+
+    const odds: BookmakerOdds = {
+      bookmaker: bk.title,
+      bookmakerKey: bk.key,
+      homeOdds: homeOutcome.price,
+      drawOdds: drawOutcome?.price || 0,
+      awayOdds: awayOutcome.price,
+    };
+
+    // Totals
+    const totalsMarket = bk.markets.find((m) => m.key === "totals");
+    if (totalsMarket) {
+      const over = totalsMarket.outcomes.find((o) => o.name === "Over" && o.point === 2.5);
+      const under = totalsMarket.outcomes.find((o) => o.name === "Under" && o.point === 2.5);
+      if (over) { odds.overOdds = over.price; odds.overLine = 2.5; }
+      if (under) odds.underOdds = under.price;
+    }
+
+    // BTTS (available on per-event!)
+    const bttsMarket = bk.markets.find((m) => m.key === "btts");
+    if (bttsMarket) {
+      const yes = bttsMarket.outcomes.find((o) => o.name === "Yes");
+      const no = bttsMarket.outcomes.find((o) => o.name === "No");
+      if (yes) odds.bttsYes = yes.price;
+      if (no) odds.bttsNo = no.price;
+    }
+
+    // Spreads
+    const spreadsMarket = bk.markets.find((m) => m.key === "spreads");
+    if (spreadsMarket) {
+      const homeSpread = spreadsMarket.outcomes.find((o) => o.name === event.home_team);
+      const awaySpread = spreadsMarket.outcomes.find((o) => o.name === event.away_team);
+      if (homeSpread) { odds.spreadHome = homeSpread.price; odds.spreadLine = homeSpread.point; }
+      if (awaySpread) odds.spreadAway = awaySpread.price;
+    }
+
+    // Alternate totals (O/U at multiple lines)
+    const altTotals = bk.markets.find((m) => m.key === "alternate_totals");
+    if (altTotals) {
+      odds.altTotals = [];
+      const lines = new Map<number, { over: number; under?: number }>();
+      for (const o of altTotals.outcomes) {
+        if (o.point == null) continue;
+        const existing = lines.get(o.point) || { over: 0 };
+        if (o.name === "Over") existing.over = o.price;
+        if (o.name === "Under") existing.under = o.price;
+        lines.set(o.point, existing);
+      }
+      for (const [line, prices] of lines) {
+        odds.altTotals.push({ line, over: prices.over, under: prices.under });
+      }
+      odds.altTotals.sort((a, b) => a.line - b.line);
+    }
+
+    // Player goalscorer props
+    const goalscorer = bk.markets.find((m) => m.key === "player_goal_scorer_anytime");
+    if (goalscorer) {
+      odds.goalscorers = goalscorer.outcomes
+        .filter((o) => o.price > 0)
+        .map((o) => ({ player: o.description || o.name, odds: o.price }))
+        .sort((a, b) => a.odds - b.odds);
+    }
+
+    bookmakers.push(odds);
+    if (odds.homeOdds > bestHome) bestHome = odds.homeOdds;
+    if (odds.drawOdds > bestDraw) bestDraw = odds.drawOdds;
+    if (odds.awayOdds > bestAway) bestAway = odds.awayOdds;
+    if (bk.key === "pinnacle") {
+      pinnHome = odds.homeOdds;
+      pinnDraw = odds.drawOdds;
+      pinnAway = odds.awayOdds;
+    }
+  }
+
+  return {
+    timestamp: now,
+    matchId: event.id,
+    homeTeam: normalizeOddsApiTeam(event.home_team),
+    awayTeam: normalizeOddsApiTeam(event.away_team),
+    commenceTime: event.commence_time,
+    bookmakers,
+    bestHome,
+    bestDraw,
+    bestAway,
+    pinnacleHome: pinnHome,
+    pinnacleDraw: pinnDraw,
+    pinnacleAway: pinnAway,
+  };
+}
+
+/**
+ * Deep collect: bulk all matches + per-event for selected matches
+ * eventIds: specific match IDs to get deep data for (btts, alt totals, goalscorers)
+ * If empty, only does the bulk collection
+ */
+export async function collectDeepOdds(
+  league: "serieA" | "serieB" = "serieA",
+  eventIds: string[] = []
+): Promise<{ saved: number; deepEvents: number; requestsUsed: number }> {
+  let requestsUsed = 0;
+
+  // 1. Bulk fetch all matches (h2h + totals + spreads) — 1 request
+  let allSnapshots: OddsSnapshot[] = [];
+  try {
+    allSnapshots = await fetchLiveOdds(league, "h2h,totals,spreads");
+    requestsUsed++;
+  } catch (e) {
+    console.warn("Bulk fetch failed:", e);
+  }
+
+  // 2. Per-event deep fetch for selected matches — 1 request each
+  let deepCount = 0;
+  for (const eventId of eventIds) {
+    try {
+      const deepSnap = await fetchEventOdds(league, eventId);
+      requestsUsed++;
+      if (!deepSnap) continue;
+      deepCount++;
+
+      // Merge deep data into bulk snapshot
+      const existing = allSnapshots.find((s) => s.matchId === eventId);
+      if (existing) {
+        for (const bk of deepSnap.bookmakers) {
+          const existingBk = existing.bookmakers.find(
+            (b) => b.bookmakerKey === bk.bookmakerKey || b.bookmaker === bk.bookmaker
+          );
+          if (existingBk) {
+            if (bk.bttsYes) existingBk.bttsYes = bk.bttsYes;
+            if (bk.bttsNo) existingBk.bttsNo = bk.bttsNo;
+            if (bk.altTotals?.length) existingBk.altTotals = bk.altTotals;
+            if (bk.goalscorers?.length) existingBk.goalscorers = bk.goalscorers;
+          } else {
+            existing.bookmakers.push(bk);
+          }
+        }
+      } else {
+        allSnapshots.push(deepSnap);
+      }
+    } catch (e) {
+      console.warn(`Deep fetch for ${eventId} failed:`, e);
+    }
+  }
+
+  if (allSnapshots.length > 0) {
+    saveSnapshots(league, allSnapshots);
+  }
+
+  return { saved: allSnapshots.length, deepEvents: deepCount, requestsUsed };
+}
+
+/**
+ * Get event IDs for upcoming matches (for selective deep collection)
+ */
+export async function getUpcomingEventIds(
+  league: "serieA" | "serieB" = "serieA"
+): Promise<{ id: string; home: string; away: string; commence: string }[]> {
+  if (!API_KEY) return [];
+  const sportKey = SPORT_KEYS[league];
+  if (!sportKey) return [];
+
+  // Events endpoint is free (no quota cost)
+  const url = `${BASE_URL}/sports/${sportKey}/events/?apiKey=${API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) return [];
+
+  const data: OddsAPIResponse[] = await res.json();
+  return data.map((ev) => ({
+    id: ev.id,
+    home: normalizeOddsApiTeam(ev.home_team),
+    away: normalizeOddsApiTeam(ev.away_team),
+    commence: ev.commence_time,
+  }));
 }
 
 /**

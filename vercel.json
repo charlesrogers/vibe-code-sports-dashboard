@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/collect-odds?league=serieA",
+      "path": "/api/cron-odds",
       "schedule": "0 12 * * *"
     }
   ]

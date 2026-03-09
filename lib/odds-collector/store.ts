@@ -20,11 +20,22 @@ const DATA_DIR = join(process.cwd(), "data", "odds-snapshots");
 
 export interface BookmakerOdds {
   bookmaker: string;
+  bookmakerKey?: string;
   homeOdds: number;
   drawOdds: number;
   awayOdds: number;
-  overOdds?: number;  // over 2.5
-  underOdds?: number; // under 2.5
+  overOdds?: number;   // over 2.5
+  underOdds?: number;  // under 2.5
+  overLine?: number;   // e.g. 2.5
+  bttsYes?: number;    // both teams to score yes
+  bttsNo?: number;     // both teams to score no
+  spreadHome?: number; // asian handicap home odds
+  spreadAway?: number; // asian handicap away odds
+  spreadLine?: number; // e.g. -0.5
+  // Alternate totals (from per-event endpoint)
+  altTotals?: { line: number; over: number; under?: number }[];
+  // Player goalscorer props (from per-event endpoint)
+  goalscorers?: { player: string; odds: number }[];
 }
 
 export interface OddsSnapshot {

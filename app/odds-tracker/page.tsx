@@ -27,6 +27,14 @@ interface MatchMovement {
   movement: { home: number; draw: number; away: number };
 }
 
+const ALL_MARKETS = [
+  { key: "h2h", label: "1X2", desc: "Match winner — core market", available: true },
+  { key: "totals", label: "O/U", desc: "Over/Under 2.5 goals", available: true },
+  { key: "spreads", label: "AH", desc: "Asian Handicap", available: true },
+  { key: "btts", label: "BTTS", desc: "Not available for Italian football", available: false },
+  { key: "draw_no_bet", label: "DNB", desc: "Not available for Italian football", available: false },
+];
+
 export default function OddsTrackerPage() {
   const [league, setLeague] = useState("serieA");
   const [apiStatus, setApiStatus] = useState<ApiStatus | null>(null);
@@ -35,6 +43,7 @@ export default function OddsTrackerPage() {
   const [loading, setLoading] = useState(true);
   const [collecting, setCollecting] = useState(false);
   const [collectResult, setCollectResult] = useState<string | null>(null);
+  const [selectedMarkets, setSelectedMarkets] = useState<Set<string>>(new Set(["h2h", "totals", "spreads"]));
 
   useEffect(() => {
     async function load() {
@@ -53,22 +62,41 @@ export default function OddsTrackerPage() {
     load();
   }, [league]);
 
-  async function collectNow() {
+  function toggleMarket(key: string) {
+    setSelectedMarkets((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        if (next.size > 1) next.delete(key); // keep at least 1
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }
+
+  const marketsParam = [...selectedMarkets].filter(k => ALL_MARKETS.find(m => m.key === k)?.available).join(",");
+
+  async function collectNow(mode: "bulk" | "deep" = "bulk") {
     setCollecting(true);
     setCollectResult(null);
     try {
-      const res = await fetch(`/api/collect-odds?league=${league}`, { method: "POST" });
+      const url = mode === "deep"
+        ? `/api/collect-odds?league=${league}&mode=deep`
+        : `/api/collect-odds?league=${league}&markets=${marketsParam}`;
+      const res = await fetch(url, { method: "POST" });
       const data = await res.json();
       if (data.error) {
         setCollectResult(`Error: ${data.error}`);
+      } else if (mode === "deep") {
+        setCollectResult(`Deep: ${data.matchesCollected} matches (${data.deepEventsCollected} with BTTS/props), ${data.requestsUsed} req`);
       } else {
-        setCollectResult(`Collected odds for ${data.matchesCollected} matches`);
-        // Reload data
-        const histRes = await fetch(`/api/odds-history?league=${league}`);
-        const histData = await histRes.json();
-        setStats(histData.collection);
-        setMatches(histData.matchHistories || []);
+        setCollectResult(`Bulk: ${data.matchesCollected} matches (h2h+totals+spreads), ${data.requestsUsed} req`);
       }
+      // Reload data
+      const histRes = await fetch(`/api/odds-history?league=${league}`);
+      const histData = await histRes.json();
+      setStats(histData.collection);
+      setMatches(histData.matchHistories || []);
     } catch (e: any) {
       setCollectResult(`Error: ${e.message}`);
     } finally {
@@ -86,9 +114,32 @@ export default function OddsTrackerPage() {
       {/* Controls */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <LeagueSelector value={league} onChange={setLeague} />
+
+        {/* Market Selector */}
+        <div className="flex gap-1">
+          {ALL_MARKETS.map((m) => (
+            <button
+              key={m.key}
+              onClick={() => m.available && toggleMarket(m.key)}
+              title={m.desc}
+              disabled={!m.available}
+              className={`rounded px-2 py-1.5 text-[10px] font-bold transition-colors ${
+                !m.available
+                  ? "bg-zinc-900 text-zinc-700 cursor-not-allowed line-through"
+                  : selectedMarkets.has(m.key)
+                  ? "bg-green-600 text-white"
+                  : "bg-zinc-800 text-zinc-500 hover:text-zinc-300"
+              }`}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+
         <button
-          onClick={collectNow}
+          onClick={() => collectNow("bulk")}
           disabled={collecting || !apiStatus?.configured}
+          title="All matches, h2h+totals+spreads, 59 bookmakers — 1 API request"
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
             collecting
               ? "bg-zinc-700 text-zinc-500 cursor-wait"
@@ -97,7 +148,22 @@ export default function OddsTrackerPage() {
               : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
           }`}
         >
-          {collecting ? "Collecting..." : "Collect Odds Now"}
+          {collecting ? "Collecting..." : "Bulk Collect (1 req)"}
+        </button>
+
+        <button
+          onClick={() => collectNow("deep")}
+          disabled={collecting || !apiStatus?.configured}
+          title="Bulk + deep data (BTTS, alt totals, goalscorer props) for next 3 matches — 4 requests"
+          className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+            collecting
+              ? "bg-zinc-700 text-zinc-500 cursor-wait"
+              : apiStatus?.configured
+              ? "bg-purple-600 text-white hover:bg-purple-500"
+              : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
+          }`}
+        >
+          {collecting ? "..." : "Deep Collect (4 req)"}
         </button>
         {collectResult && (
           <span className={`text-xs ${collectResult.startsWith("Error") ? "text-red-400" : "text-green-400"}`}>
@@ -175,27 +241,31 @@ export default function OddsTrackerPage() {
               <h3 className="mb-2 text-sm font-medium text-zinc-300">How Odds Collection Works</h3>
               <div className="text-xs text-zinc-400 space-y-2">
                 <p>
-                  The sharp playbook (Crane/Knutson): You need to track how odds <strong>move</strong> from opening to closing.
-                  Closing line value (CLV) is the gold standard, but to measure it properly you need to know what price you
-                  could have gotten when your model first identified value.
+                  The sharp playbook (Crane/Knutson): Track how odds <strong>move</strong> from opening to closing.
+                  Most line movement happens in the final hours before kickoff — that&apos;s where sharp money acts.
                 </p>
                 <p>
-                  <strong>Collection strategy (within 500 free calls/month):</strong>
+                  <strong>Smart scheduler — polls concentrate around kickoffs:</strong>
                 </p>
                 <ul className="list-disc ml-4 space-y-1">
-                  <li>Poll Serie A 3x/day (morning, afternoon, evening) = ~90 calls/month</li>
-                  <li>Poll Serie B 2x/day = ~60 calls/month</li>
-                  <li>Each poll captures odds from 15+ bookmakers including Pinnacle</li>
-                  <li>Over time, you build a line movement database for every match</li>
-                  <li>After ~2 weeks you have enough data to see real patterns</li>
+                  <li><strong>7-3 days out:</strong> 1x/day — capture opening line + early sharp action</li>
+                  <li><strong>3-1 days:</strong> 2x/day — syndicate money, limits going up</li>
+                  <li><strong>24-6h (match day):</strong> 3x/day — public money, parlay flows</li>
+                  <li><strong>6-2h (pre-match):</strong> every 2h — final news, late syndicate hits</li>
+                  <li><strong>2-0h (closing):</strong> every hour + deep collect (BTTS, goalscorer props)</li>
                 </ul>
                 <p>
-                  <strong>Automation options:</strong>
+                  Each bulk poll captures <strong>59 bookmakers</strong> (eu+uk+us+au) including Pinnacle,
+                  all in <strong>1 API request</strong>. Budget: ~120 req/month, well within 500 free tier.
+                </p>
+                <p>
+                  <strong>Automation:</strong>
                 </p>
                 <ul className="list-disc ml-4 space-y-1">
-                  <li>Manual: Click &quot;Collect Odds Now&quot; button above</li>
-                  <li>Cron job: Set up a free cron at cron-job.org to hit <code className="bg-zinc-800 px-1 rounded">/api/collect-odds?league=serieA</code></li>
-                  <li>Vercel Cron: Add to vercel.json for automatic collection</li>
+                  <li>Manual: Use the buttons above</li>
+                  <li>Smart cron: Hit <code className="bg-zinc-800 px-1 rounded">/api/cron-odds</code> every 30-60min
+                    (use <span className="text-blue-400">cron-job.org</span> free) — scheduler auto-decides when to actually poll</li>
+                  <li>Vercel Cron: 1x/day fallback already configured</li>
                 </ul>
               </div>
             </div>
