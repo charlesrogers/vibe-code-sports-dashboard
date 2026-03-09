@@ -20,10 +20,15 @@ export interface MatchVarianceAssessment {
   edgeMagnitude: "strong" | "moderate" | "weak" | "none";
 
   // Bet recommendation
-  hasBet: boolean; // only true if edge >= 4% AND confidence high enough
+  hasBet: boolean;
   betSide: string | null; // "home" | "away" | null
   betReasoning: string; // natural language explanation
   confidence: number; // 0-1
+  betGrade: "A" | "B" | "C" | null; // A = classic Ted, B = solid, C = marginal
+
+  // Ted's filters
+  passReasons: string[];
+  positiveFactors: string[];
 }
 
 function directionSign(v: TeamVariance): number {
@@ -49,13 +54,17 @@ function buildReasoning(
   awayVariance: TeamVariance,
   edgeSide: "home" | "away" | "neutral",
   varianceEdge: number,
-  hasBet: boolean
+  hasBet: boolean,
+  passReasons: string[] = []
 ): string {
   if (!hasBet) {
     if (Math.abs(varianceEdge) < 0.04) {
       return `No significant variance edge between ${homeVariance.team} and ${awayVariance.team}. Both teams are performing relatively in line with expectations, or their regression signals cancel out.`;
     }
-    return `Edge of ${(Math.abs(varianceEdge) * 100).toFixed(1)}% detected favoring ${edgeSide === "home" ? homeVariance.team : awayVariance.team}, but confidence is too low to recommend a bet.`;
+    const reasonText = passReasons.length > 0
+      ? ` PASS: ${passReasons.join("; ")}.`
+      : " Confidence too low to recommend a bet.";
+    return `Edge of ${(Math.abs(varianceEdge) * 100).toFixed(1)}% detected favoring ${edgeSide === "home" ? homeVariance.team : awayVariance.team}.${reasonText}`;
   }
 
   const favored =
@@ -106,11 +115,6 @@ export function assessMatch(
   awayVariance: TeamVariance
 ): MatchVarianceAssessment {
   // Compute edge: how much regression favors one side vs the other
-  // Scale variance into a probability-like edge:
-  //   Use totalVariance (goal gap) to generate a percentage edge
-  //   ~5 goal gap → ~5% edge, ~10 goal gap → ~10% edge
-  // Negative totalVariance = underperforming = will improve
-  // So a negative home totalVariance HELPS home, positive HURTS home
   const homeRegressionBenefit =
     (-homeVariance.totalVariance / 100) * homeVariance.regressionConfidence;
   const awayRegressionBenefit =
@@ -125,12 +129,168 @@ export function assessMatch(
 
   const edgeMagnitude = classifyMagnitude(varianceEdge);
 
-  // Require BOTH: meaningful edge AND the favored side has a non-neutral signal
   const favoredVariance = varianceEdge > 0 ? homeVariance : awayVariance;
-  const hasBet =
-    Math.abs(varianceEdge) >= 0.04 &&
-    favoredVariance.regressionConfidence >= 0.6 &&
-    favoredVariance.signal !== "neutral";
+  const opposedVariance = varianceEdge > 0 ? awayVariance : homeVariance;
+
+  // ========================================
+  // POSITIVE CRITERIA — "when TO bet" (Ted)
+  // Need at least 1 positive factor to even consider a bet.
+  // More factors = higher grade.
+  // ========================================
+  const positiveFactors: string[] = [];
+
+  // P1. Classic Ted: good team (positive xGD) with bad actual results.
+  //     "Blackburn: -7 GD from a respectable +6.67 xGD" — THE sweet spot.
+  if (
+    favoredVariance.regressionDirection === "improve" &&
+    (favoredVariance.qualityTier === "good" || favoredVariance.qualityTier === "elite")
+  ) {
+    positiveFactors.push(
+      `${favoredVariance.team} has strong underlying quality (${favoredVariance.qualityTier} xGD) but results haven't caught up`
+    );
+  }
+
+  // P2. Defense underperformance on the favored side — Ted's most reliable signal.
+  //     "Teams conceding way more than their xGA are almost guaranteed to see improvement."
+  if (favoredVariance.dominantType === "defense_underperf") {
+    positiveFactors.push(
+      `${favoredVariance.team}'s variance is driven by defensive underperformance — the most reliable regression signal`
+    );
+  }
+
+  // P3. Opponent overperforming (will regress DOWN against our side) — double signal.
+  //     Both sides regress in our favor.
+  if (opposedVariance.regressionDirection === "decline") {
+    positiveFactors.push(
+      `${opposedVariance.team} is overperforming and due to regress down`
+    );
+  }
+
+  // P4. Opponent's overperformance is attack-based — fragile, will break.
+  //     "The ball's going to stop going in."
+  if (opposedVariance.dominantType === "attack_overperf") {
+    positiveFactors.push(
+      `${opposedVariance.team}'s scoring is unsustainably above xG — fragile attack overperformance`
+    );
+  }
+
+  // P5. Opponent is defensive overperformer — their luck is about to crack.
+  //     "When the dam breaks, it breaks hard."
+  if (opposedVariance.dominantType === "defense_overperf") {
+    positiveFactors.push(
+      `${opposedVariance.team}'s defensive overperformance is unsustainable — the dam will break`
+    );
+  }
+
+  // P6. Large gap (8+ goals) — very strong signal regardless of decomposition.
+  //     Ted: "8+ goals = this is likely mispriced."
+  if (Math.abs(favoredVariance.totalVariance) >= 8) {
+    positiveFactors.push(
+      `${favoredVariance.team} has an extreme variance gap (${Math.abs(favoredVariance.totalVariance).toFixed(1)} goals) — almost certainly mispriced`
+    );
+  }
+
+  // P7. Average or better team underperforming — they're decent but unlucky.
+  if (
+    favoredVariance.regressionDirection === "improve" &&
+    favoredVariance.qualityTier === "average"
+  ) {
+    positiveFactors.push(
+      `${favoredVariance.team} is average quality but underperforming — some regression expected`
+    );
+  }
+
+  // ========================================
+  // NEGATIVE CRITERIA — "when NOT to bet" (Ted)
+  // Any negative = PASS.
+  // ========================================
+  const passReasons: string[] = [];
+
+  // N1. Edge too small
+  if (Math.abs(varianceEdge) < 0.04) {
+    passReasons.push("Edge below 4% threshold — no significant variance gap");
+  }
+
+  // N2. Favored side has neutral signal (no real variance to exploit)
+  if (favoredVariance.signal === "neutral") {
+    passReasons.push("Favored side has no meaningful variance signal");
+  }
+
+  // N3. Low confidence
+  if (favoredVariance.regressionConfidence < 0.6) {
+    passReasons.push("Regression confidence too low");
+  }
+
+  // N4. Ted: Don't bet on genuinely bad teams just because they have variance
+  if (
+    favoredVariance.qualityTier === "bad" &&
+    favoredVariance.regressionDirection === "improve"
+  ) {
+    passReasons.push(
+      `${favoredVariance.team} has genuinely poor xGD — they're not unlucky, they're bad`
+    );
+  }
+
+  // N5. Ted: Bad team with attack underperformance — weak signal on a weak team
+  if (
+    favoredVariance.regressionDirection === "improve" &&
+    favoredVariance.dominantType === "attack_underperf" &&
+    favoredVariance.qualityTier === "bad"
+  ) {
+    passReasons.push(
+      `${favoredVariance.team}'s attack underperformance is on a genuinely weak team`
+    );
+  }
+
+  // N6. Ted: Both teams are chaotic — coin flip with extra chaos
+  if (
+    Math.abs(homeVariance.totalVariance) > 5 &&
+    Math.abs(awayVariance.totalVariance) > 5 &&
+    homeVariance.regressionDirection !== awayVariance.regressionDirection &&
+    Math.abs(varianceEdge) < 0.08
+  ) {
+    passReasons.push(
+      "Both teams have large variance in opposite directions — chaotic matchup"
+    );
+  }
+
+  // N7. Ted: Persistent defiance on the favored side
+  if (favoredVariance.persistentDefiance) {
+    passReasons.push(
+      `${favoredVariance.team} has persistently defied the model (15+ matches) — trust the anomaly`
+    );
+  }
+
+  // N8. Ted: Favored side's good results built on fragile attack overperformance
+  if (
+    favoredVariance.regressionDirection === "decline" &&
+    favoredVariance.dominantType === "attack_overperf"
+  ) {
+    passReasons.push(
+      `${favoredVariance.team}'s good results are built on fragile attack overperformance`
+    );
+  }
+
+  // N9. No positive factors at all — Ted requires a thesis, not just absence of negatives.
+  //     "The line is correct for me" = no reason to bet.
+  if (positiveFactors.length === 0 && passReasons.length === 0) {
+    passReasons.push(
+      "No positive variance thesis — Ted requires a clear reason to bet, not just no reason to pass"
+    );
+  }
+
+  // ========================================
+  // DECISION + GRADING
+  // ========================================
+  const hasBet = passReasons.length === 0 && positiveFactors.length > 0;
+
+  // Grade: A = 3+ positive factors (classic Ted), B = 2, C = 1
+  let betGrade: MatchVarianceAssessment["betGrade"] = null;
+  if (hasBet) {
+    if (positiveFactors.length >= 3) betGrade = "A";
+    else if (positiveFactors.length >= 2) betGrade = "B";
+    else betGrade = "C";
+  }
 
   const betSide = hasBet ? edgeSide : null;
   const confidence = hasBet
@@ -142,7 +302,8 @@ export function assessMatch(
     awayVariance,
     edgeSide,
     varianceEdge,
-    hasBet
+    hasBet,
+    passReasons
   );
 
   return {
@@ -157,5 +318,8 @@ export function assessMatch(
     betSide: betSide === "neutral" ? null : betSide,
     betReasoning,
     confidence: Math.round(Math.max(0, Math.min(1, confidence)) * 100) / 100,
+    betGrade,
+    passReasons,
+    positiveFactors,
   };
 }

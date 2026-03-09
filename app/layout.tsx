@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/nav";
+import GlobalDataBanner from "./components/global-data-banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="min-h-screen bg-zinc-950 text-white">
+          <GlobalDataBanner />
           <header className="border-b border-zinc-800 px-6 py-4">
             <h1 className="text-2xl font-bold">Serie A Predictor</h1>
             <p className="text-sm text-zinc-400">

@@ -45,6 +45,14 @@ export interface TeamVariance {
     | "defense_underperf"
     | "balanced";
 
+  // Team quality — xGD per match tells you if they're actually good or bad
+  // Ted: "xGD is the single best measure of true team quality"
+  xGDPerMatch: number;
+  qualityTier: "elite" | "good" | "average" | "poor" | "bad";
+
+  // Persistent defiance — if variance hasn't corrected in 15+ matches, reduce trust
+  persistentDefiance: boolean;
+
   // Regression confidence 0-1
   regressionConfidence: number;
   regressionDirection: "improve" | "decline" | "stable";
@@ -84,22 +92,45 @@ function classifyDominantType(
   return defenseVariance > 0 ? "defense_underperf" : "defense_overperf";
 }
 
+function classifyQuality(xGDPerMatch: number): TeamVariance["qualityTier"] {
+  if (xGDPerMatch >= 1.0) return "elite";
+  if (xGDPerMatch >= 0.3) return "good";
+  if (xGDPerMatch >= -0.3) return "average";
+  if (xGDPerMatch >= -0.8) return "poor";
+  return "bad";
+}
+
 function computeRegressionConfidence(
   totalVariance: number,
   dominantType: TeamVariance["dominantType"],
-  matches: number
+  matches: number,
+  qualityTier: TeamVariance["qualityTier"],
+  persistentDefiance: boolean
 ): number {
   const gap = Math.abs(totalVariance);
   let confidence = 0.5;
 
+  // Gap size boosts confidence
   if (gap > 5) confidence += 0.2;
   if (gap > 8) confidence += 0.1;
 
+  // Defense underperf is the most reliable signal (Ted's key teaching)
   if (dominantType === "defense_underperf") confidence += 0.15;
+  // Attack overperf is fragile — reduce confidence
   if (dominantType === "attack_overperf") confidence -= 0.1;
 
+  // Sample size
   if (matches >= 10) confidence += 0.1;
   if (matches < 5) confidence -= 0.15;
+
+  // Ted: persistent defiance (15+ matches without correcting) = reduce trust
+  if (persistentDefiance) confidence -= 0.2;
+
+  // Ted: consider underlying team quality
+  // A "bad" team (terrible xGD) underperforming is less likely variance,
+  // more likely they're just genuinely bad. Reduce confidence.
+  if (qualityTier === "bad") confidence -= 0.15;
+  if (qualityTier === "poor") confidence -= 0.05;
 
   return Math.max(0, Math.min(1, confidence));
 }
@@ -114,6 +145,8 @@ function buildExplanation(v: {
   defenseVariancePct: number;
   regressionDirection: TeamVariance["regressionDirection"];
   regressionConfidence: number;
+  qualityTier: TeamVariance["qualityTier"];
+  persistentDefiance: boolean;
 }): string {
   const parts: string[] = [];
 
@@ -140,6 +173,24 @@ function buildExplanation(v: {
   } else if (v.dominantType === "defense_overperf") {
     parts.push(
       `Defensive overperformance (conceding only ${(v.defenseVariancePct * 100).toFixed(0)}% of xGA) may not be sustainable.`
+    );
+  }
+
+  // Ted: team quality context — a bad team underperforming isn't variance, they're just bad
+  if (v.qualityTier === "bad") {
+    parts.push(
+      `⚠️ CAUTION: ${v.team} has genuinely poor underlying quality (bad xGD). Variance may not be luck — they may just be this bad.`
+    );
+  } else if (v.qualityTier === "poor") {
+    parts.push(
+      `Note: ${v.team} has below-average underlying quality (poor xGD). Regression signal is weaker.`
+    );
+  }
+
+  // Ted: persistent defiance warning
+  if (v.persistentDefiance) {
+    parts.push(
+      `⚠️ PERSISTENT DEFIANCE: 15+ matches without correction. Ted says reduce confidence — some teams just defy the model.`
     );
   }
 
@@ -179,10 +230,21 @@ export function calculateTeamVariance(team: TeamXg): TeamVariance {
     attackVariancePct,
     defenseVariancePct
   );
+
+  // Team quality — xGD per match is the best single measure
+  const xGDPerMatch = matches > 0 ? xGD / matches : 0;
+  const qualityTier = classifyQuality(xGDPerMatch);
+
+  // Persistent defiance: if 15+ matches and variance hasn't corrected,
+  // the team may just be what they are (not variance, just reality)
+  const persistentDefiance = matches >= 15 && Math.abs(totalVariance) > 5;
+
   const regressionConfidence = computeRegressionConfidence(
     totalVariance,
     dominantType,
-    matches
+    matches,
+    qualityTier,
+    persistentDefiance
   );
 
   // If overperforming (positive signal) -> will regress DOWN -> decline
@@ -201,6 +263,8 @@ export function calculateTeamVariance(team: TeamXg): TeamVariance {
     defenseVariancePct,
     regressionDirection,
     regressionConfidence,
+    qualityTier,
+    persistentDefiance,
   });
 
   return {
@@ -219,6 +283,9 @@ export function calculateTeamVariance(team: TeamXg): TeamVariance {
     defenseVariancePct: Math.round(defenseVariancePct * 100) / 100,
     signal,
     dominantType,
+    xGDPerMatch: Math.round(xGDPerMatch * 100) / 100,
+    qualityTier,
+    persistentDefiance,
     regressionConfidence: Math.round(regressionConfidence * 100) / 100,
     regressionDirection,
     explanation,

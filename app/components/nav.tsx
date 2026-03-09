@@ -16,6 +16,7 @@ const links = [
   { href: "/xg", label: "xG" },
   { href: "/fixtures", label: "Fixtures" },
   { href: "/performance", label: "Model" },
+  { href: "/data", label: "Data" },
 ];
 
 export default function Nav() {

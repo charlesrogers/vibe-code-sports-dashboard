@@ -1,0 +1,546 @@
+{
+  "league": "serieA",
+  "scrapedAt": "2026-03-09T21:01:55.939Z",
+  "teams": [
+    {
+      "team": "Inter",
+      "home": {
+        "xGFor": 39.44,
+        "xGAgainst": 11.13,
+        "goalsFor": 38,
+        "goalsAgainst": 12,
+        "matches": 14,
+        "xGDiff": 28.31
+      },
+      "away": {
+        "xGFor": 29.16,
+        "xGAgainst": 11.43,
+        "goalsFor": 26,
+        "goalsAgainst": 10,
+        "matches": 14,
+        "xGDiff": 17.73
+      },
+      "overall": {
+        "xGFor": 68.6,
+        "xGAgainst": 22.56,
+        "goalsFor": 64,
+        "goalsAgainst": 22,
+        "matches": 28,
+        "xGDiff": 46.04
+      }
+    },
+    {
+      "team": "Juventus",
+      "home": {
+        "xGFor": 31.21,
+        "xGAgainst": 11.73,
+        "goalsFor": 29,
+        "goalsAgainst": 12,
+        "matches": 14,
+        "xGDiff": 19.48
+      },
+      "away": {
+        "xGFor": 22.55,
+        "xGAgainst": 15.69,
+        "goalsFor": 21,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 6.86
+      },
+      "overall": {
+        "xGFor": 53.76,
+        "xGAgainst": 27.42,
+        "goalsFor": 50,
+        "goalsAgainst": 28,
+        "matches": 28,
+        "xGDiff": 26.34
+      }
+    },
+    {
+      "team": "Milan",
+      "home": {
+        "xGFor": 27.09,
+        "xGAgainst": 14.67,
+        "goalsFor": 19,
+        "goalsAgainst": 11,
+        "matches": 14,
+        "xGDiff": 12.42
+      },
+      "away": {
+        "xGFor": 25.35,
+        "xGAgainst": 15.99,
+        "goalsFor": 25,
+        "goalsAgainst": 9,
+        "matches": 14,
+        "xGDiff": 9.36
+      },
+      "overall": {
+        "xGFor": 52.43,
+        "xGAgainst": 30.66,
+        "goalsFor": 44,
+        "goalsAgainst": 20,
+        "matches": 28,
+        "xGDiff": 21.77
+      }
+    },
+    {
+      "team": "Como",
+      "home": {
+        "xGFor": 28.91,
+        "xGAgainst": 13.74,
+        "goalsFor": 24,
+        "goalsAgainst": 10,
+        "matches": 14,
+        "xGDiff": 15.17
+      },
+      "away": {
+        "xGFor": 20.65,
+        "xGAgainst": 17.4,
+        "goalsFor": 22,
+        "goalsAgainst": 11,
+        "matches": 14,
+        "xGDiff": 3.25
+      },
+      "overall": {
+        "xGFor": 49.56,
+        "xGAgainst": 31.14,
+        "goalsFor": 46,
+        "goalsAgainst": 21,
+        "matches": 28,
+        "xGDiff": 18.42
+      }
+    },
+    {
+      "team": "Atalanta",
+      "home": {
+        "xGFor": 33.72,
+        "xGAgainst": 16.44,
+        "goalsFor": 24,
+        "goalsAgainst": 13,
+        "matches": 15,
+        "xGDiff": 17.28
+      },
+      "away": {
+        "xGFor": 19.47,
+        "xGAgainst": 22.26,
+        "goalsFor": 15,
+        "goalsAgainst": 13,
+        "matches": 13,
+        "xGDiff": -2.79
+      },
+      "overall": {
+        "xGFor": 53.19,
+        "xGAgainst": 38.7,
+        "goalsFor": 39,
+        "goalsAgainst": 26,
+        "matches": 28,
+        "xGDiff": 14.49
+      }
+    },
+    {
+      "team": "Napoli",
+      "home": {
+        "xGFor": 19.65,
+        "xGAgainst": 15.27,
+        "goalsFor": 23,
+        "goalsAgainst": 12,
+        "matches": 13,
+        "xGDiff": 4.38
+      },
+      "away": {
+        "xGFor": 23.7,
+        "xGAgainst": 16.13,
+        "goalsFor": 20,
+        "goalsAgainst": 17,
+        "matches": 15,
+        "xGDiff": 7.57
+      },
+      "overall": {
+        "xGFor": 43.36,
+        "xGAgainst": 31.4,
+        "goalsFor": 43,
+        "goalsAgainst": 29,
+        "matches": 28,
+        "xGDiff": 11.96
+      }
+    },
+    {
+      "team": "Roma",
+      "home": {
+        "xGFor": 25.22,
+        "xGAgainst": 12.34,
+        "goalsFor": 22,
+        "goalsAgainst": 9,
+        "matches": 14,
+        "xGDiff": 12.88
+      },
+      "away": {
+        "xGFor": 18.92,
+        "xGAgainst": 20.38,
+        "goalsFor": 16,
+        "goalsAgainst": 12,
+        "matches": 14,
+        "xGDiff": -1.46
+      },
+      "overall": {
+        "xGFor": 44.14,
+        "xGAgainst": 32.72,
+        "goalsFor": 38,
+        "goalsAgainst": 21,
+        "matches": 28,
+        "xGDiff": 11.42
+      }
+    },
+    {
+      "team": "Fiorentina",
+      "home": {
+        "xGFor": 25.01,
+        "xGAgainst": 18.85,
+        "goalsFor": 18,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": 6.16
+      },
+      "away": {
+        "xGFor": 17.55,
+        "xGAgainst": 24.2,
+        "goalsFor": 12,
+        "goalsAgainst": 23,
+        "matches": 14,
+        "xGDiff": -6.65
+      },
+      "overall": {
+        "xGFor": 42.56,
+        "xGAgainst": 43.05,
+        "goalsFor": 30,
+        "goalsAgainst": 42,
+        "matches": 28,
+        "xGDiff": -0.49
+      }
+    },
+    {
+      "team": "Bologna",
+      "home": {
+        "xGFor": 19.91,
+        "xGAgainst": 17.35,
+        "goalsFor": 14,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 2.56
+      },
+      "away": {
+        "xGFor": 18.1,
+        "xGAgainst": 21.66,
+        "goalsFor": 23,
+        "goalsAgainst": 18,
+        "matches": 14,
+        "xGDiff": -3.56
+      },
+      "overall": {
+        "xGFor": 38.01,
+        "xGAgainst": 39.01,
+        "goalsFor": 37,
+        "goalsAgainst": 34,
+        "matches": 28,
+        "xGDiff": -1
+      }
+    },
+    {
+      "team": "Genoa",
+      "home": {
+        "xGFor": 19.79,
+        "xGAgainst": 20.89,
+        "goalsFor": 19,
+        "goalsAgainst": 19,
+        "matches": 15,
+        "xGDiff": -1.1
+      },
+      "away": {
+        "xGFor": 17.36,
+        "xGAgainst": 21.28,
+        "goalsFor": 15,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -3.92
+      },
+      "overall": {
+        "xGFor": 37.14,
+        "xGAgainst": 42.17,
+        "goalsFor": 34,
+        "goalsAgainst": 40,
+        "matches": 28,
+        "xGDiff": -5.03
+      }
+    },
+    {
+      "team": "Lazio",
+      "home": {
+        "xGFor": 17.94,
+        "xGAgainst": 19.11,
+        "goalsFor": 18,
+        "goalsAgainst": 16,
+        "matches": 13,
+        "xGDiff": -1.17
+      },
+      "away": {
+        "xGFor": 13.29,
+        "xGAgainst": 18.12,
+        "goalsFor": 8,
+        "goalsAgainst": 11,
+        "matches": 14,
+        "xGDiff": -4.83
+      },
+      "overall": {
+        "xGFor": 31.23,
+        "xGAgainst": 37.23,
+        "goalsFor": 26,
+        "goalsAgainst": 27,
+        "matches": 27,
+        "xGDiff": -6
+      }
+    },
+    {
+      "team": "Udinese",
+      "home": {
+        "xGFor": 18.05,
+        "xGAgainst": 16.24,
+        "goalsFor": 16,
+        "goalsAgainst": 18,
+        "matches": 14,
+        "xGDiff": 1.81
+      },
+      "away": {
+        "xGFor": 16.07,
+        "xGAgainst": 26.1,
+        "goalsFor": 17,
+        "goalsAgainst": 23,
+        "matches": 14,
+        "xGDiff": -10.03
+      },
+      "overall": {
+        "xGFor": 34.13,
+        "xGAgainst": 42.34,
+        "goalsFor": 33,
+        "goalsAgainst": 41,
+        "matches": 28,
+        "xGDiff": -8.21
+      }
+    },
+    {
+      "team": "Sassuolo",
+      "home": {
+        "xGFor": 17.24,
+        "xGAgainst": 24.34,
+        "goalsFor": 17,
+        "goalsAgainst": 20,
+        "matches": 14,
+        "xGDiff": -7.1
+      },
+      "away": {
+        "xGFor": 16.71,
+        "xGAgainst": 19.02,
+        "goalsFor": 17,
+        "goalsAgainst": 16,
+        "matches": 13,
+        "xGDiff": -2.31
+      },
+      "overall": {
+        "xGFor": 33.95,
+        "xGAgainst": 43.36,
+        "goalsFor": 34,
+        "goalsAgainst": 36,
+        "matches": 27,
+        "xGDiff": -9.41
+      }
+    },
+    {
+      "team": "Verona",
+      "home": {
+        "xGFor": 12.78,
+        "xGAgainst": 14.86,
+        "goalsFor": 12,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -2.08
+      },
+      "away": {
+        "xGFor": 16.93,
+        "xGAgainst": 24.8,
+        "goalsFor": 10,
+        "goalsAgainst": 28,
+        "matches": 15,
+        "xGDiff": -7.87
+      },
+      "overall": {
+        "xGFor": 29.7,
+        "xGAgainst": 39.66,
+        "goalsFor": 22,
+        "goalsAgainst": 49,
+        "matches": 28,
+        "xGDiff": -9.96
+      }
+    },
+    {
+      "team": "Torino",
+      "home": {
+        "xGFor": 20.17,
+        "xGAgainst": 23.23,
+        "goalsFor": 15,
+        "goalsAgainst": 22,
+        "matches": 14,
+        "xGDiff": -3.06
+      },
+      "away": {
+        "xGFor": 14.94,
+        "xGAgainst": 21.95,
+        "goalsFor": 13,
+        "goalsAgainst": 27,
+        "matches": 14,
+        "xGDiff": -7.01
+      },
+      "overall": {
+        "xGFor": 35.11,
+        "xGAgainst": 45.18,
+        "goalsFor": 28,
+        "goalsAgainst": 49,
+        "matches": 28,
+        "xGDiff": -10.07
+      }
+    },
+    {
+      "team": "Cagliari",
+      "home": {
+        "xGFor": 14.18,
+        "xGAgainst": 18.43,
+        "goalsFor": 16,
+        "goalsAgainst": 17,
+        "matches": 14,
+        "xGDiff": -4.25
+      },
+      "away": {
+        "xGFor": 14.33,
+        "xGAgainst": 25.73,
+        "goalsFor": 14,
+        "goalsAgainst": 21,
+        "matches": 14,
+        "xGDiff": -11.4
+      },
+      "overall": {
+        "xGFor": 28.51,
+        "xGAgainst": 44.16,
+        "goalsFor": 30,
+        "goalsAgainst": 38,
+        "matches": 28,
+        "xGDiff": -15.65
+      }
+    },
+    {
+      "team": "Parma",
+      "home": {
+        "xGFor": 15.11,
+        "xGAgainst": 22.48,
+        "goalsFor": 11,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": -7.37
+      },
+      "away": {
+        "xGFor": 13.87,
+        "xGAgainst": 22.78,
+        "goalsFor": 9,
+        "goalsAgainst": 13,
+        "matches": 14,
+        "xGDiff": -8.91
+      },
+      "overall": {
+        "xGFor": 28.98,
+        "xGAgainst": 45.26,
+        "goalsFor": 20,
+        "goalsAgainst": 32,
+        "matches": 28,
+        "xGDiff": -16.28
+      }
+    },
+    {
+      "team": "Pisa",
+      "home": {
+        "xGFor": 15.14,
+        "xGAgainst": 21.01,
+        "goalsFor": 4,
+        "goalsAgainst": 17,
+        "matches": 14,
+        "xGDiff": -5.87
+      },
+      "away": {
+        "xGFor": 15.87,
+        "xGAgainst": 30.36,
+        "goalsFor": 16,
+        "goalsAgainst": 31,
+        "matches": 14,
+        "xGDiff": -14.49
+      },
+      "overall": {
+        "xGFor": 31.01,
+        "xGAgainst": 51.37,
+        "goalsFor": 20,
+        "goalsAgainst": 48,
+        "matches": 28,
+        "xGDiff": -20.36
+      }
+    },
+    {
+      "team": "Lecce",
+      "home": {
+        "xGFor": 17,
+        "xGAgainst": 21.42,
+        "goalsFor": 11,
+        "goalsAgainst": 19,
+        "matches": 15,
+        "xGDiff": -4.42
+      },
+      "away": {
+        "xGFor": 8.81,
+        "xGAgainst": 26.39,
+        "goalsFor": 9,
+        "goalsAgainst": 18,
+        "matches": 13,
+        "xGDiff": -17.58
+      },
+      "overall": {
+        "xGFor": 25.81,
+        "xGAgainst": 47.81,
+        "goalsFor": 20,
+        "goalsAgainst": 37,
+        "matches": 28,
+        "xGDiff": -22
+      }
+    },
+    {
+      "team": "Cremonese",
+      "home": {
+        "xGFor": 15.77,
+        "xGAgainst": 23.06,
+        "goalsFor": 11,
+        "goalsAgainst": 17,
+        "matches": 13,
+        "xGDiff": -7.29
+      },
+      "away": {
+        "xGFor": 12.97,
+        "xGAgainst": 31.65,
+        "goalsFor": 11,
+        "goalsAgainst": 23,
+        "matches": 15,
+        "xGDiff": -18.68
+      },
+      "overall": {
+        "xGFor": 28.74,
+        "xGAgainst": 54.71,
+        "goalsFor": 22,
+        "goalsAgainst": 40,
+        "matches": 28,
+        "xGDiff": -25.97
+      }
+    }
+  ]
+}

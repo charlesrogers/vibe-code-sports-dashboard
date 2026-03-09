@@ -24,6 +24,9 @@ interface TeamVariance {
     | "weak_negative"
     | "strong_negative";
   dominantType: string;
+  xGDPerMatch: number;
+  qualityTier: "elite" | "good" | "average" | "poor" | "bad";
+  persistentDefiance: boolean;
   regressionConfidence: number;
   regressionDirection: "improve" | "decline" | "stable";
   explanation: string;
@@ -41,12 +44,17 @@ interface MatchAssessment {
   betSide: string | null;
   betReasoning: string;
   confidence: number;
+  betGrade: "A" | "B" | "C" | null;
+  passReasons: string[];
+  positiveFactors: string[];
   round: number | null;
   date: string;
 }
 
 interface TedData {
   league: string;
+  usingVenueSplits: boolean;
+  scrapedAt: string | null;
   teams: TeamVariance[];
   assessments: MatchAssessment[];
   bets: MatchAssessment[];
@@ -125,6 +133,22 @@ function ConfidenceBar({ value }: { value: number }) {
   );
 }
 
+function QualityBadge({ tier }: { tier: TeamVariance["qualityTier"] }) {
+  const config: Record<string, { label: string; className: string }> = {
+    elite: { label: "Elite", className: "text-purple-400 bg-purple-900/30" },
+    good: { label: "Good", className: "text-blue-400 bg-blue-900/30" },
+    average: { label: "Avg", className: "text-zinc-400 bg-zinc-800" },
+    poor: { label: "Poor", className: "text-orange-400 bg-orange-900/30" },
+    bad: { label: "Bad", className: "text-red-400 bg-red-900/30" },
+  };
+  const c = config[tier] || config.average;
+  return (
+    <span className={`inline-block rounded px-1.5 py-0.5 text-[9px] font-semibold ${c.className}`}>
+      {c.label}
+    </span>
+  );
+}
+
 function VarianceColor({ value, inverted }: { value: number; inverted?: boolean }) {
   const effective = inverted ? -value : value;
   const color =
@@ -152,16 +176,18 @@ function MatchCard({ match, showVerdict }: { match: MatchAssessment; showVerdict
 
       {/* Teams */}
       <div className="mb-3 flex items-center justify-between">
-        <div className="flex-1 text-right">
+        <div className="flex-1 text-right flex items-center justify-end gap-1.5">
+          <QualityBadge tier={match.homeVariance.qualityTier} />
           <span className={`font-medium ${match.betSide === "home" ? "text-green-400" : "text-zinc-200"}`}>
             {match.homeTeam}
           </span>
         </div>
         <div className="mx-3 text-xs text-zinc-600">vs</div>
-        <div className="flex-1">
+        <div className="flex-1 flex items-center gap-1.5">
           <span className={`font-medium ${match.betSide === "away" ? "text-green-400" : "text-zinc-200"}`}>
             {match.awayTeam}
           </span>
+          <QualityBadge tier={match.awayVariance.qualityTier} />
         </div>
       </div>
 
@@ -208,10 +234,19 @@ function MatchCard({ match, showVerdict }: { match: MatchAssessment; showVerdict
         <div className={`rounded-lg p-3 text-xs leading-relaxed ${match.hasBet ? "bg-green-950/30 border border-green-900/40" : "bg-zinc-800/50"}`}>
           {match.hasBet ? (
             <>
-              <div className="mb-1 flex items-center gap-2">
+              <div className="mb-1 flex items-center gap-2 flex-wrap">
                 <span className="rounded bg-green-900/60 px-2 py-0.5 text-[10px] font-bold text-green-400">
                   BET {match.betSide?.toUpperCase()}
                 </span>
+                {match.betGrade && (
+                  <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
+                    match.betGrade === "A" ? "bg-purple-900/50 text-purple-400"
+                      : match.betGrade === "B" ? "bg-blue-900/50 text-blue-400"
+                      : "bg-zinc-800 text-zinc-400"
+                  }`}>
+                    Grade {match.betGrade}
+                  </span>
+                )}
                 <span className="font-mono text-green-400">{edgePct}% edge</span>
                 <span className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
                   match.edgeMagnitude === "strong" ? "bg-green-900/50 text-green-400"
@@ -222,12 +257,27 @@ function MatchCard({ match, showVerdict }: { match: MatchAssessment; showVerdict
                 </span>
                 <ConfidenceBar value={match.confidence} />
               </div>
+              {match.positiveFactors && match.positiveFactors.length > 0 && (
+                <ul className="mb-2 space-y-0.5 text-[11px]">
+                  {match.positiveFactors.map((factor, i) => (
+                    <li key={i} className="text-green-400/70">+ {factor}</li>
+                  ))}
+                </ul>
+              )}
               <p className="text-zinc-300">{match.betReasoning}</p>
             </>
           ) : (
             <div className="text-zinc-500">
               <span className="rounded bg-zinc-800 px-2 py-0.5 text-[10px] font-semibold text-zinc-400 mr-2">PASS</span>
-              {match.betReasoning}
+              {match.passReasons && match.passReasons.length > 0 ? (
+                <ul className="mt-1 ml-2 space-y-0.5 text-[11px]">
+                  {match.passReasons.map((reason, i) => (
+                    <li key={i} className="text-zinc-500">&bull; {reason}</li>
+                  ))}
+                </ul>
+              ) : (
+                match.betReasoning
+              )}
             </div>
           )}
         </div>
@@ -312,6 +362,15 @@ export default function TedPage() {
           <div className="text-[11px] text-zinc-600">
             Identifies regression-to-mean opportunities. Green = underperforming xG (due to improve). Red = overperforming (due to decline).
           </div>
+          {data.usingVenueSplits ? (
+            <div className="mt-1 text-[10px] text-green-600">
+              Using home/away xG splits (scraped {data.scrapedAt ? new Date(data.scrapedAt).toLocaleDateString() : "recently"})
+            </div>
+          ) : (
+            <div className="mt-1 text-[10px] text-yellow-600">
+              Using overall xG (run scrape-understat.js for venue splits)
+            </div>
+          )}
         </div>
         <button
           onClick={() => setShowGuide(!showGuide)}
@@ -344,7 +403,15 @@ export default function TedPage() {
             </ul>
           </div>
           <div>
-            <span className="font-medium text-blue-400">4. Key insight from Ted Knutson:</span> Defensive underperformance (conceding way more than xGA) is the <strong>most reliable</strong> regression signal. Attack overperformance (scoring way more than xG) is <strong>fragile</strong> and regresses fast. Only bet ~30% of matches.
+            <span className="font-medium text-blue-400">4. Bet grades</span> tell you how many positive factors align:
+            <ul className="mt-1 ml-4 space-y-1 text-zinc-400">
+              <li><span className="text-purple-400 font-bold">Grade A</span> = 3+ factors align (classic Ted bet — good team, reliable signal type, opponent regressing too)</li>
+              <li><span className="text-blue-400 font-bold">Grade B</span> = 2 factors (solid bet)</li>
+              <li><span className="text-zinc-400 font-bold">Grade C</span> = 1 factor (marginal — be cautious)</li>
+            </ul>
+          </div>
+          <div>
+            <span className="font-medium text-blue-400">5. Key insight from Ted Knutson:</span> Defensive underperformance (conceding way more than xGA) is the <strong>most reliable</strong> regression signal. Attack overperformance (scoring way more than xG) is <strong>fragile</strong> and regresses fast. Only bet ~30% of matches. A bad team with bad xG AND bad results isn&apos;t unlucky — they&apos;re just bad.
           </div>
         </div>
       )}
@@ -456,16 +523,15 @@ export default function TedPage() {
               <thead>
                 <tr className="border-b border-zinc-800 text-left text-zinc-500">
                   <th className="pb-2 pr-3">Team</th>
-                  <th className="pb-2 px-2 text-right">xG</th>
-                  <th className="pb-2 px-2 text-right">Goals</th>
-                  <th className="pb-2 px-2 text-right">xGA</th>
-                  <th className="pb-2 px-2 text-right">GA</th>
+                  <th className="pb-2 px-2 text-center">Quality</th>
+                  <th className="pb-2 px-2 text-right">xGD/m</th>
                   <th className="pb-2 px-2 text-right">Atk Var</th>
                   <th className="pb-2 px-2 text-right">Def Var</th>
                   <th className="pb-2 px-2 text-right">Total</th>
                   <th className="pb-2 px-2 text-center">Signal</th>
                   <th className="pb-2 px-2 text-center">Dir</th>
                   <th className="pb-2 px-2">Confidence</th>
+                  <th className="pb-2 px-2 text-center">Flags</th>
                 </tr>
               </thead>
               <tbody>
@@ -477,17 +543,11 @@ export default function TedPage() {
                     <td className="py-2 pr-3 font-medium text-zinc-200 whitespace-nowrap">
                       {t.team}
                     </td>
-                    <td className="py-2 px-2 text-right font-mono text-zinc-400">
-                      {t.xG.toFixed(1)}
-                    </td>
-                    <td className="py-2 px-2 text-right font-mono text-zinc-300">
-                      {t.goals}
+                    <td className="py-2 px-2 text-center">
+                      <QualityBadge tier={t.qualityTier} />
                     </td>
                     <td className="py-2 px-2 text-right font-mono text-zinc-400">
-                      {t.xGA.toFixed(1)}
-                    </td>
-                    <td className="py-2 px-2 text-right font-mono text-zinc-300">
-                      {t.goalsConceded}
+                      {t.xGDPerMatch > 0 ? "+" : ""}{t.xGDPerMatch.toFixed(2)}
                     </td>
                     <td className="py-2 px-2 text-right">
                       <VarianceColor value={t.attackVariance} />
@@ -517,6 +577,11 @@ export default function TedPage() {
                     </td>
                     <td className="py-2 px-2">
                       <ConfidenceBar value={t.regressionConfidence} />
+                    </td>
+                    <td className="py-2 px-2 text-center text-[10px]">
+                      {t.persistentDefiance && (
+                        <span className="text-yellow-500" title="15+ matches without correction">PD</span>
+                      )}
                     </td>
                   </tr>
                 ))}
