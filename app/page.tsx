@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-interface TeamData {
-  team: string;
-  attack: number;
-  defense: number;
-  elo: number;
-}
+import SeasonSelector from "./components/season-selector";
 
 interface StandingRow {
   position: number;
@@ -20,15 +14,19 @@ interface StandingRow {
 
 export default function StandingsPage() {
   const [teams, setTeams] = useState<StandingRow[]>([]);
+  const [season, setSeason] = useState("2024-25");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [matchCount, setMatchCount] = useState(0);
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
       try {
-        const res = await fetch("/api/model");
+        const res = await fetch(`/api/model?season=${season}`);
         if (!res.ok) throw new Error("Failed to load model");
         const data = await res.json();
+        setMatchCount(data.matchCount || 0);
 
         const { params, elo } = data;
         const eloMap = new Map(elo.map((e: any) => [e.team, e.rating]));
@@ -53,13 +51,19 @@ export default function StandingsPage() {
       }
     }
     load();
-  }, []);
+  }, [season]);
 
-  if (loading) return <div className="py-20 text-center text-zinc-500">Fitting Dixon-Coles model...</div>;
+  if (loading) return <div className="py-20 text-center text-zinc-500">Fitting Dixon-Coles model for {season}...</div>;
   if (error) return <div className="py-20 text-center text-red-400">{error}</div>;
 
   return (
     <div>
+      {/* Season selector */}
+      <div className="mb-4 flex items-center gap-3">
+        <SeasonSelector value={season} onChange={setSeason} />
+        <span className="text-xs text-zinc-500">{matchCount} matches &middot; {teams.length} teams</span>
+      </div>
+
       {/* Summary Cards */}
       <div className="mb-6 grid grid-cols-4 gap-3">
         <div className="rounded-xl bg-zinc-900 p-4 text-center">

@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Standings" },
-  { href: "/power-rankings", label: "Power Rankings" },
+  { href: "/power-rankings", label: "Rankings" },
   { href: "/predictor", label: "Predictor" },
-  { href: "/xg", label: "xG Dashboard" },
+  { href: "/value", label: "Value Bets" },
+  { href: "/history", label: "History" },
+  { href: "/xg", label: "xG" },
   { href: "/fixtures", label: "Fixtures" },
-  { href: "/performance", label: "Model Perf" },
+  { href: "/performance", label: "Model" },
 ];
 
 export default function Nav() {
