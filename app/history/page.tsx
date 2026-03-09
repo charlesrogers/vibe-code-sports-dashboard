@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SeasonSelector from "../components/season-selector";
+import LeagueSelector from "../components/league-selector";
 import type { MatchWithOdds } from "@/lib/football-data-uk";
 
 interface SeasonStats {
@@ -143,6 +144,7 @@ function calculateTeamTable(matches: MatchWithOdds[]): TeamSeason[] {
 
 export default function HistoryPage() {
   const [season, setSeason] = useState("2025-26");
+  const [league, setLeague] = useState("serieA");
   const [matches, setMatches] = useState<MatchWithOdds[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<"overview" | "table" | "matches">("overview");
@@ -151,7 +153,7 @@ export default function HistoryPage() {
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/odds?season=${season}`);
+        const res = await fetch(`/api/odds?season=${season}&league=${league}`);
         const data = await res.json();
         setMatches(data.matches || []);
       } catch {
@@ -160,7 +162,7 @@ export default function HistoryPage() {
       }
     }
     load();
-  }, [season]);
+  }, [season, league]);
 
   if (loading) return <div className="py-20 text-center text-zinc-500">Loading {season} data...</div>;
 
@@ -171,6 +173,7 @@ export default function HistoryPage() {
     <div>
       {/* Header */}
       <div className="mb-4 flex flex-wrap items-center gap-3">
+        <LeagueSelector value={league} onChange={setLeague} />
         <SeasonSelector value={season} onChange={setSeason} />
         <div className="flex gap-1">
           {(["overview", "table", "matches"] as const).map((t) => (

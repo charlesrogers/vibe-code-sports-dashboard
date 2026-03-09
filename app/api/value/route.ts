@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchMatchesWithOdds, findValueBets, type MatchWithOdds, type ValueBet } from "@/lib/football-data-uk";
-import { fetchOpenFootballMatches } from "@/lib/openfootball";
+import { fetchMatchesWithOdds, findValueBets, type ValueBet, type League as UKLeague } from "@/lib/football-data-uk";
+import { fetchOpenFootballMatches, type League } from "@/lib/openfootball";
 import { fitDixonColes, predictMatch } from "@/lib/models/dixon-coles";
 import { derive1X2, deriveOverUnder } from "@/lib/betting/markets";
 import { DixonColesParams } from "@/lib/types";
 
 const paramCache = new Map<string, { params: DixonColesParams; time: number }>();
 
-async function getParams(season: string): Promise<DixonColesParams> {
-  const cached = paramCache.get(season);
+async function getParams(season: string, league: League): Promise<DixonColesParams> {
+  const key = `${league}:${season}`;
+  const cached = paramCache.get(key);
   if (cached && Date.now() - cached.time < 3600000) return cached.params;
-  // Include current season + prior season for better estimates
   const seasons = [season];
   const prev = getPriorSeason(season);
   if (prev) seasons.push(prev);
-  const matches = await fetchOpenFootballMatches(seasons);
+  const matches = await fetchOpenFootballMatches(seasons, league);
   const params = fitDixonColes(matches);
-  paramCache.set(season, { params, time: Date.now() });
+  paramCache.set(key, { params, time: Date.now() });
   return params;
 }
 
@@ -29,19 +29,19 @@ function getPriorSeason(s: string): string | null {
 }
 
 export async function GET(request: NextRequest) {
-  const season = request.nextUrl.searchParams.get("season") || "2024-25";
+  const season = request.nextUrl.searchParams.get("season") || "2025-26";
+  const league = (request.nextUrl.searchParams.get("league") || "serieA") as League;
   const minEdge = parseFloat(request.nextUrl.searchParams.get("minEdge") || "0.03");
 
   try {
     const [params, oddsMatches] = await Promise.all([
-      getParams(season),
-      fetchMatchesWithOdds(season),
+      getParams(season, league),
+      fetchMatchesWithOdds(season, league as UKLeague),
     ]);
 
     const valueBets: ValueBet[] = [];
 
     for (const m of oddsMatches) {
-      // Check if both teams exist in model
       if (!(m.homeTeam in params.attack) || !(m.awayTeam in params.attack)) continue;
 
       const grid = predictMatch(m.homeTeam, m.awayTeam, params);
@@ -58,13 +58,11 @@ export async function GET(request: NextRequest) {
 
       const bets = findValueBets(modelProbs, m, minEdge);
 
-      // Determine actual result for backtesting
       for (const bet of bets) {
         bet.date = m.date;
         bet.homeTeam = m.homeTeam;
         bet.awayTeam = m.awayTeam;
 
-        // Check if bet would have won
         if (m.result) {
           const totalGoals = m.homeGoals + m.awayGoals;
           if (bet.market === "Home") bet.result = m.result === "H" ? "W" : "L";
@@ -78,7 +76,6 @@ export async function GET(request: NextRequest) {
       valueBets.push(...bets);
     }
 
-    // Calculate P&L summary
     const settled = valueBets.filter((b) => b.result);
     const wins = settled.filter((b) => b.result === "W");
     const totalStaked = settled.length;
@@ -87,6 +84,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       season,
+      league,
       minEdge,
       valueBets: valueBets.sort((a, b) => b.edge - a.edge),
       summary: {

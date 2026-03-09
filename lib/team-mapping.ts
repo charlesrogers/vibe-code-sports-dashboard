@@ -34,8 +34,26 @@ const TEAM_MAP: Record<string, SourceMap> = {
   "Sassuolo": { footballData: "US Sassuolo Calcio", openfootball: "US Sassuolo Calcio", understat: "Sassuolo" },
   "Frosinone": { footballData: "Frosinone Calcio", openfootball: "Frosinone Calcio", understat: "Frosinone" },
   "Cremonese": { footballData: "US Cremonese", openfootball: "US Cremonese", understat: "Cremonese" },
-  "Sampdoria": { footballData: "UC Sampdoria", openfootball: "UC Sampdoria", understat: "Sampdoria" },
+  "Sampdoria": { footballData: "UC Sampdoria", openfootball: "Sampdoria", understat: "Sampdoria" },
   "Spezia": { footballData: "Spezia Calcio", openfootball: "Spezia Calcio", understat: "Spezia" },
+  // Serie B teams
+  "Bari": { footballData: "SSC Bari", openfootball: "SSC Bari", understat: "Bari" },
+  "Palermo": { footballData: "Palermo FC", openfootball: "Palermo FC", understat: "Palermo" },
+  "Brescia": { footballData: "Brescia Calcio", openfootball: "Brescia Calcio", understat: "Brescia" },
+  "Cittadella": { footballData: "AS Cittadella", openfootball: "AS Cittadella", understat: "Cittadella" },
+  "Cosenza": { footballData: "Cosenza Calcio", openfootball: "Cosenza Calcio", understat: "Cosenza" },
+  "Reggiana": { footballData: "AC Reggiana 1919", openfootball: "AC Reggiana 1919", understat: "Reggiana" },
+  "Catanzaro": { footballData: "US Catanzaro", openfootball: "US Catanzaro", understat: "Catanzaro" },
+  "Sudtirol": { footballData: "FC Südtirol", openfootball: "FC Südtirol", understat: "Sudtirol" },
+  "Modena": { footballData: "Modena FC", openfootball: "Modena FC", understat: "Modena" },
+  "Carrarese": { footballData: "Carrarese Calcio", openfootball: "Carrarese Calcio", understat: "Carrarese" },
+  "Juve Stabia": { footballData: "Juve Stabia", openfootball: "Juve Stabia", understat: "Juve Stabia" },
+  "Mantova": { footballData: "Mantova 1911 SSD", openfootball: "Mantova 1911 SSD", understat: "Mantova" },
+  "Cesena": { footballData: "Cesena FC", openfootball: "Cesena FC", understat: "Cesena" },
+  "Padova": { footballData: "Calcio Padova", openfootball: "Calcio Padova", understat: "Padova" },
+  "Pescara": { footballData: "Delfino Pescara", openfootball: "Delfino Pescara", understat: "Pescara" },
+  "Avellino": { footballData: "US Avellino", openfootball: "US Avellino", understat: "Avellino" },
+  "Virtus Entella": { footballData: "Virtus Entella", openfootball: "Virtus Entella", understat: "Virtus Entella" },
 };
 
 // Build reverse lookup maps

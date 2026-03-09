@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SeasonSelector from "./components/season-selector";
+import LeagueSelector from "./components/league-selector";
 
 interface StandingRow {
   position: number;
@@ -15,6 +16,7 @@ interface StandingRow {
 export default function StandingsPage() {
   const [teams, setTeams] = useState<StandingRow[]>([]);
   const [season, setSeason] = useState("2025-26");
+  const [league, setLeague] = useState("serieA");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [matchCount, setMatchCount] = useState(0);
@@ -23,7 +25,7 @@ export default function StandingsPage() {
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/model?season=${season}`);
+        const res = await fetch(`/api/model?season=${season}&league=${league}`);
         if (!res.ok) throw new Error("Failed to load model");
         const data = await res.json();
         setMatchCount(data.matchCount || 0);
@@ -51,7 +53,7 @@ export default function StandingsPage() {
       }
     }
     load();
-  }, [season]);
+  }, [season, league]);
 
   if (loading) return <div className="py-20 text-center text-zinc-500">Fitting Dixon-Coles model for {season}...</div>;
   if (error) return <div className="py-20 text-center text-red-400">{error}</div>;
@@ -60,6 +62,7 @@ export default function StandingsPage() {
     <div>
       {/* Season selector */}
       <div className="mb-4 flex items-center gap-3">
+        <LeagueSelector value={league} onChange={setLeague} />
         <SeasonSelector value={season} onChange={setSeason} />
         <span className="text-xs text-zinc-500">{matchCount} matches &middot; {teams.length} teams</span>
       </div>

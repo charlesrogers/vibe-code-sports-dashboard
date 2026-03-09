@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LeagueSelector from "../components/league-selector";
 
 interface Prediction {
   date: string;
@@ -21,14 +22,16 @@ interface Prediction {
 
 export default function LiveBetsPage() {
   const [fixtures, setFixtures] = useState<Prediction[]>([]);
+  const [league, setLeague] = useState("serieA");
   const [loading, setLoading] = useState(true);
   const [selectedRound, setSelectedRound] = useState<number | "all">("all");
   const [sortBy, setSortBy] = useState<"date" | "homeProb" | "overUnder">("date");
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
       try {
-        const res = await fetch("/api/live-bets");
+        const res = await fetch(`/api/live-bets?league=${league}`);
         const data = await res.json();
         setFixtures(data.fixtures || []);
         // Auto-select the nearest upcoming round
@@ -42,7 +45,7 @@ export default function LiveBetsPage() {
       }
     }
     load();
-  }, []);
+  }, [league]);
 
   const rounds = [...new Set(fixtures.map((f) => f.round))].sort() as number[];
 
@@ -61,11 +64,12 @@ export default function LiveBetsPage() {
   return (
     <div>
       <div className="mb-4 text-sm text-zinc-400">
-        Dixon-Coles model predictions for upcoming Serie A 2025-26 fixtures. Fair odds have zero margin — compare with your bookmaker to find value.
+        Dixon-Coles model predictions for upcoming {league === "serieB" ? "Serie B" : "Serie A"} 2025-26 fixtures. Fair odds have zero margin — compare with your bookmaker to find value.
       </div>
 
       {/* Controls */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
+        <LeagueSelector value={league} onChange={setLeague} />
         <div className="flex items-center gap-2">
           <label className="text-xs text-zinc-500">Matchday:</label>
           <select

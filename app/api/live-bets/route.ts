@@ -1,27 +1,32 @@
-import { NextResponse } from "next/server";
-import { fetchOpenFootballMatches, fetchUpcomingFixtures } from "@/lib/openfootball";
+import { NextRequest, NextResponse } from "next/server";
+import { fetchOpenFootballMatches, fetchUpcomingFixtures, type League } from "@/lib/openfootball";
 import { fitDixonColes, predictMatch } from "@/lib/models/dixon-coles";
 import { derive1X2, deriveOverUnder, deriveBTTS } from "@/lib/betting/markets";
 import { calculateEloRatings } from "@/lib/models/elo";
 import { DixonColesParams } from "@/lib/types";
 
-let cached: { params: DixonColesParams; eloMap: Map<string, number>; time: number } | null = null;
+const modelCache = new Map<string, { params: DixonColesParams; eloMap: Map<string, number>; time: number }>();
 
-async function getModel() {
+async function getModel(league: League) {
+  const cached = modelCache.get(league);
   if (cached && Date.now() - cached.time < 3600000) return cached;
-  const matches = await fetchOpenFootballMatches(["2025-26", "2024-25"]);
+  const seasons = league === "serieB" ? ["2025-26", "2024-25"] : ["2025-26", "2024-25"];
+  const matches = await fetchOpenFootballMatches(seasons, league);
   const params = fitDixonColes(matches);
   const elo = calculateEloRatings(matches);
   const eloMap = new Map(elo.map((e) => [e.team, e.rating]));
-  cached = { params, eloMap, time: Date.now() };
-  return cached;
+  const result = { params, eloMap, time: Date.now() };
+  modelCache.set(league, result);
+  return result;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const league = (request.nextUrl.searchParams.get("league") || "serieA") as League;
+
   try {
     const [model, fixtures] = await Promise.all([
-      getModel(),
-      fetchUpcomingFixtures("2025-26"),
+      getModel(league),
+      fetchUpcomingFixtures("2025-26", league),
     ]);
 
     const { params, eloMap } = model;
@@ -36,7 +41,6 @@ export async function GET() {
         const ou35 = deriveOverUnder(grid, 3.5);
         const btts = deriveBTTS(grid);
 
-        // Expected goals from the grid
         let expHome = 0, expAway = 0;
         for (let h = 0; h < grid.length; h++) {
           for (let a = 0; a < grid[h].length; a++) {
@@ -45,7 +49,6 @@ export async function GET() {
           }
         }
 
-        // Fair decimal odds (no margin)
         const fairOdds = (p: number) => p > 0.01 ? Math.round((1 / p) * 100) / 100 : 99;
 
         return {
@@ -74,7 +77,6 @@ export async function GET() {
         };
       });
 
-    // Group by round
     const byRound: Record<number, typeof predictions> = {};
     for (const p of predictions) {
       const r = p.round || 0;
@@ -83,6 +85,7 @@ export async function GET() {
     }
 
     return NextResponse.json({
+      league,
       fixtures: predictions,
       byRound,
       totalFixtures: predictions.length,

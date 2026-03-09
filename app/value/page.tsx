@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SeasonSelector from "../components/season-selector";
+import LeagueSelector from "../components/league-selector";
 
 interface ValueBet {
   date: string;
@@ -28,6 +29,7 @@ interface Summary {
 
 export default function ValueBetsPage() {
   const [season, setSeason] = useState("2025-26");
+  const [league, setLeague] = useState("serieA");
   const [minEdge, setMinEdge] = useState(5);
   const [bets, setBets] = useState<ValueBet[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -38,7 +40,7 @@ export default function ValueBetsPage() {
     async function load() {
       setLoading(true);
       try {
-        const res = await fetch(`/api/value?season=${season}&minEdge=${minEdge / 100}`);
+        const res = await fetch(`/api/value?season=${season}&league=${league}&minEdge=${minEdge / 100}`);
         const data = await res.json();
         setBets(data.valueBets || []);
         setSummary(data.summary || null);
@@ -48,7 +50,7 @@ export default function ValueBetsPage() {
       }
     }
     load();
-  }, [season, minEdge]);
+  }, [season, league, minEdge]);
 
   const filtered = filter === "all" ? bets : bets.filter((b) => b.result === filter);
 
@@ -58,6 +60,7 @@ export default function ValueBetsPage() {
     <div>
       {/* Controls */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
+        <LeagueSelector value={league} onChange={setLeague} />
         <SeasonSelector value={season} onChange={setSeason} />
         <div className="flex items-center gap-2">
           <label className="text-xs text-zinc-500">Min Edge %:</label>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LeagueSelector from "../components/league-selector";
 
 interface FixturePrediction {
   date: string;
@@ -18,12 +19,14 @@ interface FixturePrediction {
 
 export default function FixturesPage() {
   const [fixtures, setFixtures] = useState<FixturePrediction[]>([]);
+  const [league, setLeague] = useState("serieA");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
+      setLoading(true);
       try {
-        const res = await fetch("/api/live-bets");
+        const res = await fetch(`/api/live-bets?league=${league}`);
         const data = await res.json();
 
         const mapped: FixturePrediction[] = (data.fixtures || []).map((f: any) => ({
@@ -48,7 +51,7 @@ export default function FixturesPage() {
       }
     }
     load();
-  }, []);
+  }, [league]);
 
   if (loading) return <div className="py-20 text-center text-zinc-500">Generating predictions for upcoming fixtures...</div>;
 
@@ -57,9 +60,12 @@ export default function FixturesPage() {
 
   return (
     <div>
-      <p className="mb-4 text-sm text-zinc-400">
-        Upcoming Serie A 2025-26 fixtures with Dixon-Coles model predictions.
-      </p>
+      <div className="mb-4 flex items-center gap-3">
+        <LeagueSelector value={league} onChange={setLeague} />
+        <span className="text-sm text-zinc-400">
+          Upcoming {league === "serieB" ? "Serie B" : "Serie A"} 2025-26 fixtures with Dixon-Coles model predictions.
+        </span>
+      </div>
 
       <div className="space-y-3">
         {fixtures.map((f, i) => (

@@ -14,14 +14,32 @@ interface OpenFootballSeason {
   matches: OpenFootballMatch[];
 }
 
-const SEASONS = ["2025-26", "2024-25", "2023-24", "2022-23"];
+export type League = "serieA" | "serieB";
 
-export async function fetchOpenFootballMatches(seasons: string[] = SEASONS): Promise<Match[]> {
+const LEAGUE_FILES: Record<League, string> = {
+  serieA: "it.1",
+  serieB: "it.2",
+};
+
+// Serie B only available from 2024-25 on openfootball
+const SEASONS_A = ["2025-26", "2024-25", "2023-24", "2022-23"];
+const SEASONS_B = ["2025-26", "2024-25"];
+
+export function getDefaultSeasons(league: League): string[] {
+  return league === "serieB" ? SEASONS_B : SEASONS_A;
+}
+
+export async function fetchOpenFootballMatches(
+  seasons?: string[],
+  league: League = "serieA"
+): Promise<Match[]> {
+  const effectiveSeasons = seasons || getDefaultSeasons(league);
+  const leagueFile = LEAGUE_FILES[league];
   const all: Match[] = [];
 
-  for (const season of seasons) {
+  for (const season of effectiveSeasons) {
     try {
-      const url = `https://raw.githubusercontent.com/openfootball/football.json/master/${season}/it.1.json`;
+      const url = `https://raw.githubusercontent.com/openfootball/football.json/master/${season}/${leagueFile}.json`;
       const res = await fetch(url, { next: { revalidate: 86400 } });
       if (!res.ok) continue;
 
@@ -33,7 +51,7 @@ export async function fetchOpenFootballMatches(seasons: string[] = SEASONS): Pro
 
         const roundMatch = m.round.match(roundRegex);
         all.push({
-          id: `of-${season}-${m.date}-${m.team1}-${m.team2}`,
+          id: `of-${league}-${season}-${m.date}-${m.team1}-${m.team2}`,
           date: m.date,
           homeTeam: normalizeTeamName(m.team1, "openfootball"),
           awayTeam: normalizeTeamName(m.team2, "openfootball"),
@@ -44,15 +62,15 @@ export async function fetchOpenFootballMatches(seasons: string[] = SEASONS): Pro
         });
       }
     } catch {
-      console.warn(`Failed to fetch openfootball data for ${season}`);
+      console.warn(`Failed to fetch openfootball ${league} data for ${season}`);
     }
   }
 
   return all.sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export async function fetchCurrentSeasonMatches(): Promise<Match[]> {
-  return fetchOpenFootballMatches(["2025-26"]);
+export async function fetchCurrentSeasonMatches(league: League = "serieA"): Promise<Match[]> {
+  return fetchOpenFootballMatches(["2025-26"], league);
 }
 
 export interface UpcomingFixture {
@@ -62,9 +80,13 @@ export interface UpcomingFixture {
   round?: number;
 }
 
-export async function fetchUpcomingFixtures(season: string = "2025-26"): Promise<UpcomingFixture[]> {
+export async function fetchUpcomingFixtures(
+  season: string = "2025-26",
+  league: League = "serieA"
+): Promise<UpcomingFixture[]> {
+  const leagueFile = LEAGUE_FILES[league];
   try {
-    const url = `https://raw.githubusercontent.com/openfootball/football.json/master/${season}/it.1.json`;
+    const url = `https://raw.githubusercontent.com/openfootball/football.json/master/${season}/${leagueFile}.json`;
     const res = await fetch(url, { next: { revalidate: 3600 } });
     if (!res.ok) return [];
 

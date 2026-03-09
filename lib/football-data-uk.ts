@@ -117,6 +117,24 @@ function normalizeUKTeamName(name: string): string {
     "Venezia": "Venezia",
     "Verona": "Verona",
     "Pisa": "Pisa",
+    // Serie B teams
+    "Bari": "Bari",
+    "Palermo": "Palermo",
+    "Brescia": "Brescia",
+    "Cittadella": "Cittadella",
+    "Cosenza": "Cosenza",
+    "Reggiana": "Reggiana",
+    "Catanzaro": "Catanzaro",
+    "Sudtirol": "Sudtirol",
+    "Modena": "Modena",
+    "Carrarese": "Carrarese",
+    "Juve Stabia": "Juve Stabia",
+    "Mantova": "Mantova",
+    "Cesena": "Cesena",
+    "Padova": "Padova",
+    "Pescara": "Pescara",
+    "Avellino": "Avellino",
+    "Virtus Entella": "Virtus Entella",
   };
   return ukMap[name] ?? name;
 }
@@ -132,11 +150,19 @@ const SEASON_CODES: Record<string, string> = {
   "2018-19": "1819",
 };
 
-export async function fetchMatchesWithOdds(season: string): Promise<MatchWithOdds[]> {
+export type League = "serieA" | "serieB";
+
+const LEAGUE_FILES: Record<League, string> = {
+  serieA: "I1",
+  serieB: "I2",
+};
+
+export async function fetchMatchesWithOdds(season: string, league: League = "serieA"): Promise<MatchWithOdds[]> {
   const code = SEASON_CODES[season];
   if (!code) return [];
 
-  const url = `https://www.football-data.co.uk/mmz4281/${code}/I1.csv`;
+  const leagueFile = LEAGUE_FILES[league];
+  const url = `https://www.football-data.co.uk/mmz4281/${code}/${leagueFile}.csv`;
 
   try {
     const res = await fetch(url, { next: { revalidate: 3600 } });
