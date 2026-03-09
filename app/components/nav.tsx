@@ -11,6 +11,7 @@ const links = [
   { href: "/power-rankings", label: "Rankings" },
   { href: "/predictor", label: "Predictor" },
   { href: "/value", label: "Value Bets" },
+  { href: "/ted", label: "Ted" },
   { href: "/history", label: "History" },
   { href: "/xg", label: "xG" },
   { href: "/fixtures", label: "Fixtures" },
