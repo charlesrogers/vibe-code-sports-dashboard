@@ -98,7 +98,7 @@ interface EvalResponse {
   };
   tedOverlay?: TedOverlayEntry[];
   seasonBreakdown?: SeasonBreakdown[];
-  clv?: Record<string, number>;
+  clv?: Record<string, { avgCLV: number; matchesWithOdds: number }>;
 }
 
 type Tab = "scorecard" | "calibration" | "gamelog" | "methodology";
@@ -177,7 +177,7 @@ function TedOverlayTable({ overlay }: { overlay: TedOverlayEntry[] }) {
   );
 }
 
-function ClvSection({ clv }: { clv: Record<string, number> }) {
+function ClvSection({ clv }: { clv: Record<string, { avgCLV: number; matchesWithOdds: number }> }) {
   return (
     <div className="mb-6 border border-zinc-800 rounded-lg p-4">
       <h3 className="text-sm font-semibold text-zinc-400 mb-2 uppercase tracking-wide">CLV — Closing Line Value</h3>
@@ -185,14 +185,18 @@ function ClvSection({ clv }: { clv: Record<string, number> }) {
         Average edge vs closing market odds. Positive CLV = model finds real edges the market prices out by close.
       </p>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {Object.entries(clv).map(([model, value]) => (
-          <div key={model} className={`rounded border p-3 text-center ${value > 0 ? "border-green-700 bg-green-950/30" : value < 0 ? "border-red-700 bg-red-950/30" : "border-zinc-800 bg-zinc-900"}`}>
-            <div className={`text-xl font-bold font-mono ${value > 0 ? "text-green-400" : value < 0 ? "text-red-400" : "text-zinc-400"}`}>
-              {value > 0 ? "+" : ""}{value.toFixed(1)}%
+        {Object.entries(clv).map(([model, entry]) => {
+          const v = entry.avgCLV;
+          return (
+            <div key={model} className={`rounded border p-3 text-center ${v > 0 ? "border-green-700 bg-green-950/30" : v < 0 ? "border-red-700 bg-red-950/30" : "border-zinc-800 bg-zinc-900"}`}>
+              <div className={`text-xl font-bold font-mono ${v > 0 ? "text-green-400" : v < 0 ? "text-red-400" : "text-zinc-400"}`}>
+                {v > 0 ? "+" : ""}{(v * 100).toFixed(1)}%
+              </div>
+              <div className="text-xs text-zinc-400">{model}</div>
+              <div className="text-[10px] text-zinc-600">{entry.matchesWithOdds} matches</div>
             </div>
-            <div className="text-xs text-zinc-400">{model}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

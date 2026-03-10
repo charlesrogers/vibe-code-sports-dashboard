@@ -15,6 +15,8 @@
  * Supports multi-season evaluation via ?season=multi for statistical significance.
  */
 
+import fs from "fs";
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import type { Match } from "@/lib/types";
 import { fetchOpenFootballMatches, type League } from "@/lib/openfootball";
@@ -661,14 +663,44 @@ function autoSaveResult(result: Record<string, unknown>, league: string, season:
   }
 }
 
+function cachedResponse(data: unknown) {
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+    },
+  });
+}
+
+function tryLoadFromDisk(league: string, seasonKey: string): unknown | null {
+  try {
+    const evalFile = path.join(process.cwd(), "data", "evaluations", `eval-${league}-${seasonKey}.json`);
+    if (fs.existsSync(evalFile)) {
+      const stat = fs.statSync(evalFile);
+      const ageMs = Date.now() - stat.mtimeMs;
+      if (ageMs < CACHE_TTL) {
+        return JSON.parse(fs.readFileSync(evalFile, "utf-8"));
+      }
+    }
+  } catch { /* ignore */ }
+  return null;
+}
+
 export async function GET(request: NextRequest) {
   const league = (request.nextUrl.searchParams.get("league") || "serieA") as League;
   const season = request.nextUrl.searchParams.get("season") || "2025-26";
   const isMulti = season === "multi";
 
   const cacheKey = `${league}-${season}`;
+  // In-memory cache (survives across requests in same serverless instance)
   if (evalCache && evalCache.league === cacheKey && Date.now() - evalCache.ts < CACHE_TTL) {
-    return NextResponse.json(evalCache.result);
+    return cachedResponse(evalCache.result);
+  }
+
+  // Disk cache (survives cold starts on Vercel)
+  const diskCached = tryLoadFromDisk(league, isMulti ? "multi" : season);
+  if (diskCached) {
+    evalCache = { league: cacheKey, result: diskCached, ts: Date.now() };
+    return cachedResponse(diskCached);
   }
 
   try {
@@ -753,7 +785,7 @@ export async function GET(request: NextRequest) {
 
       evalCache = { league: cacheKey, result, ts: Date.now() };
       autoSaveResult(result, league, "multi");
-      return NextResponse.json(result);
+      return cachedResponse(result);
     } else {
       // ===== SINGLE-SEASON EVALUATION (existing behavior) =====
       const testMatches = allMatches.filter((m) => m.season === season);
@@ -928,7 +960,7 @@ export async function GET(request: NextRequest) {
 
       evalCache = { league: cacheKey, result, ts: Date.now() };
       autoSaveResult(result, league, season);
-      return NextResponse.json(result);
+      return cachedResponse(result);
     }
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Unknown error";

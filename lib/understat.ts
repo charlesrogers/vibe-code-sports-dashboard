@@ -82,6 +82,7 @@ export async function fetchUnderstatVenueSplitXg(
         "User-Agent": "Mozilla/5.0",
         "X-Requested-With": "XMLHttpRequest",
       },
+      signal: AbortSignal.timeout(15000),
       next: { revalidate: 3600 }, // 1 hour cache
     }
   );

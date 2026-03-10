@@ -29,7 +29,7 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
           "User-Agent": "Mozilla/5.0",
           "X-Requested-With": "XMLHttpRequest",
         },
-        signal: AbortSignal.timeout(10000),
+        signal: AbortSignal.timeout(15000),
       }
     );
 
@@ -39,7 +39,7 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
         status: "broken",
         lastUpdated: null,
         detail: `API returned HTTP ${res.status}`,
-        critical: true,
+        critical: false, // not critical — file cache fallback exists
         usedBy,
       };
     }
@@ -53,7 +53,7 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
         status: "broken",
         lastUpdated: null,
         detail: "API responded but returned no team data",
-        critical: true,
+        critical: false,
         usedBy,
       };
     }
@@ -63,7 +63,7 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
       status: "healthy",
       lastUpdated: new Date().toISOString(),
       detail: `Live API responding with ${teamCount} teams and venue-split xG`,
-      critical: true,
+      critical: false,
       usedBy,
     };
   } catch (e) {
@@ -72,7 +72,7 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
       status: "broken",
       lastUpdated: null,
       detail: `Fetch failed: ${e instanceof Error ? e.message : String(e)}`,
-      critical: true,
+      critical: false, // file cache + football-data.co.uk odds provide fallback
       usedBy,
     };
   }
@@ -332,9 +332,25 @@ export async function GET() {
     checkInjuryData(),
   ]);
 
+  // Understat is only critical if BOTH live API AND file cache are broken
+  const understatLive = sources.find((s) => s.name === "Understat xG (Live API)");
+  const understatCache = sources.find((s) => s.name === "Understat xG (File Cache)");
+  const understatFullyDown = understatLive?.status !== "healthy" &&
+    (understatCache?.status === "broken" || understatCache?.status === "missing");
+
   const criticalIssues = sources.filter(
     (s) => s.critical && s.status !== "healthy"
   );
+  if (understatFullyDown) {
+    criticalIssues.push({
+      name: "Understat xG (all sources)",
+      status: "broken",
+      lastUpdated: null,
+      detail: "Both live API and file cache are unavailable",
+      critical: true,
+      usedBy: ["Ted Variance Model", "xG Analysis"],
+    });
+  }
 
   const hasCriticalIssue = criticalIssues.length > 0;
   const criticalMessage = hasCriticalIssue
