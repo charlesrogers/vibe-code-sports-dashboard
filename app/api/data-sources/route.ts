@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { getUnderstatCacheMeta } from "@/lib/understat-cache";
 
 interface DataSourceStatus {
   name: string;
@@ -79,46 +80,52 @@ async function checkUnderstatLiveApi(): Promise<DataSourceStatus> {
 }
 
 async function checkUnderstatXgCache(): Promise<DataSourceStatus> {
-  const name = "Understat xG (File Cache)";
-  const usedBy = ["Ted Variance Model (fallback)"];
-  const filePath = path.join(process.cwd(), "data", "xg-venue-split", "serieA.json");
+  const name = "Understat xG (Cached Data)";
+  const usedBy = ["Ted Variance Model", "Model Evaluation", "xG Analysis"];
 
   try {
-    if (!fs.existsSync(filePath)) {
+    // Check the unified cache metadata first
+    const meta = await getUnderstatCacheMeta();
+    const lastPull = meta.lastPull["serieA-2025"];
+
+    if (lastPull) {
+      const ageMs = Date.now() - new Date(lastPull).getTime();
+      const ageHours = ageMs / (1000 * 60 * 60);
+
       return {
         name,
-        status: "missing",
-        lastUpdated: null,
-        detail: "Cache file not found — run: node scripts/scrape-understat.js",
+        status: ageHours <= 48 ? "healthy" : "stale",
+        lastUpdated: lastPull,
+        detail: `Last successful pull: ${ageHours.toFixed(1)}h ago (${ageHours <= 48 ? "fresh" : "may need refresh"})`,
         critical: false,
         usedBy,
       };
     }
 
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const data = JSON.parse(raw);
-    const scrapedAt = data.scrapedAt as string | undefined;
-
-    if (!scrapedAt) {
-      return {
-        name,
-        status: "broken",
-        lastUpdated: null,
-        detail: "Cache file exists but has no scrapedAt timestamp",
-        critical: false,
-        usedBy,
-      };
+    // Fall back to legacy venue-split file
+    const filePath = path.join(process.cwd(), "data", "xg-venue-split", "serieA.json");
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const data = JSON.parse(raw);
+      const scrapedAt = data.scrapedAt as string | undefined;
+      if (scrapedAt) {
+        const ageHours = (Date.now() - new Date(scrapedAt).getTime()) / 3600000;
+        return {
+          name,
+          status: ageHours <= 48 ? "healthy" : "stale",
+          lastUpdated: scrapedAt,
+          detail: `Legacy cache: ${ageHours.toFixed(1)}h old with ${data.teams?.length ?? "?"} teams`,
+          critical: false,
+          usedBy,
+        };
+      }
     }
-
-    const scrapedDate = new Date(scrapedAt);
-    const ageMs = Date.now() - scrapedDate.getTime();
-    const ageHours = ageMs / (1000 * 60 * 60);
 
     return {
       name,
-      status: ageHours <= 48 ? "healthy" : "stale",
-      lastUpdated: scrapedAt,
-      detail: `Cached ${ageHours.toFixed(1)} hours ago with ${data.teams?.length ?? "?"} teams`,
+      status: "missing",
+      lastUpdated: null,
+      detail: "No cached Understat data found — will populate on first successful API call",
       critical: false,
       usedBy,
     };

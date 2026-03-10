@@ -10,6 +10,7 @@
 
 import type { TeamXg } from "./types";
 import { normalizeTeamName } from "./team-mapping";
+import { saveUnderstatCache, loadUnderstatCache, type UnderstatCacheEntry } from "./understat-cache";
 
 export interface VenueSplitXg {
   team: string;
@@ -180,6 +181,97 @@ export function aggregateXgBeforeDate(
   if (filtered.length < 3) return null; // need minimum data
 
   return aggregateMatches(teamHistory.team, filtered as UnderstatMatch[]);
+}
+
+// ---------------------------------------------------------------------------
+// Cache-through fetchers — try API first, save to cache, fall back to cache
+// ---------------------------------------------------------------------------
+
+/**
+ * Fetch Understat data with automatic caching. On success, persists to
+ * local disk AND Vercel Blob. On API failure, loads from cache.
+ *
+ * Returns both raw history and venue splits from a single API call.
+ */
+export async function fetchUnderstatCached(
+  league: string = "serieA",
+  season: string = "2025"
+): Promise<{ rawHistory: UnderstatTeamHistory[]; venueSplits: VenueSplitXg[]; source: string }> {
+  // Try live API first
+  try {
+    const slug = LEAGUE_SLUGS[league];
+    if (!slug) throw new Error(`Unsupported league: ${league}`);
+
+    const res = await fetch(
+      `https://understat.com/getLeagueData/${slug}/${season}`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        signal: AbortSignal.timeout(15000),
+        next: { revalidate: 3600 },
+      }
+    );
+
+    if (!res.ok) throw new Error(`Understat API returned ${res.status}`);
+    const data: UnderstatLeagueData = await res.json();
+    if (!data.teams || Object.keys(data.teams).length === 0) {
+      throw new Error("Understat returned no team data");
+    }
+
+    // Parse both formats from the single response
+    const rawHistory: UnderstatTeamHistory[] = [];
+    const venueSplits: VenueSplitXg[] = [];
+
+    for (const [, team] of Object.entries(data.teams)) {
+      const name = normalizeTeamName(team.title, "understat");
+      const homeMatches = team.history.filter((m) => m.h_a === "h");
+      const awayMatches = team.history.filter((m) => m.h_a === "a");
+
+      rawHistory.push({
+        team: name,
+        matches: team.history.map((m) => ({
+          date: m.date, h_a: m.h_a, xG: m.xG, xGA: m.xGA,
+          scored: m.scored, missed: m.missed,
+        })),
+      });
+
+      venueSplits.push({
+        team: name,
+        home: aggregateMatches(name, homeMatches),
+        away: aggregateMatches(name, awayMatches),
+        overall: aggregateMatches(name, team.history),
+      });
+    }
+
+    // Persist to cache (local + Blob) in background
+    const entry: UnderstatCacheEntry = {
+      league, season,
+      fetchedAt: new Date().toISOString(),
+      rawHistory, venueSplits,
+    };
+    saveUnderstatCache(entry).catch((e) =>
+      console.warn("[understat] Cache save failed:", e)
+    );
+
+    return { rawHistory, venueSplits, source: "understat-live" };
+  } catch (apiErr) {
+    console.warn(`[understat] API failed for ${league}/${season}:`, apiErr);
+  }
+
+  // API failed — try cache
+  const cached = await loadUnderstatCache(league, season);
+  if (cached && cached.rawHistory.length > 0) {
+    const ageHours = (Date.now() - new Date(cached.fetchedAt).getTime()) / 3600000;
+    return {
+      rawHistory: cached.rawHistory,
+      venueSplits: cached.venueSplits,
+      source: `cache (${ageHours.toFixed(0)}h old)`,
+    };
+  }
+
+  throw new Error(`Understat data unavailable for ${league}/${season} (API down, no cache)`);
 }
 
 /**

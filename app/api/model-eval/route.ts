@@ -24,7 +24,7 @@ import { fitDixonColes, predictMatch } from "@/lib/models/dixon-coles";
 import { calculateEloRatings, eloWinProbability } from "@/lib/models/elo";
 import { fitBayesianPoisson, bayesPredict1X2 } from "@/lib/models/bayesian-poisson";
 import { derive1X2 } from "@/lib/betting/markets";
-import { fetchUnderstatRawHistory, aggregateXgBeforeDate, type UnderstatTeamHistory } from "@/lib/understat";
+import { fetchUnderstatCached, aggregateXgBeforeDate, type UnderstatTeamHistory } from "@/lib/understat";
 import { calculateTeamVariance } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
 import { fetchMatchesWithOdds, type MatchWithOdds } from "@/lib/football-data-uk";
@@ -331,13 +331,14 @@ async function evaluateSingleSeasonEvals(
   const eloMap = new Map(eloRatings.map((e) => [e.team, e.rating]));
   const bayesParams = fitBayesianPoisson(training);
 
-  // Fetch raw Understat xG history for walk-forward Ted Variance
+  // Fetch raw Understat xG history for walk-forward Ted Variance (with cache fallback)
   let rawXgHistory: UnderstatTeamHistory[] | null = null;
   let xgSource = "none";
   if (understatYear) {
     try {
-      rawXgHistory = await fetchUnderstatRawHistory(league, understatYear);
-      xgSource = `understat-live (walk-forward, ${understatYear})`;
+      const cached = await fetchUnderstatCached(league, understatYear);
+      rawXgHistory = cached.rawHistory;
+      xgSource = `${cached.source} (walk-forward, ${understatYear})`;
     } catch {
       xgSource = "unavailable";
     }
@@ -804,12 +805,13 @@ export async function GET(request: NextRequest) {
       const eloMap = new Map(eloRatings.map((e) => [e.team, e.rating]));
       const bayesParams = fitBayesianPoisson(training);
 
-      // 3. Fetch raw Understat xG history for walk-forward Ted Variance
+      // 3. Fetch raw Understat xG history for walk-forward Ted Variance (with cache fallback)
       let rawXgHistory: UnderstatTeamHistory[] | null = null;
       let xgSource = "none";
       try {
-        rawXgHistory = await fetchUnderstatRawHistory(league);
-        xgSource = "understat-live (walk-forward)";
+        const cached = await fetchUnderstatCached(league);
+        rawXgHistory = cached.rawHistory;
+        xgSource = `${cached.source} (walk-forward)`;
       } catch {
         xgSource = "unavailable";
       }

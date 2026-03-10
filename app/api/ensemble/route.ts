@@ -19,7 +19,7 @@ import { calculateEloRatings, eloWinProbability } from "@/lib/models/elo";
 import { devigOdds } from "@/lib/models/composite";
 import { calculateTeamVariance, calculateAllVariance } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
-import { fetchUnderstatVenueSplitXg } from "@/lib/understat";
+import { fetchUnderstatCached } from "@/lib/understat";
 import { loadVenueSplitXg, getVenueXgForFixture } from "@/lib/venue-split-xg";
 import type { VenueSplitXg } from "@/lib/understat";
 import {
@@ -75,13 +75,14 @@ export async function GET(request: NextRequest) {
     let xgSource = "none";
 
     try {
-      venueSplits = await fetchUnderstatVenueSplitXg(league);
-      xgSource = "understat-live";
+      const result = await fetchUnderstatCached(league);
+      venueSplits = result.venueSplits;
+      xgSource = result.source;
     } catch {
       const cached = loadVenueSplitXg(league);
       if (cached) {
         venueSplits = cached.teams;
-        xgSource = "understat-cache";
+        xgSource = "legacy-file-cache";
       }
     }
 

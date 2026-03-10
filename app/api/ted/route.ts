@@ -6,7 +6,7 @@ import {
   calculateTeamVariance,
 } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
-import { fetchUnderstatVenueSplitXg } from "@/lib/understat";
+import { fetchUnderstatCached } from "@/lib/understat";
 import { loadVenueSplitXg, getVenueXgForFixture } from "@/lib/venue-split-xg";
 import type { VenueSplitXg } from "@/lib/understat";
 import type { League } from "@/lib/openfootball";
@@ -21,15 +21,15 @@ export async function GET(request: NextRequest) {
     let xgSource = "none";
 
     try {
-      venueSplits = await fetchUnderstatVenueSplitXg(league);
-      xgSource = "understat-live";
+      const result = await fetchUnderstatCached(league);
+      venueSplits = result.venueSplits;
+      xgSource = result.source;
     } catch (e) {
-      console.warn("Understat live API failed, trying file cache:", e);
-      // 2. Fall back to file cache from Playwright scrape
+      console.warn("Understat cached fetch failed, trying legacy file cache:", e);
       const cached = loadVenueSplitXg(league);
       if (cached) {
         venueSplits = cached.teams;
-        xgSource = "understat-cache";
+        xgSource = "legacy-file-cache";
       }
     }
 
