@@ -206,6 +206,32 @@ function transformRow(row, league, season, country) {
     pinnacleUnder25: safeFloat(row['P<2.5']),
     avgOver25: safeFloat(row['Avg>2.5'] || row['BbAv>2.5']),
     avgUnder25: safeFloat(row['Avg<2.5'] || row['BbAv<2.5']),
+    // Asian Handicap (opening)
+    ahLine: safeFloat(row['AHh'] || row['BbAHh']),
+    b365AHHome: safeFloat(row['B365AHH']),
+    b365AHAway: safeFloat(row['B365AHA']),
+    pinnacleAHHome: safeFloat(row['PAHH']),
+    pinnacleAHAway: safeFloat(row['PAHA']),
+    maxAHHome: safeFloat(row['MaxAHH'] || row['BbMxAHH']),
+    maxAHAway: safeFloat(row['MaxAHA'] || row['BbMxAHA']),
+    avgAHHome: safeFloat(row['AvgAHH'] || row['BbAvAHH']),
+    avgAHAway: safeFloat(row['AvgAHA'] || row['BbAvAHA']),
+    // Closing 1X2 odds (Pinnacle)
+    pinnacleCloseHome: safeFloat(row['PSCH']),
+    pinnacleCloseDraw: safeFloat(row['PSCD']),
+    pinnacleCloseAway: safeFloat(row['PSCA']),
+    avgCloseHome: safeFloat(row['AvgCH']),
+    avgCloseDraw: safeFloat(row['AvgCD']),
+    avgCloseAway: safeFloat(row['AvgCA']),
+    // Closing Asian Handicap
+    ahCloseLine: safeFloat(row['AHCh']),
+    pinnacleCloseAHHome: safeFloat(row['PCAHH']),
+    pinnacleCloseAHAway: safeFloat(row['PCAHA']),
+    avgCloseAHHome: safeFloat(row['AvgCAHH']),
+    avgCloseAHAway: safeFloat(row['AvgCAHA']),
+    // Closing Over/Under 2.5
+    pinnacleCloseOver25: safeFloat(row['PC>2.5']),
+    pinnacleCloseUnder25: safeFloat(row['PC<2.5']),
   };
 
   return match;
@@ -247,8 +273,8 @@ async function main() {
       const filename = `${div.name}-${season.label}.json`;
       const filepath = join(CACHE_DIR, filename);
 
-      // Check if already exists
-      if (existsSync(filepath)) {
+      // Force re-download to include new AH columns (pass --skip-existing to skip)
+      if (process.argv.includes('--skip-existing') && existsSync(filepath)) {
         console.log(`[${index}/${totalCombinations}] SKIP (exists): ${filename}`);
         skipped++;
         continue;
