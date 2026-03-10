@@ -1,7 +1,7 @@
 {
   "date": "2026-03-10",
   "model": "MI Bivariate Poisson + Variance v2",
-  "generated": "2026-03-10T21:19:52.579Z",
+  "generated": "2026-03-10T21:43:23.389Z",
   "filters": {
     "minEdge": 0.05,
     "maxOdds": 2.8,
@@ -13,19 +13,9 @@
       "league": "championship",
       "date": "14 Mar",
       "selection": "Sheffield Wednesday +1.5",
-      "edge": 0.303,
+      "edge": 0.284,
       "pinnacleOdds": 1.93,
-      "fairOdds": 1.29,
-      "signal": "model_only"
-    },
-    {
-      "match": "Bayer Leverkusen v Arsenal",
-      "league": "ucl",
-      "date": "11 Mar",
-      "selection": "Over 2.5",
-      "edge": 0.254,
-      "pinnacleOdds": 1.9,
-      "fairOdds": 1.31,
+      "fairOdds": 1.32,
       "signal": "model_only"
     },
     {
@@ -33,29 +23,19 @@
       "league": "championship",
       "date": "14 Mar",
       "selection": "Leicester -0.5",
-      "edge": 0.241,
+      "edge": 0.257,
       "pinnacleOdds": 2.15,
-      "fairOdds": 1.47,
+      "fairOdds": 1.44,
       "signal": "model_only"
     },
     {
-      "match": "Real Madrid v Manchester City",
+      "match": "Paris Saint Germain v Chelsea",
       "league": "ucl",
       "date": "11 Mar",
-      "selection": "Real Madrid +0.5",
-      "edge": 0.214,
-      "pinnacleOdds": 1.87,
-      "fairOdds": 1.36,
-      "signal": "model_only"
-    },
-    {
-      "match": "Birmingham City v Queens Park Rangers",
-      "league": "championship",
-      "date": "11 Mar",
-      "selection": "Under 2.5",
-      "edge": 0.213,
-      "pinnacleOdds": 1.87,
-      "fairOdds": 1.37,
+      "selection": "Chelsea +0.5",
+      "edge": 0.206,
+      "pinnacleOdds": 1.95,
+      "fairOdds": 1.42,
       "signal": "model_only"
     },
     {
@@ -63,29 +43,39 @@
       "league": "championship",
       "date": "10 Mar",
       "selection": "Sheffield Wednesday +0.5",
-      "edge": 0.169,
+      "edge": 0.186,
       "pinnacleOdds": 1.76,
-      "fairOdds": 1.4,
+      "fairOdds": 1.36,
       "signal": "model_only"
     },
     {
-      "match": "West Bromwich Albion v Southampton",
-      "league": "championship",
-      "date": "11 Mar",
-      "selection": "Over 2.5",
-      "edge": 0.147,
-      "pinnacleOdds": 1.97,
-      "fairOdds": 1.57,
-      "signal": "model_only"
-    },
-    {
-      "match": "Paris Saint Germain v Chelsea",
+      "match": "Bayer Leverkusen v Arsenal",
       "league": "ucl",
       "date": "11 Mar",
-      "selection": "Paris Saint Germain -0.5",
-      "edge": 0.115,
-      "pinnacleOdds": 1.95,
-      "fairOdds": 1.63,
+      "selection": "Bayer Leverkusen +1.5",
+      "edge": 0.153,
+      "pinnacleOdds": 1.5,
+      "fairOdds": 1.28,
+      "signal": "model_only"
+    },
+    {
+      "match": "Real Madrid v Manchester City",
+      "league": "ucl",
+      "date": "11 Mar",
+      "selection": "Real Madrid +0.5",
+      "edge": 0.145,
+      "pinnacleOdds": 1.87,
+      "fairOdds": 1.5,
+      "signal": "model_only"
+    },
+    {
+      "match": "Stoke City v Watford",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Stoke City -0.5",
+      "edge": 0.084,
+      "pinnacleOdds": 2.46,
+      "fairOdds": 2.14,
       "signal": "model_only"
     },
     {
@@ -93,19 +83,9 @@
       "league": "championship",
       "date": "16 Mar",
       "selection": "Derby County +0.5",
-      "edge": 0.085,
+      "edge": 0.079,
       "pinnacleOdds": 1.78,
-      "fairOdds": 1.61,
-      "signal": "model_only"
-    },
-    {
-      "match": "Stoke City v Watford",
-      "league": "championship",
-      "date": "14 Mar",
-      "selection": "Stoke City +1.5",
-      "edge": 0.078,
-      "pinnacleOdds": 1.13,
-      "fairOdds": 1.1,
+      "fairOdds": 1.63,
       "signal": "model_only"
     }
   ]

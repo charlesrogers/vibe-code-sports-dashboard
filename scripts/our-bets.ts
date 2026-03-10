@@ -42,8 +42,24 @@ const baseConfig: MISolverConfig = {
   homeAdvantageRange: [0.8, 1.8], lambda3Range: [-0.15, 0.05],
   avgGoalRateRange: [1.0, 1.8], gridSteps: 30,
   decayRate: 0.005, regularization: 0.001,
-  klWeight: 1.0, ahWeight: 0.3, printEvery: 999,
+  klWeight: 0.6, ahWeight: 0.2,
+  outcomeWeight: 0.3,    // NEW: actual results signal
+  xgWeight: 0.2,         // NEW: xG signal (SoT proxy for Championship)
+  recentFormBoost: 1.5,  // NEW: 50% weight boost for last 10 matches
+  printEvery: 999,
   driftFactor: 0,
+};
+
+// ─── Cross-league strength factors (Fix #3) ──────────────────────────────────
+// Based on UEFA coefficient + historical European performance
+// EPL = 1.0 baseline. Others scaled relative to EPL.
+const LEAGUE_STRENGTH: Record<string, number> = {
+  "epl": 1.00,
+  "la-liga": 0.98,
+  "bundesliga": 0.92,
+  "serie-a": 0.95,
+  "ligue-1": 0.82,      // Significantly weaker — PSG inflated domestically
+  "championship": 0.70,  // Second tier
 };
 
 function solveLeague(files: string[], leagueId: string, drift = 0) {
@@ -56,6 +72,7 @@ function solveLeague(files: string[], leagueId: string, drift = 0) {
   }
   if (all.length === 0) return null;
   const params = solveRatings(all, leagueId, "2024-25", { ...baseConfig, driftFactor: drift });
+  params.leagueStrength = LEAGUE_STRENGTH[leagueId] ?? 0.90;
   computeAllPPG(params);
   return params;
 }
@@ -328,8 +345,20 @@ function predictCrossLeague(homeTeam: string, awayTeam: string): MatchPrediction
   const avgGR = (hm.avgGoalRate + am.avgGoalRate) / 2;
   const avgL3 = (hm.correlation + am.correlation) / 2;
 
-  const lambdaHome = hr.attack * ar.defense * avgHA * avgGR;
-  const lambdaAway = ar.attack * hr.defense * avgGR;
+  // Fix #3: Cross-league strength adjustment
+  // Scale attack/defense by league strength relative to each other
+  const homeStrength = hm.leagueStrength ?? 1.0;
+  const awayStrength = am.leagueStrength ?? 1.0;
+
+  // A team's attack from a weaker league should be deflated when facing stronger league defense
+  // A team's defense from a weaker league should be inflated (worse) when facing stronger attack
+  const homeAttackAdj = hr.attack * (homeStrength / awayStrength);
+  const awayAttackAdj = ar.attack * (awayStrength / homeStrength);
+  const homeDefenseAdj = hr.defense * (awayStrength / homeStrength);
+  const awayDefenseAdj = ar.defense * (homeStrength / awayStrength);
+
+  const lambdaHome = homeAttackAdj * awayDefenseAdj * avgHA * avgGR;
+  const lambdaAway = awayAttackAdj * homeDefenseAdj * avgGR;
   const grid = generateScoreGrid(lambdaHome, lambdaAway, avgL3);
 
   return {

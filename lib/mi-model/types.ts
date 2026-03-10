@@ -28,6 +28,8 @@ export interface MIModelParams {
   };
   /** Rating drift factor (0 for top leagues, 0.05-0.15 for lower divisions) */
   driftFactor: number;
+  /** League strength index (1.0 = EPL baseline, <1.0 = weaker league) */
+  leagueStrength?: number;
 }
 
 /** Match with devigged market probabilities (solver input) */
@@ -42,6 +44,10 @@ export interface MarketMatch {
   /** Devigged AH implied probability for home covering */
   ahHomeProb?: number | null;
   result?: { homeGoals: number; awayGoals: number } | null;
+  /** Understat xG data (when available) */
+  xG?: { home: number; away: number } | null;
+  /** Is this a recent match (last 10 for either team)? */
+  recentForm?: boolean;
   weight: number; // time-decay weight
 }
 
@@ -108,6 +114,12 @@ export interface MISolverConfig {
   regularization: number;     // L2 regularization strength
   klWeight: number;           // weight for KL-divergence loss
   ahWeight: number;           // weight for AH loss
+  /** Weight for outcome-based loss (actual results) */
+  outcomeWeight: number;
+  /** Weight for xG-based loss (Understat data) */
+  xgWeight: number;
+  /** Boost multiplier for recent matches (last 10 per team) */
+  recentFormBoost: number;
   printEvery: number;         // print progress every N iterations
   /** Rating drift factor for Monte Carlo (0 = no drift) */
   driftFactor: number;
@@ -124,8 +136,11 @@ export const DEFAULT_SOLVER_CONFIG: MISolverConfig = {
   gridSteps: 40,
   decayRate: 0.005,           // half-life ~140 days
   regularization: 0.001,
-  klWeight: 1.0,
-  ahWeight: 0.3,
+  klWeight: 0.6,              // reduced from 1.0 — don't just reproduce Pinnacle
+  ahWeight: 0.2,
+  outcomeWeight: 0.3,         // NEW: actual result signal
+  xgWeight: 0.2,              // NEW: xG-based signal (when available)
+  recentFormBoost: 1.5,       // NEW: 50% weight boost for last-10 matches
   printEvery: 10,
   driftFactor: 0.0,
 };

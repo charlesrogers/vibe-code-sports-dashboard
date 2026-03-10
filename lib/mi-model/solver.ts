@@ -46,11 +46,6 @@ function klDivergence(
 /**
  * Asian Handicap loss: squared error between model expected goal diff
  * and the AH line (adjusted by AH home probability).
- *
- * The AH line + devigged probability implies an expected goal difference.
- * If AH line = -1.0 and P(home covers) = 0.55, home is expected to win by ~1.1 goals.
- * We use a simpler approach: the AH line itself is a market-consensus expected goal diff proxy.
- * The loss penalizes when model's E[home-away] deviates from AH line.
  */
 function ahLoss(
   modelGrid: number[][],
@@ -59,10 +54,38 @@ function ahLoss(
 ): number {
   const eg = expectedGoalsFromGrid(modelGrid);
   const modelDiff = eg.home - eg.away;
-  // AH line is from home perspective: negative means home favored
-  // A line of -1.0 means market expects home to win by ~1 goal
-  const marketDiff = -ahLine; // convert to expected goal difference
+  const marketDiff = -ahLine;
   return (modelDiff - marketDiff) * (modelDiff - marketDiff);
+}
+
+/**
+ * Outcome loss: Poisson log-likelihood of actual goals given model lambdas.
+ * This grounds the model in reality — actual results, not just market prices.
+ */
+function outcomeLoss(
+  lambdaHome: number,
+  lambdaAway: number,
+  homeGoals: number,
+  awayGoals: number
+): number {
+  // Negative log-likelihood of independent Poisson (ignoring correlation for speed)
+  const logLikH = homeGoals * Math.log(Math.max(lambdaHome, EPSILON)) - lambdaHome;
+  const logLikA = awayGoals * Math.log(Math.max(lambdaAway, EPSILON)) - lambdaAway;
+  return -(logLikH + logLikA); // minimize negative log-lik
+}
+
+/**
+ * xG loss: squared error between model expected goals and Understat xG.
+ * This gives us an independent performance signal beyond market odds.
+ */
+function xgLoss(
+  lambdaHome: number,
+  lambdaAway: number,
+  xgHome: number,
+  xgAway: number
+): number {
+  return (lambdaHome - xgHome) * (lambdaHome - xgHome) +
+         (lambdaAway - xgAway) * (lambdaAway - xgAway);
 }
 
 // ---------- Total loss ----------
@@ -78,8 +101,12 @@ function computeTotalLoss(
 ): number {
   let klTotal = 0;
   let ahTotal = 0;
+  let outcomeTotal = 0;
+  let xgTotal = 0;
   let weightSum = 0;
   let ahWeightSum = 0;
+  let outcomeWeightSum = 0;
+  let xgWeightSum = 0;
 
   for (const m of matches) {
     const homeTeam = teams[m.homeTeam];
@@ -89,17 +116,32 @@ function computeTotalLoss(
     const lamHome = homeTeam.attack * awayTeam.defense * homeAdvantage * avgGoalRate;
     const lamAway = awayTeam.attack * homeTeam.defense * avgGoalRate;
 
+    // Apply recent form boost
+    const w = m.recentForm ? m.weight * (config.recentFormBoost ?? 1.0) : m.weight;
+
     const grid = generateScoreGrid(lamHome, lamAway, lambda3, maxGoals);
     const modelProbs = derive1X2(grid);
 
-    // KL loss
-    klTotal += m.weight * klDivergence(m.marketProbs, modelProbs);
-    weightSum += m.weight;
+    // KL loss (market odds)
+    klTotal += w * klDivergence(m.marketProbs, modelProbs);
+    weightSum += w;
 
-    // AH loss
+    // AH loss (market spreads)
     if (m.ahLine != null) {
-      ahTotal += m.weight * ahLoss(grid, m.ahLine, m.ahHomeProb ?? null);
-      ahWeightSum += m.weight;
+      ahTotal += w * ahLoss(grid, m.ahLine, m.ahHomeProb ?? null);
+      ahWeightSum += w;
+    }
+
+    // Outcome loss (actual results) — Fix #1
+    if (m.result && (config.outcomeWeight ?? 0) > 0) {
+      outcomeTotal += w * outcomeLoss(lamHome, lamAway, m.result.homeGoals, m.result.awayGoals);
+      outcomeWeightSum += w;
+    }
+
+    // xG loss (Understat data) — Fix #2
+    if (m.xG && (config.xgWeight ?? 0) > 0) {
+      xgTotal += w * xgLoss(lamHome, lamAway, m.xG.home, m.xG.away);
+      xgWeightSum += w;
     }
   }
 
@@ -111,8 +153,14 @@ function computeTotalLoss(
 
   const klLoss = weightSum > 0 ? klTotal / weightSum : 0;
   const ahLossVal = ahWeightSum > 0 ? ahTotal / ahWeightSum : 0;
+  const outcomeLossVal = outcomeWeightSum > 0 ? outcomeTotal / outcomeWeightSum : 0;
+  const xgLossVal = xgWeightSum > 0 ? xgTotal / xgWeightSum : 0;
 
-  return config.klWeight * klLoss + config.ahWeight * ahLossVal + config.regularization * reg;
+  return config.klWeight * klLoss +
+         config.ahWeight * ahLossVal +
+         (config.outcomeWeight ?? 0) * outcomeLossVal +
+         (config.xgWeight ?? 0) * xgLossVal +
+         config.regularization * reg;
 }
 
 // ---------- Grid search helper ----------
@@ -320,8 +368,12 @@ function computePartialLoss(
 ): number {
   let klTotal = 0;
   let ahTotal = 0;
+  let outcomeTotal = 0;
+  let xgTotal = 0;
   let weightSum = 0;
   let ahWeightSum = 0;
+  let outcomeWeightSum = 0;
+  let xgWeightSum = 0;
 
   for (const m of teamMatches) {
     const homeTeam = teams[m.homeTeam];
@@ -331,19 +383,30 @@ function computePartialLoss(
     const lamHome = homeTeam.attack * awayTeam.defense * homeAdvantage * avgGoalRate;
     const lamAway = awayTeam.attack * homeTeam.defense * avgGoalRate;
 
+    const w = m.recentForm ? m.weight * (config.recentFormBoost ?? 1.0) : m.weight;
+
     const grid = generateScoreGrid(lamHome, lamAway, lambda3, maxGoals);
     const modelProbs = derive1X2(grid);
 
-    klTotal += m.weight * klDivergence(m.marketProbs, modelProbs);
-    weightSum += m.weight;
+    klTotal += w * klDivergence(m.marketProbs, modelProbs);
+    weightSum += w;
 
     if (m.ahLine != null) {
-      ahTotal += m.weight * ahLoss(grid, m.ahLine, m.ahHomeProb ?? null);
-      ahWeightSum += m.weight;
+      ahTotal += w * ahLoss(grid, m.ahLine, m.ahHomeProb ?? null);
+      ahWeightSum += w;
+    }
+
+    if (m.result && (config.outcomeWeight ?? 0) > 0) {
+      outcomeTotal += w * outcomeLoss(lamHome, lamAway, m.result.homeGoals, m.result.awayGoals);
+      outcomeWeightSum += w;
+    }
+
+    if (m.xG && (config.xgWeight ?? 0) > 0) {
+      xgTotal += w * xgLoss(lamHome, lamAway, m.xG.home, m.xG.away);
+      xgWeightSum += w;
     }
   }
 
-  // Include regularization for just the teams involved
   const involvedTeams = new Set<string>();
   teamMatches.forEach(m => { involvedTeams.add(m.homeTeam); involvedTeams.add(m.awayTeam); });
   let reg = 0;
@@ -354,6 +417,12 @@ function computePartialLoss(
 
   const klLoss = weightSum > 0 ? klTotal / weightSum : 0;
   const ahLossVal = ahWeightSum > 0 ? ahTotal / ahWeightSum : 0;
+  const outcomeLossVal = outcomeWeightSum > 0 ? outcomeTotal / outcomeWeightSum : 0;
+  const xgLossVal = xgWeightSum > 0 ? xgTotal / xgWeightSum : 0;
 
-  return config.klWeight * klLoss + config.ahWeight * ahLossVal + config.regularization * reg;
+  return config.klWeight * klLoss +
+         config.ahWeight * ahLossVal +
+         (config.outcomeWeight ?? 0) * outcomeLossVal +
+         (config.xgWeight ?? 0) * xgLossVal +
+         config.regularization * reg;
 }

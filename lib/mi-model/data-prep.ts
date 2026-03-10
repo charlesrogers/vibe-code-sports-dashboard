@@ -3,9 +3,12 @@
  *
  * Reads from data/football-data-cache/{league}-{season}.json
  * Devigs Pinnacle odds, computes time-decay weights, extracts AH data.
+ * Now also enriches with xG from Understat cache or shots-on-target proxy.
  */
 
 import { MarketMatch } from "./types";
+import { readFileSync, existsSync } from "fs";
+import { join } from "path";
 
 // ---------- Devig (multiplicative) ----------
 
@@ -70,6 +73,98 @@ export function timeDecayWeight(matchDate: string, referenceDate: string, decayR
   return Math.exp(-decayRate * daysAgo);
 }
 
+// ---------- xG enrichment ----------
+
+/** Shots on target to xG conversion factor (league-average conversion rate) */
+const SOT_TO_XG = 0.32;
+
+/**
+ * Load Understat xG cache for a league/season.
+ * Returns a map of "TeamName|YYYY-MM-DD|h_or_a" -> { xG, xGA }
+ */
+export function loadUnderstatXg(
+  league: string,
+  dataDir: string
+): Map<string, { xG: number; xGA: number }> {
+  const UNDERSTAT_LEAGUE_MAP: Record<string, string> = {
+    epl: "premierLeague",
+    "la-liga": "laLiga",
+    "serie-a": "serieA",
+    bundesliga: "bundesliga",
+    "ligue-1": "ligue1",
+  };
+
+  const understatLeague = UNDERSTAT_LEAGUE_MAP[league];
+  if (!understatLeague) return new Map();
+
+  const map = new Map<string, { xG: number; xGA: number }>();
+
+  // Try current season files (2024, 2025)
+  for (const year of [2023, 2024, 2025]) {
+    const filePath = join(dataDir, "understat-cache", `${understatLeague}-${year}.json`);
+    if (!existsSync(filePath)) continue;
+
+    try {
+      const raw = JSON.parse(readFileSync(filePath, "utf-8"));
+      const teams = raw.rawHistory ?? [];
+      for (const teamData of teams) {
+        const teamName = teamData.team;
+        for (const match of teamData.matches ?? []) {
+          const dateStr = match.date?.split(" ")[0]; // "YYYY-MM-DD"
+          if (!dateStr) continue;
+          const key = `${teamName}|${dateStr}|${match.h_a}`;
+          map.set(key, { xG: match.xG, xGA: match.xGA });
+        }
+      }
+    } catch {}
+  }
+
+  return map;
+}
+
+/**
+ * Try to find xG for a match from Understat cache.
+ * Matches by team name + date + home/away indicator.
+ */
+function findXgFromUnderstat(
+  homeTeam: string,
+  awayTeam: string,
+  date: string,
+  understatMap: Map<string, { xG: number; xGA: number }>
+): { home: number; away: number } | null {
+  if (understatMap.size === 0) return null;
+
+  const homeKey = `${homeTeam}|${date}|h`;
+  const awayKey = `${awayTeam}|${date}|a`;
+
+  const homeData = understatMap.get(homeKey);
+  const awayData = understatMap.get(awayKey);
+
+  if (homeData && awayData) {
+    return { home: homeData.xG, away: awayData.xG };
+  }
+
+  // Try fuzzy matching on team names
+  if (!homeData || !awayData) {
+    for (const [key, val] of understatMap) {
+      const [team, d, ha] = key.split("|");
+      if (d !== date) continue;
+      if (ha === "h" && !homeData && team.includes(homeTeam.split(" ")[0])) {
+        const homeXg = val;
+        // Find corresponding away
+        for (const [k2, v2] of understatMap) {
+          const [t2, d2, ha2] = k2.split("|");
+          if (d2 === date && ha2 === "a" && t2.includes(awayTeam.split(" ")[0])) {
+            return { home: homeXg.xG, away: v2.xG };
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 // ---------- Raw match type from cached JSON ----------
 
 interface RawCachedMatch {
@@ -114,6 +209,10 @@ export interface DataPrepOptions {
   referenceDate?: string;
   /** Minimum required: must have Pinnacle 1X2 odds */
   requirePinnacle?: boolean;
+  /** Understat xG data keyed by "HomeTeam vs AwayTeam YYYY-MM-DD" */
+  xgData?: Map<string, { home: number; away: number }>;
+  /** Number of recent matches per team to boost (default: 10) */
+  recentFormWindow?: number;
 }
 
 /**
@@ -128,6 +227,8 @@ export function prepareMarketMatches(
     decayRate = 0.005,
     referenceDate,
     requirePinnacle = true,
+    xgData,
+    recentFormWindow = 10,
   } = options;
 
   const matches = data.matches;
@@ -194,6 +295,20 @@ export function prepareMarketMatches(
       ? { homeGoals: m.homeGoals, awayGoals: m.awayGoals }
       : null;
 
+    // xG enrichment: try provided map first, then Understat, then SoT proxy
+    let matchXg: { home: number; away: number } | null = null;
+    if (xgData) {
+      matchXg = xgData.get(`${m.homeTeam} vs ${m.awayTeam} ${m.date}`) ?? null;
+    }
+
+    // Shots-on-target proxy for leagues without xG (e.g., Championship)
+    if (!matchXg && (m as any).homeShotsOnTarget != null && (m as any).awayShotsOnTarget != null) {
+      matchXg = {
+        home: ((m as any).homeShotsOnTarget as number) * SOT_TO_XG,
+        away: ((m as any).awayShotsOnTarget as number) * SOT_TO_XG,
+      };
+    }
+
     result.push({
       id: m.id,
       date: m.date,
@@ -203,12 +318,34 @@ export function prepareMarketMatches(
       ahLine,
       ahHomeProb,
       result: matchResult,
+      xG: matchXg,
       weight,
     });
   }
 
+  // Tag recent form: mark the last N matches per team
+  const teamMatches = new Map<string, MarketMatch[]>();
+  for (const m of result) {
+    if (!teamMatches.has(m.homeTeam)) teamMatches.set(m.homeTeam, []);
+    if (!teamMatches.has(m.awayTeam)) teamMatches.set(m.awayTeam, []);
+    teamMatches.get(m.homeTeam)!.push(m);
+    teamMatches.get(m.awayTeam)!.push(m);
+  }
+
+  for (const [, matches] of teamMatches) {
+    // Sort by date descending
+    matches.sort((a, b) => b.date.localeCompare(a.date));
+    // Mark the most recent N matches
+    for (let i = 0; i < Math.min(recentFormWindow, matches.length); i++) {
+      matches[i].recentForm = true;
+    }
+  }
+
+  const recentCount = result.filter(m => m.recentForm).length;
   console.log(`[data-prep] Prepared ${result.length} matches (skipped ${skipped} without valid odds)`);
   console.log(`[data-prep] Matches with AH data: ${result.filter(m => m.ahLine != null).length}`);
+  console.log(`[data-prep] Matches with xG data: ${result.filter(m => m.xG != null).length}`);
+  console.log(`[data-prep] Recent form tagged: ${recentCount}`);
 
   // Collect unique teams
   const teams = new Set<string>();

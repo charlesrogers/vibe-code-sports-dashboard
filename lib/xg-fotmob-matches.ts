@@ -39,6 +39,7 @@ const FOTMOB_MATCH_LEAGUE_IDS: Record<string, number> = {
   laLiga: 87,
   bundesliga: 54,
   ligue1: 53,
+  championship: 48,
 };
 
 const LEAGUE_ALIASES: Record<string, string> = {
@@ -48,6 +49,8 @@ const LEAGUE_ALIASES: Record<string, string> = {
   "serie-a": "serieA",
   "la-liga": "laLiga",
   "ligue-1": "ligue1",
+  "eng-championship": "championship",
+  "efl-championship": "championship",
 };
 
 const LEAGUE_DISPLAY_NAMES: Record<string, string> = {
@@ -56,6 +59,7 @@ const LEAGUE_DISPLAY_NAMES: Record<string, string> = {
   laLiga: "La Liga",
   bundesliga: "Bundesliga",
   ligue1: "Ligue 1",
+  championship: "Championship",
 };
 
 function resolveLeague(league: string): string {
@@ -190,8 +194,13 @@ async function discoverMatches(
   // Fotmob structures matches in different ways — try common paths
   let allMatches: FotmobLeagueMatch[] = [];
 
-  // Path 1: matches.allMatches (array of rounds with matches)
-  if (data?.matches?.allMatches) {
+  // Path 0: fixtures.allMatches (current API format as of 2026)
+  if (data?.fixtures?.allMatches && Array.isArray(data.fixtures.allMatches)) {
+    allMatches = data.fixtures.allMatches;
+  }
+
+  // Path 1: matches.allMatches (legacy: array of rounds with matches)
+  if (allMatches.length === 0 && data?.matches?.allMatches) {
     const rounds = data.matches.allMatches;
     if (Array.isArray(rounds)) {
       for (const round of rounds) {
@@ -200,7 +209,6 @@ async function discoverMatches(
         } else if (round?.matches && Array.isArray(round.matches)) {
           allMatches.push(...round.matches);
         } else if (round?.id !== undefined) {
-          // Individual match object
           allMatches.push(round);
         }
       }
