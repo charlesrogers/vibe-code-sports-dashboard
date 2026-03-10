@@ -59,6 +59,7 @@ const FOTMOB_LEAGUE_IDS: Record<string, number> = {
   laLiga: 87,
   bundesliga: 54,
   ligue1: 53,
+  championship: 48,
 };
 
 // Aliases for convenience
@@ -70,6 +71,8 @@ const LEAGUE_ALIASES: Record<string, string> = {
   "serie-b": "serieB",
   "la-liga": "laLiga",
   "ligue-1": "ligue1",
+  "eng-championship": "championship",
+  "efl-championship": "championship",
 };
 
 function resolveLeague(league: string): string {
