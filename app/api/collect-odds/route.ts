@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { collectAndSaveOdds, collectDeepOdds, getUpcomingEventIds, checkApiStatus } from "@/lib/odds-collector/the-odds-api";
+import { collectAndSaveOdds, collectDeepOdds, getUpcomingEventIds, checkApiStatus, getApiKey, checkAllKeysStatus } from "@/lib/odds-collector/the-odds-api";
 import { calculateMonthlyCost, DEFAULT_CONFIG, AVAILABLE_MARKETS } from "@/lib/odds-collector/config";
 
 // GET: Check API status + available markets + budget calculator + upcoming events
@@ -9,11 +9,17 @@ export async function GET(request: NextRequest) {
 
   try {
     const status = await checkApiStatus();
+    const allKeysStatus = await checkAllKeysStatus();
     const budget = calculateMonthlyCost(DEFAULT_CONFIG);
 
     const response: Record<string, unknown> = {
       status: status.hasKey ? "configured" : "no_api_key",
       ...status,
+      keys: {
+        key1_cron: allKeysStatus.key1,
+        key2_adhoc: allKeysStatus.key2,
+        totalRemaining: allKeysStatus.totalRemaining,
+      },
       availableMarkets: AVAILABLE_MARKETS.map((m) => ({
         key: m.key,
         label: m.label,
@@ -58,6 +64,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const league = (request.nextUrl.searchParams.get("league") || "serieA") as "serieA" | "serieB";
   const mode = request.nextUrl.searchParams.get("mode") || "bulk";
+  // Manual/ad-hoc collection uses key 2 to preserve key 1 quota for cron
+  const adhocKey = getApiKey("adhoc");
 
   try {
     if (mode === "deep") {
@@ -78,11 +86,12 @@ export async function POST(request: NextRequest) {
         eventIds = soonest.map((e) => e.id);
       }
 
-      const result = await collectDeepOdds(league, eventIds);
+      const result = await collectDeepOdds(league, eventIds, adhocKey);
       return NextResponse.json({
         success: true,
         mode: "deep",
         league,
+        apiKey: "key2 (adhoc)",
         matchesCollected: result.saved,
         deepEventsCollected: result.deepEvents,
         requestsUsed: result.requestsUsed,
@@ -93,11 +102,12 @@ export async function POST(request: NextRequest) {
 
     // Bulk mode (default): h2h + totals + spreads, all matches, 1 request
     const markets = request.nextUrl.searchParams.get("markets") || "h2h,totals,spreads";
-    const result = await collectAndSaveOdds(league, markets);
+    const result = await collectAndSaveOdds(league, markets, adhocKey);
     return NextResponse.json({
       success: true,
       mode: "bulk",
       league,
+      apiKey: "key2 (adhoc)",
       markets: result.marketsPolled,
       matchesCollected: result.saved,
       requestsUsed: result.requestsUsed,

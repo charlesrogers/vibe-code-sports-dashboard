@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchOpenFootballMatches, type League } from "@/lib/openfootball";
-import { fetchMatchesWithOdds, type League as UKLeague } from "@/lib/football-data-uk";
+import {
+  fetchMatchesWithOdds,
+  fetchMatchesWithOddsCached,
+  fetchTrainingMatchesFromCache,
+  type League as UKLeague,
+} from "@/lib/football-data-uk";
 import { walkForwardBacktest, type WalkForwardResult } from "@/lib/backtest/walk-forward";
 import { type ModelWeights, DEFAULT_WEIGHTS } from "@/lib/models/composite";
 
@@ -8,9 +13,12 @@ import { type ModelWeights, DEFAULT_WEIGHTS } from "@/lib/models/composite";
 const cache = new Map<string, { result: WalkForwardResult; time: number }>();
 const CACHE_TTL = 3600000;
 
+// Leagues that use openfootball for training data
+const OPENFOOTBALL_LEAGUES = new Set(["serieA", "serieB"]);
+
 export async function GET(request: NextRequest) {
   const season = request.nextUrl.searchParams.get("season") || "2025-26";
-  const league = (request.nextUrl.searchParams.get("league") || "serieA") as League;
+  const league = (request.nextUrl.searchParams.get("league") || "serieA") as string;
   const minEdge = parseFloat(request.nextUrl.searchParams.get("minEdge") || "0.03");
 
   // Custom weights
@@ -41,15 +49,26 @@ export async function GET(request: NextRequest) {
     };
     const trainSeasons = priorSeasons[season] || [season];
 
-    // For Serie B, openfootball only has 2024-25+
-    const ofSeasons = league === "serieB"
-      ? trainSeasons.filter((s) => s >= "2024-25")
-      : trainSeasons;
+    let allMatches;
+    let oddsMatches;
 
-    const [allMatches, oddsMatches] = await Promise.all([
-      fetchOpenFootballMatches(ofSeasons, league),
-      fetchMatchesWithOdds(season, league as UKLeague),
-    ]);
+    if (OPENFOOTBALL_LEAGUES.has(league)) {
+      // Serie A/B: use openfootball for training data
+      const ofSeasons = league === "serieB"
+        ? trainSeasons.filter((s) => s >= "2024-25")
+        : trainSeasons;
+
+      [allMatches, oddsMatches] = await Promise.all([
+        fetchOpenFootballMatches(ofSeasons, league as League),
+        fetchMatchesWithOdds(season, league as UKLeague),
+      ]);
+    } else {
+      // EPL / Championship: use football-data.co.uk cache for both training + odds
+      [allMatches, oddsMatches] = await Promise.all([
+        fetchTrainingMatchesFromCache(trainSeasons, league as UKLeague),
+        fetchMatchesWithOddsCached(season, league as UKLeague),
+      ]);
+    }
 
     if (oddsMatches.length === 0) {
       return NextResponse.json({ error: "No odds data for this season" }, { status: 400 });

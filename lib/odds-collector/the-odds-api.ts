@@ -1,8 +1,12 @@
 /**
  * The Odds API client
  *
- * Free tier: 500 requests/month, no credit card
+ * Free tier: 500 requests/month per key, no credit card
  * Returns live odds from 59 bookmakers across 4 regions (eu,uk,us,au)
+ *
+ * Two API keys = 1000 requests/month total:
+ *   Key 1 (ODDS_API_KEY):       automated cron collection
+ *   Key 2 (THE_ODDS_API_KEY_2): manual backfill / ad-hoc queries
  *
  * Two endpoints:
  * 1. BULK (/sports/{key}/odds/) — ALL matches, 1 request
@@ -13,20 +17,44 @@
  *    Markets: h2h, totals, spreads, btts, alternate_totals, player_goal_scorer_anytime
  *    Use selectively for deep data on specific matches.
  *
- * Budget (500 free/month):
- *   Bulk: Serie A + B, 3x + 2x/day = 5 req/day = 150/month
- *   Per-event: ~10 key matches/week × 4 = ~40/month
- *   Total: ~190/month, well within budget
+ * Budget (1000 total, 500 per key/month):
+ *   Key 1 (cron): Bulk Serie A+B+EPL scheduled polls ~200/month
+ *   Key 2 (adhoc): Manual deep dives, backfill, testing ~500/month
  *
  * Sign up at: https://the-odds-api.com/
- * Set ODDS_API_KEY in .env.local
+ * Set ODDS_API_KEY and THE_ODDS_API_KEY_2 in .env.local
  */
 
 import { normalizeTeamName } from "../team-mapping";
 import { type OddsSnapshot, type BookmakerOdds, saveSnapshots } from "./store";
 
 const BASE_URL = "https://api.the-odds-api.com/v4";
+
+// Legacy constant kept for backward compat — prefer getApiKey() for new code
 const API_KEY = process.env.ODDS_API_KEY || "";
+
+export type ApiKeyPurpose = "cron" | "backfill" | "adhoc";
+
+/**
+ * Get the appropriate API key based on purpose.
+ *   "cron"     → Key 1 (ODDS_API_KEY) — automated scheduled collection
+ *   "backfill" → Key 2 (THE_ODDS_API_KEY_2) — backfill / bulk historical
+ *   "adhoc"    → Key 2 (THE_ODDS_API_KEY_2) — manual queries, testing
+ *
+ * Falls back to the other key if the preferred one is missing.
+ */
+export function getApiKey(purpose: ApiKeyPurpose = "cron"): string {
+  const key1 = process.env.ODDS_API_KEY || "";
+  const key2 = process.env.THE_ODDS_API_KEY_2 || "";
+
+  switch (purpose) {
+    case "cron":
+      return key1 || key2; // prefer key 1, fallback to key 2
+    case "backfill":
+    case "adhoc":
+      return key2 || key1; // prefer key 2, fallback to key 1
+  }
+}
 
 // The Odds API sport keys
 const SPORT_KEYS: Record<string, string> = {
@@ -183,12 +211,15 @@ function normalizeOddsApiTeam(name: string): string {
 
 /**
  * Fetch current odds from The Odds API
+ * @param apiKey — optional override; defaults to key 1 (cron). Pass getApiKey("adhoc") for manual use.
  */
 export async function fetchLiveOdds(
   league: "serieA" | "serieB" | "epl" = "serieA",
-  markets: string = "h2h" // "h2h" for 1X2, "totals" for O/U
+  markets: string = "h2h", // "h2h" for 1X2, "totals" for O/U
+  apiKey?: string
 ): Promise<OddsSnapshot[]> {
-  if (!API_KEY) {
+  const key = apiKey || API_KEY;
+  if (!key) {
     throw new Error("ODDS_API_KEY not set. Get a free key at https://the-odds-api.com/");
   }
 
@@ -196,7 +227,7 @@ export async function fetchLiveOdds(
   if (!sportKey) throw new Error(`Unknown league: ${league}`);
 
   // All 4 regions = 59 bookmakers instead of 25, same 1 API request
-  const url = `${BASE_URL}/sports/${sportKey}/odds/?apiKey=${API_KEY}&regions=eu,uk,us,au&markets=${markets}&oddsFormat=decimal`;
+  const url = `${BASE_URL}/sports/${sportKey}/odds/?apiKey=${key}&regions=eu,uk,us,au&markets=${markets}&oddsFormat=decimal`;
 
   const res = await fetch(url);
   if (!res.ok) {
@@ -306,7 +337,8 @@ const EXTRA_MARKETS = new Set(["btts", "draw_no_bet"]);
 
 export async function collectAndSaveOdds(
   league: "serieA" | "serieB" | "epl" = "serieA",
-  markets: string = "h2h,totals"
+  markets: string = "h2h,totals",
+  apiKey?: string
 ): Promise<{ saved: number; marketsPolled: string[]; requestsUsed: number }> {
   const marketList = markets.split(",").map((m) => m.trim()).filter(Boolean);
   let requestsUsed = 0;
@@ -319,7 +351,7 @@ export async function collectAndSaveOdds(
   // Fetch core markets in one call
   if (coreMarkets.length > 0) {
     try {
-      const snapshots = await fetchLiveOdds(league, coreMarkets.join(","));
+      const snapshots = await fetchLiveOdds(league, coreMarkets.join(","), apiKey);
       allSnapshots = snapshots;
       requestsUsed++;
     } catch (e) {
@@ -330,7 +362,7 @@ export async function collectAndSaveOdds(
   // Fetch extra markets separately (merge into existing snapshots)
   for (const extra of extraMarkets) {
     try {
-      const extraSnaps = await fetchLiveOdds(league, extra);
+      const extraSnaps = await fetchLiveOdds(league, extra, apiKey);
       requestsUsed++;
       // Merge extra data into existing snapshots by matchId
       for (const snap of extraSnaps) {
@@ -379,14 +411,16 @@ const EVENT_MARKETS = "h2h,totals,spreads,btts,alternate_totals,player_goal_scor
  */
 export async function fetchEventOdds(
   league: "serieA" | "serieB" | "epl",
-  eventId: string
+  eventId: string,
+  apiKey?: string
 ): Promise<OddsSnapshot | null> {
-  if (!API_KEY) throw new Error("ODDS_API_KEY not set");
+  const key = apiKey || API_KEY;
+  if (!key) throw new Error("ODDS_API_KEY not set");
 
   const sportKey = SPORT_KEYS[league];
   if (!sportKey) throw new Error(`Unknown league: ${league}`);
 
-  const url = `${BASE_URL}/sports/${sportKey}/events/${eventId}/odds/?apiKey=${API_KEY}&regions=eu,uk,us,au&markets=${EVENT_MARKETS}&oddsFormat=decimal`;
+  const url = `${BASE_URL}/sports/${sportKey}/events/${eventId}/odds/?apiKey=${key}&regions=eu,uk,us,au&markets=${EVENT_MARKETS}&oddsFormat=decimal`;
 
   const res = await fetch(url);
   if (!res.ok) {
@@ -511,14 +545,15 @@ export async function fetchEventOdds(
  */
 export async function collectDeepOdds(
   league: "serieA" | "serieB" | "epl" = "serieA",
-  eventIds: string[] = []
+  eventIds: string[] = [],
+  apiKey?: string
 ): Promise<{ saved: number; deepEvents: number; requestsUsed: number }> {
   let requestsUsed = 0;
 
   // 1. Bulk fetch all matches (h2h + totals + spreads) — 1 request
   let allSnapshots: OddsSnapshot[] = [];
   try {
-    allSnapshots = await fetchLiveOdds(league, "h2h,totals,spreads");
+    allSnapshots = await fetchLiveOdds(league, "h2h,totals,spreads", apiKey);
     requestsUsed++;
   } catch (e) {
     console.warn("Bulk fetch failed:", e);
@@ -528,7 +563,7 @@ export async function collectDeepOdds(
   let deepCount = 0;
   for (const eventId of eventIds) {
     try {
-      const deepSnap = await fetchEventOdds(league, eventId);
+      const deepSnap = await fetchEventOdds(league, eventId, apiKey);
       requestsUsed++;
       if (!deepSnap) continue;
       deepCount++;
@@ -568,14 +603,16 @@ export async function collectDeepOdds(
  * Get event IDs for upcoming matches (for selective deep collection)
  */
 export async function getUpcomingEventIds(
-  league: "serieA" | "serieB" | "epl" = "serieA"
+  league: "serieA" | "serieB" | "epl" = "serieA",
+  apiKey?: string
 ): Promise<{ id: string; home: string; away: string; commence: string }[]> {
-  if (!API_KEY) return [];
+  const key = apiKey || API_KEY;
+  if (!key) return [];
   const sportKey = SPORT_KEYS[league];
   if (!sportKey) return [];
 
   // Events endpoint is free (no quota cost)
-  const url = `${BASE_URL}/sports/${sportKey}/events/?apiKey=${API_KEY}`;
+  const url = `${BASE_URL}/sports/${sportKey}/events/?apiKey=${key}`;
   const res = await fetch(url);
   if (!res.ok) return [];
 
@@ -590,18 +627,20 @@ export async function getUpcomingEventIds(
 
 /**
  * Check API key status and remaining quota
+ * If apiKey is provided, checks that specific key; otherwise checks key 1.
  */
-export async function checkApiStatus(): Promise<{
+export async function checkApiStatus(apiKey?: string): Promise<{
   hasKey: boolean;
   remaining?: number;
   used?: number;
 }> {
-  if (!API_KEY) return { hasKey: false };
+  const key = apiKey || API_KEY;
+  if (!key) return { hasKey: false };
 
   try {
     // Use a cheap endpoint to check quota
     const res = await fetch(
-      `${BASE_URL}/sports/?apiKey=${API_KEY}`
+      `${BASE_URL}/sports/?apiKey=${key}`
     );
     return {
       hasKey: true,
@@ -611,4 +650,28 @@ export async function checkApiStatus(): Promise<{
   } catch {
     return { hasKey: true };
   }
+}
+
+/**
+ * Check quota for both API keys
+ */
+export async function checkAllKeysStatus(): Promise<{
+  key1: { hasKey: boolean; remaining?: number; used?: number };
+  key2: { hasKey: boolean; remaining?: number; used?: number };
+  totalRemaining: number;
+}> {
+  const key1 = process.env.ODDS_API_KEY || "";
+  const key2 = process.env.THE_ODDS_API_KEY_2 || "";
+
+  const noKey = { hasKey: false, remaining: 0, used: 0 };
+  const [status1, status2] = await Promise.all([
+    key1 ? checkApiStatus(key1) : Promise.resolve(noKey),
+    key2 ? checkApiStatus(key2) : Promise.resolve(noKey),
+  ]);
+
+  return {
+    key1: status1,
+    key2: status2,
+    totalRemaining: (status1.remaining || 0) + (status2.remaining || 0),
+  };
 }

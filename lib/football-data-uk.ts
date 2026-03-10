@@ -153,13 +153,13 @@ function normalizeUKTeamName(name: string): string {
     "Luton": "Luton",
     "Man City": "Manchester City",
     "Man United": "Manchester United",
-    "Newcastle": "Newcastle",
+    "Newcastle": "Newcastle United",
     "Nott'm Forest": "Nottingham Forest",
     "Sheffield United": "Sheffield United",
     "Southampton": "Southampton",
     "Tottenham": "Tottenham",
     "West Ham": "West Ham",
-    "Wolves": "Wolverhampton",
+    "Wolves": "Wolverhampton Wanderers",
     // Championship teams (common ones)
     "Birmingham": "Birmingham",
     "Blackburn": "Blackburn",
@@ -167,7 +167,7 @@ function normalizeUKTeamName(name: string): string {
     "Cardiff": "Cardiff",
     "Coventry": "Coventry",
     "Derby": "Derby",
-    "Hull": "Hull",
+    "Hull": "Hull City",
     "Middlesbrough": "Middlesbrough",
     "Millwall": "Millwall",
     "Norwich": "Norwich",
@@ -272,6 +272,80 @@ export async function fetchMatchesWithOdds(season: string, league: League = "ser
 
 export function getAvailableSeasons(): string[] {
   return Object.keys(SEASON_CODES).sort().reverse();
+}
+
+/**
+ * Load matches from local football-data cache (populated by backfill-historical.ts).
+ * Falls back to live fetch if cache is missing.
+ */
+export async function fetchMatchesWithOddsCached(season: string, league: League = "serieA"): Promise<MatchWithOdds[]> {
+  // Try local cache first
+  try {
+    const fs = require("fs") as typeof import("fs");
+    const { join } = require("path") as typeof import("path");
+    const cacheFile = join(process.cwd(), "data", "football-data-cache", `${league}-${season}.json`);
+    if (fs.existsSync(cacheFile)) {
+      const data = JSON.parse(fs.readFileSync(cacheFile, "utf-8"));
+      console.log(`[football-data] Loaded ${data.matches?.length ?? 0} matches from cache: ${league}-${season}`);
+      return (data.matches || []) as MatchWithOdds[];
+    }
+  } catch { /* fall through to live fetch */ }
+
+  // No cache — fetch live
+  return fetchMatchesWithOdds(season, league);
+}
+
+/**
+ * Load training Match[] data from cached football-data.co.uk CSVs.
+ * Useful for EPL/Championship where openfootball doesn't have data.
+ */
+export async function fetchTrainingMatchesFromCache(
+  seasons: string[],
+  league: League
+): Promise<import("./types").Match[]> {
+  const fs = require("fs") as typeof import("fs");
+  const { join } = require("path") as typeof import("path");
+  const matches: import("./types").Match[] = [];
+
+  for (const season of seasons) {
+    const cacheFile = join(process.cwd(), "data", "football-data-cache", `${league}-${season}.json`);
+    try {
+      if (fs.existsSync(cacheFile)) {
+        const data = JSON.parse(fs.readFileSync(cacheFile, "utf-8"));
+        for (const m of data.matches || []) {
+          matches.push({
+            id: m.id,
+            date: m.date,
+            homeTeam: m.homeTeam,
+            awayTeam: m.awayTeam,
+            homeGoals: m.homeGoals,
+            awayGoals: m.awayGoals,
+            season: m.season,
+          });
+        }
+        console.log(`[football-data] Training data: ${data.matches?.length ?? 0} matches from ${league}-${season}`);
+      } else {
+        // Try live fetch as fallback
+        const odds = await fetchMatchesWithOdds(season, league);
+        for (const m of odds) {
+          matches.push({
+            id: m.id,
+            date: m.date,
+            homeTeam: m.homeTeam,
+            awayTeam: m.awayTeam,
+            homeGoals: m.homeGoals,
+            awayGoals: m.awayGoals,
+            season: m.season,
+          });
+        }
+        console.log(`[football-data] Training data (live): ${odds.length} matches from ${league}-${season}`);
+      }
+    } catch (e) {
+      console.warn(`[football-data] Failed to load training data for ${league}-${season}:`, e);
+    }
+  }
+
+  return matches.sort((a, b) => a.date.localeCompare(b.date));
 }
 
 // Calculate value: model probability vs implied market probability

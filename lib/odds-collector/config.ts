@@ -14,9 +14,10 @@
  * - btts: Both Teams to Score
  * - draw_no_bet: Match winner excl. draw
  *
- * Budget calculator (500 free/month):
- * requests = leagues × markets × polls_per_day × 30
- * Example: 2 leagues × 3 markets × 2x/day × 30 = 360/month ✓
+ * Budget calculator (1000 total: 500/key × 2 keys):
+ *   Key 1 (cron): leagues × markets × polls_per_day × 30
+ *   Key 2 (adhoc): manual collection, backfill, testing
+ * Example: 2 leagues × 3 markets × 2x/day × 30 = 360/month on key 1 ✓
  */
 
 export interface CollectionConfig {

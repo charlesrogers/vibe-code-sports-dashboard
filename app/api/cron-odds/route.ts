@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { collectAndSaveOdds, collectDeepOdds, getUpcomingEventIds } from "@/lib/odds-collector/the-odds-api";
+import { collectAndSaveOdds, collectDeepOdds, getUpcomingEventIds, getApiKey } from "@/lib/odds-collector/the-odds-api";
 import { shouldPollNow } from "@/lib/odds-collector/scheduler";
 import { loadSchedulerState, recordPoll } from "@/lib/odds-collector/scheduler-state";
 
@@ -16,7 +16,8 @@ export async function GET(request: NextRequest) {
   }
 
   const state = await loadSchedulerState();
-  const results: Record<string, unknown> = { timestamp: new Date().toISOString(), actions: [] };
+  const cronKey = getApiKey("cron"); // Key 1 for automated collection
+  const results: Record<string, unknown> = { timestamp: new Date().toISOString(), apiKey: "key1 (cron)", actions: [] };
   const actions: unknown[] = [];
 
   for (const league of ["serieA", "serieB", "epl"] as const) {
@@ -57,13 +58,13 @@ export async function GET(request: NextRequest) {
           .slice(0, 3)
           .map((e) => e.id);
 
-        const result = await collectDeepOdds(league, soonest);
+        const result = await collectDeepOdds(league, soonest, cronKey);
         requestsUsed = result.requestsUsed;
         matchesCollected = result.saved;
         deepEvents = result.deepEvents;
       } else {
         // Bulk: h2h + totals + spreads, all matches, 1 request
-        const result = await collectAndSaveOdds(league, "h2h,totals,spreads");
+        const result = await collectAndSaveOdds(league, "h2h,totals,spreads", cronKey);
         requestsUsed = result.requestsUsed;
         matchesCollected = result.saved;
       }
@@ -95,6 +96,7 @@ export async function GET(request: NextRequest) {
     monthlyUsed: updatedState.pollCount[monthKey] || 0,
     monthlyLimit: 500,
     remaining: 500 - (updatedState.pollCount[monthKey] || 0),
+    note: "Key 1 quota (cron). Key 2 has separate 500 quota for adhoc.",
   };
 
   return NextResponse.json(results);
