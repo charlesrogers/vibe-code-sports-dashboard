@@ -394,8 +394,8 @@ async function evaluateSingleSeasonEvals(
         const homeXg = aggregateXgBeforeDate(homeHistory, match.date, "h");
         const awayXg = aggregateXgBeforeDate(awayHistory, match.date, "a");
         if (homeXg && awayXg) {
-          const homeV = calculateTeamVariance(homeXg);
-          const awayV = calculateTeamVariance(awayXg);
+          const homeV = calculateTeamVariance(homeXg, "home");
+          const awayV = calculateTeamVariance(awayXg, "away");
           const assessment = assessMatch(homeV, awayV);
           tedResult = {
             edgeSide: assessment.edgeSide,

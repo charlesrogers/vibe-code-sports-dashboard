@@ -110,10 +110,16 @@ function buildReasoning(
   return parts.join(" ");
 }
 
+export interface AssessMatchOptions {
+  legacy?: boolean; // When true, use v1 logic (count-based grading, no P3 dedup, no N10)
+}
+
 export function assessMatch(
   homeVariance: TeamVariance,
-  awayVariance: TeamVariance
+  awayVariance: TeamVariance,
+  opts?: AssessMatchOptions
 ): MatchVarianceAssessment {
+  const legacy = opts?.legacy ?? false;
   // Compute edge: how much regression favors one side vs the other
   const homeRegressionBenefit =
     (-homeVariance.totalVariance / 100) * homeVariance.regressionConfidence;
@@ -160,7 +166,18 @@ export function assessMatch(
 
   // P3. Opponent overperforming (will regress DOWN against our side) — double signal.
   //     Both sides regress in our favor.
-  if (opposedVariance.regressionDirection === "decline") {
+  //     NOTE: Only count P3 if the opponent's decline is NOT already captured by
+  //     P4 (attack_overperf) or P5 (defense_overperf). P3/P4/P5 are correlated —
+  //     counting all three inflates Grade B artificially.
+  //     In legacy mode, we skip deduplication (original v1 behavior).
+  const opponentDeclineSpecific = legacy
+    ? false
+    : (opposedVariance.dominantType === "attack_overperf" ||
+       opposedVariance.dominantType === "defense_overperf");
+  if (
+    opposedVariance.regressionDirection === "decline" &&
+    !opponentDeclineSpecific
+  ) {
     positiveFactors.push(
       `${opposedVariance.team} is overperforming and due to regress down`
     );
@@ -279,17 +296,58 @@ export function assessMatch(
     );
   }
 
+  // N10. Draw-prone matchup filter (v2 only — not in legacy mode).
+  //      When the quality gap between teams is tiny (< 0.3 xGD/match), draws are
+  //      much more likely (~30%+ in EPL). The Ted model picks a side but has zero
+  //      draw awareness, so these bets hit draws at a catastrophic rate.
+  //      Ted himself avoids tight matchups — "when two average teams play, the
+  //      line is usually right."
+  if (!legacy) {
+    const qualityGap = Math.abs(
+      homeVariance.xGDPerMatch - awayVariance.xGDPerMatch
+    );
+    if (qualityGap < 0.3 && edgeMagnitude !== "strong") {
+      passReasons.push(
+        `Draw-prone matchup: quality gap only ${qualityGap.toFixed(2)} xGD/match — high draw probability makes side bets unreliable`
+      );
+    }
+  }
+
   // ========================================
   // DECISION + GRADING
   // ========================================
   const hasBet = passReasons.length === 0 && positiveFactors.length > 0;
 
-  // Grade: A = 3+ positive factors (classic Ted), B = 2, C = 1
   let betGrade: MatchVarianceAssessment["betGrade"] = null;
   if (hasBet) {
-    if (positiveFactors.length >= 3) betGrade = "A";
-    else if (positiveFactors.length >= 2) betGrade = "B";
-    else betGrade = "C";
+    if (legacy) {
+      // V1: Simple count-based grading
+      if (positiveFactors.length >= 3) betGrade = "A";
+      else if (positiveFactors.length >= 2) betGrade = "B";
+      else betGrade = "C";
+    } else {
+      // V2: Grade by SIGNAL DIMENSIONS, not raw factor count.
+      // Dimensions: (1) favored team quality signal (P1/P7), (2) favored variance type (P2/P6),
+      // (3) opponent regression signal (P3/P4/P5).
+      // This prevents correlated factors (e.g. P3+P5) from double-counting.
+      let dimensions = 0;
+      const hasFavoredQuality = positiveFactors.some(
+        (f) => f.includes("underlying quality") || f.includes("average quality")
+      );
+      if (hasFavoredQuality) dimensions++;
+      const hasFavoredVarianceType = positiveFactors.some(
+        (f) => f.includes("defensive underperformance") || f.includes("extreme variance gap")
+      );
+      if (hasFavoredVarianceType) dimensions++;
+      const hasOpponentSignal = positiveFactors.some(
+        (f) => f.includes("due to regress") || f.includes("unsustainable") || f.includes("fragile")
+      );
+      if (hasOpponentSignal) dimensions++;
+
+      if (dimensions >= 3) betGrade = "A";
+      else if (dimensions >= 2) betGrade = "B";
+      else betGrade = "C";
+    }
   }
 
   const betSide = hasBet ? edgeSide : null;

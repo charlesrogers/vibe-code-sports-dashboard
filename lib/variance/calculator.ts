@@ -92,11 +92,29 @@ function classifyDominantType(
   return defenseVariance > 0 ? "defense_underperf" : "defense_overperf";
 }
 
-function classifyQuality(xGDPerMatch: number): TeamVariance["qualityTier"] {
-  if (xGDPerMatch >= 1.0) return "elite";
-  if (xGDPerMatch >= 0.3) return "good";
-  if (xGDPerMatch >= -0.3) return "average";
-  if (xGDPerMatch >= -0.8) return "poor";
+/**
+ * Classify team quality with optional venue offset.
+ *
+ * Home xGD is naturally inflated (~0.3 higher than neutral) and away xGD
+ * is deflated. Without adjustment, home teams get systematically upgraded
+ * (e.g. an "average" home team looks "good"), which inflates P1 triggers
+ * and causes the model to over-recommend home bets.
+ *
+ * Offsets: home -0.3, away +0.2 (asymmetric because home advantage is
+ * stronger than away disadvantage in xG terms).
+ */
+function classifyQuality(
+  xGDPerMatch: number,
+  venue?: "home" | "away"
+): TeamVariance["qualityTier"] {
+  let adjusted = xGDPerMatch;
+  if (venue === "home") adjusted -= 0.3;
+  else if (venue === "away") adjusted += 0.2;
+
+  if (adjusted >= 1.0) return "elite";
+  if (adjusted >= 0.3) return "good";
+  if (adjusted >= -0.3) return "average";
+  if (adjusted >= -0.8) return "poor";
   return "bad";
 }
 
@@ -207,7 +225,19 @@ function buildExplanation(v: {
   return parts.join(" ");
 }
 
-export function calculateTeamVariance(team: TeamXg): TeamVariance {
+export interface VarianceOptions {
+  venue?: "home" | "away";
+  legacy?: boolean; // When true, use v1 logic (no venue offset)
+}
+
+export function calculateTeamVariance(
+  team: TeamXg,
+  venueOrOpts?: "home" | "away" | VarianceOptions
+): TeamVariance {
+  const opts: VarianceOptions =
+    typeof venueOrOpts === "string" ? { venue: venueOrOpts } :
+    venueOrOpts ?? {};
+  const venue = opts.legacy ? undefined : opts.venue;
   const xG = team.xGFor;
   const goals = team.goalsFor;
   const xGA = team.xGAgainst;
@@ -233,7 +263,7 @@ export function calculateTeamVariance(team: TeamXg): TeamVariance {
 
   // Team quality — xGD per match is the best single measure
   const xGDPerMatch = matches > 0 ? xGD / matches : 0;
-  const qualityTier = classifyQuality(xGDPerMatch);
+  const qualityTier = classifyQuality(xGDPerMatch, venue);
 
   // Persistent defiance: if 15+ matches and variance hasn't corrected,
   // the team may just be what they are (not variance, just reality)
@@ -294,7 +324,7 @@ export function calculateTeamVariance(team: TeamXg): TeamVariance {
 
 export function calculateAllVariance(teams: TeamXg[]): TeamVariance[] {
   return teams
-    .map(calculateTeamVariance)
+    .map((t) => calculateTeamVariance(t))
     .sort(
       (a, b) =>
         Math.abs(b.totalVariance) - Math.abs(a.totalVariance)

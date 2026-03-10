@@ -2,6 +2,10 @@
 
 import { useEffect, useState, useCallback } from "react";
 
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
 interface GradeResult {
   grade: string;
   bets: number;
@@ -30,6 +34,25 @@ interface TedBenchmarkRef {
   notes: string;
 }
 
+interface DeltaEntry {
+  metric: string;
+  v1: number;
+  v2: number;
+  delta: number;
+  improved: boolean;
+}
+
+interface ModelVersionSummary {
+  label: string;
+  description: string;
+  totalBets: number;
+  betHitRate: number;
+  drawsOnBets: number;
+  byGrade: GradeResult[];
+  homePicks: { total: number; wins: number; hitRate: number };
+  awayPicks: { total: number; wins: number; hitRate: number };
+}
+
 interface BenchmarkData {
   league: string;
   leagueLabel: string;
@@ -46,10 +69,34 @@ interface BenchmarkData {
     homePicks: { total: number; wins: number; hitRate: number };
     awayPicks: { total: number; wins: number; hitRate: number };
   };
+  modelComparison?: {
+    v1: ModelVersionSummary;
+    v2: ModelVersionSummary;
+    deltas: DeltaEntry[];
+  };
   tedBenchmark: TedBenchmarkRef | null;
   gaps: GapEntry[];
   xgQualityNote: string;
 }
+
+interface SavedVersion {
+  version: string;
+  league: string;
+  season: string;
+  savedAt: string;
+  results: {
+    totalBets: number;
+    betHitRate: number;
+    drawsOnBets: number;
+    byGrade: GradeResult[];
+    homePicks: { total: number; wins: number; hitRate: number };
+    awayPicks: { total: number; wins: number; hitRate: number };
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function pct(n: number): string {
   return n.toFixed(1) + "%";
@@ -61,23 +108,229 @@ function GapColor({ gap }: { gap: number }) {
   return <span className={`font-mono font-bold ${color}`}>{prefix}{gap.toFixed(1)}%</span>;
 }
 
+// ---------------------------------------------------------------------------
+// Bar chart component (pure SVG, no dependencies)
+// ---------------------------------------------------------------------------
+
+interface BarGroup {
+  label: string;
+  bars: { value: number; color: string; label: string }[];
+}
+
+function MetricsBarChart({ groups, title, yLabel, tedLine }: {
+  groups: BarGroup[];
+  title: string;
+  yLabel: string;
+  tedLine?: number;
+}) {
+  const allValues = groups.flatMap((g) => g.bars.map((b) => b.value));
+  if (tedLine !== undefined) allValues.push(tedLine);
+  const maxVal = Math.max(...allValues, 1);
+  const chartH = 200;
+  const chartW = Math.max(400, groups.length * 120);
+  const barW = 28;
+  const groupGap = 20;
+  const groupW = groups[0]?.bars.length * (barW + 4) + groupGap;
+  const padL = 45;
+  const padR = 20;
+  const padT = 10;
+  const padB = 50;
+
+  return (
+    <div>
+      <h3 className="text-sm font-semibold mb-2">{title}</h3>
+      <div className="overflow-x-auto">
+        <svg
+          width={padL + chartW + padR}
+          height={chartH + padT + padB}
+          className="text-zinc-400"
+        >
+          {/* Y axis labels */}
+          {[0, 25, 50, 75, 100].filter((v) => v <= maxVal * 1.1).map((v) => {
+            const y = padT + chartH - (v / maxVal) * chartH;
+            return (
+              <g key={v}>
+                <line x1={padL} y1={y} x2={padL + chartW} y2={y} stroke="#333" strokeWidth={1} />
+                <text x={padL - 5} y={y + 4} textAnchor="end" fontSize={10} fill="#777">{v}{yLabel === "%" ? "%" : ""}</text>
+              </g>
+            );
+          })}
+
+          {/* Ted benchmark line */}
+          {tedLine !== undefined && (
+            <>
+              <line
+                x1={padL}
+                y1={padT + chartH - (tedLine / maxVal) * chartH}
+                x2={padL + chartW}
+                y2={padT + chartH - (tedLine / maxVal) * chartH}
+                stroke="#3b82f6"
+                strokeWidth={2}
+                strokeDasharray="6,4"
+              />
+              <text
+                x={padL + chartW - 2}
+                y={padT + chartH - (tedLine / maxVal) * chartH - 5}
+                textAnchor="end"
+                fontSize={10}
+                fill="#3b82f6"
+                fontWeight="bold"
+              >
+                Ted {tedLine}%
+              </text>
+            </>
+          )}
+
+          {/* Bar groups */}
+          {groups.map((group, gi) => {
+            const gx = padL + gi * groupW + groupGap / 2;
+            return (
+              <g key={group.label}>
+                {group.bars.map((bar, bi) => {
+                  const bx = gx + bi * (barW + 4);
+                  const barH = (bar.value / maxVal) * chartH;
+                  const by = padT + chartH - barH;
+                  return (
+                    <g key={bi}>
+                      <rect
+                        x={bx}
+                        y={by}
+                        width={barW}
+                        height={Math.max(barH, 1)}
+                        fill={bar.color}
+                        rx={3}
+                        opacity={0.85}
+                      />
+                      <text
+                        x={bx + barW / 2}
+                        y={by - 4}
+                        textAnchor="middle"
+                        fontSize={10}
+                        fill="#ccc"
+                        fontWeight="bold"
+                      >
+                        {bar.value.toFixed(1)}%
+                      </text>
+                    </g>
+                  );
+                })}
+                {/* Group label */}
+                <text
+                  x={gx + (group.bars.length * (barW + 4)) / 2 - 2}
+                  y={padT + chartH + 16}
+                  textAnchor="middle"
+                  fontSize={11}
+                  fill="#aaa"
+                >
+                  {group.label}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Legend */}
+          {groups[0]?.bars.map((bar, i) => (
+            <g key={i}>
+              <rect x={padL + i * 80} y={padT + chartH + 30} width={12} height={12} fill={bar.color} rx={2} opacity={0.85} />
+              <text x={padL + i * 80 + 16} y={padT + chartH + 40} fontSize={10} fill="#999">{bar.label}</text>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Version detail panel
+// ---------------------------------------------------------------------------
+
+function VersionDetailPanel({ version, label }: { version: SavedVersion; label: string }) {
+  const r = version.results;
+  return (
+    <div className="border border-zinc-800 rounded-lg p-3">
+      <div className="flex justify-between items-baseline mb-2">
+        <h4 className="font-semibold text-sm">{label}</h4>
+        <span className="text-[10px] text-zinc-600">{new Date(version.savedAt).toLocaleDateString()}</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2 text-xs mb-2">
+        <div className="text-center">
+          <div className="text-lg font-bold font-mono">{r.totalBets}</div>
+          <div className="text-zinc-500">Bets</div>
+        </div>
+        <div className="text-center">
+          <div className={`text-lg font-bold font-mono ${r.betHitRate >= 48 ? "text-green-400" : r.betHitRate >= 42 ? "text-yellow-400" : "text-red-400"}`}>
+            {pct(r.betHitRate)}
+          </div>
+          <div className="text-zinc-500">Hit Rate</div>
+        </div>
+        <div className="text-center">
+          <div className="text-lg font-bold font-mono text-orange-400">{r.drawsOnBets}</div>
+          <div className="text-zinc-500">Draws</div>
+        </div>
+      </div>
+      <table className="w-full text-xs">
+        <thead>
+          <tr className="border-b border-zinc-800 text-zinc-500">
+            <th className="py-1 text-left">Grade</th>
+            <th className="py-1 text-right">Bets</th>
+            <th className="py-1 text-right">Hit%</th>
+            <th className="py-1 text-right">ROI</th>
+          </tr>
+        </thead>
+        <tbody>
+          {r.byGrade.map((g) => (
+            <tr key={g.grade} className="border-b border-zinc-800/30">
+              <td className="py-1">{g.grade}</td>
+              <td className="py-1 text-right text-zinc-400">{g.bets}</td>
+              <td className={`py-1 text-right font-mono font-bold ${g.hitRate >= 50 ? "text-green-400" : "text-red-400"}`}>
+                {pct(g.hitRate)}
+              </td>
+              <td className={`py-1 text-right font-mono ${g.roi !== null && g.roi > 0 ? "text-green-400" : "text-red-400"}`}>
+                {g.roi !== null ? `${g.roi > 0 ? "+" : ""}${g.roi}%` : "--"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="mt-2 flex gap-3 text-[10px] text-zinc-500">
+        <span>Home: {r.homePicks.wins}/{r.homePicks.total} ({pct(r.homePicks.hitRate)})</span>
+        <span>Away: {r.awayPicks.wins}/{r.awayPicks.total} ({pct(r.awayPicks.hitRate)})</span>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main page
+// ---------------------------------------------------------------------------
+
 export default function TedBenchmarkPage() {
   const [data, setData] = useState<BenchmarkData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [league, setLeague] = useState("epl");
   const [season, setSeason] = useState("2024-25");
+  const [versions, setVersions] = useState<SavedVersion[]>([]);
+  const [selectedVersion, setSelectedVersion] = useState<string>("all");
 
   const fetchData = useCallback(async (l: string, s: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/ted-benchmark?league=${l}&season=${s}`);
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || `HTTP ${res.status}`);
+      const [benchRes, versionsRes] = await Promise.all([
+        fetch(`/api/ted-benchmark?league=${l}&season=${s}`),
+        fetch(`/api/ted-benchmark/versions?league=${l}&season=${s}`),
+      ]);
+      if (!benchRes.ok) {
+        const err = await benchRes.json();
+        throw new Error(err.error || `HTTP ${benchRes.status}`);
       }
-      setData(await res.json());
+      setData(await benchRes.json());
+      if (versionsRes.ok) {
+        const v = await versionsRes.json();
+        setVersions(v.versions || []);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Unknown error");
     } finally {
@@ -86,6 +339,43 @@ export default function TedBenchmarkPage() {
   }, []);
 
   useEffect(() => { fetchData(league, season); }, [fetchData, league, season]);
+
+  // Build chart data from versions + ted benchmark
+  const chartGroups: BarGroup[] = [];
+  if (versions.length > 0) {
+    // Overall hit rate chart
+    const hitRateGroups: BarGroup[] = versions.map((v) => ({
+      label: v.version.toUpperCase(),
+      bars: [
+        { value: v.results.betHitRate, color: v.version === "v2" ? "#22c55e" : "#6b7280", label: v.version.toUpperCase() },
+      ],
+    }));
+    // Append Ted's benchmark as a reference
+    chartGroups.push(...hitRateGroups);
+  }
+
+  // Build per-grade chart data across versions
+  const gradeChartData: BarGroup[] = [];
+  if (versions.length >= 2) {
+    for (const grade of ["A", "B", "C"]) {
+      const bars = versions.map((v) => {
+        const g = v.results.byGrade.find((bg) => bg.grade === grade);
+        return {
+          value: g?.hitRate ?? 0,
+          color: v.version === "v1" ? "#6b7280" : v.version === "v2" ? "#22c55e" : "#a855f7",
+          label: v.version.toUpperCase(),
+        };
+      });
+      if (bars.some((b) => b.value > 0)) {
+        gradeChartData.push({ label: `Grade ${grade}`, bars });
+      }
+    }
+  }
+
+  // Filter versions for the detail panel
+  const filteredVersions = selectedVersion === "all"
+    ? versions
+    : versions.filter((v) => v.version === selectedVersion);
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -149,13 +439,172 @@ export default function TedBenchmarkPage() {
             </div>
             <div className="bg-zinc-900 border border-zinc-800 rounded p-3 text-center">
               <div className="text-2xl font-bold font-mono text-blue-400">
-                {data.tedBenchmark?.overall ? pct(data.tedBenchmark.overall.hitRate) : "—"}
+                {data.tedBenchmark?.overall ? pct(data.tedBenchmark.overall.hitRate) : "--"}
               </div>
               <div className="text-xs text-zinc-500">Ted&apos;s Hit Rate</div>
             </div>
           </div>
 
-          {/* Gap Analysis */}
+          {/* ============================================================= */}
+          {/* Model Version Improvement Charts */}
+          {/* ============================================================= */}
+          {versions.length >= 2 && (
+            <div className="border border-purple-900/50 rounded-lg p-4 bg-purple-950/10">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="font-semibold">Model Improvement Tracker</h2>
+                <select
+                  value={selectedVersion}
+                  onChange={(e) => setSelectedVersion(e.target.value)}
+                  className="bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-xs"
+                >
+                  <option value="all">All Versions</option>
+                  {versions.map((v) => (
+                    <option key={v.version} value={v.version}>
+                      {v.version.toUpperCase()} — {v.results.betHitRate.toFixed(1)}% hit rate
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Charts row */}
+              <div className="grid md:grid-cols-2 gap-4 mb-4">
+                {/* Overall hit rate bar chart */}
+                <MetricsBarChart
+                  title="Overall Hit Rate by Version"
+                  yLabel="%"
+                  tedLine={data.tedBenchmark?.overall?.hitRate}
+                  groups={versions.map((v) => ({
+                    label: v.version.toUpperCase(),
+                    bars: [{
+                      value: v.results.betHitRate,
+                      color: v.version === "v1" ? "#6b7280" : "#22c55e",
+                      label: v.version.toUpperCase(),
+                    }],
+                  }))}
+                />
+
+                {/* Grade-level hit rate comparison */}
+                {gradeChartData.length > 0 && (
+                  <MetricsBarChart
+                    title="Hit Rate by Grade (V1 vs V2)"
+                    yLabel="%"
+                    tedLine={data.tedBenchmark?.gradeA?.hitRate}
+                    groups={gradeChartData}
+                  />
+                )}
+              </div>
+
+              {/* Draws + selectivity chart */}
+              <div className="grid md:grid-cols-3 gap-3 mb-4">
+                {versions.map((v) => {
+                  const drawPct = v.results.totalBets > 0
+                    ? ((v.results.drawsOnBets / v.results.totalBets) * 100)
+                    : 0;
+                  return (
+                    <div key={v.version} className="bg-zinc-900/50 rounded p-3 text-center">
+                      <div className="text-xs text-zinc-500 mb-1">{v.version.toUpperCase()}</div>
+                      <div className="grid grid-cols-3 gap-2 text-xs">
+                        <div>
+                          <div className="text-lg font-bold font-mono">{v.results.totalBets}</div>
+                          <div className="text-zinc-600">Bets</div>
+                        </div>
+                        <div>
+                          <div className={`text-lg font-bold font-mono ${v.results.betHitRate >= 48 ? "text-green-400" : "text-yellow-400"}`}>
+                            {pct(v.results.betHitRate)}
+                          </div>
+                          <div className="text-zinc-600">Hit%</div>
+                        </div>
+                        <div>
+                          <div className={`text-lg font-bold font-mono ${drawPct > 25 ? "text-red-400" : "text-orange-400"}`}>
+                            {drawPct.toFixed(0)}%
+                          </div>
+                          <div className="text-zinc-600">Draws</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {data.tedBenchmark?.overall && (
+                  <div className="bg-blue-950/30 border border-blue-900/30 rounded p-3 text-center">
+                    <div className="text-xs text-blue-400 mb-1">TED (Target)</div>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div>
+                        <div className="text-lg font-bold font-mono text-blue-300">~{data.tedBenchmark.overall.bets}</div>
+                        <div className="text-zinc-600">Bets</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold font-mono text-blue-300">{pct(data.tedBenchmark.overall.hitRate)}</div>
+                        <div className="text-zinc-600">Hit%</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold font-mono text-blue-300">+{data.tedBenchmark.overall.roi}%</div>
+                        <div className="text-zinc-600">ROI</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Version detail cards */}
+              {selectedVersion !== "all" ? (
+                <div className="grid md:grid-cols-1 gap-3">
+                  {filteredVersions.map((v) => (
+                    <VersionDetailPanel key={v.version} version={v} label={`${v.version.toUpperCase()} — ${v.results.betHitRate.toFixed(1)}% hit rate`} />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-3">
+                  {versions.map((v) => (
+                    <VersionDetailPanel key={v.version} version={v} label={v.version.toUpperCase()} />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* V1 vs V2 Delta Table */}
+          {data.modelComparison && (
+            <div className="border border-zinc-800 rounded-lg p-4">
+              <h2 className="font-semibold mb-1">V1 vs V2 Delta</h2>
+              <div className="flex gap-4 text-xs text-zinc-500 mb-3">
+                <span><strong className="text-zinc-300">V1:</strong> {data.modelComparison.v1.description}</span>
+                <span><strong className="text-zinc-300">V2:</strong> {data.modelComparison.v2.description}</span>
+              </div>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-zinc-800 text-zinc-500 text-xs">
+                    <th className="py-2 text-left">Metric</th>
+                    <th className="py-2 text-right">V1 (Old)</th>
+                    <th className="py-2 text-right">V2 (New)</th>
+                    <th className="py-2 text-right">Delta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.modelComparison.deltas.map((d) => (
+                    <tr key={d.metric} className="border-b border-zinc-800/30">
+                      <td className="py-1.5 font-medium">{d.metric}</td>
+                      <td className="py-1.5 text-right font-mono text-zinc-400">
+                        {d.metric.includes("Rate") ? pct(d.v1) : d.v1}
+                      </td>
+                      <td className="py-1.5 text-right font-mono text-zinc-300">
+                        {d.metric.includes("Rate") ? pct(d.v2) : d.v2}
+                      </td>
+                      <td className="py-1.5 text-right">
+                        <span className={`font-mono font-bold ${
+                          d.delta === 0 ? "text-zinc-500" :
+                          d.improved ? "text-green-400" : "text-red-400"
+                        }`}>
+                          {d.delta > 0 ? "+" : ""}{d.metric.includes("Rate") ? `${d.delta.toFixed(1)}%` : d.delta}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Gap Analysis vs Ted */}
           {data.gaps.length > 0 && (
             <div className="border border-zinc-800 rounded-lg p-4">
               <h2 className="font-semibold mb-3">Gap Analysis: Our Model vs Ted&apos;s</h2>
@@ -184,9 +633,8 @@ export default function TedBenchmarkPage() {
             </div>
           )}
 
-          {/* Side-by-side grade comparison */}
+          {/* Side-by-side: Our Model vs Ted */}
           <div className="grid md:grid-cols-2 gap-4">
-            {/* Our results */}
             <div className="border border-zinc-800 rounded-lg p-4">
               <h2 className="font-semibold mb-1">Our Model (Understat xG)</h2>
               <p className="text-xs text-zinc-500 mb-3">
@@ -212,7 +660,7 @@ export default function TedBenchmarkPage() {
                         {pct(g.hitRate)}
                       </td>
                       <td className={`py-1.5 text-right font-mono ${g.roi !== null && g.roi > 0 ? "text-green-400" : "text-red-400"}`}>
-                        {g.roi !== null ? `${g.roi > 0 ? "+" : ""}${g.roi}%` : "—"}
+                        {g.roi !== null ? `${g.roi > 0 ? "+" : ""}${g.roi}%` : "--"}
                       </td>
                     </tr>
                   ))}
@@ -230,7 +678,6 @@ export default function TedBenchmarkPage() {
               </div>
             </div>
 
-            {/* Ted's benchmarks */}
             <div className="border border-blue-900/50 rounded-lg p-4 bg-blue-950/10">
               <h2 className="font-semibold mb-1">Ted Knutson (StatsBomb xG)</h2>
               {data.tedBenchmark ? (

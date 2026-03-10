@@ -155,8 +155,8 @@ export async function GET(request: NextRequest) {
           f.homeTeam, f.awayTeam, venueSplits!
         );
         if (homeXg && awayXg) {
-          const homeV = calculateTeamVariance(homeXg);
-          const awayV = calculateTeamVariance(awayXg);
+          const homeV = calculateTeamVariance(homeXg, "home");
+          const awayV = calculateTeamVariance(awayXg, "away");
           const assessment = assessMatch(homeV, awayV);
           tedResult = {
             edge: assessment.varianceEdge,

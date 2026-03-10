@@ -74,8 +74,8 @@ export async function GET(request: NextRequest) {
           );
           if (!homeXg || !awayXg) return null;
 
-          const homeV = calculateTeamVariance(homeXg);
-          const awayV = calculateTeamVariance(awayXg);
+          const homeV = calculateTeamVariance(homeXg, "home");
+          const awayV = calculateTeamVariance(awayXg, "away");
           const assessment = assessMatch(homeV, awayV);
           return { ...assessment, round: f.round ?? null, date: f.date };
         } else {

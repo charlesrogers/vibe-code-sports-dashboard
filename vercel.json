@@ -3,6 +3,10 @@
     {
       "path": "/api/cron-odds",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/cron/accumulate-xg",
+      "schedule": "0 8 * * *"
     }
   ]
 }

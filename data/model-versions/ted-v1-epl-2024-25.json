@@ -1,0 +1,7354 @@
+{
+  "version": "v1",
+  "league": "epl",
+  "season": "2024-25",
+  "savedAt": "2026-03-10T15:42:47.248Z",
+  "results": {
+    "totalSignals": 145,
+    "totalBets": 32,
+    "directionalAccuracy": 47.6,
+    "betHitRate": 43.8,
+    "byGrade": [
+      {
+        "grade": "A",
+        "bets": 15,
+        "wins": 7,
+        "losses": 4,
+        "draws": 4,
+        "hitRate": 46.7,
+        "roi": -6.1
+      },
+      {
+        "grade": "B",
+        "bets": 14,
+        "wins": 4,
+        "losses": 4,
+        "draws": 6,
+        "hitRate": 28.6,
+        "roi": -32.7
+      },
+      {
+        "grade": "C",
+        "bets": 3,
+        "wins": 3,
+        "losses": 0,
+        "draws": 0,
+        "hitRate": 100,
+        "roi": 153.3
+      }
+    ],
+    "homePicks": {
+      "total": 122,
+      "wins": 53,
+      "hitRate": 43.4
+    },
+    "awayPicks": {
+      "total": 23,
+      "wins": 16,
+      "hitRate": 69.6
+    },
+    "drawsOnBets": 10,
+    "matchLog": [
+      {
+        "date": "2024-08-16",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.38,
+          "away": 5.3
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 8.18,
+          "draw": 5.84,
+          "away": 1.34
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.16,
+          "draw": 8.56,
+          "away": 16.22
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "Everton",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.73,
+          "draw": 3.36,
+          "away": 2.71
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.35,
+          "draw": 5.7,
+          "away": 8.25
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.47,
+          "draw": 3.42,
+          "away": 2.97
+        }
+      },
+      {
+        "date": "2024-08-17",
+        "homeTeam": "West Ham",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.49,
+          "draw": 3.65,
+          "away": 2.8
+        }
+      },
+      {
+        "date": "2024-08-18",
+        "homeTeam": "Brentford",
+        "awayTeam": "Crystal Palace",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.5,
+          "draw": 3.4,
+          "away": 2.95
+        }
+      },
+      {
+        "date": "2024-08-18",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.19,
+          "draw": 3.93,
+          "away": 1.84
+        }
+      },
+      {
+        "date": "2024-08-19",
+        "homeTeam": "Leicester",
+        "awayTeam": "Tottenham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.09,
+          "draw": 4.39,
+          "away": 1.63
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Brighton",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.51,
+          "draw": 3.66,
+          "away": 2.76
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.17,
+          "draw": 3.68,
+          "away": 3.33
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Fulham",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.84,
+          "draw": 3.67,
+          "away": 4.56
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.08,
+          "draw": 13.21,
+          "away": 25.71
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Southampton",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.59,
+          "draw": 3.28,
+          "away": 2.92
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.45,
+          "draw": 4.87,
+          "away": 7.03
+        }
+      },
+      {
+        "date": "2024-08-24",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.55,
+          "draw": 3.98,
+          "away": 1.77
+        }
+      },
+      {
+        "date": "2024-08-25",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Newcastle",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.05,
+          "draw": 3.73,
+          "away": 2.28
+        }
+      },
+      {
+        "date": "2024-08-25",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 6,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.46,
+          "draw": 4.03,
+          "away": 1.78
+        }
+      },
+      {
+        "date": "2024-08-25",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.25,
+          "draw": 7.05,
+          "away": 10.11
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Brighton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.34,
+          "draw": 5.87,
+          "away": 8.1
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Brentford",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.79,
+          "draw": 3.9,
+          "away": 4.51
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Everton",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.82,
+          "draw": 3.38,
+          "away": 2.62
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Fulham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.14,
+          "draw": 3.53,
+          "away": 2.32
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Leicester",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.8,
+          "draw": 4.09,
+          "away": 1.71
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Wolverhampton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.02,
+          "draw": 3.7,
+          "away": 3.71
+        }
+      },
+      {
+        "date": "2024-08-31",
+        "homeTeam": "West Ham",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 7.69,
+          "draw": 5.64,
+          "away": 1.37
+        }
+      },
+      {
+        "date": "2024-09-01",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.4,
+          "away": 5.06
+        }
+      },
+      {
+        "date": "2024-09-01",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.5,
+          "draw": 3.96,
+          "away": 2.62
+        }
+      },
+      {
+        "date": "2024-09-01",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.93,
+          "draw": 4.31,
+          "away": 1.82
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Southampton",
+        "awayTeam": "Manchester United",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.5,
+          "draw": 4.13,
+          "away": 1.74
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Brighton",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.38,
+          "draw": 5.13,
+          "away": 8.05
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Leicester",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.62,
+          "draw": 4.13,
+          "away": 5.48
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Fulham",
+        "awayTeam": "West Ham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.4,
+          "draw": 3.53,
+          "away": 2.97
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.21,
+          "draw": 7.23,
+          "away": 12.71
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.17,
+          "draw": 8.43,
+          "away": 14.62
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.51,
+          "draw": 4.45,
+          "away": 6.48
+        }
+      },
+      {
+        "date": "2024-09-14",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.32,
+          "draw": 3.97,
+          "away": 2.06
+        }
+      },
+      {
+        "date": "2024-09-15",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.03,
+          "draw": 3.62,
+          "away": 2.32
+        }
+      },
+      {
+        "date": "2024-09-15",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.41,
+          "draw": 3.71,
+          "away": 2.1
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "West Ham",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.59,
+          "draw": 3.93,
+          "away": 1.99
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.59,
+          "draw": 4.47,
+          "away": 5.44
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Fulham",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.89,
+          "draw": 3.54,
+          "away": 2.47
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Leicester",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.54,
+          "draw": 3.43,
+          "away": 2.88
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Bournemouth",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.28,
+          "draw": 6.36,
+          "away": 9.45
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Southampton",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.27,
+          "draw": 3.5,
+          "away": 3.24
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.55,
+          "draw": 4.77,
+          "away": 5.48
+        }
+      },
+      {
+        "date": "2024-09-21",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.92,
+          "draw": 3.76,
+          "away": 2.35
+        }
+      },
+      {
+        "date": "2024-09-22",
+        "homeTeam": "Brighton",
+        "awayTeam": "Nottingham Forest",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.79,
+          "draw": 3.91,
+          "away": 4.51
+        }
+      },
+      {
+        "date": "2024-09-22",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.85,
+          "draw": 3.66,
+          "away": 4.54
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Manchester City",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.18,
+          "draw": 4.54,
+          "away": 1.6
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.18,
+          "draw": 8.27,
+          "away": 14.09
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Brentford",
+        "awayTeam": "West Ham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.23,
+          "draw": 3.63,
+          "away": 3.22
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.75,
+          "draw": 4.3,
+          "away": 4.32
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Everton",
+        "awayTeam": "Crystal Palace",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.76,
+          "draw": 3.35,
+          "away": 2.69
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.49,
+          "draw": 3.32,
+          "away": 3.03
+        }
+      },
+      {
+        "date": "2024-09-28",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 8.09,
+          "draw": 5.63,
+          "away": 1.36
+        }
+      },
+      {
+        "date": "2024-09-29",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Aston Villa",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.34,
+          "draw": 3.77,
+          "away": 1.85
+        }
+      },
+      {
+        "date": "2024-09-29",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Tottenham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.42,
+          "draw": 3.9,
+          "away": 2.75
+        }
+      },
+      {
+        "date": "2024-09-30",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": null,
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.65,
+          "draw": 4.37,
+          "away": 5.01
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 6.38,
+          "draw": 4.71,
+          "away": 1.5
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.13,
+          "draw": 9.46,
+          "away": 19.13
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Brentford",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.14,
+          "draw": 3.62,
+          "away": 3.44
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Leicester",
+        "awayTeam": "Bournemouth",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.35,
+          "draw": 3.63,
+          "away": 2.17
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.23,
+          "draw": 7.15,
+          "away": 10.66
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "West Ham",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.81,
+          "draw": 4.02,
+          "away": 4.29
+        }
+      },
+      {
+        "date": "2024-10-05",
+        "homeTeam": "Everton",
+        "awayTeam": "Newcastle",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.18,
+          "draw": 3.59,
+          "away": 2.27
+        }
+      },
+      {
+        "date": "2024-10-06",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.22,
+          "draw": 3.87,
+          "away": 3.09
+        }
+      },
+      {
+        "date": "2024-10-06",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Nottingham Forest",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.81,
+          "away": 6.2
+        }
+      },
+      {
+        "date": "2024-10-06",
+        "homeTeam": "Brighton",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.95,
+          "draw": 3.99,
+          "away": 2.25
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Tottenham",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 5.01,
+          "away": 5.88
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Fulham",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.46,
+          "draw": 3.5,
+          "away": 2.94
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.4,
+          "draw": 3.43,
+          "away": 3.07
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.72,
+          "draw": 4.37,
+          "away": 4.43
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.01,
+          "draw": 3.91,
+          "away": 3.55
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Southampton",
+        "awayTeam": "Leicester",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.34,
+          "draw": 3.53,
+          "away": 3.09
+        }
+      },
+      {
+        "date": "2024-10-19",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Arsenal",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.01,
+          "draw": 4.13,
+          "away": 1.68
+        }
+      },
+      {
+        "date": "2024-10-20",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 9.01,
+          "draw": 5.92,
+          "away": 1.32
+        }
+      },
+      {
+        "date": "2024-10-20",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.62,
+          "draw": 4.47,
+          "away": 5.08
+        }
+      },
+      {
+        "date": "2024-10-21",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Crystal Palace",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.41,
+          "draw": 3.28,
+          "away": 3.19
+        }
+      },
+      {
+        "date": "2024-10-25",
+        "homeTeam": "Leicester",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.14,
+          "draw": 3.35,
+          "away": 2.43
+        }
+      },
+      {
+        "date": "2024-10-26",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.86,
+          "draw": 4,
+          "away": 4.03
+        }
+      },
+      {
+        "date": "2024-10-26",
+        "homeTeam": "Brentford",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.65,
+          "draw": 4.35,
+          "away": 4.94
+        }
+      },
+      {
+        "date": "2024-10-26",
+        "homeTeam": "Brighton",
+        "awayTeam": "Wolverhampton",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.66,
+          "draw": 4.34,
+          "away": 4.9
+        }
+      },
+      {
+        "date": "2024-10-26",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.1,
+          "draw": 11.9,
+          "away": 20.73
+        }
+      },
+      {
+        "date": "2024-10-26",
+        "homeTeam": "Everton",
+        "awayTeam": "Fulham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.8,
+          "draw": 3.38,
+          "away": 2.63
+        }
+      },
+      {
+        "date": "2024-10-27",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.75,
+          "draw": 4.35,
+          "away": 4.28
+        }
+      },
+      {
+        "date": "2024-10-27",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.05,
+          "draw": 3.98,
+          "away": 1.86
+        }
+      },
+      {
+        "date": "2024-10-27",
+        "homeTeam": "West Ham",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.94,
+          "draw": 3.73,
+          "away": 2.35
+        }
+      },
+      {
+        "date": "2024-10-27",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Liverpool",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.54,
+          "draw": 3.4,
+          "away": 2.9
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Arsenal",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.85,
+          "draw": 3.69,
+          "away": 1.99
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.29,
+          "draw": 4.48,
+          "away": 1.6
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Leicester",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.28,
+          "draw": 3.63,
+          "away": 3.13
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.39,
+          "draw": 5.54,
+          "away": 7.11
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.15,
+          "draw": 3.51,
+          "away": 3.53
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Southampton",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.7,
+          "draw": 3.45,
+          "away": 2.69
+        }
+      },
+      {
+        "date": "2024-11-02",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.55,
+          "draw": 3.34,
+          "away": 2.92
+        }
+      },
+      {
+        "date": "2024-11-03",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.97,
+          "draw": 4.07,
+          "away": 3.55
+        }
+      },
+      {
+        "date": "2024-11-03",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Chelsea",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.61,
+          "draw": 3.81,
+          "away": 2.58
+        }
+      },
+      {
+        "date": "2024-11-04",
+        "homeTeam": "Fulham",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.04,
+          "draw": 3.73,
+          "away": 3.61
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "Brentford",
+        "awayTeam": "Bournemouth",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.59,
+          "draw": 3.56,
+          "away": 2.73
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.79,
+          "draw": 3.44,
+          "away": 2.6
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "West Ham",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.2,
+          "draw": 3.55,
+          "away": 3.37
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.99,
+          "draw": 3.84,
+          "away": 3.7
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "Brighton",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.49,
+          "draw": 4.18,
+          "away": 1.74
+        }
+      },
+      {
+        "date": "2024-11-09",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.42,
+          "draw": 5.45,
+          "away": 6.7
+        }
+      },
+      {
+        "date": "2024-11-10",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.39,
+          "draw": 5.34,
+          "away": 7.62
+        }
+      },
+      {
+        "date": "2024-11-10",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.71,
+          "draw": 3.29,
+          "away": 2.78
+        }
+      },
+      {
+        "date": "2024-11-10",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Ipswich",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.25,
+          "draw": 6.95,
+          "away": 9.87
+        }
+      },
+      {
+        "date": "2024-11-10",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.75,
+          "draw": 3.53,
+          "away": 2.59
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Leicester",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 7.05,
+          "draw": 4.78,
+          "away": 1.46
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.38,
+          "draw": 5.03,
+          "away": 8.73
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.06,
+          "away": 5.59
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.42,
+          "draw": 3.62,
+          "away": 2.91
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Everton",
+        "awayTeam": "Brentford",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.5,
+          "draw": 3.38,
+          "away": 2.97
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Fulham",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.7
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.64,
+          "draw": 4.11,
+          "away": 5.43
+        }
+      },
+      {
+        "date": "2024-11-23",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Tottenham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.48,
+          "draw": 4.98,
+          "away": 6.13
+        }
+      },
+      {
+        "date": "2024-11-24",
+        "homeTeam": "Southampton",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 10.83,
+          "draw": 5.79,
+          "away": 1.28
+        }
+      },
+      {
+        "date": "2024-11-24",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.24,
+          "draw": 4.25,
+          "away": 1.64
+        }
+      },
+      {
+        "date": "2024-11-25",
+        "homeTeam": "Newcastle",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.58,
+          "away": 6.49
+        }
+      },
+      {
+        "date": "2024-11-29",
+        "homeTeam": "Brighton",
+        "awayTeam": "Southampton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.39,
+          "draw": 5.33,
+          "away": 7.66
+        }
+      },
+      {
+        "date": "2024-11-30",
+        "homeTeam": "Brentford",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.65,
+          "draw": 4.33,
+          "away": 4.98
+        }
+      },
+      {
+        "date": "2024-11-30",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Newcastle",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.16,
+          "draw": 3.52,
+          "away": 2.31
+        }
+      },
+      {
+        "date": "2024-11-30",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.78,
+          "draw": 3.75,
+          "away": 4.85
+        }
+      },
+      {
+        "date": "2024-11-30",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.86,
+          "draw": 3.6,
+          "away": 2.46
+        }
+      },
+      {
+        "date": "2024-11-30",
+        "homeTeam": "West Ham",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 7.07,
+          "draw": 4.76,
+          "away": 1.46
+        }
+      },
+      {
+        "date": "2024-12-01",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.7,
+          "draw": 4.3,
+          "away": 4.6
+        }
+      },
+      {
+        "date": "2024-12-01",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.55,
+          "draw": 4.36,
+          "away": 6.17
+        }
+      },
+      {
+        "date": "2024-12-01",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Fulham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.75,
+          "draw": 4.35,
+          "away": 4.28
+        }
+      },
+      {
+        "date": "2024-12-01",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.08,
+          "draw": 3.76,
+          "away": 3.48
+        }
+      },
+      {
+        "date": "2024-12-03",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.15,
+          "draw": 3.41,
+          "away": 2.39
+        }
+      },
+      {
+        "date": "2024-12-03",
+        "homeTeam": "Leicester",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.95,
+          "draw": 3.43,
+          "away": 2.52
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Everton",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.16,
+          "draw": 3.4,
+          "away": 3.62
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.36,
+          "draw": 5.41,
+          "away": 8.26
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Liverpool",
+        "result": "D",
+        "homeGoals": 3,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.29,
+          "draw": 4.04,
+          "away": 1.8
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Southampton",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 8.92,
+          "draw": 5.79,
+          "away": 1.33
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.45,
+          "draw": 4.87,
+          "away": 7.03
+        }
+      },
+      {
+        "date": "2024-12-04",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "C",
+          "confidence": 0.7
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.8,
+          "draw": 3.91,
+          "away": 4.44
+        }
+      },
+      {
+        "date": "2024-12-05",
+        "homeTeam": "Fulham",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.85
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.37,
+          "draw": 3.69,
+          "away": 2.94
+        }
+      },
+      {
+        "date": "2024-12-05",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.67,
+          "draw": 3.92,
+          "away": 2.47
+        }
+      },
+      {
+        "date": "2024-12-07",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.37,
+          "draw": 5.48,
+          "away": 7.77
+        }
+      },
+      {
+        "date": "2024-12-07",
+        "homeTeam": "Brentford",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.88,
+          "draw": 3.75,
+          "away": 2.38
+        }
+      },
+      {
+        "date": "2024-12-07",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Manchester City",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.38,
+          "draw": 4.39,
+          "away": 1.6
+        }
+      },
+      {
+        "date": "2024-12-07",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.68,
+          "draw": 4.05,
+          "away": 5.18
+        }
+      },
+      {
+        "date": "2024-12-08",
+        "homeTeam": "Fulham",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.85
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.33,
+          "draw": 4.22,
+          "away": 1.63
+        }
+      },
+      {
+        "date": "2024-12-08",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.68,
+          "draw": 3.76,
+          "away": 2.01
+        }
+      },
+      {
+        "date": "2024-12-08",
+        "homeTeam": "Leicester",
+        "awayTeam": "Brighton",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.69,
+          "draw": 4.07,
+          "away": 1.73
+        }
+      },
+      {
+        "date": "2024-12-08",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 3,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.23,
+          "draw": 4.13,
+          "away": 2.07
+        }
+      },
+      {
+        "date": "2024-12-09",
+        "homeTeam": "West Ham",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.95,
+          "draw": 3.88,
+          "away": 3.76
+        }
+      },
+      {
+        "date": "2024-12-14",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.23,
+          "draw": 6.63,
+          "away": 12.95
+        }
+      },
+      {
+        "date": "2024-12-14",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Fulham",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.32,
+          "draw": 6.04,
+          "away": 8.88
+        }
+      },
+      {
+        "date": "2024-12-14",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.3,
+          "draw": 6.02,
+          "away": 8.95
+        }
+      },
+      {
+        "date": "2024-12-14",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Ipswich",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.91,
+          "draw": 3.91,
+          "away": 3.93
+        }
+      },
+      {
+        "date": "2024-12-14",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.67,
+          "draw": 3.38,
+          "away": 2.76
+        }
+      },
+      {
+        "date": "2024-12-15",
+        "homeTeam": "Brighton",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.9,
+          "draw": 3.89,
+          "away": 3.97
+        }
+      },
+      {
+        "date": "2024-12-15",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Manchester United",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.6,
+          "draw": 4.65,
+          "away": 5.07
+        }
+      },
+      {
+        "date": "2024-12-15",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.33,
+          "draw": 6.05,
+          "away": 8.44
+        }
+      },
+      {
+        "date": "2024-12-15",
+        "homeTeam": "Southampton",
+        "awayTeam": "Tottenham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.47,
+          "draw": 4.51,
+          "away": 1.69
+        }
+      },
+      {
+        "date": "2024-12-16",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "West Ham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.72,
+          "draw": 4.27,
+          "away": 4.49
+        }
+      },
+      {
+        "date": "2024-12-21",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.7
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.3,
+          "draw": 3.79,
+          "away": 2.14
+        }
+      },
+      {
+        "date": "2024-12-21",
+        "homeTeam": "Brentford",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.39,
+          "draw": 3.47,
+          "away": 3.07
+        }
+      },
+      {
+        "date": "2024-12-21",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.69,
+          "draw": 4.02,
+          "away": 1.74
+        }
+      },
+      {
+        "date": "2024-12-21",
+        "homeTeam": "West Ham",
+        "awayTeam": "Brighton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.8,
+          "draw": 3.83,
+          "away": 2.41
+        }
+      },
+      {
+        "date": "2024-12-21",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 6.75,
+          "draw": 4.17,
+          "away": 1.54
+        }
+      },
+      {
+        "date": "2024-12-22",
+        "homeTeam": "Everton",
+        "awayTeam": "Chelsea",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.48,
+          "draw": 4.09,
+          "away": 1.64
+        }
+      },
+      {
+        "date": "2024-12-22",
+        "homeTeam": "Fulham",
+        "awayTeam": "Southampton",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.42,
+          "draw": 5.06,
+          "away": 7.35
+        }
+      },
+      {
+        "date": "2024-12-22",
+        "homeTeam": "Leicester",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.63,
+          "draw": 3.58,
+          "away": 2.68
+        }
+      },
+      {
+        "date": "2024-12-22",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": true,
+          "grade": "C",
+          "confidence": 0.7
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.86,
+          "draw": 3.87,
+          "away": 4.16
+        }
+      },
+      {
+        "date": "2024-12-22",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 3,
+        "awayGoals": 6,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 4.47,
+          "draw": 4.37,
+          "away": 1.71
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.34,
+          "draw": 5.73,
+          "away": 8.52
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.92,
+          "draw": 3.85,
+          "away": 3.94
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.47,
+          "draw": 4.98,
+          "away": 6.32
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.94,
+          "draw": 4.02,
+          "away": 3.69
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.37,
+          "draw": 3.81,
+          "away": 2.87
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Southampton",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.28,
+          "draw": 3.62,
+          "away": 2.21
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.95,
+          "draw": 3.74,
+          "away": 1.94
+        }
+      },
+      {
+        "date": "2024-12-26",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.08,
+          "draw": 13.84,
+          "away": 24.96
+        }
+      },
+      {
+        "date": "2024-12-27",
+        "homeTeam": "Brighton",
+        "awayTeam": "Brentford",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.64,
+          "draw": 4.54,
+          "away": 4.96
+        }
+      },
+      {
+        "date": "2024-12-27",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.15,
+          "draw": 8.67,
+          "away": 20.05
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "Leicester",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 8.42,
+          "draw": 5.9,
+          "away": 1.33
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "C",
+          "confidence": 0.7
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.64,
+          "draw": 4.13,
+          "away": 5.4
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "Everton",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.69,
+          "draw": 3.18,
+          "away": 2.88
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "Fulham",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.37,
+          "draw": 3.59,
+          "away": 3
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Wolverhampton",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.91,
+          "away": 4.57
+        }
+      },
+      {
+        "date": "2024-12-29",
+        "homeTeam": "West Ham",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 7.32,
+          "draw": 5.34,
+          "away": 1.4
+        }
+      },
+      {
+        "date": "2024-12-30",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Brighton",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.7
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.99,
+          "draw": 3.91,
+          "away": 3.62
+        }
+      },
+      {
+        "date": "2024-12-30",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 7.1,
+          "draw": 5.2,
+          "away": 1.42
+        }
+      },
+      {
+        "date": "2024-12-30",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.72,
+          "draw": 3.68,
+          "away": 2.54
+        }
+      },
+      {
+        "date": "2025-01-01",
+        "homeTeam": "Brentford",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 6.98,
+          "draw": 4.93,
+          "away": 1.44
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.97,
+          "draw": 4.06,
+          "away": 2.22
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.9
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.32,
+          "draw": 5.64,
+          "away": 9.41
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.75,
+          "draw": 3.91,
+          "away": 4.82
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Chelsea",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.8
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.69,
+          "draw": 3.97,
+          "away": 1.95
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Manchester City",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.32,
+          "draw": 6.41,
+          "away": 8.2
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Southampton",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 5,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.95,
+          "draw": 3.59,
+          "away": 2.41
+        }
+      },
+      {
+        "date": "2025-01-04",
+        "homeTeam": "Brighton",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 4.62,
+          "draw": 3.7,
+          "away": 1.82
+        }
+      },
+      {
+        "date": "2025-01-05",
+        "homeTeam": "Fulham",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.75
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.56,
+          "draw": 4.46,
+          "away": 5.71
+        }
+      },
+      {
+        "date": "2025-01-05",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.29,
+          "draw": 6.14,
+          "away": 9.37
+        }
+      },
+      {
+        "date": "2025-01-06",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.44,
+          "draw": 3.22,
+          "away": 2.31
+        }
+      },
+      {
+        "date": "2025-01-14",
+        "homeTeam": "Brentford",
+        "awayTeam": "Manchester City",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.9,
+          "draw": 4.56,
+          "away": 1.65
+        }
+      },
+      {
+        "date": "2025-01-14",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.96,
+          "away": 6.17
+        }
+      },
+      {
+        "date": "2025-01-14",
+        "homeTeam": "West Ham",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.03,
+          "draw": 3.54,
+          "away": 2.41
+        }
+      },
+      {
+        "date": "2025-01-14",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Liverpool",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.28,
+          "draw": 4.24,
+          "away": 1.65
+        }
+      },
+      {
+        "date": "2025-01-15",
+        "homeTeam": "Everton",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.26,
+          "draw": 3.31,
+          "away": 2.36
+        }
+      },
+      {
+        "date": "2025-01-15",
+        "homeTeam": "Leicester",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.01,
+          "draw": 3.76,
+          "away": 1.93
+        }
+      },
+      {
+        "date": "2025-01-15",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.36,
+          "draw": 5.73,
+          "away": 7.91
+        }
+      },
+      {
+        "date": "2025-01-15",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.4,
+          "draw": 5.54,
+          "away": 6.88
+        }
+      },
+      {
+        "date": "2025-01-16",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.84,
+          "draw": 3.78,
+          "away": 1.96
+        }
+      },
+      {
+        "date": "2025-01-16",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.31,
+          "draw": 5.97,
+          "away": 9.23
+        }
+      },
+      {
+        "date": "2025-01-18",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.65,
+          "draw": 4.33,
+          "away": 4.99
+        }
+      },
+      {
+        "date": "2025-01-18",
+        "homeTeam": "Brentford",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 6.49,
+          "draw": 5.33,
+          "away": 1.43
+        }
+      },
+      {
+        "date": "2025-01-18",
+        "homeTeam": "Leicester",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.38,
+          "draw": 3.91,
+          "away": 1.81
+        }
+      },
+      {
+        "date": "2025-01-18",
+        "homeTeam": "West Ham",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.65,
+          "draw": 3.49,
+          "away": 2.7
+        }
+      },
+      {
+        "date": "2025-01-18",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Aston Villa",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.53,
+          "draw": 4.4,
+          "away": 6.38
+        }
+      },
+      {
+        "date": "2025-01-19",
+        "homeTeam": "Everton",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.97,
+          "draw": 3.45,
+          "away": 2.46
+        }
+      },
+      {
+        "date": "2025-01-19",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.11,
+          "draw": 3.77,
+          "away": 3.39
+        }
+      },
+      {
+        "date": "2025-01-19",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.4,
+          "draw": 4.92,
+          "away": 8.27
+        }
+      },
+      {
+        "date": "2025-01-19",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 6,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 7.76,
+          "draw": 5.51,
+          "away": 1.37
+        }
+      },
+      {
+        "date": "2025-01-20",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.38,
+          "draw": 5.69,
+          "away": 7.16
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.6
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.11,
+          "draw": 3.7,
+          "away": 3.45
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Brighton",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.68,
+          "draw": 3.83,
+          "away": 5.5
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.1,
+          "draw": 11.75,
+          "away": 21.77
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Southampton",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 7.05,
+          "draw": 5.17,
+          "away": 1.42
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.7
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 6.86,
+          "draw": 4.74,
+          "away": 1.47
+        }
+      },
+      {
+        "date": "2025-01-25",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.03,
+          "draw": 4.09,
+          "away": 3.36
+        }
+      },
+      {
+        "date": "2025-01-26",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.8
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.06,
+          "draw": 3.7,
+          "away": 3.59
+        }
+      },
+      {
+        "date": "2025-01-26",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Leicester",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.46,
+          "draw": 5.37,
+          "away": 5.94
+        }
+      },
+      {
+        "date": "2025-01-26",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "West Ham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.9
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.55,
+          "draw": 4.46,
+          "away": 5.99
+        }
+      },
+      {
+        "date": "2025-01-26",
+        "homeTeam": "Fulham",
+        "awayTeam": "Manchester United",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.32,
+          "draw": 3.48,
+          "away": 3.18
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 7,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.46,
+          "draw": 3.43,
+          "away": 2.99
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.68,
+          "draw": 4.35,
+          "away": 1.68
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Everton",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.81,
+          "draw": 3.7,
+          "away": 4.73
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Southampton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2,
+          "draw": 3.71,
+          "away": 3.78
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.71,
+          "draw": 4.14,
+          "away": 4.74
+        }
+      },
+      {
+        "date": "2025-02-01",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.43,
+          "draw": 3.56,
+          "away": 2.17
+        }
+      },
+      {
+        "date": "2025-02-02",
+        "homeTeam": "Brentford",
+        "awayTeam": "Tottenham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.12,
+          "draw": 3.88,
+          "away": 3.11
+        }
+      },
+      {
+        "date": "2025-02-02",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.6
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.98,
+          "draw": 3.49,
+          "away": 3.83
+        }
+      },
+      {
+        "date": "2025-02-02",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.8
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.93,
+          "draw": 3.63,
+          "away": 3.85
+        }
+      },
+      {
+        "date": "2025-02-03",
+        "homeTeam": "Chelsea",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.36,
+          "draw": 5.92,
+          "away": 7.51
+        }
+      },
+      {
+        "date": "2025-02-12",
+        "homeTeam": "Everton",
+        "awayTeam": "Liverpool",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 7.36,
+          "draw": 4.73,
+          "away": 1.45
+        }
+      },
+      {
+        "date": "2025-02-14",
+        "homeTeam": "Brighton",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.92,
+          "draw": 3.65,
+          "away": 2.43
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Leicester",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 9.47,
+          "draw": 5.42,
+          "away": 1.34
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.9
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.41,
+          "draw": 5.02,
+          "away": 7.6
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Fulham",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.95
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.23,
+          "draw": 3.38,
+          "away": 3.47
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.99,
+          "draw": 4.09,
+          "away": 3.49
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Southampton",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 6.01,
+          "draw": 4.65,
+          "away": 1.52
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "West Ham",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.43,
+          "draw": 3.71,
+          "away": 2.83
+        }
+      },
+      {
+        "date": "2025-02-15",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.8
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.79,
+          "draw": 3.5,
+          "away": 5.17
+        }
+      },
+      {
+        "date": "2025-02-16",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.19,
+          "draw": 8.22,
+          "away": 12.7
+        }
+      },
+      {
+        "date": "2025-02-16",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.46,
+          "draw": 3.84,
+          "away": 2.73
+        }
+      },
+      {
+        "date": "2025-02-19",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Liverpool",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.9
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 4.02,
+          "draw": 4.09,
+          "away": 1.85
+        }
+      },
+      {
+        "date": "2025-02-21",
+        "homeTeam": "Leicester",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.79,
+          "draw": 3.87,
+          "away": 1.97
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Everton",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.58,
+          "draw": 3.23,
+          "away": 2.98
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Arsenal",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.25,
+          "draw": 6.42,
+          "away": 11.04
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.57,
+          "draw": 4.52,
+          "away": 5.58
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Fulham",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.95
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.04,
+          "draw": 3.52,
+          "away": 3.84
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Tottenham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.92,
+          "draw": 3.96,
+          "away": 1.89
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Southampton",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.56,
+          "draw": 4.53,
+          "away": 1.57
+        }
+      },
+      {
+        "date": "2025-02-22",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.9
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.62,
+          "draw": 3.78,
+          "away": 2.58
+        }
+      },
+      {
+        "date": "2025-02-23",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.84,
+          "draw": 4.03,
+          "away": 4.1
+        }
+      },
+      {
+        "date": "2025-02-23",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.95,
+          "draw": 3.97,
+          "away": 2.26
+        }
+      },
+      {
+        "date": "2025-02-25",
+        "homeTeam": "Brighton",
+        "awayTeam": "Bournemouth",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.06,
+          "draw": 3.84,
+          "away": 3.53
+        }
+      },
+      {
+        "date": "2025-02-25",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.9
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.57,
+          "draw": 3.42,
+          "away": 2.89
+        }
+      },
+      {
+        "date": "2025-02-25",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.74,
+          "draw": 3.36,
+          "away": 2.74
+        }
+      },
+      {
+        "date": "2025-02-25",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.17,
+          "draw": 8.97,
+          "away": 14.66
+        }
+      },
+      {
+        "date": "2025-02-26",
+        "homeTeam": "Brentford",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.03,
+          "draw": 3.75,
+          "away": 3.64
+        }
+      },
+      {
+        "date": "2025-02-26",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.6
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.53,
+          "draw": 4.69,
+          "away": 5.8
+        }
+      },
+      {
+        "date": "2025-02-26",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.02,
+          "draw": 3.51,
+          "away": 1.99
+        }
+      },
+      {
+        "date": "2025-02-26",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.23,
+          "draw": 4.15,
+          "away": 2.07
+        }
+      },
+      {
+        "date": "2025-02-26",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.53,
+          "draw": 4.86,
+          "away": 5.67
+        }
+      },
+      {
+        "date": "2025-02-27",
+        "homeTeam": "West Ham",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.21,
+          "away": 5.34
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Manchester City",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.93,
+          "draw": 3.95,
+          "away": 1.89
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Brighton",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2,
+          "draw": 3.64,
+          "away": 3.86
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.9
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.56,
+          "away": 6.67
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.12,
+          "draw": 10.6,
+          "away": 18.75
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Brentford",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.27,
+          "draw": 3.82,
+          "away": 3.01
+        }
+      },
+      {
+        "date": "2025-03-08",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Everton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.7
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.68,
+          "draw": 3.15,
+          "away": 2.92
+        }
+      },
+      {
+        "date": "2025-03-09",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.2,
+          "draw": 8.05,
+          "away": 11.42
+        }
+      },
+      {
+        "date": "2025-03-09",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.73,
+          "draw": 3.95,
+          "away": 2.42
+        }
+      },
+      {
+        "date": "2025-03-09",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.6
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.61,
+          "draw": 3.65,
+          "away": 1.71
+        }
+      },
+      {
+        "date": "2025-03-10",
+        "homeTeam": "West Ham",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.3,
+          "draw": 3.62,
+          "away": 2.2
+        }
+      },
+      {
+        "date": "2025-03-15",
+        "homeTeam": "Everton",
+        "awayTeam": "West Ham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.11,
+          "draw": 3.3,
+          "away": 3.9
+        }
+      },
+      {
+        "date": "2025-03-15",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.88,
+          "draw": 3.64,
+          "away": 1.99
+        }
+      },
+      {
+        "date": "2025-03-15",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Brighton",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.67,
+          "draw": 4.55,
+          "away": 4.62
+        }
+      },
+      {
+        "date": "2025-03-15",
+        "homeTeam": "Southampton",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.67,
+          "draw": 3.56,
+          "away": 2.08
+        }
+      },
+      {
+        "date": "2025-03-15",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.77,
+          "draw": 4.21,
+          "away": 4.29
+        }
+      },
+      {
+        "date": "2025-03-16",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.81,
+          "draw": 3.78,
+          "away": 4.55
+        }
+      },
+      {
+        "date": "2025-03-16",
+        "homeTeam": "Fulham",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.95
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.03,
+          "draw": 3.88,
+          "away": 3.53
+        }
+      },
+      {
+        "date": "2025-03-16",
+        "homeTeam": "Leicester",
+        "awayTeam": "Manchester United",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 4.21,
+          "draw": 3.86,
+          "away": 1.85
+        }
+      },
+      {
+        "date": "2025-04-01",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.21,
+          "away": 7.79
+        }
+      },
+      {
+        "date": "2025-04-01",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.62,
+          "draw": 3.25,
+          "away": 2.96
+        }
+      },
+      {
+        "date": "2025-04-01",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.36,
+          "draw": 3.44,
+          "away": 3.19
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Ipswich",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.6
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.39,
+          "draw": 5.33,
+          "away": 7.75
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Brighton",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.11,
+          "draw": 3.85,
+          "away": 3.33
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.2,
+          "draw": 8.18,
+          "away": 11.84
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Brentford",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.74,
+          "draw": 4.34,
+          "away": 4.31
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Southampton",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.72,
+          "draw": 4.05,
+          "away": 1.63
+        }
+      },
+      {
+        "date": "2025-04-02",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.36,
+          "draw": 5.19,
+          "away": 9.2
+        }
+      },
+      {
+        "date": "2025-04-03",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.66,
+          "draw": 4.58,
+          "away": 4.59
+        }
+      },
+      {
+        "date": "2025-04-05",
+        "homeTeam": "Everton",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.3,
+          "draw": 3.39,
+          "away": 1.81
+        }
+      },
+      {
+        "date": "2025-04-05",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.5,
+          "draw": 3.46,
+          "away": 2.9
+        }
+      },
+      {
+        "date": "2025-04-05",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.78,
+          "draw": 3.3,
+          "away": 2.71
+        }
+      },
+      {
+        "date": "2025-04-05",
+        "homeTeam": "West Ham",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.03,
+          "draw": 3.53,
+          "away": 2.38
+        }
+      },
+      {
+        "date": "2025-04-05",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Nottingham Forest",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2,
+          "draw": 3.69,
+          "away": 3.8
+        }
+      },
+      {
+        "date": "2025-04-06",
+        "homeTeam": "Brentford",
+        "awayTeam": "Chelsea",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.26,
+          "draw": 3.8,
+          "away": 2.16
+        }
+      },
+      {
+        "date": "2025-04-06",
+        "homeTeam": "Fulham",
+        "awayTeam": "Liverpool",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 4.27,
+          "draw": 3.75,
+          "away": 1.87
+        }
+      },
+      {
+        "date": "2025-04-06",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.39,
+          "draw": 5.42,
+          "away": 7.33
+        }
+      },
+      {
+        "date": "2025-04-06",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Manchester City",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.39,
+          "draw": 3.66,
+          "away": 2.15
+        }
+      },
+      {
+        "date": "2025-04-07",
+        "homeTeam": "Leicester",
+        "awayTeam": "Newcastle",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 6.61,
+          "draw": 4.47,
+          "away": 1.51
+        }
+      },
+      {
+        "date": "2025-04-12",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Crystal Palace",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.81,
+          "away": 6.12
+        }
+      },
+      {
+        "date": "2025-04-12",
+        "homeTeam": "Brighton",
+        "awayTeam": "Leicester",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.27,
+          "draw": 5.96,
+          "away": 10.93
+        }
+      },
+      {
+        "date": "2025-04-12",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.13,
+          "draw": 3.38,
+          "away": 3.72
+        }
+      },
+      {
+        "date": "2025-04-12",
+        "homeTeam": "Southampton",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.75,
+          "draw": 4.49,
+          "away": 1.56
+        }
+      },
+      {
+        "date": "2025-04-12",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Brentford",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.63,
+          "draw": 4.17,
+          "away": 5.42
+        }
+      },
+      {
+        "date": "2025-04-13",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.25,
+          "draw": 6.84,
+          "away": 10.14
+        }
+      },
+      {
+        "date": "2025-04-13",
+        "homeTeam": "Liverpool",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.3,
+          "draw": 6.09,
+          "away": 9.78
+        }
+      },
+      {
+        "date": "2025-04-13",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.25,
+          "draw": 3.57,
+          "away": 3.23
+        }
+      },
+      {
+        "date": "2025-04-13",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.66,
+          "draw": 4.29,
+          "away": 4.97
+        }
+      },
+      {
+        "date": "2025-04-14",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.16,
+          "draw": 3.62,
+          "away": 3.39
+        }
+      },
+      {
+        "date": "2025-04-16",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Crystal Palace",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.72,
+          "draw": 4.01,
+          "away": 4.84
+        }
+      },
+      {
+        "date": "2025-04-19",
+        "homeTeam": "Brentford",
+        "awayTeam": "Brighton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.56,
+          "draw": 3.59,
+          "away": 2.75
+        }
+      },
+      {
+        "date": "2025-04-19",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Bournemouth",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.59,
+          "draw": 3.61,
+          "away": 2.71
+        }
+      },
+      {
+        "date": "2025-04-19",
+        "homeTeam": "Everton",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 3.79,
+          "draw": 3.74,
+          "away": 1.99
+        }
+      },
+      {
+        "date": "2025-04-19",
+        "homeTeam": "West Ham",
+        "awayTeam": "Southampton",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.5,
+          "draw": 4.61,
+          "away": 6.49
+        }
+      },
+      {
+        "date": "2025-04-19",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.38,
+          "draw": 3.7,
+          "away": 2.92
+        }
+      },
+      {
+        "date": "2025-04-20",
+        "homeTeam": "Fulham",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "A",
+          "confidence": 0.75
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.9,
+          "draw": 3.55,
+          "away": 2.45
+        }
+      },
+      {
+        "date": "2025-04-20",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 7.87,
+          "draw": 4.95,
+          "away": 1.41
+        }
+      },
+      {
+        "date": "2025-04-20",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Wolverhampton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.01,
+          "draw": 3.63,
+          "away": 3.82
+        }
+      },
+      {
+        "date": "2025-04-20",
+        "homeTeam": "Leicester",
+        "awayTeam": "Liverpool",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 11.65,
+          "draw": 6.96,
+          "away": 1.23
+        }
+      },
+      {
+        "date": "2025-04-21",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.52,
+          "draw": 3.78,
+          "away": 2.69
+        }
+      },
+      {
+        "date": "2025-04-22",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.87,
+          "draw": 4.09,
+          "away": 4
+        }
+      },
+      {
+        "date": "2025-04-23",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.42,
+          "draw": 4.74,
+          "away": 8.22
+        }
+      },
+      {
+        "date": "2025-04-26",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Everton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.58,
+          "draw": 4.17,
+          "away": 6.05
+        }
+      },
+      {
+        "date": "2025-04-26",
+        "homeTeam": "Brighton",
+        "awayTeam": "West Ham",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.7,
+          "draw": 4.2,
+          "away": 4.75
+        }
+      },
+      {
+        "date": "2025-04-26",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.18,
+          "draw": 8.02,
+          "away": 14.29
+        }
+      },
+      {
+        "date": "2025-04-26",
+        "homeTeam": "Southampton",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 5.28,
+          "draw": 4.2,
+          "away": 1.64
+        }
+      },
+      {
+        "date": "2025-04-26",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.52,
+          "draw": 4.45,
+          "away": 6.49
+        }
+      },
+      {
+        "date": "2025-04-27",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Manchester United",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": true,
+          "grade": "B",
+          "confidence": 0.6
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.68,
+          "draw": 4.21,
+          "away": 4.86
+        }
+      },
+      {
+        "date": "2025-04-27",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 5,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.27,
+          "draw": 6.89,
+          "away": 9.07
+        }
+      },
+      {
+        "date": "2025-05-01",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.2,
+          "draw": 3.58,
+          "away": 3.34
+        }
+      },
+      {
+        "date": "2025-05-02",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.41,
+          "draw": 5.27,
+          "away": 7.55
+        }
+      },
+      {
+        "date": "2025-05-03",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Fulham",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.82,
+          "draw": 3.96,
+          "away": 4.27
+        }
+      },
+      {
+        "date": "2025-05-03",
+        "homeTeam": "Everton",
+        "awayTeam": "Ipswich",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.47,
+          "draw": 4.53,
+          "away": 7.28
+        }
+      },
+      {
+        "date": "2025-05-03",
+        "homeTeam": "Leicester",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.37,
+          "draw": 3.7,
+          "away": 2.93
+        }
+      },
+      {
+        "date": "2025-05-03",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Bournemouth",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.07,
+          "draw": 3.63,
+          "away": 3.62
+        }
+      },
+      {
+        "date": "2025-05-04",
+        "homeTeam": "Brentford",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.7,
+          "draw": 4.23,
+          "away": 4.7
+        }
+      },
+      {
+        "date": "2025-05-04",
+        "homeTeam": "Brighton",
+        "awayTeam": "Newcastle",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.92,
+          "draw": 3.82,
+          "away": 2.33
+        }
+      },
+      {
+        "date": "2025-05-04",
+        "homeTeam": "West Ham",
+        "awayTeam": "Tottenham",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.08,
+          "draw": 3.73,
+          "away": 3.5
+        }
+      },
+      {
+        "date": "2025-05-04",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Liverpool",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.19,
+          "draw": 3.78,
+          "away": 3.21
+        }
+      },
+      {
+        "date": "2025-05-05",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Nottingham Forest",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.31,
+          "draw": 3.44,
+          "away": 3.23
+        }
+      },
+      {
+        "date": "2025-05-10",
+        "homeTeam": "Fulham",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.88,
+          "draw": 3.57,
+          "away": 4.45
+        }
+      },
+      {
+        "date": "2025-05-10",
+        "homeTeam": "Ipswich",
+        "awayTeam": "Brentford",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.1,
+          "draw": 4.21,
+          "away": 1.66
+        }
+      },
+      {
+        "date": "2025-05-10",
+        "homeTeam": "Southampton",
+        "awayTeam": "Manchester City",
+        "result": "D",
+        "homeGoals": 0,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 14.01,
+          "draw": 7.65,
+          "away": 1.19
+        }
+      },
+      {
+        "date": "2025-05-10",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.76,
+          "draw": 3.47,
+          "away": 2.61
+        }
+      },
+      {
+        "date": "2025-05-10",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Aston Villa",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.46,
+          "draw": 3.75,
+          "away": 2.78
+        }
+      },
+      {
+        "date": "2025-05-11",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Chelsea",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.15,
+          "draw": 3.78,
+          "away": 3.28
+        }
+      },
+      {
+        "date": "2025-05-11",
+        "homeTeam": "Manchester United",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.93,
+          "draw": 3.78,
+          "away": 3.95
+        }
+      },
+      {
+        "date": "2025-05-11",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Leicester",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 1.34,
+          "draw": 5.56,
+          "away": 8.99
+        }
+      },
+      {
+        "date": "2025-05-11",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Crystal Palace",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.69,
+          "draw": 3.74,
+          "away": 2.54
+        }
+      },
+      {
+        "date": "2025-05-11",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Arsenal",
+        "result": "D",
+        "homeGoals": 2,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.08,
+          "draw": 3.54,
+          "away": 3.71
+        }
+      },
+      {
+        "date": "2025-05-16",
+        "homeTeam": "Aston Villa",
+        "awayTeam": "Tottenham",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.33,
+          "draw": 6.02,
+          "away": 8.61
+        }
+      },
+      {
+        "date": "2025-05-16",
+        "homeTeam": "Chelsea",
+        "awayTeam": "Manchester United",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.47,
+          "draw": 4.89,
+          "away": 6.68
+        }
+      },
+      {
+        "date": "2025-05-18",
+        "homeTeam": "Everton",
+        "awayTeam": "Southampton",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.4,
+          "draw": 4.9,
+          "away": 8.19
+        }
+      },
+      {
+        "date": "2025-05-18",
+        "homeTeam": "West Ham",
+        "awayTeam": "Nottingham Forest",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.84,
+          "draw": 3.43,
+          "away": 2.56
+        }
+      },
+      {
+        "date": "2025-05-18",
+        "homeTeam": "Brentford",
+        "awayTeam": "Fulham",
+        "result": "A",
+        "homeGoals": 2,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.96,
+          "draw": 3.95,
+          "away": 3.68
+        }
+      },
+      {
+        "date": "2025-05-18",
+        "homeTeam": "Leicester",
+        "awayTeam": "Ipswich",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.37,
+          "draw": 3.65,
+          "away": 2.97
+        }
+      },
+      {
+        "date": "2025-05-18",
+        "homeTeam": "Arsenal",
+        "awayTeam": "Newcastle",
+        "result": "H",
+        "homeGoals": 1,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.03,
+          "draw": 3.58,
+          "away": 3.83
+        }
+      },
+      {
+        "date": "2025-05-19",
+        "homeTeam": "Brighton",
+        "awayTeam": "Liverpool",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 2.69,
+          "draw": 3.83,
+          "away": 2.49
+        }
+      },
+      {
+        "date": "2025-05-20",
+        "homeTeam": "Crystal Palace",
+        "awayTeam": "Wolverhampton",
+        "result": "H",
+        "homeGoals": 4,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 2.29,
+          "draw": 3.37,
+          "away": 3.34
+        }
+      },
+      {
+        "date": "2025-05-20",
+        "homeTeam": "Manchester City",
+        "awayTeam": "Bournemouth",
+        "result": "H",
+        "homeGoals": 3,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.57,
+          "draw": 4.52,
+          "away": 5.6
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Bournemouth",
+        "awayTeam": "Leicester",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.34,
+          "draw": 5.82,
+          "away": 8.37
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Fulham",
+        "awayTeam": "Manchester City",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 5.54,
+          "draw": 4.19,
+          "away": 1.62
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Ipswich",
+        "awayTeam": "West Ham",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 3,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 3.02,
+          "draw": 3.9,
+          "away": 2.24
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Liverpool",
+        "awayTeam": "Crystal Palace",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 1.42,
+          "draw": 5.68,
+          "away": 6.36
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Manchester United",
+        "awayTeam": "Aston Villa",
+        "result": "H",
+        "homeGoals": 2,
+        "awayGoals": 0,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 4.4,
+          "draw": 4.26,
+          "away": 1.74
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Newcastle",
+        "awayTeam": "Everton",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 1.33,
+          "draw": 5.85,
+          "away": 8.55
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Nottingham Forest",
+        "awayTeam": "Chelsea",
+        "result": "A",
+        "homeGoals": 0,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "away",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": true,
+        "closingOdds": {
+          "home": 3.15,
+          "draw": 3.76,
+          "away": 2.22
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Southampton",
+        "awayTeam": "Arsenal",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 2,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 9.46,
+          "draw": 5.85,
+          "away": 1.3
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Tottenham",
+        "awayTeam": "Brighton",
+        "result": "A",
+        "homeGoals": 1,
+        "awayGoals": 4,
+        "ted": {
+          "edgeSide": "neutral",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": null,
+        "closingOdds": {
+          "home": 4.33,
+          "draw": 4.52,
+          "away": 1.71
+        }
+      },
+      {
+        "date": "2025-05-25",
+        "homeTeam": "Wolverhampton",
+        "awayTeam": "Brentford",
+        "result": "D",
+        "homeGoals": 1,
+        "awayGoals": 1,
+        "ted": {
+          "edgeSide": "home",
+          "hasBet": false,
+          "grade": null,
+          "confidence": 0
+        },
+        "tedCorrect": false,
+        "closingOdds": {
+          "home": 2.74,
+          "draw": 3.83,
+          "away": 2.45
+        }
+      }
+    ]
+  }
+}
