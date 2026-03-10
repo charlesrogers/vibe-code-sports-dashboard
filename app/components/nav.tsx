@@ -11,6 +11,7 @@ const links = [
   { href: "/backtest", label: "Backtest" },
   { href: "/predictor", label: "Predictor" },
   { href: "/ted", label: "Ted" },
+  { href: "/ted-benchmark", label: "Ted vs Ted" },
   { href: "/value", label: "Value Bets" },
   { href: "/xg", label: "xG" },
   { href: "/data", label: "Data" },

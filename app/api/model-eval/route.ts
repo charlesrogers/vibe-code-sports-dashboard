@@ -295,7 +295,9 @@ function r4(n: number): number {
 
 // Cache
 let evalCache: { league: string; result: unknown; ts: number } | null = null;
-const CACHE_TTL = 30 * 60 * 1000;
+const CURRENT_SEASON = "2025-26";
+const CURRENT_SEASON_TTL = 24 * 60 * 60 * 1000; // 24h — new matches are weekly
+// Completed seasons never expire — results are fixed unless the model changes
 
 /**
  * Map a season string like "2023-24" to the Understat year format "2023".
@@ -646,43 +648,111 @@ function buildResultFromEvals(
 }
 
 /**
- * Auto-save evaluation results to disk.
+ * Auto-save evaluation results to disk AND Vercel Blob.
+ * Disk saves are for local dev. Blob saves persist across Vercel deploys.
  */
 function autoSaveResult(result: Record<string, unknown>, league: string, season: string) {
+  const key = `eval-${league}-${season}`;
+
+  // Save to local disk
   try {
-    const fs = require("fs");
-    const path = require("path");
     const evalDir = path.join(process.cwd(), "data", "evaluations");
     if (!fs.existsSync(evalDir)) {
       fs.mkdirSync(evalDir, { recursive: true });
     }
-    const evalFile = path.join(evalDir, `eval-${league}-${season}.json`);
+    const evalFile = path.join(evalDir, `${key}.json`);
     fs.writeFileSync(evalFile, JSON.stringify(result, null, 2));
-    console.log(`[model-eval] Auto-saved to ${evalFile}`);
+    console.log(`[model-eval] Saved to disk: ${evalFile}`);
   } catch (saveErr) {
-    console.error("[model-eval] Auto-save failed:", saveErr);
+    console.error("[model-eval] Disk save failed:", saveErr);
+  }
+
+  // Save to Vercel Blob in background (non-blocking)
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    (async () => {
+      try {
+        const { put, list, del } = await import("@vercel/blob");
+        const blobKey = `evaluations/${key}.json`;
+        // Remove existing
+        try {
+          const existing = await list({ prefix: blobKey, limit: 1 });
+          for (const blob of existing.blobs) await del(blob.url);
+        } catch { /* ignore */ }
+        await put(blobKey, JSON.stringify(result), {
+          access: "public",
+          addRandomSuffix: false,
+        });
+        console.log(`[model-eval] Saved to Blob: ${blobKey}`);
+      } catch (e) {
+        console.warn("[model-eval] Blob save failed:", e);
+      }
+    })();
   }
 }
 
-function cachedResponse(data: unknown) {
+/**
+ * Is this a completed (historical) season whose results will never change?
+ * Completed seasons can be cached forever — only model code changes would
+ * invalidate them, and that's handled by ?refresh=true.
+ */
+function isCompletedSeason(season: string): boolean {
+  return season !== CURRENT_SEASON && season !== "multi";
+}
+
+function cachedResponse(data: unknown, season: string) {
+  // Completed seasons: cache for 7 days at CDN level
+  // Current/multi: cache for 24h
+  const maxAge = isCompletedSeason(season) ? 7 * 86400 : 86400;
   return NextResponse.json(data, {
     headers: {
-      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+      "Cache-Control": `public, s-maxage=${maxAge}, stale-while-revalidate=${maxAge * 2}`,
     },
   });
 }
 
-function tryLoadFromDisk(league: string, seasonKey: string): unknown | null {
+/**
+ * Try loading cached evaluation from disk first, then Vercel Blob.
+ * Completed seasons are cached forever. Current season expires after 24h.
+ */
+async function tryLoadCached(league: string, seasonKey: string): Promise<unknown | null> {
+  const key = `eval-${league}-${seasonKey}`;
+  const completed = isCompletedSeason(seasonKey);
+
+  // Try local disk first
   try {
-    const evalFile = path.join(process.cwd(), "data", "evaluations", `eval-${league}-${seasonKey}.json`);
+    const evalFile = path.join(process.cwd(), "data", "evaluations", `${key}.json`);
     if (fs.existsSync(evalFile)) {
+      if (completed) {
+        return JSON.parse(fs.readFileSync(evalFile, "utf-8"));
+      }
       const stat = fs.statSync(evalFile);
-      const ageMs = Date.now() - stat.mtimeMs;
-      if (ageMs < CACHE_TTL) {
+      if (Date.now() - stat.mtimeMs < CURRENT_SEASON_TTL) {
         return JSON.parse(fs.readFileSync(evalFile, "utf-8"));
       }
     }
   } catch { /* ignore */ }
+
+  // Try Vercel Blob (persists across deploys — critical for completed seasons)
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const { list } = await import("@vercel/blob");
+      const blobKey = `evaluations/${key}.json`;
+      const result = await list({ prefix: blobKey, limit: 1 });
+      if (result.blobs.length > 0) {
+        const blob = result.blobs[0];
+        // Completed seasons: always use blob. Current: check age.
+        if (completed || (Date.now() - new Date(blob.uploadedAt).getTime() < CURRENT_SEASON_TTL)) {
+          const res = await fetch(blob.url);
+          if (res.ok) {
+            const data = await res.json();
+            console.log(`[model-eval] Loaded from Blob: ${blobKey}`);
+            return data;
+          }
+        }
+      }
+    } catch { /* ignore */ }
+  }
+
   return null;
 }
 
@@ -690,18 +760,25 @@ export async function GET(request: NextRequest) {
   const league = (request.nextUrl.searchParams.get("league") || "serieA") as League;
   const season = request.nextUrl.searchParams.get("season") || "2025-26";
   const isMulti = season === "multi";
+  const forceRefresh = request.nextUrl.searchParams.get("refresh") === "true";
 
   const cacheKey = `${league}-${season}`;
-  // In-memory cache (survives across requests in same serverless instance)
-  if (evalCache && evalCache.league === cacheKey && Date.now() - evalCache.ts < CACHE_TTL) {
-    return cachedResponse(evalCache.result);
-  }
 
-  // Disk cache (survives cold starts on Vercel)
-  const diskCached = tryLoadFromDisk(league, isMulti ? "multi" : season);
-  if (diskCached) {
-    evalCache = { league: cacheKey, result: diskCached, ts: Date.now() };
-    return cachedResponse(diskCached);
+  if (!forceRefresh) {
+    // In-memory cache
+    if (evalCache && evalCache.league === cacheKey) {
+      const ttl = isCompletedSeason(season) ? Infinity : CURRENT_SEASON_TTL;
+      if (Date.now() - evalCache.ts < ttl) {
+        return cachedResponse(evalCache.result, season);
+      }
+    }
+
+    // Disk / Blob cache (survives cold starts and deploys on Vercel)
+    const cached = await tryLoadCached(league, isMulti ? "multi" : season);
+    if (cached) {
+      evalCache = { league: cacheKey, result: cached, ts: Date.now() };
+      return cachedResponse(cached, season);
+    }
   }
 
   try {
@@ -786,7 +863,7 @@ export async function GET(request: NextRequest) {
 
       evalCache = { league: cacheKey, result, ts: Date.now() };
       autoSaveResult(result, league, "multi");
-      return cachedResponse(result);
+      return cachedResponse(result, "multi");
     } else {
       // ===== SINGLE-SEASON EVALUATION (existing behavior) =====
       const testMatches = allMatches.filter((m) => m.season === season);
@@ -962,7 +1039,7 @@ export async function GET(request: NextRequest) {
 
       evalCache = { league: cacheKey, result, ts: Date.now() };
       autoSaveResult(result, league, season);
-      return cachedResponse(result);
+      return cachedResponse(result, season);
     }
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Unknown error";

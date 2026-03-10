@@ -135,6 +135,53 @@ function normalizeUKTeamName(name: string): string {
     "Pescara": "Pescara",
     "Avellino": "Avellino",
     "Virtus Entella": "Virtus Entella",
+    // EPL teams (football-data.co.uk names → canonical)
+    "Arsenal": "Arsenal",
+    "Aston Villa": "Aston Villa",
+    "Bournemouth": "Bournemouth",
+    "Brentford": "Brentford",
+    "Brighton": "Brighton",
+    "Burnley": "Burnley",
+    "Chelsea": "Chelsea",
+    "Crystal Palace": "Crystal Palace",
+    "Everton": "Everton",
+    "Fulham": "Fulham",
+    "Ipswich": "Ipswich",
+    "Leeds": "Leeds",
+    "Leicester": "Leicester",
+    "Liverpool": "Liverpool",
+    "Luton": "Luton",
+    "Man City": "Manchester City",
+    "Man United": "Manchester United",
+    "Newcastle": "Newcastle",
+    "Nott'm Forest": "Nottingham Forest",
+    "Sheffield United": "Sheffield United",
+    "Southampton": "Southampton",
+    "Tottenham": "Tottenham",
+    "West Ham": "West Ham",
+    "Wolves": "Wolverhampton",
+    // Championship teams (common ones)
+    "Birmingham": "Birmingham",
+    "Blackburn": "Blackburn",
+    "Bristol City": "Bristol City",
+    "Cardiff": "Cardiff",
+    "Coventry": "Coventry",
+    "Derby": "Derby",
+    "Hull": "Hull",
+    "Middlesbrough": "Middlesbrough",
+    "Millwall": "Millwall",
+    "Norwich": "Norwich",
+    "Plymouth": "Plymouth",
+    "Preston": "Preston",
+    "QPR": "QPR",
+    "Rotherham": "Rotherham",
+    "Sheff Wed": "Sheffield Wednesday",
+    "Stoke": "Stoke",
+    "Sunderland": "Sunderland",
+    "Swansea": "Swansea",
+    "Watford": "Watford",
+    "West Brom": "West Brom",
+    "Wigan": "Wigan",
   };
   return ukMap[name] ?? name;
 }
@@ -150,11 +197,13 @@ const SEASON_CODES: Record<string, string> = {
   "2018-19": "1819",
 };
 
-export type League = "serieA" | "serieB";
+export type League = "serieA" | "serieB" | "epl" | "championship";
 
 const LEAGUE_FILES: Record<League, string> = {
   serieA: "I1",
   serieB: "I2",
+  epl: "E0",
+  championship: "E1",
 };
 
 export async function fetchMatchesWithOdds(season: string, league: League = "serieA"): Promise<MatchWithOdds[]> {
