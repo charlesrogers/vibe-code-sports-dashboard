@@ -61,6 +61,12 @@ const SPORT_KEYS: Record<string, string> = {
   serieA: "soccer_italy_serie_a",
   serieB: "soccer_italy_serie_b",
   epl: "soccer_epl",
+  championship: "soccer_efl_champ",
+  ucl: "soccer_uefa_champs_league",
+  laLiga: "soccer_spain_la_liga",
+  bundesliga: "soccer_germany_bundesliga",
+  ligue1: "soccer_france_ligue_one",
+  eredivisie: "soccer_netherlands_eredivisie",
 };
 
 interface OddsAPIResponse {
@@ -214,7 +220,7 @@ function normalizeOddsApiTeam(name: string): string {
  * @param apiKey — optional override; defaults to key 1 (cron). Pass getApiKey("adhoc") for manual use.
  */
 export async function fetchLiveOdds(
-  league: "serieA" | "serieB" | "epl" = "serieA",
+  league: string = "serieA",
   markets: string = "h2h", // "h2h" for 1X2, "totals" for O/U
   apiKey?: string
 ): Promise<OddsSnapshot[]> {
@@ -336,7 +342,7 @@ const CORE_MARKETS = new Set(["h2h", "totals", "spreads"]);
 const EXTRA_MARKETS = new Set(["btts", "draw_no_bet"]);
 
 export async function collectAndSaveOdds(
-  league: "serieA" | "serieB" | "epl" = "serieA",
+  league: string = "serieA",
   markets: string = "h2h,totals",
   apiKey?: string
 ): Promise<{ saved: number; marketsPolled: string[]; requestsUsed: number }> {
@@ -410,7 +416,7 @@ const EVENT_MARKETS = "h2h,totals,spreads,btts,alternate_totals,player_goal_scor
  * Costs 1 API request per event
  */
 export async function fetchEventOdds(
-  league: "serieA" | "serieB" | "epl",
+  league: string,
   eventId: string,
   apiKey?: string
 ): Promise<OddsSnapshot | null> {
@@ -544,7 +550,7 @@ export async function fetchEventOdds(
  * If empty, only does the bulk collection
  */
 export async function collectDeepOdds(
-  league: "serieA" | "serieB" | "epl" = "serieA",
+  league: string = "serieA",
   eventIds: string[] = [],
   apiKey?: string
 ): Promise<{ saved: number; deepEvents: number; requestsUsed: number }> {
@@ -603,7 +609,7 @@ export async function collectDeepOdds(
  * Get event IDs for upcoming matches (for selective deep collection)
  */
 export async function getUpcomingEventIds(
-  league: "serieA" | "serieB" | "epl" = "serieA",
+  league: string = "serieA",
   apiKey?: string
 ): Promise<{ id: string; home: string; away: string; commence: string }[]> {
   const key = apiKey || API_KEY;

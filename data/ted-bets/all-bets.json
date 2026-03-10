@@ -1,0 +1,5699 @@
+[
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "Championship",
+    "match": "Leeds v Burnley",
+    "selection": "Leeds -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "Championship",
+    "match": "Millwall v Luton",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "Championship",
+    "match": "Millwall v Luton",
+    "selection": "Over 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "Championship",
+    "match": "Plymouth v Sunderland",
+    "selection": "Sunderland -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "Championship",
+    "match": "Swansea v Norwich",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "EPL",
+    "match": "Bournemouth v Chelsea",
+    "selection": "Bournemouth +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "EPL",
+    "match": "Liverpool v Nottingham Forest",
+    "selection": "Forest +2",
+    "line": 2.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-13",
+    "league": "EPL",
+    "match": "Spurs v Arsenal",
+    "selection": "Spurs +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - It's finally here!.html"
+  },
+  {
+    "newsletter_date": "2024-09-27",
+    "league": "Championship",
+    "match": "Chelsea v Brighton",
+    "selection": "Brighton +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The BIG Weekend Update.html"
+  },
+  {
+    "newsletter_date": "2024-09-27",
+    "league": "Championship",
+    "match": "Ipswich v Aston Villa",
+    "selection": "Aston Villa -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The BIG Weekend Update.html"
+  },
+  {
+    "newsletter_date": "2024-09-27",
+    "league": "Championship",
+    "match": "Sheffield Weds v West Brom",
+    "selection": "West Brom -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The BIG Weekend Update.html"
+  },
+  {
+    "newsletter_date": "2024-09-27",
+    "league": "Championship",
+    "match": "Wolves v Liverpool",
+    "selection": "Liverpool -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The BIG Weekend Update.html"
+  },
+  {
+    "newsletter_date": "2024-10-01",
+    "league": "Championship",
+    "match": "Norwich v Leeds",
+    "selection": "Norwich +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League and Eng Champ Tuesday Analysis.html"
+  },
+  {
+    "newsletter_date": "2024-10-02",
+    "league": "Championship",
+    "match": "Bristol City v Sheffield Wednesday",
+    "selection": "Bristol City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League and Eng Champ Weds Analysis.html"
+  },
+  {
+    "newsletter_date": "2024-10-02",
+    "league": "Championship",
+    "match": "Sheffield United v Swansea",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Champions League and Eng Champ Weds Analysis.html"
+  },
+  {
+    "newsletter_date": "2024-10-02",
+    "league": "Championship",
+    "match": "Stoke v Portsmouth",
+    "selection": "Portsmouth +.75 or +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League and Eng Champ Weds Analysis.html"
+  },
+  {
+    "newsletter_date": "2024-10-02",
+    "league": "Championship",
+    "match": "Sturm Graz v Club Brugge",
+    "selection": "Brugge 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League and Eng Champ Weds Analysis.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Hull City v Burnley",
+    "selection": "Burnley 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Leeds United v Watford",
+    "selection": "Under 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Luton Town v Sunderland",
+    "selection": "Sunderland 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Middlesbrough v Sheffield United",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Millwall v Plymouth",
+    "selection": "Millwall -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Preston North End v Norwich City",
+    "selection": "PNE +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "Championship",
+    "match": "Stoke City v Bristol City",
+    "selection": "Bristol City +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Arsenal v Shakhtar Donetsk",
+    "selection": "Arsenal -2.5",
+    "line": -2.5,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Aston Villa v Bologna",
+    "selection": "Aston Villa -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Brest v Leverkusen",
+    "selection": "Leverkusen -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Manchester City v Sparta Prague",
+    "selection": "Sparta Prague +2.75",
+    "line": 2.75,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Paris Saint-Germain v PSV Eindhoven",
+    "selection": "PSG -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "RB Leipzig v Liverpool",
+    "selection": "Liverpool -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-22",
+    "league": "UCL",
+    "match": "Young Boys v Inter Milan",
+    "selection": "Inter -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "UEFA CL + Eng Champ midweek betting.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Bristol City v Leeds",
+    "selection": "Leeds -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Burnley v QPR",
+    "selection": "Burnley -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Coventry v Luton",
+    "selection": "Luton +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Norwich City v Middlesbrough",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Plymouth v Preston",
+    "selection": "PNE 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Sheffield United v Stoke City",
+    "selection": "Sheffield United -.75 AND Under 2.5",
+    "line": 2.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Swansea v Millwall-.25 +109/-125 OR",
+    "selection": "Millwall +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "Championship",
+    "match": "Watford v Blackburn Rovers",
+    "selection": "Over 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Arsenal v Liverpool",
+    "selection": "Liverpool 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Aston Villa v Bournemouth",
+    "selection": "Bournemouth +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Brentford v Ipswich",
+    "selection": "Brentford -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Brighton v Wolves",
+    "selection": "Brighton -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Chelsea v Newcastle",
+    "selection": "Chelsea -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Crystal Palace v Tottenham",
+    "selection": "Spurs -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Everton v Fulham",
+    "selection": "Fulham 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-10-25",
+    "league": "EPL",
+    "match": "Leicester City v Forest",
+    "selection": "Forest 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Forest Friday, Let's Go!.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Blackburn v Sheffield United",
+    "selection": "Sheff United 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Boro v Coventry",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Bournemouth v Man City",
+    "selection": "Bournemouth +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Luton v WBA:",
+    "selection": "WBA 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Man United v Chelsea",
+    "selection": "Chelsea 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Millwall v Burnley",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Nottingham Forest v West Ham",
+    "selection": "Forest -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Stoke v Derby",
+    "selection": "Derby +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-01",
+    "league": "Championship",
+    "match": "Tottenham v Aston Villa",
+    "selection": "Villa +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Injury Chaos, but Plenty of Good Bets.html"
+  },
+  {
+    "newsletter_date": "2024-11-05",
+    "league": "Championship",
+    "match": "Borussia Dortmund v Sturm Graz",
+    "selection": "Dortmund -2",
+    "line": -2.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -Tuesday, 5th Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-05",
+    "league": "Championship",
+    "match": "Bristol City v Sheffield United",
+    "selection": "Sheff United -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -Tuesday, 5th Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-05",
+    "league": "Championship",
+    "match": "Lille v Juventus",
+    "selection": "Lille +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -Tuesday, 5th Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-05",
+    "league": "Championship",
+    "match": "Liverpool v Bayer Leverkusen",
+    "selection": "Leverkusen +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -Tuesday, 5th Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-05",
+    "league": "Championship",
+    "match": "Slovan Bratislava v Dinamo Zagreb",
+    "selection": "Zagreb -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -Tuesday, 5th Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "Championship",
+    "match": "Coventry v Derby",
+    "selection": "Coventry -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "Championship",
+    "match": "Luton v Cardiff",
+    "selection": "Cardiff +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "Championship",
+    "match": "Millwall v Leeds",
+    "selection": "Millwall +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "Championship",
+    "match": "WBA v Burnley",
+    "selection": "WBA -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "UCL",
+    "match": "Bayern Munich v Benfica",
+    "selection": "Benfica +1.75",
+    "line": 1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "UCL",
+    "match": "Club Bruges v Aston Villa",
+    "selection": "Aston Villa -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-06",
+    "league": "UCL",
+    "match": "Red Star Belgrade v Barcelona",
+    "selection": "Barcelona -2.25",
+    "line": -2.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Nov 6 2024 - We've Got Opinions!.html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "Championship",
+    "match": "Burnley v Swansea",
+    "selection": "Under 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "Championship",
+    "match": "Hull v WBA",
+    "selection": "WBA 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "Championship",
+    "match": "Sheffield United v Sheffield Wednesday",
+    "selection": "Sheffield United -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "Championship",
+    "match": "Stoke v Millwall",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Brighton v Man City",
+    "selection": "Brighton +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Crystal Palace v Fulham",
+    "selection": "Fulham 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Forest v Newcastle",
+    "selection": "Forest 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Liverpool v Aston Villa",
+    "selection": "Aston Villa +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Man United v Leicester City",
+    "selection": "Leicester City +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-08",
+    "league": "EPL",
+    "match": "Tottenham v Ipswich",
+    "selection": "Spurs -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "VaRiAnCe BeTtInG - 6 EPL bets and the Championship Grind..html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "Championship",
+    "match": "Blackburn v Leeds",
+    "selection": "Leeds -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "Championship",
+    "match": "Oxford v Millwall",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "Championship",
+    "match": "Sheffield United v Sunderland",
+    "selection": "Sheffield United -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "Championship",
+    "match": "Swansea v Portsmouth",
+    "selection": "Portsmouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "Championship",
+    "match": "Swansea v Portsmouth",
+    "selection": "under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "EPL",
+    "match": "Brentford v Leicester",
+    "selection": "Over 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "EPL",
+    "match": "Forest v Ipswich",
+    "selection": "Forest -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-11-29",
+    "league": "EPL",
+    "match": "Spurs v Fulham",
+    "selection": "Fulham +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 29 Nov 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-03",
+    "league": "EPL",
+    "match": "Fulham v Brighton",
+    "selection": "Brighton +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Midweek 3 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-03",
+    "league": "EPL",
+    "match": "Ipswich v Crystal Palace",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL Midweek 3 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-03",
+    "league": "EPL",
+    "match": "Leicester v West Ham",
+    "selection": "LCFC +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Midweek 3 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-03",
+    "league": "EPL",
+    "match": "Man City v Forest",
+    "selection": "Forest +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Midweek 3 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Burnley v Middlesbrough",
+    "selection": "Boro +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Burnley v Middlesbrough",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Hull v Blackburn",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Millwall v Coventry",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Plymouth v Oxford",
+    "selection": "Plymouth 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Sunderland v Stoke",
+    "selection": "Sunderland -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "Championship",
+    "match": "Sunderland v Stoke",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Aston Villa v Southampton",
+    "selection": "Aston Villa -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Brentford v Newcastle",
+    "selection": "Brentford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Crystal Palace v Man City",
+    "selection": "Crystal Palace +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Everton v Liverpool",
+    "selection": "Everton +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Ipswich v Bournemouth",
+    "selection": "Leicester +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Ipswich v Bournemouth",
+    "selection": "Bournemouth -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Man United v Forest",
+    "selection": "Forest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-06",
+    "league": "EPL",
+    "match": "Tottenham v Chelsea",
+    "selection": "Chelsea -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 6 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "Championship",
+    "match": "Leeds v Boro",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "Championship",
+    "match": "Plymouth v Swansea",
+    "selection": "Plymouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "Atalanta v Real Madrid",
+    "selection": "Real Madrid 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "Bayer Leverkusen v Inter",
+    "selection": "Inter +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "Bayer Leverkusen v Inter",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "Brest v PSV Eindhoven",
+    "selection": "Brest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "Dinamo Zagreb v Celtic",
+    "selection": "Celtic -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-10",
+    "league": "UCL",
+    "match": "RB Leipzig v Aston Villa",
+    "selection": "Aston Villa 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday Dec 10 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "Championship",
+    "match": "Hull v Watford",
+    "selection": "Watford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Arsenal v Monaco",
+    "selection": "Monaco +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Benfica v Bologna",
+    "selection": "Benfica -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Benfica v Bologna",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Borussia Dortmund v Barcelona",
+    "selection": "Barcelona -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Juventus v Manchester City",
+    "selection": "Juventus +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-11",
+    "league": "UCL",
+    "match": "Lille v Sturm Graz",
+    "selection": "Lille -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 11 Dec 2024.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "Championship",
+    "match": "Burnley v Watford",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "Championship",
+    "match": "Hull v Swansea",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "Championship",
+    "match": "Sheffield Wednesday v Stoke",
+    "selection": "Sheff Weds -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "Championship",
+    "match": "West Brom v Bristol",
+    "selection": "under 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "Aston Villa v Man City",
+    "selection": "Aston Villa +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "Brentford v Nottingham Forest",
+    "selection": "Forest +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "Crystal Palace v Arsenal",
+    "selection": "Palace +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "Ipswich v Newcastle",
+    "selection": "Under 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "Man United v Bournemouth",
+    "selection": "Bournemouth +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2024-12-20",
+    "league": "EPL",
+    "match": "West Ham v Brighton",
+    "selection": "Over 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 20th Dec 2024 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-03",
+    "league": "EPL",
+    "match": "Crystal Palace v Chelsea",
+    "selection": "Chelsea -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Bets 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-03",
+    "league": "EPL",
+    "match": "Tottenham v Newcastle",
+    "selection": "Newcastle -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Bets 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Blackburn v Burnley",
+    "selection": "Blackburn +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Blackburn v Burnley",
+    "selection": "Under 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Bristol v Derby",
+    "selection": "Bristol -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Hull v Leeds",
+    "selection": "Hull +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Norwich v Coventry",
+    "selection": "Norwich -.25 or 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Preston v Oxford",
+    "selection": "Oxford +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "QPR v Luton",
+    "selection": "QPR 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "Championship",
+    "match": "Swansea v West Brom",
+    "selection": "Swansea 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "EPL",
+    "match": "Tottenham v Newcastle",
+    "selection": "Newcastle -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-04",
+    "league": "EPL",
+    "match": "UPDATED Liverpool v United",
+    "selection": "Man United +1.75",
+    "line": 1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CORRECTED EDITION 3 Jan 2024.html"
+  },
+  {
+    "newsletter_date": "2025-01-14",
+    "league": "Championship",
+    "match": "Blackburn v Portsmouth",
+    "selection": "Blackburn -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday 14 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-14",
+    "league": "Championship",
+    "match": "Plymouth v Oxford",
+    "selection": "Oxford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday 14 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-14",
+    "league": "EPL",
+    "match": "Brentford v Man City",
+    "selection": "Brentford +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday 14 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-14",
+    "league": "EPL",
+    "match": "Forest v Liverpool",
+    "selection": "Forest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday 14 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-14",
+    "league": "EPL",
+    "match": "Newcastle v Wolves",
+    "selection": "Wolves +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday 14 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Coventry v Bristol City",
+    "selection": "Coventry -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Leeds v Sheffield Wednesday",
+    "selection": "Leeds -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Luton v Preston",
+    "selection": "Preston +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Oxford v Blackburn",
+    "selection": "Oxford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Plymouth v QPR",
+    "selection": "Plymouth +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Portsmouth v Middlesbrough",
+    "selection": "Portsmouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "Sheffield United v Norwich",
+    "selection": "Norwich +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "Championship",
+    "match": "West Brom v Stoke",
+    "selection": "Stoke +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "EPL",
+    "match": "Arsenal v Aston Villa",
+    "selection": "Aston Villa +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "EPL",
+    "match": "Brentford v Liverpool",
+    "selection": "Brentford +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "EPL",
+    "match": "Everton v Tottenham",
+    "selection": "Everton +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "EPL",
+    "match": "Forest v Southampton",
+    "selection": "Forest -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-17",
+    "league": "EPL",
+    "match": "Newcastle v Bournemouth",
+    "selection": "Bournemouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 17 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-21",
+    "league": "Championship",
+    "match": "Oxford v Luton (pk) 2.07/1.83",
+    "selection": "Oxford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CL + Champ Tues 20 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-21",
+    "league": "UCL",
+    "match": "Club Brugge v Juventus",
+    "selection": "Juventus -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CL + Champ Tues 20 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-21",
+    "league": "UCL",
+    "match": "Red Star Belgrade v PSV Eindhoven",
+    "selection": "Red Star +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CL + Champ Tues 20 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-22",
+    "league": "UCL",
+    "match": "AC Milan v Girona",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - CL + Champ Weds 21 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-22",
+    "league": "UCL",
+    "match": "Feyenoord v Bayern Munich",
+    "selection": "Bayern -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CL + Champ Weds 21 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-22",
+    "league": "UCL",
+    "match": "Real Madrid v Salzburg",
+    "selection": "Real Madrid -3",
+    "line": -3.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CL + Champ Weds 21 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Bristol City v Blackburn",
+    "selection": "Bristol City -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Burnley v Leeds",
+    "selection": "Leeds -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Cardiff v Derby",
+    "selection": "Cardiff -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Coventry v Watford",
+    "selection": "Coventry -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Preston v Middlesbrough",
+    "selection": "Preston +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "QPR v Sheffield Wednesday",
+    "selection": "QPR -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Sheffield United v Hull",
+    "selection": "Under 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Stoke v Oxford",
+    "selection": "Oxford +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "Championship",
+    "match": "Sunderland v Plymouth",
+    "selection": "Sunderland -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Aston Villa v West Ham",
+    "selection": "West Ham +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Brighton v Everton",
+    "selection": "Over 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Fulham v Manchester United",
+    "selection": "Fulham -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Manchester City v Chelsea",
+    "selection": "Chelsea +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Palace v Brentford",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-24",
+    "league": "EPL",
+    "match": "Wolves v Arsenal",
+    "selection": "Wolves +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24 Jan 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "Championship",
+    "match": "Hull v Stoke",
+    "selection": "Hull -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "Championship",
+    "match": "Millwall v QPR",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "Championship",
+    "match": "Swansea v Coventry",
+    "selection": "Coventry 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "EPL",
+    "match": "Bournemouth v Liverpool",
+    "selection": "Bournemouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "EPL",
+    "match": "Brentford v Tottenham",
+    "selection": "Brentford -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "EPL",
+    "match": "Ipswich v Southampton",
+    "selection": "Ipswich -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "EPL",
+    "match": "Newcastle v Fulham",
+    "selection": "Under 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-01-31",
+    "league": "EPL",
+    "match": "Nottingham Forest v Brighton",
+    "selection": "Forest 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 31 Jan 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-07",
+    "league": "Championship",
+    "match": "Bristol v Swansea",
+    "selection": "Bristol -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 7 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-07",
+    "league": "Championship",
+    "match": "Norwich v Derby",
+    "selection": "Norwich -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 7 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-07",
+    "league": "Championship",
+    "match": "Sheffield United v Portsmouth",
+    "selection": "Sheff United -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 7 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-07",
+    "league": "Championship",
+    "match": "West Brom v Sheffield Wednesday",
+    "selection": "West Brom -.25 and Over 2.25",
+    "line": 2.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 7 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "Championship",
+    "match": "Coventry v QPR",
+    "selection": "Coventry -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "Championship",
+    "match": "Derby v Oxford",
+    "selection": "Oxford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "Championship",
+    "match": "Norwich v Preston",
+    "selection": "Norwich -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "Championship",
+    "match": "Watford v Leeds",
+    "selection": "Watford +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "UCL",
+    "match": "Brest v PSG",
+    "selection": "PSG +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-11",
+    "league": "UCL",
+    "match": "Man City v Real Madrid",
+    "selection": "Real Madrid +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL and Champ 11 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-12",
+    "league": "Championship",
+    "match": "Plymouth v Millwall",
+    "selection": "Plymouth +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 12 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-12",
+    "league": "Championship",
+    "match": "Sunderland v Luton",
+    "selection": "Sunderland -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 12 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-12",
+    "league": "Championship",
+    "match": "West Brom v Blackburn",
+    "selection": "Over 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Weds 12 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-12",
+    "league": "UCL",
+    "match": "Celtic v Bayern Munich",
+    "selection": "Bayern Munich -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 12 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-12",
+    "league": "UCL",
+    "match": "Monaco v Benfica",
+    "selection": "Benfica +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds 12 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Blackburn v Plymouth",
+    "selection": "Plymouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Luton v Sheffield United",
+    "selection": "Sheff United -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Millwall v West Brom",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Oxford United v Portsmouth",
+    "selection": "Oxford -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Preston North End v Burnley",
+    "selection": "PNE +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "Championship",
+    "match": "Sheffield Wednesday v Coventry",
+    "selection": "Coventry +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "EPL",
+    "match": "Crystal Palace v Everton",
+    "selection": "Crystal Palace -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-14",
+    "league": "EPL",
+    "match": "Leicester v Arsenal",
+    "selection": "LCFC +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 14 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-18",
+    "league": "Championship",
+    "match": "Luton Town v Plymouth Argyle",
+    "selection": "Plymouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL + PL.html"
+  },
+  {
+    "newsletter_date": "2025-02-18",
+    "league": "UCL",
+    "match": "Atalanta v Club Brugge",
+    "selection": "Brugge +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL + PL.html"
+  },
+  {
+    "newsletter_date": "2025-02-18",
+    "league": "UCL",
+    "match": "PSV v Juventus",
+    "selection": "PSV -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL + PL.html"
+  },
+  {
+    "newsletter_date": "2025-02-18",
+    "league": "UCL",
+    "match": "Real Madrid v Manchester City",
+    "selection": "RM -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL + PL.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "Championship",
+    "match": "Coventry City v Preston North End",
+    "selection": "Coventry -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "Championship",
+    "match": "Plymouth Argyle v Cardiff City",
+    "selection": "Plymouth 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "Championship",
+    "match": "Swansea City v Blackburn Rovers",
+    "selection": "Swansea 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "Championship",
+    "match": "West Bromwich Albion v Oxford United",
+    "selection": "Oxford +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "EPL",
+    "match": "Manchester City v Liverpool",
+    "selection": "Liverpool +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-21",
+    "league": "EPL",
+    "match": "Newcastle v Nottingham Forest",
+    "selection": "Forest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 21 Feb 2025.html"
+  },
+  {
+    "newsletter_date": "2025-02-25",
+    "league": "Championship",
+    "match": "Cardiff City v Hull City",
+    "selection": "Hull 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 25 Feb 25 Midweek.html"
+  },
+  {
+    "newsletter_date": "2025-02-25",
+    "league": "EPL",
+    "match": "Nottingham Forest v Arsenal",
+    "selection": "Forest +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 25 Feb 25 Midweek.html"
+  },
+  {
+    "newsletter_date": "2025-02-25",
+    "league": "EPL",
+    "match": "Tottenham v Manchester City",
+    "selection": "Man City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 25 Feb 25 Midweek.html"
+  },
+  {
+    "newsletter_date": "2025-02-25",
+    "league": "EPL",
+    "match": "Wolves v Fulham",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - 25 Feb 25 Midweek.html"
+  },
+  {
+    "newsletter_date": "2025-03-04",
+    "league": "Championship",
+    "match": "Hull City v Plymouth",
+    "selection": "Plymouth +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ 04Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-04",
+    "league": "Championship",
+    "match": "Millwall v Bristol City",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ 04Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-04",
+    "league": "UCL",
+    "match": "Club Brugge v Aston Villa",
+    "selection": "Under 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tuesday CL + Champ 04Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-04",
+    "league": "UCL",
+    "match": "PSV v Arsenal",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tuesday CL + Champ 04Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-04",
+    "league": "UCL",
+    "match": "Real Madrid v Atletico Madrid",
+    "selection": "Atletico Madrid +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ 04Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-11",
+    "league": "Championship",
+    "match": "Derby County v Coventry City",
+    "selection": "Coventry -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ.html"
+  },
+  {
+    "newsletter_date": "2025-03-11",
+    "league": "Championship",
+    "match": "Middlesbrough v QPR",
+    "selection": "QPR +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ.html"
+  },
+  {
+    "newsletter_date": "2025-03-11",
+    "league": "UCL",
+    "match": "Internazionale v Feyenoord",
+    "selection": "Inter -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tuesday CL + Champ.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "Championship",
+    "match": "Coventry City v Sunderland",
+    "selection": "Coventry 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "Championship",
+    "match": "Oxford United v Watford",
+    "selection": "Oxford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "Championship",
+    "match": "Preston North End v Portsmouth",
+    "selection": "PNE -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "Championship",
+    "match": "Swansea City v Burnley",
+    "selection": "Swansea +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "Championship",
+    "match": "West Bromwich Albion v Hull City",
+    "selection": "WBA -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "EPL",
+    "match": "Arsenal v Chelsea",
+    "selection": "Chelsea +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "EPL",
+    "match": "Everton v West Ham",
+    "selection": "Everton -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "EPL",
+    "match": "Fulham v Tottenham",
+    "selection": "Spurs +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "EPL",
+    "match": "Ipswich Town v Nottingham Forest",
+    "selection": "Forest -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-14",
+    "league": "EPL",
+    "match": "Manchester City v Brighton",
+    "selection": "Brighton +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting Weekend 14Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-28",
+    "league": "Championship",
+    "match": "Cardiff v Sheffield Wednesday",
+    "selection": "Cardiff +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - English Champ Weekend 28Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-28",
+    "league": "Championship",
+    "match": "Middlesbrough v Oxford United",
+    "selection": "Oxford +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - English Champ Weekend 28Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-03-28",
+    "league": "Championship",
+    "match": "Norwich v West Brom",
+    "selection": "Norwich -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - English Champ Weekend 28Mar2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-01",
+    "league": "EPL",
+    "match": "Arsenal v Fulham",
+    "selection": "Fulham +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek 1Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-01",
+    "league": "EPL",
+    "match": "Newcastle v Brentford",
+    "selection": "Brentford +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek 1Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-01",
+    "league": "EPL",
+    "match": "Nottingham Forest v Manchester United",
+    "selection": "Forest -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek 1Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-01",
+    "league": "EPL",
+    "match": "Southampton v Crystal Palace",
+    "selection": "Crystal Palace -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek 1Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Blackburn Rovers v Middlesbrough",
+    "selection": "Boro 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Coventry v Burnley",
+    "selection": "Coventry +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Luton v Leeds",
+    "selection": "Leeds -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Millwall v Portsmouth",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Plymouth Argyle v Norwich City",
+    "selection": "Norwich -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "Championship",
+    "match": "Preston North End v Stoke City",
+    "selection": "PNE -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "EPL",
+    "match": "Aston Villa v Nottingham Forest",
+    "selection": "Forest +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "EPL",
+    "match": "Brentford v Chelsea",
+    "selection": "Brentford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-04",
+    "league": "EPL",
+    "match": "Leicester City v Newcastle",
+    "selection": "Leicester +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 04Apr2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-04-08",
+    "league": "Championship",
+    "match": "Coventry v Portsmouth",
+    "selection": "Coventry -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL and Champ 8April2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-08",
+    "league": "Championship",
+    "match": "Derby v Burnley",
+    "selection": "Derby +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL and Champ 8April2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-08",
+    "league": "UCL",
+    "match": "Bayern Munich v Internazionale",
+    "selection": "Inter +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL and Champ 8April2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-08",
+    "league": "UCL",
+    "match": "Paris Saint-Germain v Aston Villa",
+    "selection": "PSG -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek CL and Champ 8April2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Arsenal v Brentford",
+    "selection": "Brentford +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Bournemouth v Fulham",
+    "selection": "Bournemouth -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Cardiff City v Stoke City",
+    "selection": "Cardiff -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Manchester City v Crystal Palace",
+    "selection": "Palace +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Millwall v Middlesbrough",
+    "selection": "Millwall 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Nottingham Forest v Everton",
+    "selection": "Forest -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "Portsmouth v Derby County",
+    "selection": "Derby +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-11",
+    "league": "EPL",
+    "match": "QPR v Bristol City",
+    "selection": "QPR +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 11Apr2025.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "Championship",
+    "match": "Blackburn Rovers v Millwall",
+    "selection": "Millwall +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "Championship",
+    "match": "Bristol City v Sunderland",
+    "selection": "Bristol City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "Championship",
+    "match": "Norwich City v Portsmouth",
+    "selection": "Norwich -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "Championship",
+    "match": "Oxford United v Leeds United",
+    "selection": "Leeds -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "EPL",
+    "match": "Aston Villa v Newcastle United",
+    "selection": "Aston Villa 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "EPL",
+    "match": "Everton v Manchester City",
+    "selection": "Man City -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-18",
+    "league": "EPL",
+    "match": "Leicester City v Liverpool",
+    "selection": "Liverpool -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Good Friday Champ + EPL.html"
+  },
+  {
+    "newsletter_date": "2025-04-21",
+    "league": "Championship",
+    "match": "Leeds v Stoke",
+    "selection": "Leeds -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ Easter Monday Championship.html"
+  },
+  {
+    "newsletter_date": "2025-04-21",
+    "league": "Championship",
+    "match": "Luton Town v Bristol City",
+    "selection": "Bristol City +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ Easter Monday Championship.html"
+  },
+  {
+    "newsletter_date": "2025-04-21",
+    "league": "Championship",
+    "match": "WBA v Derby",
+    "selection": "WBA -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ Easter Monday Championship.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "Championship",
+    "match": "Cardiff City v West Bromwich Albion",
+    "selection": "Cardiff -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "Championship",
+    "match": "Oxford United v Sunderland",
+    "selection": "Oxford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "Championship",
+    "match": "Preston North End v Plymouth Argyle",
+    "selection": "PNE -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "EPL",
+    "match": "Chelsea v Everton",
+    "selection": "Everton +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "EPL",
+    "match": "Newcastle United v Ipswich Town",
+    "selection": "Newcastle -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-25",
+    "league": "EPL",
+    "match": "Southampton v Fulham",
+    "selection": "Fulham -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend Bets 24Apr05.html"
+  },
+  {
+    "newsletter_date": "2025-04-29",
+    "league": "UCL",
+    "match": "Barcelona v Inter Milan",
+    "selection": "Over 3.",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Champions League Semifinals.html"
+  },
+  {
+    "newsletter_date": "2025-05-02",
+    "league": "EPL",
+    "match": "Brighton and Hove Albion v Newcastle United",
+    "selection": "Brighton +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Weekend 2May2025.html"
+  },
+  {
+    "newsletter_date": "2025-05-02",
+    "league": "EPL",
+    "match": "Crystal Palace v Nottingham Forest",
+    "selection": "Probably Palace -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Weekend 2May2025.html"
+  },
+  {
+    "newsletter_date": "2025-05-02",
+    "league": "EPL",
+    "match": "Manchester City v Wolves",
+    "selection": "Wolves +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Weekend 2May2025.html"
+  },
+  {
+    "newsletter_date": "2025-05-09",
+    "league": "EPL",
+    "match": "Ipswich Town v Brentford",
+    "selection": "Brentford -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL Weekend 09May2025.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "FC Cincinnati v Austin FC",
+    "selection": "Austin +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "Houston Dynamo v Seattle Sounders",
+    "selection": "Seattle 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "Nashville SC v Charlotte FC",
+    "selection": "Nashville -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "New York City v CF Montreal",
+    "selection": "Montreal +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "St Louis City SC v San Diego FC",
+    "selection": "San Diego 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-10",
+    "league": "MLS",
+    "match": "Vancouver Whitecaps v Los Angeles FC",
+    "selection": "Vancouver -5",
+    "line": -5.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 10 May 20925.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "Houston v Minnesota",
+    "selection": "Minnesota 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "LAFC v Seattle",
+    "selection": "Seattle +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "Nashville v NY RB",
+    "selection": "Nashville -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "Philadelphia v LA Galaxy",
+    "selection": "Philly -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "Real Salt Lake v Portland",
+    "selection": "Portland +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-14",
+    "league": "MLS",
+    "match": "San Jose Earthquakes v Inter Miami",
+    "selection": "San Jose 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 14 May 25.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Austin v Vancouver",
+    "selection": "Vancouver -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Charlotte v Chicago",
+    "selection": "Chicago +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Columbus v Cincy",
+    "selection": "C\u2019Bus -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Dallas v Houston",
+    "selection": "Dallas -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Montreal v Toronto",
+    "selection": "Montreal -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "NE Revs v San Jose",
+    "selection": "San Jose +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-17",
+    "league": "MLS",
+    "match": "Portland v Seattle",
+    "selection": "Seattle 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 17 May Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "Atlanta United v FC Cincinnati",
+    "selection": "Atlanta 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "D.C. United v New York Red Bulls",
+    "selection": "DC 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "New York City FC v Chicago Fire",
+    "selection": "Chicago +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "Philadelphia Union v Inter Miami",
+    "selection": "Philly -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "Real Salt Lake v Vancouver Whitecaps",
+    "selection": "Vancouver 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "San Diego FC v Los Angeles Galaxy",
+    "selection": "SD -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "San Jose Earthquakes v Houston Dynamo",
+    "selection": "San Jose -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-05-24",
+    "league": "MLS",
+    "match": "Toronto FC v Nashville SC",
+    "selection": "Nashville 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 23 May 25 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-06-13",
+    "league": "MLS",
+    "match": "Portland v San Jose",
+    "selection": "San Jose +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting -MLS Friday + CWC Futures Thoughts.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "Club World Cup",
+    "match": "Unknown",
+    "selection": "Bayern Munich -4.25",
+    "line": -4.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "MLS",
+    "match": "Austin FC v New York Red Bulls",
+    "selection": "Austin -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "MLS",
+    "match": "Chicago Fire v Nashville SC",
+    "selection": "Over 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "MLS",
+    "match": "Columbus Crew v Vancouver Whitecaps",
+    "selection": "Vancouver +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "MLS",
+    "match": "Houston Dynamo v CF Montreal",
+    "selection": "Houston -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-14",
+    "league": "MLS",
+    "match": "Real Salt Lake v D.C. United",
+    "selection": "DC +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Rest of MLS + CWC Sunday.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Al Ain v Juventus",
+    "selection": "Juve -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Chelsea v LAFC",
+    "selection": "Chelsea -2",
+    "line": -2.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Flamengo v Esperance",
+    "selection": "Flamengo -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Fluminense v Borussia Dortmund",
+    "selection": "Dortmund -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Manchester City v Wydad",
+    "selection": "Man City -2.75",
+    "line": -2.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "Real Madrid v Al-Hilal",
+    "selection": "Real Madrid -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-16",
+    "league": "Club World Cup",
+    "match": "River Plate v Urawa",
+    "selection": "River -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC.html"
+  },
+  {
+    "newsletter_date": "2025-06-20",
+    "league": "Club World Cup",
+    "match": "Inter Milan v Urawa Red Diamonds",
+    "selection": "Inter -2",
+    "line": -2.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC 20June2025.html"
+  },
+  {
+    "newsletter_date": "2025-06-20",
+    "league": "Club World Cup",
+    "match": "Los Angeles FC v Esperance",
+    "selection": "LAFC -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC 20June2025.html"
+  },
+  {
+    "newsletter_date": "2025-06-20",
+    "league": "Club World Cup",
+    "match": "Mamelodi Sundowns v Borussia Dortmund",
+    "selection": "Dortmund -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - CWC 20June2025.html"
+  },
+  {
+    "newsletter_date": "2025-06-22",
+    "league": "Club World Cup",
+    "match": "Read Madrid v Pachuca",
+    "selection": "Pachuca +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ CWC - Sunday and Monday 22 June 25.html"
+  },
+  {
+    "newsletter_date": "2025-06-22",
+    "league": "Club World Cup",
+    "match": "Salzburg v Al-Hilal",
+    "selection": "Al Hilal -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ CWC - Sunday and Monday 22 June 25.html"
+  },
+  {
+    "newsletter_date": "2025-06-22",
+    "league": "Club World Cup",
+    "match": "Seattle Sounders v PSG",
+    "selection": "PSG -2",
+    "line": -2.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting_ CWC - Sunday and Monday 22 June 25.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "Chicago v Philadelphia",
+    "selection": "Philly +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "Columbus v Atlanta",
+    "selection": "ATL +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "Minnesota v Houston",
+    "selection": "Minnesota -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "New England v Nashville",
+    "selection": "Nashville 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "Sporting KC v Charlotte",
+    "selection": "Charlotte 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-25",
+    "league": "MLS",
+    "match": "Toronto v NYRB",
+    "selection": "Toronto +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Midweek MLS and CWC Catchup.html"
+  },
+  {
+    "newsletter_date": "2025-06-28",
+    "league": "MLS",
+    "match": "Columbus Crew v Philadelphia Union",
+    "selection": "Philly +0.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting \u2014 MLS weekend.html"
+  },
+  {
+    "newsletter_date": "2025-06-28",
+    "league": "MLS",
+    "match": "New York Red Bulls v Minnesota United",
+    "selection": "Minnesota +0.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting \u2014 MLS weekend.html"
+  },
+  {
+    "newsletter_date": "2025-06-28",
+    "league": "MLS",
+    "match": "Orlando City v FC Cincinnati",
+    "selection": "Orlando -0.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting \u2014 MLS weekend.html"
+  },
+  {
+    "newsletter_date": "2025-06-28",
+    "league": "MLS",
+    "match": "San Jose Earthquakes v Los Angeles Galaxy",
+    "selection": "Quakes -0.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting \u2014 MLS weekend.html"
+  },
+  {
+    "newsletter_date": "2025-06-28",
+    "league": "MLS",
+    "match": "Sporting Kansas City v Real Salt Lake",
+    "selection": "RSL 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting \u2014 MLS weekend.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Colorado Rapids v Vancouver Whitecaps",
+    "selection": "Vancouver 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "FC Cincinnati v Columbus Crew",
+    "selection": "Columbus +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Inter Miami v Nashville SC",
+    "selection": "Nashville +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Minnesota United v San Jose Earthquakes",
+    "selection": "SJ +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Philadelphia Union v New York Red Bull",
+    "selection": "Philly -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Real Salt Lake v Houston Dynamo",
+    "selection": "Houston +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Sporting Kansas City v Seattle Sounders",
+    "selection": "Seattle -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-12",
+    "league": "MLS",
+    "match": "Toronto FC v Atlanta United",
+    "selection": "Atlanta 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 11July2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-25",
+    "league": "MLS",
+    "match": "Chicago Fire v New York Red Bulls",
+    "selection": "Chicago -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 25Jul2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-25",
+    "league": "MLS",
+    "match": "Columbus Crew v Orlando City",
+    "selection": "Orlando City +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 25Jul2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-25",
+    "league": "MLS",
+    "match": "Real Salt Lake v San Jose Earthquake",
+    "selection": "SJ +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 25Jul2025.html"
+  },
+  {
+    "newsletter_date": "2025-07-25",
+    "league": "MLS",
+    "match": "San Diego FC v Nashville SC",
+    "selection": "Nashville +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 25Jul2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "CF Montreal v Atlanta United",
+    "selection": "Atlanta +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "FC Cincinnati v Charlotte FC",
+    "selection": "Charlotte +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "FC Dallas v Portland Timbers",
+    "selection": "Dallas -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "Philadelphia Union v Toronto FC",
+    "selection": "Philly -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "San Jose Earthquakes v Vancouver Whitecaps",
+    "selection": "Vancouver +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-09",
+    "league": "MLS",
+    "match": "Sporting Kansas City v San Diego FC",
+    "selection": "San Diego -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend 09Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-15",
+    "league": "EPL",
+    "match": "Austin FC v FC Dallas:",
+    "selection": "Dallas +0.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend, 15 Aug. 2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-15",
+    "league": "EPL",
+    "match": "Colorado Rapids v Atlanta United:",
+    "selection": "Atlanta +0.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend, 15 Aug. 2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-15",
+    "league": "EPL",
+    "match": "Inter Miami v Los Angeles Galaxy:",
+    "selection": "Galaxy +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend, 15 Aug. 2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-15",
+    "league": "EPL",
+    "match": "Minnesota United v Seattle Sounders:",
+    "selection": "Sounders +0.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend, 15 Aug. 2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-15",
+    "league": "EPL",
+    "match": "New York Red Bulls v Philadelphia Union:",
+    "selection": "Philly 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS Weekend, 15 Aug. 2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-30",
+    "league": "MLS",
+    "match": "Cincinnati v Philadelphia Union",
+    "selection": "Philly 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 30Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-30",
+    "league": "MLS",
+    "match": "NE Revs v Charlotte",
+    "selection": "Charlotte +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 30Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-30",
+    "league": "MLS",
+    "match": "NYCFC v DC United",
+    "selection": "DC +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 30Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-30",
+    "league": "MLS",
+    "match": "Nashville v Atlanta",
+    "selection": "Atlanta +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 30Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-08-30",
+    "league": "MLS",
+    "match": "Toronto v Montreal",
+    "selection": "Montreal +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - MLS 30Aug2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-16",
+    "league": "UCL",
+    "match": "PSV v Union Saint-Gilloise",
+    "selection": "Union +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - The Champions League is Back.html"
+  },
+  {
+    "newsletter_date": "2025-09-17",
+    "league": "UCL",
+    "match": "Club Brugge v Monaco",
+    "selection": "Monaco 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Thurs CL Analysis 17Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-17",
+    "league": "UCL",
+    "match": "FC Copenhagen v Bayer Leverkusen",
+    "selection": "Copenhagen +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Thurs CL Analysis 17Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-17",
+    "league": "UCL",
+    "match": "Manchester City v Napoli",
+    "selection": "Napoli +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Thurs CL Analysis 17Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-17",
+    "league": "UCL",
+    "match": "Newcastle v Barcelona",
+    "selection": "UNDER 3.25",
+    "line": 3.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Thurs CL Analysis 17Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-19",
+    "league": "Championship",
+    "match": "Millwall v Watford",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - England is Back! 19Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-19",
+    "league": "Championship",
+    "match": "Norwich v Wrexham",
+    "selection": "Over 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - England is Back! 19Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-19",
+    "league": "Championship",
+    "match": "Portsmouth v Sheffield Weds",
+    "selection": "Pompey -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - England is Back! 19Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-19",
+    "league": "Championship",
+    "match": "QPR v Stoke",
+    "selection": "Stoke 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - England is Back! 19Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-19",
+    "league": "EPL",
+    "match": "Hull v Southampton",
+    "selection": "Southampton -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - England is Back! 19Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Chelsea v Brighton",
+    "selection": "Brighton +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Crystal Palace v Liverpool",
+    "selection": "Crystal Palace +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Everton v West Ham",
+    "selection": "Everton -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Manchester City v Burnley",
+    "selection": "Man City -2",
+    "line": -2.0,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Nottingham Forest v Sunderland",
+    "selection": "Sunderland +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-26",
+    "league": "EPL",
+    "match": "Spurs v Wolves",
+    "selection": "Wolves +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "EPL + Friday Champ 26Sep2025.html"
+  },
+  {
+    "newsletter_date": "2025-09-27",
+    "league": "Championship",
+    "match": "Ipswich v Portsmouth",
+    "selection": "Ipswich -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-09-27",
+    "league": "Championship",
+    "match": "Oxford v Sheffield United",
+    "selection": "Oxford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-09-27",
+    "league": "Championship",
+    "match": "Southampton v Middlesboro",
+    "selection": "Southampton -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-09-27",
+    "league": "Championship",
+    "match": "Stoke v Norwich",
+    "selection": "Stoke -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "Championship",
+    "match": "Hull City v Sheffield United",
+    "selection": "Hull City 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "Championship",
+    "match": "Sheffield Wednesday v Coventry City",
+    "selection": "Coventry -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "Championship",
+    "match": "Wrexham v Birmingham City",
+    "selection": "Birmingham -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "EPL",
+    "match": "Leeds v Spurs",
+    "selection": "Leeds 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "EPL",
+    "match": "Manchester United v Sunderland",
+    "selection": "Sunderland +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "EPL",
+    "match": "Newcastle v Nottingham Forest",
+    "selection": "Forest +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-03",
+    "league": "EPL",
+    "match": "Wolves v Brighton",
+    "selection": "Wolves +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 3rdOct2025 EPL Weekend Analysis + Fri and Early Sat Eng Champ.html"
+  },
+  {
+    "newsletter_date": "2025-10-04",
+    "league": "Championship",
+    "match": "Derby v Southampton",
+    "selection": "Southampton +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 4Oct2025 - Later Champ Games.html"
+  },
+  {
+    "newsletter_date": "2025-10-04",
+    "league": "Championship",
+    "match": "Portsmouth v Middlesboro",
+    "selection": "Portsmouth +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 4Oct2025 - Later Champ Games.html"
+  },
+  {
+    "newsletter_date": "2025-10-04",
+    "league": "Championship",
+    "match": "Swansea v Leicester City",
+    "selection": "Swansea 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 4Oct2025 - Later Champ Games.html"
+  },
+  {
+    "newsletter_date": "2025-10-04",
+    "league": "Championship",
+    "match": "Watford v Oxford United",
+    "selection": "Watford -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 4Oct2025 - Later Champ Games.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Charlton Athletic v Sheffield Wednesday",
+    "selection": "Charlton -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Coventry City v Blackburn Rovers",
+    "selection": "Coventry -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Norwich City v Bristol City",
+    "selection": "Bristol City 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Oxford United v Derby County",
+    "selection": "Oxford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Southampton v Swansea City",
+    "selection": "Southampton -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "Stoke City v Wrexham",
+    "selection": "Stoke -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "Championship",
+    "match": "West Bromwich Albion v Preston North End",
+    "selection": "WBA -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "EPL",
+    "match": "Brighton v Newcastle United",
+    "selection": "Brighton 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "EPL",
+    "match": "Burnley v Leeds United",
+    "selection": "Leeds -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "EPL",
+    "match": "Crystal Palace v Bournemouth",
+    "selection": "Crystal Palace -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "EPL",
+    "match": "Liverpool v Manchester United",
+    "selection": "Manchester United +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-17",
+    "league": "EPL",
+    "match": "Sunderland v Wolverhampton",
+    "selection": "Sunderland -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend 17Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "Championship",
+    "match": "Swansea v QPR",
+    "selection": "QPR +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "Championship",
+    "match": "Watford v West Brom",
+    "selection": "Watford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Atalanta v Slavia Prague",
+    "selection": "Atalanta -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Athletic Bilbao v Qarabag",
+    "selection": "Qarabag +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Chelsea v Ajax",
+    "selection": "Chelsea -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Chelsea v Ajax",
+    "selection": "Over 3.25",
+    "line": 3.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Eintracht Frankfurt v Liverpool",
+    "selection": "Liverpool -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Eintracht Frankfurt v Liverpool",
+    "selection": "Over 3.75",
+    "line": 3.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Real Madrid v Juventus",
+    "selection": "Real Madrid -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-22",
+    "league": "UCL",
+    "match": "Sporting v Marseille",
+    "selection": "Sporting -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weds CL + Champ 22Oct2025.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "Championship",
+    "match": "Boro v Wrexham",
+    "selection": "Boro -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "Championship",
+    "match": "Bristol City v Birmingham City",
+    "selection": "Bristol City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "Championship",
+    "match": "Coventry v Watford",
+    "selection": "Coventry -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "Championship",
+    "match": "Derby v QPR",
+    "selection": "QPR 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "EPL",
+    "match": "Arsenal v Crystal Palace",
+    "selection": "Crystal Palace +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "EPL",
+    "match": "Brentford v Liverpool",
+    "selection": "Brentford +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "EPL",
+    "match": "Chelsea v Sunderland",
+    "selection": "Sunderland +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "EPL",
+    "match": "Leeds v West Ham United",
+    "selection": "Leeds -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-10-24",
+    "league": "EPL",
+    "match": "Wolves v Burnley",
+    "selection": "Wolves -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - 24Oct2025 Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "Birmingham v Norwich",
+    "selection": "Birmingham -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "Bristol City v Swansea",
+    "selection": "Bristol City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "Coventry v West Brom",
+    "selection": "Coventry -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "Derby County v Watford",
+    "selection": "Watford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "Ipswich v Wrexham",
+    "selection": "Ipswich -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "Championship",
+    "match": "QPR v Hull City",
+    "selection": "QPR -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "EPL",
+    "match": "Bournemouth v West Ham",
+    "selection": "West Ham +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "EPL",
+    "match": "Burnley v Chelsea",
+    "selection": "Chelsea -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "EPL",
+    "match": "Leeds v Aston Villa",
+    "selection": "Leeds +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "EPL",
+    "match": "Liverpool v Nottingham Forest",
+    "selection": "Forest +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-21",
+    "league": "EPL",
+    "match": "Wolves v Crystal Palace",
+    "selection": "Crystal Palace -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Weekend EPL + Champ 20Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "Championship",
+    "match": "Southampton v Leicester",
+    "selection": "Southampton -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "Championship",
+    "match": "Stoke v Charlton",
+    "selection": "Stoke -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "Championship",
+    "match": "Watford v Preston North End",
+    "selection": "Watford -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Arsenal v Bayern",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Bodo/Glimt v Juventus",
+    "selection": "Bodo +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Copenhagen v Kairat",
+    "selection": "Under 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Liverpool v PSV",
+    "selection": "Liverpool -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Marseille v Newcastle",
+    "selection": "Newcastle 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Napoli v Qarabag",
+    "selection": "Qarabag +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Olympiacos v Real Madrid",
+    "selection": "RM -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-25",
+    "league": "UCL",
+    "match": "Slavia Prague v Athletic Bilbao",
+    "selection": "Bilbao +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Tues_Wed CL + Champ 25-26Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "Championship",
+    "match": "Birmingham v Watford",
+    "selection": "Birmingham -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "Championship",
+    "match": "Coventry v Charlton",
+    "selection": "Coventry -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "Championship",
+    "match": "Stoke v Hull City",
+    "selection": "Stoke -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "Championship",
+    "match": "Wrexham v Blackburn",
+    "selection": "Blackburn +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "EPL",
+    "match": "Aston Villa v Wolves",
+    "selection": "Wolves +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "EPL",
+    "match": "Crystal Palace v Manchester United",
+    "selection": "Crystal Palace -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "EPL",
+    "match": "Sunderland v Bournemouth",
+    "selection": "Sunderland +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-11-28",
+    "league": "EPL",
+    "match": "Tottenham v Fulham",
+    "selection": "Fulham +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ Weekend 28Nov2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Arsenal v Brentford",
+    "selection": "Brentford +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Brighton v Aston Villa",
+    "selection": "Brighton -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Burnley v Crystal Palace",
+    "selection": "Palace -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Fulham v Manchester City",
+    "selection": "Fulham +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Leeds v Chelsea",
+    "selection": "Leeds +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-02",
+    "league": "EPL",
+    "match": "Liverpool v Sunderland",
+    "selection": "Sunderland +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ midweek 2Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "Championship",
+    "match": "Ipswich v Coventry",
+    "selection": "Coventry +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "Championship",
+    "match": "Preston v Wrexham",
+    "selection": "Preston -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "Championship",
+    "match": "Watford v Norwich",
+    "selection": "Watford -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "EPL",
+    "match": "Aston Villa v Arsenal",
+    "selection": "Arsenal -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "EPL",
+    "match": "Manchester City v Sunderland",
+    "selection": "Sunderland +1.75",
+    "line": 1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-05",
+    "league": "EPL",
+    "match": "Tottenham v Brentford",
+    "selection": "Brentford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Champ weekend 5Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "Championship",
+    "match": "Sheffield United v Norwich",
+    "selection": "Sheffield United -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "Championship",
+    "match": "Southampton v West Brom",
+    "selection": "Southampton -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "Championship",
+    "match": "Swansea v Portsmouth",
+    "selection": "Swansea -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "Championship",
+    "match": "Watford v Sheffield Weds",
+    "selection": "Watford -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "UCL",
+    "match": "Inter v Liverpool",
+    "selection": "Liverpool +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "UCL",
+    "match": "Monaco v Galatasaray",
+    "selection": "Gala +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-09",
+    "league": "UCL",
+    "match": "Tottenham v Slavia Prague",
+    "selection": "Spurs -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 9Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "Championship",
+    "match": "Bristol City v Leicester",
+    "selection": "Bristol City -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Athletic Bilbao v PSG",
+    "selection": "Bilbao +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Club Brugge v Arsenal",
+    "selection": "Arsenal -1.5",
+    "line": -1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Dortmund v Bodo/Glimt",
+    "selection": "Dortmund -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Leverkusen v Newcastle",
+    "selection": "Newcastle -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Qarabag v Ajax",
+    "selection": "Qarabag -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-10",
+    "league": "UCL",
+    "match": "Villarreal v Copenhagen",
+    "selection": "Villarreal -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Champions League + Championship 10Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "Bristol City v Middlesbrough",
+    "selection": "Boro 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "Hull City v West Brom",
+    "selection": "Hull 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "Ipswich v Sheffield Weds",
+    "selection": "Ipswich -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "QPR v Leicester",
+    "selection": "QPR -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "Sheffield United v Birmingham",
+    "selection": "Birmingham +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "Championship",
+    "match": "Southampton v Coventry",
+    "selection": "Coventry 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "EPL",
+    "match": "Bournemouth v Burnley",
+    "selection": "Bournemouth -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "EPL",
+    "match": "Brighton v Sunderland",
+    "selection": "Brighton -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-19",
+    "league": "EPL",
+    "match": "Everton v Arsenal",
+    "selection": "Arsenal -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League + Championship 19Dec2025.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "Birmingham v Derby",
+    "selection": "Birmingham -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "Coventry v Swansea",
+    "selection": "Coventry -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "Leicester v Watford",
+    "selection": "Watford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "Middlesbrough v Blackburn",
+    "selection": "Blackburn +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "Portsmouth v QPR",
+    "selection": "QPR -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "Championship",
+    "match": "WBA v Bristol City",
+    "selection": "WBA -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "EPL",
+    "match": "Crystal Palace v Spurs",
+    "selection": "Crystal Palace -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "EPL",
+    "match": "Liverpool v Wolves",
+    "selection": "Wolves +1.75",
+    "line": 1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "EPL",
+    "match": "Manchester United v Newcastle",
+    "selection": "Man United 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "EPL",
+    "match": "Nottingham Forest v Manchester City",
+    "selection": "Forest +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-26",
+    "league": "EPL",
+    "match": "Sunderland v Leeds",
+    "selection": "Leeds 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Boxing Day Weekend.html"
+  },
+  {
+    "newsletter_date": "2025-12-28",
+    "league": "Championship",
+    "match": "Oxford v Swansea",
+    "selection": "Oxford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Monday 29 Dec 25.html"
+  },
+  {
+    "newsletter_date": "2025-12-28",
+    "league": "Championship",
+    "match": "Wrexham v Preston North End",
+    "selection": "PNE +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship Monday 29 Dec 25.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Brentford v Tottenham",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Brentford v Tottenham",
+    "selection": "Brentford -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Burnley v Newcastle",
+    "selection": "Burnley +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Chelsea v Bournemouth",
+    "selection": "Bournemouth +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Crystal Palace v Fulham",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Forest v Everton",
+    "selection": "Forest -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2025-12-30",
+    "league": "EPL",
+    "match": "Liverpool v Leeds",
+    "selection": "Leeds +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Premier League 30 Dec + 1st Jan Analysis.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "Championship",
+    "match": "Blackburn v Charlton",
+    "selection": "Blackburn -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "Championship",
+    "match": "Leicester v West Brom",
+    "selection": "West Brom 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "Championship",
+    "match": "Millwall v Swansea",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "EPL",
+    "match": "Aston Villa v Nottingham Forest",
+    "selection": "Forest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "EPL",
+    "match": "Bournemouth v Arsenal",
+    "selection": "Bournemouth +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "EPL",
+    "match": "Fulham v Liverpool",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "EPL",
+    "match": "Newcastle v Crystal Palace",
+    "selection": "Crystal Palace +.75 Under 2.75",
+    "line": 2.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-02",
+    "league": "EPL",
+    "match": "Spurs v Sunderland",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL + Eng Champ Weekend 3rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-06",
+    "league": "EPL",
+    "match": "Bournemouth v Tottenham",
+    "selection": "UNDER 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL 6th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-06",
+    "league": "EPL",
+    "match": "Brentford v Sunderland",
+    "selection": "Brentford -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL 6th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-06",
+    "league": "EPL",
+    "match": "Crystal Palace v Aston Villa",
+    "selection": "Crystal Palace +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL 6th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-06",
+    "league": "EPL",
+    "match": "Fulham v Chelsea",
+    "selection": "Fulham +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL 6th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-06",
+    "league": "EPL",
+    "match": "Newcastle v Leeds",
+    "selection": "Leeds +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL 6th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "Coventry v Leicester",
+    "selection": "Coventry -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "Ipswich v Blackburn",
+    "selection": "Ipswich -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "Oxford United v Bristol City",
+    "selection": "Oxford +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "Preston North End v Derby County",
+    "selection": "PNE -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "West Brom v Middlesbrough",
+    "selection": "West Brom 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "Championship",
+    "match": "Wrexham v Norwich",
+    "selection": "Norwich +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "EPL",
+    "match": "Chelsea v Brentford",
+    "selection": "Brentford +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "EPL",
+    "match": "Leeds v Fulham",
+    "selection": "Leeds -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "EPL",
+    "match": "Manchester United v Manchester City",
+    "selection": "Man United +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-16",
+    "league": "EPL",
+    "match": "Nottingham Forest v Arsenal",
+    "selection": "Nottingham Forest +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 16th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Blackburn v Watford",
+    "selection": "Watford 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Derby v West Brom",
+    "selection": "West Brom 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Hull v Swansea",
+    "selection": "Hull -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Leicester v Oxford Utd",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Norwich v Coventry",
+    "selection": "Coventry 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "Championship",
+    "match": "Sheffield Utd v Ipswich",
+    "selection": "Sheff Utd +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "EPL",
+    "match": "Arsenal v Manchester United",
+    "selection": "Man United +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "EPL",
+    "match": "Bournemouth v Liverpool",
+    "selection": "Bournemouth +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-23",
+    "league": "EPL",
+    "match": "West Ham v Sunderland",
+    "selection": "West Ham 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 23rd Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Ajax v Olympiakos",
+    "selection": "Olympiakos -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Athletic Bilbao v Sporting CP",
+    "selection": "Athletic Bilbao -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Athletic Bilbao v Sporting CP",
+    "selection": "Under 2.5",
+    "line": 2.5,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Barcelona v Copenhagen",
+    "selection": "Over 4.25",
+    "line": 4.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Benfica v Real Madrid",
+    "selection": "Real Madrid -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Club Brugge v Marseille",
+    "selection": "Marseille 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Eintracht Frankfurt v Tottenham",
+    "selection": "Over 3",
+    "line": 3.0,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Leverkusen v Villarreal",
+    "selection": "Leverkusen -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Monaco v Juventus",
+    "selection": "Under 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Napoli v Chelsea",
+    "selection": "Chelsea -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "PSV v Bayern",
+    "selection": "Bayern -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-28",
+    "league": "UCL",
+    "match": "Pafos v Slavia Prague",
+    "selection": "Pafos 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL 28th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "Championship",
+    "match": "Blackburn v Hull City",
+    "selection": "Blackburn -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "Championship",
+    "match": "Portsmouth v West Brom",
+    "selection": "West Brom 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "Championship",
+    "match": "QPR v Coventry",
+    "selection": "Coventry -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "Championship",
+    "match": "Stoke v Southampton",
+    "selection": "Southampton 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "Championship",
+    "match": "Watford v Swansea",
+    "selection": "Watford -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Aston Villa v Brentford",
+    "selection": "Brentford +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Brighton v Everton",
+    "selection": "Brighton -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Leeds v Arsenal",
+    "selection": "Leeds +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Liverpool v Newcastle",
+    "selection": "Newcastle +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Sunderland v Burnley",
+    "selection": "Sunderland -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-01-30",
+    "league": "EPL",
+    "match": "Tottenham v Manchester City",
+    "selection": "Man City -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 30th Jan 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "Championship",
+    "match": "Birmingham v Leicester",
+    "selection": "Birmingham -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "Championship",
+    "match": "West Brom v Stoke",
+    "selection": "West Brom -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Bournemouth v Aston Villa",
+    "selection": "Bournemouth 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Burnley v West Ham",
+    "selection": "Burnley +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Leeds v Nottingham Forest",
+    "selection": "Leeds -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Liverpool v Manchester City",
+    "selection": "Liverpool -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Newcastle v Brentford",
+    "selection": "Brentford +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-06",
+    "league": "EPL",
+    "match": "Wolves v Chelsea",
+    "selection": "Wolves +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 6th Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "Championship",
+    "match": "Birmingham v West Brom",
+    "selection": "Birmingham -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "Championship",
+    "match": "Oxford Utd v Norwich",
+    "selection": "Norwich -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Aston Villa v Brighton",
+    "selection": "Brighton +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Chelsea v Leeds",
+    "selection": "Leeds +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Crystal Palace v Burnley",
+    "selection": "Crystal Palace -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Manchester City v Fulham",
+    "selection": "Fulham +1.5",
+    "line": 1.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Nottingham Forest v Wolves",
+    "selection": "Forest -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-10",
+    "league": "EPL",
+    "match": "Tottenham v Newcastle",
+    "selection": "Newcastle -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 10 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-13",
+    "league": "Championship",
+    "match": "Portsmouth v Sheffield United",
+    "selection": "Sheff United -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship 13 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-17",
+    "league": "UCL",
+    "match": "Bodo/Glimt v Inter",
+    "selection": "Inter -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL, EPL, + Championship 17 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-17",
+    "league": "UCL",
+    "match": "Monaco v PSG",
+    "selection": "PSG -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL, EPL, + Championship 17 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-17",
+    "league": "UCL",
+    "match": "Olympiakos v Leverkusen",
+    "selection": "Leverkusen 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL, EPL, + Championship 17 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-17",
+    "league": "UCL",
+    "match": "Qarabag v Newcastle",
+    "selection": "Newcastle -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL, EPL, + Championship 17 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-17",
+    "league": "UCL",
+    "match": "Qarabag v Newcastle",
+    "selection": "Over 2.75",
+    "line": 2.75,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL, EPL, + Championship 17 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "Championship",
+    "match": "Hull v QPR",
+    "selection": "QPR +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "Championship",
+    "match": "West Brom v Coventry",
+    "selection": "West Brom +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "Championship",
+    "match": "Wrexham v Ipswich",
+    "selection": "Ipswich -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "EPL",
+    "match": "Crystal Palace v Wolves",
+    "selection": "Palace -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "EPL",
+    "match": "Manchester City v Newcastle",
+    "selection": "Man City -1.25",
+    "line": -1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "EPL",
+    "match": "Nottingham Forest v Liverpool",
+    "selection": "Forest +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-20",
+    "league": "EPL",
+    "match": "West Ham v Bournemouth",
+    "selection": "Bournemouth 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 20 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "Championship",
+    "match": "Middlesbrough v Leicester",
+    "selection": "Boro -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "Championship",
+    "match": "Sheffield Utd v Coventry",
+    "selection": "Coventry 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "Championship",
+    "match": "Swansea v Preston",
+    "selection": "Preston +.75",
+    "line": 0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "Championship",
+    "match": "West Brom v Charlton",
+    "selection": "West Brom -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "Championship",
+    "match": "Wrexham v Portsmouth",
+    "selection": "Wrexham -.5",
+    "line": -0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "UCL",
+    "match": "Atletico Madrid v Club Brugge",
+    "selection": "Over 3.25",
+    "line": 3.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "UCL",
+    "match": "Juventus v Galatasaray",
+    "selection": "Over 3.25",
+    "line": 3.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "UCL",
+    "match": "Leverkusen v Olympiacos",
+    "selection": "Leverkusen -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-24",
+    "league": "UCL",
+    "match": "PSG v Monaco",
+    "selection": "PSG -1.75",
+    "line": -1.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - UCL + Championship 24 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "Championship",
+    "match": "Charlton v Wrexham",
+    "selection": "OVER 2.25",
+    "line": 2.25,
+    "bet_type": "ou",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "Championship",
+    "match": "Portsmouth v Hull City",
+    "selection": "Portsmouth -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "Championship",
+    "match": "Preston v Millwall",
+    "selection": "Preston +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "Championship",
+    "match": "QPR v Sheffield Utd",
+    "selection": "QPR +.25",
+    "line": 0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "EPL",
+    "match": "Arsenal v Chelsea",
+    "selection": "Arsenal -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "EPL",
+    "match": "Burnley v Brentford",
+    "selection": "Brentford -.75",
+    "line": -0.75,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "EPL",
+    "match": "Fulham v Tottenham",
+    "selection": "Fulham -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "EPL",
+    "match": "Leeds v Manchester City",
+    "selection": "Leeds +1",
+    "line": 1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-02-27",
+    "league": "EPL",
+    "match": "Liverpool v West Ham",
+    "selection": "West Ham +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 27 Feb 2026.html"
+  },
+  {
+    "newsletter_date": "2026-03-03",
+    "league": "EPL",
+    "match": "Fulham v West Ham",
+    "selection": "West Ham +.5",
+    "line": 0.5,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 3 Mar 2026.html"
+  },
+  {
+    "newsletter_date": "2026-03-03",
+    "league": "EPL",
+    "match": "Wolves v Liverpool",
+    "selection": "Wolves +1.25",
+    "line": 1.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - EPL + Championship 3 Mar 2026.html"
+  },
+  {
+    "newsletter_date": "2026-03-06",
+    "league": "Championship",
+    "match": "Blackburn v Portsmouth",
+    "selection": "Blackburn 0",
+    "line": 0.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship 6 March 2026.html"
+  },
+  {
+    "newsletter_date": "2026-03-06",
+    "league": "Championship",
+    "match": "Hull v Millwall",
+    "selection": "Millwall -.25",
+    "line": -0.25,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship 6 March 2026.html"
+  },
+  {
+    "newsletter_date": "2026-03-06",
+    "league": "Championship",
+    "match": "Ipswich v Leicester",
+    "selection": "Ipswich -1",
+    "line": -1.0,
+    "bet_type": "ah",
+    "source_file": "Variance Betting - Championship 6 March 2026.html"
+  }
+]

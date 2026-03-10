@@ -1,0 +1,162 @@
+{
+  "date": "2026-03-10",
+  "model": "MI Bivariate Poisson + Variance v2",
+  "generated": "2026-03-10T21:06:09.919Z",
+  "filters": {
+    "minEdge": 0.05,
+    "maxOdds": 2.8,
+    "excludeDraws": true
+  },
+  "bets": [
+    {
+      "match": "Sheffield Wednesday v Ipswich",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Sheffield Wednesday +1.5",
+      "edge": 0.356,
+      "pinnacleOdds": 2.17,
+      "fairOdds": 1.29,
+      "signal": "model_only"
+    },
+    {
+      "match": "Sheffield Wednesday v Watford",
+      "league": "championship",
+      "date": "10 Mar",
+      "selection": "Sheffield Wednesday +1.5",
+      "edge": 0.317,
+      "pinnacleOdds": 1.56,
+      "fairOdds": 1.11,
+      "signal": "model_only"
+    },
+    {
+      "match": "Bayer Leverkusen v Arsenal",
+      "league": "ucl",
+      "date": "11 Mar",
+      "selection": "Bayer Leverkusen +0.5",
+      "edge": 0.278,
+      "pinnacleOdds": 2.44,
+      "fairOdds": 1.5,
+      "signal": "model_only"
+    },
+    {
+      "match": "Leicester v Queens Park Rangers",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Leicester -0.5",
+      "edge": 0.241,
+      "pinnacleOdds": 2.15,
+      "fairOdds": 1.47,
+      "signal": "model_only"
+    },
+    {
+      "match": "Leicester v Bristol City",
+      "league": "championship",
+      "date": "10 Mar",
+      "selection": "Leicester -0.5",
+      "edge": 0.228,
+      "pinnacleOdds": 2.28,
+      "fairOdds": 1.56,
+      "signal": "model_only"
+    },
+    {
+      "match": "Real Madrid v Manchester City",
+      "league": "ucl",
+      "date": "11 Mar",
+      "selection": "Real Madrid +0.5",
+      "edge": 0.216,
+      "pinnacleOdds": 1.88,
+      "fairOdds": 1.36,
+      "signal": "model_only"
+    },
+    {
+      "match": "Birmingham City v Queens Park Rangers",
+      "league": "championship",
+      "date": "11 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.213,
+      "pinnacleOdds": 1.86,
+      "fairOdds": 1.37,
+      "signal": "model_only"
+    },
+    {
+      "match": "West Bromwich Albion v Southampton",
+      "league": "championship",
+      "date": "11 Mar",
+      "selection": "Over 2.5",
+      "edge": 0.147,
+      "pinnacleOdds": 1.96,
+      "fairOdds": 1.57,
+      "signal": "model_only"
+    },
+    {
+      "match": "Millwall v Derby County",
+      "league": "championship",
+      "date": "10 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.142,
+      "pinnacleOdds": 1.92,
+      "fairOdds": 1.54,
+      "signal": "model_only"
+    },
+    {
+      "match": "Atalanta v Bayern Munich",
+      "league": "ucl",
+      "date": "10 Mar",
+      "selection": "Atalanta +0.5",
+      "edge": 0.141,
+      "pinnacleOdds": 2.24,
+      "fairOdds": 1.78,
+      "signal": "model_only"
+    },
+    {
+      "match": "Atlético Madrid v Tottenham",
+      "league": "ucl",
+      "date": "10 Mar",
+      "selection": "Atlético Madrid -0.75",
+      "edge": 0.132,
+      "pinnacleOdds": 1.91,
+      "fairOdds": 1.55,
+      "signal": "model_only"
+    },
+    {
+      "match": "Stoke City v Ipswich",
+      "league": "championship",
+      "date": "10 Mar",
+      "selection": "Stoke City +0.5",
+      "edge": 0.128,
+      "pinnacleOdds": 2.19,
+      "fairOdds": 1.79,
+      "signal": "model_only"
+    },
+    {
+      "match": "Paris Saint Germain v Chelsea",
+      "league": "ucl",
+      "date": "11 Mar",
+      "selection": "Paris Saint Germain -0.5",
+      "edge": 0.115,
+      "pinnacleOdds": 1.95,
+      "fairOdds": 1.63,
+      "signal": "model_only"
+    },
+    {
+      "match": "Oxford United v Blackburn Rovers",
+      "league": "championship",
+      "date": "11 Mar",
+      "selection": "Blackburn Rovers ML",
+      "edge": 0.077,
+      "pinnacleOdds": 2.8,
+      "fairOdds": 2.4,
+      "signal": "model_only"
+    },
+    {
+      "match": "Newcastle v Barcelona",
+      "league": "ucl",
+      "date": "10 Mar",
+      "selection": "Barcelona ML",
+      "edge": 0.066,
+      "pinnacleOdds": 2.46,
+      "fairOdds": 2.17,
+      "signal": "model_only"
+    }
+  ]
+}

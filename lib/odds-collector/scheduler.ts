@@ -24,7 +24,7 @@ import { getUpcomingEventIds } from "./the-odds-api";
 export interface PollDecision {
   shouldPoll: boolean;
   reason: string;
-  league: "serieA" | "serieB" | "epl";
+  league: string;
   hoursToKickoff: number | null;
   tier: string;
   nextPollIn: string; // human-readable

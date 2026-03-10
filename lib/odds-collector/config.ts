@@ -29,7 +29,7 @@ export interface CollectionConfig {
 }
 
 export interface LeagueConfig {
-  key: "serieA" | "serieB" | "epl";
+  key: string;
   label: string;
   enabled: boolean;
   markets: MarketConfig[];
@@ -108,10 +108,29 @@ export const DEFAULT_CONFIG: CollectionConfig = {
       enabled: true,
       markets: AVAILABLE_MARKETS.map((m) => ({
         ...m,
-        // Only h2h for EPL by default
         enabled: m.key === "h2h",
       })),
       pollsPerDay: 2,
+    },
+    {
+      key: "championship",
+      label: "Championship",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 1,
+    },
+    {
+      key: "ucl",
+      label: "Champions League",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 1,
     },
   ],
   priorityBooks: [

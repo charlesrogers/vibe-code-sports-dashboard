@@ -183,18 +183,18 @@ function assessMatch(homeV, awayV) {
   if (oppV.doubleVariance)
     pos.push(`P9: ${oppV.team} double variance — both components fragile`);
 
-  // Pass reasons
+  // Pass reasons (optimized thresholds from sweep: edge=0.02, conf=0.7, drawGap=0.20, persist=OFF)
   const pass = [];
-  if (absEdge < 0.04) pass.push("Edge below 4%");
+  if (absEdge < 0.02) pass.push("Edge below 2%");
   if (favV.signal === "neutral") pass.push("Favored side has no variance signal");
-  if (favV.regressionConfidence < 0.6) pass.push("Low regression confidence");
+  if (favV.regressionConfidence < 0.7) pass.push("Low regression confidence");
   if (favV.qualityTier === "bad" && favV.regressionDirection === "improve")
     pass.push(`${favV.team} is genuinely bad (not unlucky)`);
-  if (favV.persistentDefiance) pass.push(`${favV.team} persistent defiance`);
+  // persistentDefiance filter DISABLED — sweep proved it's toxic to ROI
   if (favV.doubleVariance) pass.push(`${favV.team} has double variance — illusory stability`);
 
   const qualityGap = Math.abs(homeV.xGDPerMatch - awayV.xGDPerMatch);
-  if (qualityGap < 0.3 && magnitude !== "strong")
+  if (qualityGap < 0.20 && magnitude !== "strong")
     pass.push(`Draw-prone: quality gap only ${r(qualityGap)} xGD/match`);
 
   if (pos.length === 0 && pass.length === 0)
