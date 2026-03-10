@@ -115,6 +115,73 @@ export async function fetchUnderstatVenueSplitXg(
 }
 
 /**
+ * Fetch raw per-match xG data with dates — needed for walk-forward evaluation.
+ * Returns the raw match-level history so callers can filter by date.
+ */
+export interface UnderstatTeamHistory {
+  team: string;
+  matches: { date: string; h_a: "h" | "a"; xG: number; xGA: number; scored: number; missed: number }[];
+}
+
+export async function fetchUnderstatRawHistory(
+  league: string = "serieA",
+  season: string = "2025"
+): Promise<UnderstatTeamHistory[]> {
+  const slug = LEAGUE_SLUGS[league];
+  if (!slug) throw new Error(`Unsupported league for Understat: ${league}`);
+
+  const res = await fetch(
+    `https://understat.com/getLeagueData/${slug}/${season}`,
+    {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      next: { revalidate: 3600 },
+    }
+  );
+
+  if (!res.ok) throw new Error(`Understat API returned ${res.status}`);
+  const data: UnderstatLeagueData = await res.json();
+  if (!data.teams || Object.keys(data.teams).length === 0) {
+    throw new Error("Understat returned no team data");
+  }
+
+  const results: UnderstatTeamHistory[] = [];
+  for (const [, team] of Object.entries(data.teams)) {
+    const name = normalizeTeamName(team.title, "understat");
+    results.push({
+      team: name,
+      matches: team.history.map((m) => ({
+        date: m.date,
+        h_a: m.h_a,
+        xG: m.xG,
+        xGA: m.xGA,
+        scored: m.scored,
+        missed: m.missed,
+      })),
+    });
+  }
+  return results;
+}
+
+/**
+ * Aggregate a team's xG history up to (but not including) a cutoff date.
+ * This prevents look-ahead bias in walk-forward evaluation.
+ */
+export function aggregateXgBeforeDate(
+  teamHistory: UnderstatTeamHistory,
+  beforeDate: string,
+  venue?: "h" | "a"
+): TeamXg | null {
+  let filtered = teamHistory.matches.filter((m) => m.date < beforeDate);
+  if (venue) filtered = filtered.filter((m) => m.h_a === venue);
+  if (filtered.length < 3) return null; // need minimum data
+
+  return aggregateMatches(teamHistory.team, filtered as UnderstatMatch[]);
+}
+
+/**
  * Legacy: fetch overall xG (no venue split).
  * Used as fallback by other parts of the app.
  */

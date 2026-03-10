@@ -5,18 +5,14 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Standings" },
+  { href: "/models", label: "Models" },
+  { href: "/ensemble", label: "Predictions" },
   { href: "/live-bets", label: "Live Bets" },
   { href: "/backtest", label: "Backtest" },
-  { href: "/odds-tracker", label: "Odds Tracker" },
-  { href: "/power-rankings", label: "Rankings" },
   { href: "/predictor", label: "Predictor" },
-  { href: "/value", label: "Value Bets" },
   { href: "/ted", label: "Ted" },
-  { href: "/ensemble", label: "Ensemble" },
-  { href: "/history", label: "History" },
+  { href: "/value", label: "Value Bets" },
   { href: "/xg", label: "xG" },
-  { href: "/fixtures", label: "Fixtures" },
-  { href: "/performance", label: "Model" },
   { href: "/data", label: "Data" },
 ];
 
