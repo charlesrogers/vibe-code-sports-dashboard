@@ -110,8 +110,14 @@ function buildReasoning(
   return parts.join(" ");
 }
 
+export type InjurySeverity = "none" | "minor" | "moderate" | "major" | "crisis";
+
 export interface AssessMatchOptions {
   legacy?: boolean; // When true, use v1 logic (count-based grading, no P3 dedup, no N10)
+  injuries?: {
+    homeSeverity: InjurySeverity;
+    awaySeverity: InjurySeverity;
+  };
 }
 
 export function assessMatch(
@@ -217,6 +223,26 @@ export function assessMatch(
     );
   }
 
+  // P8. Opponent injury crisis — their xG profile is likely degraded (v2 only).
+  //     Ted: "Injuries amplify an xG thesis. Three key players out = real edge."
+  if (!legacy && opts?.injuries) {
+    const opponentSeverity =
+      varianceEdge > 0 ? opts.injuries.awaySeverity : opts.injuries.homeSeverity;
+    if (opponentSeverity === "major" || opponentSeverity === "crisis") {
+      positiveFactors.push(
+        `${opposedVariance.team} has ${opponentSeverity} injury crisis — xG profile likely degraded`
+      );
+    }
+  }
+
+  // P9. Opponent has double variance — both attack and defense components are fragile.
+  //     Attack overperf + defense underperf simultaneously means BOTH will regress.
+  if (opposedVariance.doubleVariance) {
+    positiveFactors.push(
+      `${opposedVariance.team} has double variance — both attack and defense components are fragile and due to regress`
+    );
+  }
+
   // ========================================
   // NEGATIVE CRITERIA — "when NOT to bet" (Ted)
   // Any negative = PASS.
@@ -296,6 +322,15 @@ export function assessMatch(
     );
   }
 
+  // N12. Double variance on the favored side (v2 only).
+  //      Attack overperf + defense underperf simultaneously — the GD looks stable
+  //      but both components are fragile and due to regress in opposite directions.
+  if (!legacy && favoredVariance.doubleVariance) {
+    passReasons.push(
+      `${favoredVariance.team} has double variance (attack overperf + defense underperf) — apparent stability is illusory`
+    );
+  }
+
   // N10. Draw-prone matchup filter (v2 only — not in legacy mode).
   //      When the quality gap between teams is tiny (< 0.3 xGD/match), draws are
   //      much more likely (~30%+ in EPL). The Ted model picks a side but has zero
@@ -309,6 +344,18 @@ export function assessMatch(
     if (qualityGap < 0.3 && edgeMagnitude !== "strong") {
       passReasons.push(
         `Draw-prone matchup: quality gap only ${qualityGap.toFixed(2)} xGD/match — high draw probability makes side bets unreliable`
+      );
+    }
+  }
+
+  // N11. Favored side has injury crisis — variance thesis undermined (v2 only).
+  //      Ted: "Don't bet on a team due for regression if half their squad is in the physio room."
+  if (!legacy && opts?.injuries) {
+    const favoredSeverity =
+      varianceEdge > 0 ? opts.injuries.homeSeverity : opts.injuries.awaySeverity;
+    if (favoredSeverity === "major" || favoredSeverity === "crisis") {
+      passReasons.push(
+        `${favoredVariance.team} has ${favoredSeverity} injury crisis — variance thesis undermined`
       );
     }
   }
@@ -351,9 +398,18 @@ export function assessMatch(
   }
 
   const betSide = hasBet ? edgeSide : null;
-  const confidence = hasBet
+  let confidence = hasBet
     ? Math.min(favoredVariance.regressionConfidence, 0.95)
     : 0;
+
+  // Confidence boost: opponent crisis injuries increase conviction (v2 only)
+  if (!legacy && hasBet && opts?.injuries) {
+    const opponentSeverity =
+      varianceEdge > 0 ? opts.injuries.awaySeverity : opts.injuries.homeSeverity;
+    if (opponentSeverity === "crisis") {
+      confidence = Math.min(confidence + 0.1, 0.95);
+    }
+  }
 
   const betReasoning = buildReasoning(
     homeVariance,

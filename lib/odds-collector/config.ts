@@ -28,7 +28,7 @@ export interface CollectionConfig {
 }
 
 export interface LeagueConfig {
-  key: "serieA" | "serieB";
+  key: "serieA" | "serieB" | "epl";
   label: string;
   enabled: boolean;
   markets: MarketConfig[];
@@ -97,6 +97,17 @@ export const DEFAULT_CONFIG: CollectionConfig = {
       markets: AVAILABLE_MARKETS.map((m) => ({
         ...m,
         // Only h2h for Serie B by default (save quota)
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 2,
+    },
+    {
+      key: "epl",
+      label: "Premier League",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        // Only h2h for EPL by default
         enabled: m.key === "h2h",
       })),
       pollsPerDay: 2,

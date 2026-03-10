@@ -53,6 +53,14 @@ export interface TeamVariance {
   // Persistent defiance — if variance hasn't corrected in 15+ matches, reduce trust
   persistentDefiance: boolean;
 
+  // Double variance — attack overperf + defense underperf simultaneously
+  // The GD may look roughly right but BOTH components are fragile (Ted: "apparent stability is an illusion")
+  doubleVariance: boolean;
+
+  // Last-10 rolling window (optional — populated when available)
+  last10XGDPerMatch?: number;
+  trendDivergence?: number; // last10 - fullSeason xGD/match (positive = improving)
+
   // Regression confidence 0-1
   regressionConfidence: number;
   regressionDirection: "improve" | "decline" | "stable";
@@ -228,6 +236,7 @@ function buildExplanation(v: {
 export interface VarianceOptions {
   venue?: "home" | "away";
   legacy?: boolean; // When true, use v1 logic (no venue offset)
+  last10Xg?: TeamXg; // Last-10 rolling window xG data (optional)
 }
 
 export function calculateTeamVariance(
@@ -269,13 +278,40 @@ export function calculateTeamVariance(
   // the team may just be what they are (not variance, just reality)
   const persistentDefiance = matches >= 15 && Math.abs(totalVariance) > 5;
 
-  const regressionConfidence = computeRegressionConfidence(
+  // Double variance: attack overperf + defense underperf simultaneously
+  // e.g. Wrexham: 33 goals from 25.21 xG AND 28 conceded from 18.58 xGA
+  // The GD looks roughly right but both components are fragile
+  const doubleVariance = attackVariance > 2 && defenseVariance > 2;
+
+  let regressionConfidence = computeRegressionConfidence(
     totalVariance,
     dominantType,
     matches,
     qualityTier,
     persistentDefiance
   );
+
+  // Last-10 rolling window: compute trend divergence if provided
+  let last10XGDPerMatch: number | undefined;
+  let trendDivergence: number | undefined;
+  if (opts.last10Xg) {
+    const l10 = opts.last10Xg;
+    const l10XGD = l10.xGFor - l10.xGAgainst;
+    last10XGDPerMatch = l10.matches > 0
+      ? Math.round((l10XGD / l10.matches) * 100) / 100
+      : 0;
+    trendDivergence = Math.round((last10XGDPerMatch - xGDPerMatch) * 100) / 100;
+
+    // Adjust regression confidence based on trend divergence
+    // Large positive divergence (> 0.3) = team improving recently -> boost confidence
+    // Large negative divergence (< -0.3) = team declining recently -> reduce confidence
+    if (trendDivergence > 0.3) {
+      regressionConfidence += 0.1;
+    } else if (trendDivergence < -0.3) {
+      regressionConfidence -= 0.1;
+    }
+    regressionConfidence = Math.max(0, Math.min(1, regressionConfidence));
+  }
 
   // If overperforming (positive signal) -> will regress DOWN -> decline
   // If underperforming (negative signal) -> will regress UP -> improve
@@ -316,6 +352,9 @@ export function calculateTeamVariance(
     xGDPerMatch: Math.round(xGDPerMatch * 100) / 100,
     qualityTier,
     persistentDefiance,
+    doubleVariance,
+    last10XGDPerMatch,
+    trendDivergence,
     regressionConfidence: Math.round(regressionConfidence * 100) / 100,
     regressionDirection,
     explanation,

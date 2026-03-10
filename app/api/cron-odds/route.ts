@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   const results: Record<string, unknown> = { timestamp: new Date().toISOString(), actions: [] };
   const actions: unknown[] = [];
 
-  for (const league of ["serieA", "serieB"] as const) {
+  for (const league of ["serieA", "serieB", "epl"] as const) {
     try {
       // Get upcoming kickoff times
       const events = await getUpcomingEventIds(league);

@@ -183,6 +183,30 @@ export function aggregateXgBeforeDate(
   return aggregateMatches(teamHistory.team, filtered as UnderstatMatch[]);
 }
 
+/**
+ * Aggregate a team's xG over the LAST 10 matches (by date) before a cutoff,
+ * filtered by venue. Returns null if fewer than 5 venue-filtered matches
+ * are available — not enough signal for a rolling window.
+ *
+ * This captures recent form / trend, complementing the full-season aggregate.
+ */
+export function aggregateXgLast10BeforeDate(
+  teamHistory: UnderstatTeamHistory,
+  beforeDate: string,
+  venue?: "h" | "a"
+): TeamXg | null {
+  let filtered = teamHistory.matches.filter((m) => m.date < beforeDate);
+  if (venue) filtered = filtered.filter((m) => m.h_a === venue);
+
+  // Sort descending by date so we can take the most recent 10
+  filtered.sort((a, b) => (a.date > b.date ? -1 : a.date < b.date ? 1 : 0));
+
+  if (filtered.length < 5) return null; // need minimum 5 matches
+
+  const last10 = filtered.slice(0, 10);
+  return aggregateMatches(teamHistory.team, last10 as UnderstatMatch[]);
+}
+
 // ---------------------------------------------------------------------------
 // Cache-through fetchers — try API first, save to cache, fall back to cache
 // ---------------------------------------------------------------------------

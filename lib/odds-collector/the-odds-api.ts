@@ -28,10 +28,11 @@ import { type OddsSnapshot, type BookmakerOdds, saveSnapshots } from "./store";
 const BASE_URL = "https://api.the-odds-api.com/v4";
 const API_KEY = process.env.ODDS_API_KEY || "";
 
-// The Odds API sport keys for Italian football
+// The Odds API sport keys
 const SPORT_KEYS: Record<string, string> = {
   serieA: "soccer_italy_serie_a",
   serieB: "soccer_italy_serie_b",
+  epl: "soccer_epl",
 };
 
 interface OddsAPIResponse {
@@ -127,6 +128,55 @@ function normalizeOddsApiTeam(name: string): string {
     "AS Cittadella": "Cittadella",
     "Cosenza Calcio": "Cosenza",
     "Cosenza": "Cosenza",
+    // EPL teams
+    "Arsenal FC": "Arsenal",
+    "Arsenal": "Arsenal",
+    "Aston Villa FC": "Aston Villa",
+    "Aston Villa": "Aston Villa",
+    "AFC Bournemouth": "Bournemouth",
+    "Bournemouth": "Bournemouth",
+    "Brentford FC": "Brentford",
+    "Brentford": "Brentford",
+    "Brighton and Hove Albion": "Brighton",
+    "Brighton & Hove Albion": "Brighton",
+    "Brighton": "Brighton",
+    "Burnley FC": "Burnley",
+    "Burnley": "Burnley",
+    "Chelsea FC": "Chelsea",
+    "Chelsea": "Chelsea",
+    "Crystal Palace FC": "Crystal Palace",
+    "Crystal Palace": "Crystal Palace",
+    "Everton FC": "Everton",
+    "Everton": "Everton",
+    "Fulham FC": "Fulham",
+    "Fulham": "Fulham",
+    "Ipswich Town": "Ipswich",
+    "Leeds United": "Leeds",
+    "Leicester City": "Leicester",
+    "Liverpool FC": "Liverpool",
+    "Liverpool": "Liverpool",
+    "Luton Town": "Luton",
+    "Manchester City FC": "Manchester City",
+    "Manchester City": "Manchester City",
+    "Manchester United FC": "Manchester United",
+    "Manchester United": "Manchester United",
+    "Newcastle United FC": "Newcastle",
+    "Newcastle United": "Newcastle",
+    "Nottingham Forest FC": "Nottingham Forest",
+    "Nottingham Forest": "Nottingham Forest",
+    "Sheffield United FC": "Sheffield United",
+    "Sheffield United": "Sheffield United",
+    "Southampton FC": "Southampton",
+    "Southampton": "Southampton",
+    "Tottenham Hotspur FC": "Tottenham",
+    "Tottenham Hotspur": "Tottenham",
+    "Tottenham": "Tottenham",
+    "West Ham United FC": "West Ham",
+    "West Ham United": "West Ham",
+    "West Ham": "West Ham",
+    "Wolverhampton Wanderers FC": "Wolverhampton",
+    "Wolverhampton Wanderers": "Wolverhampton",
+    "Wolves": "Wolverhampton",
   };
   return oddsApiMap[name] || name;
 }
@@ -135,7 +185,7 @@ function normalizeOddsApiTeam(name: string): string {
  * Fetch current odds from The Odds API
  */
 export async function fetchLiveOdds(
-  league: "serieA" | "serieB" = "serieA",
+  league: "serieA" | "serieB" | "epl" = "serieA",
   markets: string = "h2h" // "h2h" for 1X2, "totals" for O/U
 ): Promise<OddsSnapshot[]> {
   if (!API_KEY) {
@@ -255,7 +305,7 @@ const CORE_MARKETS = new Set(["h2h", "totals", "spreads"]);
 const EXTRA_MARKETS = new Set(["btts", "draw_no_bet"]);
 
 export async function collectAndSaveOdds(
-  league: "serieA" | "serieB" = "serieA",
+  league: "serieA" | "serieB" | "epl" = "serieA",
   markets: string = "h2h,totals"
 ): Promise<{ saved: number; marketsPolled: string[]; requestsUsed: number }> {
   const marketList = markets.split(",").map((m) => m.trim()).filter(Boolean);
@@ -328,7 +378,7 @@ const EVENT_MARKETS = "h2h,totals,spreads,btts,alternate_totals,player_goal_scor
  * Costs 1 API request per event
  */
 export async function fetchEventOdds(
-  league: "serieA" | "serieB",
+  league: "serieA" | "serieB" | "epl",
   eventId: string
 ): Promise<OddsSnapshot | null> {
   if (!API_KEY) throw new Error("ODDS_API_KEY not set");
@@ -460,7 +510,7 @@ export async function fetchEventOdds(
  * If empty, only does the bulk collection
  */
 export async function collectDeepOdds(
-  league: "serieA" | "serieB" = "serieA",
+  league: "serieA" | "serieB" | "epl" = "serieA",
   eventIds: string[] = []
 ): Promise<{ saved: number; deepEvents: number; requestsUsed: number }> {
   let requestsUsed = 0;
@@ -518,7 +568,7 @@ export async function collectDeepOdds(
  * Get event IDs for upcoming matches (for selective deep collection)
  */
 export async function getUpcomingEventIds(
-  league: "serieA" | "serieB" = "serieA"
+  league: "serieA" | "serieB" | "epl" = "serieA"
 ): Promise<{ id: string; home: string; away: string; commence: string }[]> {
   if (!API_KEY) return [];
   const sportKey = SPORT_KEYS[league];
