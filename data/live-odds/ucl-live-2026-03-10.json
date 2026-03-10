@@ -1,1259 +1,123 @@
 [
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
-    "matchId": "8bcd511fa99657b524e125548ccbe09f",
-    "homeTeam": "Galatasaray",
-    "awayTeam": "Liverpool",
-    "commenceTime": "2026-03-10T17:45:00Z",
-    "bookmakers": [
-      {
-        "bookmaker": "Unibet",
-        "bookmakerKey": "unibet",
-        "homeOdds": 2.35,
-        "drawOdds": 3.45,
-        "awayOdds": 2.88
-      },
-      {
-        "bookmaker": "Virgin Bet",
-        "bookmakerKey": "virginbet",
-        "homeOdds": 2.38,
-        "drawOdds": 3.4,
-        "awayOdds": 2.7
-      },
-      {
-        "bookmaker": "LiveScore Bet",
-        "bookmakerKey": "livescorebet",
-        "homeOdds": 2.33,
-        "drawOdds": 3.35,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "Unibet (NL)",
-        "bookmakerKey": "unibet_nl",
-        "homeOdds": 2.38,
-        "drawOdds": 3.45,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "Casumo",
-        "bookmakerKey": "casumo",
-        "homeOdds": 2.4,
-        "drawOdds": 3.5,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "BetRivers",
-        "bookmakerKey": "betrivers",
-        "homeOdds": 2.35,
-        "drawOdds": 3.35,
-        "awayOdds": 2.7
-      },
-      {
-        "bookmaker": "TABtouch",
-        "bookmakerKey": "tabtouch",
-        "homeOdds": 2.35,
-        "drawOdds": 3.4,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "LeoVegas",
-        "bookmakerKey": "leovegas",
-        "homeOdds": 2.4,
-        "drawOdds": 3.4,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "LeoVegas (SE)",
-        "bookmakerKey": "leovegas_se",
-        "homeOdds": 2.4,
-        "drawOdds": 3.5,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "Grosvenor",
-        "bookmakerKey": "grosvenor",
-        "homeOdds": 2.38,
-        "drawOdds": 3.4,
-        "awayOdds": 2.7
-      },
-      {
-        "bookmaker": "Unibet (SE)",
-        "bookmakerKey": "unibet_se",
-        "homeOdds": 2.4,
-        "drawOdds": 3.5,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "Sky Bet",
-        "bookmakerKey": "skybet",
-        "homeOdds": 2.15,
-        "drawOdds": 3.7,
-        "awayOdds": 3.1
-      },
-      {
-        "bookmaker": "Paddy Power",
-        "bookmakerKey": "paddypower",
-        "homeOdds": 2.25,
-        "drawOdds": 3.5,
-        "awayOdds": 2.88
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 2.44,
-        "drawOdds": 3.8,
-        "awayOdds": 3
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 2.5,
-        "drawOdds": 3.75,
-        "awayOdds": 2.96
-      },
-      {
-        "bookmaker": "FanDuel",
-        "bookmakerKey": "fanduel",
-        "homeOdds": 2.3,
-        "drawOdds": 3.5,
-        "awayOdds": 2.95
-      },
-      {
-        "bookmaker": "888sport",
-        "bookmakerKey": "sport888",
-        "homeOdds": 2.3,
-        "drawOdds": 3.4,
-        "awayOdds": 2.8
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 2.44,
-        "drawOdds": 3.8,
-        "awayOdds": 3.05
-      },
-      {
-        "bookmaker": "Unibet (UK)",
-        "bookmakerKey": "unibet_uk",
-        "homeOdds": 2.3,
-        "drawOdds": 3.6,
-        "awayOdds": 2.9
-      },
-      {
-        "bookmaker": "Betclic (FR)",
-        "bookmakerKey": "betclic_fr",
-        "homeOdds": 2.2,
-        "drawOdds": 3.6,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 2.2,
-        "drawOdds": 3.5,
-        "awayOdds": 2.9
-      },
-      {
-        "bookmaker": "Winamax (DE)",
-        "bookmakerKey": "winamax_de",
-        "homeOdds": 2.25,
-        "drawOdds": 3.5,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "Winamax (FR)",
-        "bookmakerKey": "winamax_fr",
-        "homeOdds": 2.15,
-        "drawOdds": 3.35,
-        "awayOdds": 2.7
-      },
-      {
-        "bookmaker": "BetMGM",
-        "bookmakerKey": "betmgm",
-        "homeOdds": 2.15,
-        "drawOdds": 3.6,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "Ladbrokes",
-        "bookmakerKey": "ladbrokes_uk",
-        "homeOdds": 2.2,
-        "drawOdds": 3.6,
-        "awayOdds": 2.9
-      },
-      {
-        "bookmaker": "Coral",
-        "bookmakerKey": "coral",
-        "homeOdds": 2.25,
-        "drawOdds": 3.7,
-        "awayOdds": 2.8
-      },
-      {
-        "bookmaker": "Smarkets",
-        "bookmakerKey": "smarkets",
-        "homeOdds": 2.46,
-        "drawOdds": 3.8,
-        "awayOdds": 2.92
-      },
-      {
-        "bookmaker": "Pinnacle",
-        "bookmakerKey": "pinnacle",
-        "homeOdds": 2.6,
-        "drawOdds": 3.64,
-        "awayOdds": 2.5,
-        "spreadHome": 1.99,
-        "spreadLine": 1,
-        "spreadAway": 1.91
-      },
-      {
-        "bookmaker": "Bet Victor",
-        "bookmakerKey": "betvictor",
-        "homeOdds": 2.15,
-        "drawOdds": 3.5,
-        "awayOdds": 3.1
-      },
-      {
-        "bookmaker": "Suprabets",
-        "bookmakerKey": "suprabets",
-        "homeOdds": 2.55,
-        "drawOdds": 3.7,
-        "awayOdds": 2.55
-      },
-      {
-        "bookmaker": "Nordic Bet",
-        "bookmakerKey": "nordicbet",
-        "homeOdds": 2.25,
-        "drawOdds": 3.4,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "Betsson",
-        "bookmakerKey": "betsson",
-        "homeOdds": 2.3,
-        "drawOdds": 3.5,
-        "awayOdds": 2.7
-      },
-      {
-        "bookmaker": "PointsBet (AU)",
-        "bookmakerKey": "pointsbetau",
-        "homeOdds": 2.3,
-        "drawOdds": 3.8,
-        "awayOdds": 2.85
-      },
-      {
-        "bookmaker": "Coolbet",
-        "bookmakerKey": "coolbet",
-        "homeOdds": 2.45,
-        "drawOdds": 3.7,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "Betway",
-        "bookmakerKey": "betway",
-        "homeOdds": 2.3,
-        "drawOdds": 3.5,
-        "awayOdds": 2.75
-      },
-      {
-        "bookmaker": "TAB",
-        "bookmakerKey": "tab",
-        "homeOdds": 2.4,
-        "drawOdds": 3.7,
-        "awayOdds": 2.6
-      },
-      {
-        "bookmaker": "Bovada",
-        "bookmakerKey": "bovada",
-        "homeOdds": 2.37,
-        "drawOdds": 3.6,
-        "awayOdds": 2.75,
-        "spreadHome": 2.08,
-        "spreadLine": -0.25,
-        "spreadAway": 1.78
-      },
-      {
-        "bookmaker": "Matchbook",
-        "bookmakerKey": "matchbook",
-        "homeOdds": 2.5,
-        "drawOdds": 3.75,
-        "awayOdds": 2.92,
-        "spreadHome": 1.51,
-        "spreadLine": 0.5,
-        "spreadAway": 2.92
-      }
-    ],
-    "bestHome": 2.6,
-    "bestDraw": 3.8,
-    "bestAway": 3.1,
-    "pinnacleHome": 2.6,
-    "pinnacleDraw": 3.64,
-    "pinnacleAway": 2.5
-  },
-  {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "2a50d2be5757e39b9a4c8ff4ff272920",
     "homeTeam": "Atalanta",
     "awayTeam": "Bayern Munich",
     "commenceTime": "2026-03-10T20:00:00Z",
     "bookmakers": [
       {
-        "bookmaker": "Unibet",
-        "bookmakerKey": "unibet",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "LiveScore Bet",
-        "bookmakerKey": "livescorebet",
-        "homeOdds": 4.6,
-        "drawOdds": 4.3,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "BetRivers",
-        "bookmakerKey": "betrivers",
-        "homeOdds": 4.8,
-        "drawOdds": 4.35,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "Casumo",
-        "bookmakerKey": "casumo",
-        "homeOdds": 4.7,
-        "drawOdds": 4.25,
-        "awayOdds": 1.56
-      },
-      {
-        "bookmaker": "Unibet (NL)",
-        "bookmakerKey": "unibet_nl",
-        "homeOdds": 5,
-        "drawOdds": 4.5,
-        "awayOdds": 1.66
-      },
-      {
-        "bookmaker": "1xBet",
-        "bookmakerKey": "onexbet",
-        "homeOdds": 4.7,
-        "drawOdds": 4.85,
-        "awayOdds": 1.68,
-        "spreadHome": 1.47,
-        "spreadLine": 1.5,
-        "spreadAway": 2.5
-      },
-      {
-        "bookmaker": "Unibet (SE)",
-        "bookmakerKey": "unibet_se",
-        "homeOdds": 5,
-        "drawOdds": 4.5,
-        "awayOdds": 1.65
-      },
-      {
-        "bookmaker": "Grosvenor",
-        "bookmakerKey": "grosvenor",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "LeoVegas",
-        "bookmakerKey": "leovegas",
-        "homeOdds": 4.75,
-        "drawOdds": 4.3,
-        "awayOdds": 1.56
-      },
-      {
-        "bookmaker": "Virgin Bet",
-        "bookmakerKey": "virginbet",
-        "homeOdds": 4.6,
-        "drawOdds": 4.25,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "TABtouch",
-        "bookmakerKey": "tabtouch",
-        "homeOdds": 4.8,
-        "drawOdds": 4.35,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "LeoVegas (SE)",
-        "bookmakerKey": "leovegas_se",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "GTbets",
-        "bookmakerKey": "gtbets",
-        "homeOdds": 4.68,
-        "drawOdds": 4.38,
-        "awayOdds": 1.65,
-        "spreadHome": 2.24,
-        "spreadLine": 0.5,
-        "spreadAway": 1.63
-      },
-      {
         "bookmaker": "Sky Bet",
         "bookmakerKey": "skybet",
-        "homeOdds": 4.75,
-        "drawOdds": 4.5,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "Parions Sport (FR)",
-        "bookmakerKey": "parionssport_fr",
-        "homeOdds": 5,
-        "drawOdds": 4.6,
-        "awayOdds": 1.64
-      },
-      {
-        "bookmaker": "Unibet (UK)",
-        "bookmakerKey": "unibet_uk",
-        "homeOdds": 4.75,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Betclic (FR)",
-        "bookmakerKey": "betclic_fr",
-        "homeOdds": 4.8,
-        "drawOdds": 4.5,
-        "awayOdds": 1.65
+        "homeOdds": 251,
+        "drawOdds": 501,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Paddy Power",
         "bookmakerKey": "paddypower",
-        "homeOdds": 4.75,
-        "drawOdds": 4.33,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "PMU (FR)",
-        "bookmakerKey": "pmu_fr",
-        "homeOdds": 4.8,
-        "drawOdds": 4.4,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "Codere (IT)",
-        "bookmakerKey": "codere_it",
-        "homeOdds": 4.7,
-        "drawOdds": 4.4,
-        "awayOdds": 1.63
+        "homeOdds": 501,
+        "drawOdds": 501,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 5.2,
-        "drawOdds": 4.7,
-        "awayOdds": 1.66
+        "homeOdds": 450,
+        "drawOdds": 75,
+        "awayOdds": 1.01
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 5.2,
-        "drawOdds": 4.7,
-        "awayOdds": 1.66
+        "homeOdds": 460,
+        "drawOdds": 55,
+        "awayOdds": 1.01
       },
       {
         "bookmaker": "888sport",
         "bookmakerKey": "sport888",
-        "homeOdds": 4.5,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "SportsBet",
-        "bookmakerKey": "sportsbet",
-        "homeOdds": 4.75,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "Unibet (FR)",
-        "bookmakerKey": "unibet_fr",
-        "homeOdds": 4.95,
-        "drawOdds": 4.5,
-        "awayOdds": 1.65
+        "homeOdds": 151,
+        "drawOdds": 71,
+        "awayOdds": 1
       },
       {
         "bookmaker": "FanDuel",
         "bookmakerKey": "fanduel",
-        "homeOdds": 4.9,
-        "drawOdds": 4.5,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 4.5,
-        "drawOdds": 4.2,
-        "awayOdds": 1.62
+        "homeOdds": 101,
+        "drawOdds": 66,
+        "awayOdds": 1.01
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 5.2,
-        "drawOdds": 4.7,
-        "awayOdds": 1.66
-      },
-      {
-        "bookmaker": "William Hill",
-        "bookmakerKey": "williamhill",
-        "homeOdds": 4.5,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62,
-        "overOdds": 1.44,
-        "overLine": 2.5,
-        "underOdds": 2.62
-      },
-      {
-        "bookmaker": "Winamax (DE)",
-        "bookmakerKey": "winamax_de",
-        "homeOdds": 4.6,
-        "drawOdds": 4.6,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Pinnacle",
-        "bookmakerKey": "pinnacle",
-        "homeOdds": 4.91,
-        "drawOdds": 4.43,
-        "awayOdds": 1.65,
-        "spreadHome": 2.11,
-        "spreadLine": 0.75,
-        "spreadAway": 1.83
-      },
-      {
-        "bookmaker": "PlayUp",
-        "bookmakerKey": "playup",
-        "homeOdds": 4.6,
-        "drawOdds": 4.2,
-        "awayOdds": 1.63,
-        "spreadHome": 1.48,
-        "spreadLine": 1.5,
-        "spreadAway": 2.6
-      },
-      {
-        "bookmaker": "Winamax (FR)",
-        "bookmakerKey": "winamax_fr",
-        "homeOdds": 4.4,
-        "drawOdds": 4.4,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "DraftKings",
-        "bookmakerKey": "draftkings",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
+        "homeOdds": 160,
+        "drawOdds": 50,
+        "awayOdds": 1.01
       },
       {
         "bookmaker": "Ladbrokes",
         "bookmakerKey": "ladbrokes_uk",
-        "homeOdds": 4.6,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
+        "homeOdds": 1.02,
+        "drawOdds": 126,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Coral",
         "bookmakerKey": "coral",
-        "homeOdds": 4.6,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "BetMGM",
-        "bookmakerKey": "betmgm",
-        "homeOdds": 4.6,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Neds",
-        "bookmakerKey": "neds",
-        "homeOdds": 4.5,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Ladbrokes",
-        "bookmakerKey": "ladbrokes_au",
-        "homeOdds": 4.5,
-        "drawOdds": 4.4,
-        "awayOdds": 1.62
+        "homeOdds": 1.02,
+        "drawOdds": 151,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Smarkets",
         "bookmakerKey": "smarkets",
-        "homeOdds": 5.2,
-        "drawOdds": 4.6,
-        "awayOdds": 1.65
+        "homeOdds": 500,
+        "drawOdds": 303.03,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Bet Victor",
         "bookmakerKey": "betvictor",
-        "homeOdds": 4.8,
-        "drawOdds": 4.4,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "Suprabets",
-        "bookmakerKey": "suprabets",
-        "homeOdds": 4.75,
-        "drawOdds": 4.33,
-        "awayOdds": 1.63
+        "homeOdds": 56,
+        "drawOdds": 18,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Nordic Bet",
         "bookmakerKey": "nordicbet",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.65
+        "homeOdds": 34,
+        "drawOdds": 29,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Betsson",
         "bookmakerKey": "betsson",
-        "homeOdds": 4.9,
-        "drawOdds": 4.4,
-        "awayOdds": 1.65
+        "homeOdds": 34,
+        "drawOdds": 29,
+        "awayOdds": 1
       },
       {
         "bookmaker": "PointsBet (AU)",
         "bookmakerKey": "pointsbetau",
-        "homeOdds": 4.75,
-        "drawOdds": 4.3,
-        "awayOdds": 1.63
-      },
-      {
-        "bookmaker": "BetUS",
-        "bookmakerKey": "betus",
-        "homeOdds": 4.75,
-        "drawOdds": 4.45,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Coolbet",
-        "bookmakerKey": "coolbet",
-        "homeOdds": 5.1,
-        "drawOdds": 4.55,
-        "awayOdds": 1.65
-      },
-      {
-        "bookmaker": "LowVig.ag",
-        "bookmakerKey": "lowvig",
-        "homeOdds": 5.15,
-        "drawOdds": 4.48,
-        "awayOdds": 1.62,
-        "spreadHome": 1.89,
-        "spreadLine": 1,
-        "spreadAway": 1.93
-      },
-      {
-        "bookmaker": "BetOnline.ag",
-        "bookmakerKey": "betonlineag",
-        "homeOdds": 5.15,
-        "drawOdds": 4.48,
-        "awayOdds": 1.62,
-        "spreadHome": 1.89,
-        "spreadLine": 1,
-        "spreadAway": 1.93
+        "homeOdds": 1001,
+        "drawOdds": 401,
+        "awayOdds": 1
       },
       {
         "bookmaker": "Betway",
         "bookmakerKey": "betway",
-        "homeOdds": 4.75,
-        "drawOdds": 4.33,
-        "awayOdds": 1.61
-      },
-      {
-        "bookmaker": "Marathon Bet",
-        "bookmakerKey": "marathonbet",
-        "homeOdds": 4.65,
-        "drawOdds": 4.8,
-        "awayOdds": 1.66
-      },
-      {
-        "bookmaker": "TAB",
-        "bookmakerKey": "tab",
-        "homeOdds": 4.75,
-        "drawOdds": 4.25,
-        "awayOdds": 1.62
-      },
-      {
-        "bookmaker": "Bovada",
-        "bookmakerKey": "bovada",
-        "homeOdds": 4.8,
-        "drawOdds": 4.3,
-        "awayOdds": 1.63,
-        "spreadHome": 2.05,
-        "spreadLine": 0.75,
-        "spreadAway": 1.8
-      },
-      {
-        "bookmaker": "Betr",
-        "bookmakerKey": "betr_au",
-        "homeOdds": 4.4,
-        "drawOdds": 4.3,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "Bet Right",
-        "bookmakerKey": "betright",
-        "homeOdds": 4.6,
-        "drawOdds": 4.25,
-        "awayOdds": 1.6
-      },
-      {
-        "bookmaker": "Matchbook",
-        "bookmakerKey": "matchbook",
-        "homeOdds": 5.2,
-        "drawOdds": 4.6,
-        "awayOdds": 1.66,
-        "spreadHome": 1.88,
-        "spreadLine": 1,
-        "spreadAway": 2.1
-      },
-      {
-        "bookmaker": "BetAnything",
-        "bookmakerKey": "betanysports",
-        "homeOdds": 4.8,
-        "drawOdds": 4.3,
-        "awayOdds": 1.63,
-        "spreadHome": 1.8,
-        "spreadLine": 1,
-        "spreadAway": 2.05
+        "homeOdds": 151,
+        "drawOdds": 67,
+        "awayOdds": 1
       }
     ],
-    "bestHome": 5.2,
-    "bestDraw": 4.85,
-    "bestAway": 1.68,
-    "pinnacleHome": 4.91,
-    "pinnacleDraw": 4.43,
-    "pinnacleAway": 1.65
+    "bestHome": 1001,
+    "bestDraw": 501,
+    "bestAway": 1.01
   },
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
-    "matchId": "5e256c6ee31e77cef2c88df9556b9dcf",
-    "homeTeam": "Atlético Madrid",
-    "awayTeam": "Tottenham",
-    "commenceTime": "2026-03-10T20:00:00Z",
-    "bookmakers": [
-      {
-        "bookmaker": "Unibet",
-        "bookmakerKey": "unibet",
-        "homeOdds": 1.63,
-        "drawOdds": 3.85,
-        "awayOdds": 5.5,
-        "overOdds": 1.83,
-        "overLine": 2.5,
-        "underOdds": 1.96
-      },
-      {
-        "bookmaker": "LiveScore Bet",
-        "bookmakerKey": "livescorebet",
-        "homeOdds": 1.62,
-        "drawOdds": 3.75,
-        "awayOdds": 5.1
-      },
-      {
-        "bookmaker": "BetRivers",
-        "bookmakerKey": "betrivers",
-        "homeOdds": 1.62,
-        "drawOdds": 3.85,
-        "awayOdds": 5.5,
-        "overOdds": 1.82,
-        "overLine": 2.5,
-        "underOdds": 1.95
-      },
-      {
-        "bookmaker": "Casumo",
-        "bookmakerKey": "casumo",
-        "homeOdds": 1.57,
-        "drawOdds": 3.75,
-        "awayOdds": 5.3,
-        "overOdds": 1.83,
-        "overLine": 2.5,
-        "underOdds": 1.96
-      },
-      {
-        "bookmaker": "Unibet (NL)",
-        "bookmakerKey": "unibet_nl",
-        "homeOdds": 1.68,
-        "drawOdds": 4,
-        "awayOdds": 5.75,
-        "overOdds": 1.83,
-        "overLine": 2.5,
-        "underOdds": 1.96
-      },
-      {
-        "bookmaker": "1xBet",
-        "bookmakerKey": "onexbet",
-        "homeOdds": 1.77,
-        "drawOdds": 4.04,
-        "awayOdds": 4.92,
-        "overOdds": 1.97,
-        "overLine": 2.5,
-        "underOdds": 1.97,
-        "spreadHome": 2.68,
-        "spreadLine": -1.5,
-        "spreadAway": 1.42
-      },
-      {
-        "bookmaker": "Unibet (SE)",
-        "bookmakerKey": "unibet_se",
-        "homeOdds": 1.67,
-        "drawOdds": 3.95,
-        "awayOdds": 5.6,
-        "overOdds": 1.85,
-        "overLine": 2.5,
-        "underOdds": 1.97
-      },
-      {
-        "bookmaker": "Grosvenor",
-        "bookmakerKey": "grosvenor",
-        "homeOdds": 1.63,
-        "drawOdds": 3.85,
-        "awayOdds": 5.5,
-        "overOdds": 1.82,
-        "overLine": 2.5,
-        "underOdds": 1.95
-      },
-      {
-        "bookmaker": "LeoVegas",
-        "bookmakerKey": "leovegas",
-        "homeOdds": 1.6,
-        "drawOdds": 3.8,
-        "awayOdds": 5.4,
-        "overOdds": 1.81,
-        "overLine": 2.5,
-        "underOdds": 1.94
-      },
-      {
-        "bookmaker": "Virgin Bet",
-        "bookmakerKey": "virginbet",
-        "homeOdds": 1.62,
-        "drawOdds": 3.75,
-        "awayOdds": 5.1
-      },
-      {
-        "bookmaker": "Betclic (FR)",
-        "bookmakerKey": "betclic_fr",
-        "homeOdds": 1.68,
-        "drawOdds": 4,
-        "awayOdds": 5.1
-      },
-      {
-        "bookmaker": "TABtouch",
-        "bookmakerKey": "tabtouch",
-        "homeOdds": 1.61,
-        "drawOdds": 3.85,
-        "awayOdds": 5.5,
-        "overOdds": 1.83,
-        "overLine": 2.5,
-        "underOdds": 1.96
-      },
-      {
-        "bookmaker": "LeoVegas (SE)",
-        "bookmakerKey": "leovegas_se",
-        "homeOdds": 1.64,
-        "drawOdds": 3.9,
-        "awayOdds": 5.5,
-        "overOdds": 1.85,
-        "overLine": 2.5,
-        "underOdds": 1.97
-      },
-      {
-        "bookmaker": "GTbets",
-        "bookmakerKey": "gtbets",
-        "homeOdds": 1.68,
-        "drawOdds": 3.85,
-        "awayOdds": 5.06,
-        "overOdds": 1.88,
-        "overLine": 2.5,
-        "underOdds": 1.88,
-        "spreadHome": 1.69,
-        "spreadLine": -0.5,
-        "spreadAway": 2.14
-      },
-      {
-        "bookmaker": "Codere (IT)",
-        "bookmakerKey": "codere_it",
-        "homeOdds": 1.67,
-        "drawOdds": 3.9,
-        "awayOdds": 5.2,
-        "overOdds": 1.85,
-        "overLine": 2.5,
-        "underOdds": 1.85
-      },
-      {
-        "bookmaker": "Unibet (UK)",
-        "bookmakerKey": "unibet_uk",
-        "homeOdds": 1.67,
-        "drawOdds": 3.9,
-        "awayOdds": 5.25
-      },
-      {
-        "bookmaker": "Unibet (FR)",
-        "bookmakerKey": "unibet_fr",
-        "homeOdds": 1.68,
-        "drawOdds": 3.95,
-        "awayOdds": 5.2
-      },
-      {
-        "bookmaker": "Sky Bet",
-        "bookmakerKey": "skybet",
-        "homeOdds": 1.62,
-        "drawOdds": 4,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Paddy Power",
-        "bookmakerKey": "paddypower",
-        "homeOdds": 1.62,
-        "drawOdds": 3.8,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "PMU (FR)",
-        "bookmakerKey": "pmu_fr",
-        "homeOdds": 1.64,
-        "drawOdds": 3.9,
-        "awayOdds": 5.3
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 1.72,
-        "drawOdds": 4,
-        "awayOdds": 5.6
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 1.72,
-        "drawOdds": 4.1,
-        "awayOdds": 5.6
-      },
-      {
-        "bookmaker": "888sport",
-        "bookmakerKey": "sport888",
-        "homeOdds": 1.7,
-        "drawOdds": 3.75,
-        "awayOdds": 4.8
-      },
-      {
-        "bookmaker": "SportsBet",
-        "bookmakerKey": "sportsbet",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "FanDuel",
-        "bookmakerKey": "fanduel",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5.4
-      },
-      {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 1.62,
-        "drawOdds": 3.75,
-        "awayOdds": 4.75
-      },
-      {
-        "bookmaker": "Betfair",
-        "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 1.72,
-        "drawOdds": 4,
-        "awayOdds": 5.6
-      },
-      {
-        "bookmaker": "William Hill",
-        "bookmakerKey": "williamhill",
-        "homeOdds": 1.7,
-        "drawOdds": 3.75,
-        "awayOdds": 4.8,
-        "overOdds": 1.85,
-        "overLine": 2.5,
-        "underOdds": 1.85
-      },
-      {
-        "bookmaker": "Winamax (DE)",
-        "bookmakerKey": "winamax_de",
-        "homeOdds": 1.66,
-        "drawOdds": 4,
-        "awayOdds": 4.9
-      },
-      {
-        "bookmaker": "BetMGM",
-        "bookmakerKey": "betmgm",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5,
-        "overOdds": 1.85,
-        "overLine": 2.5,
-        "underOdds": 1.85
-      },
-      {
-        "bookmaker": "Pinnacle",
-        "bookmakerKey": "pinnacle",
-        "homeOdds": 1.69,
-        "drawOdds": 4.04,
-        "awayOdds": 5.11,
-        "overOdds": 1.96,
-        "overLine": 2.5,
-        "underOdds": 1.94,
-        "spreadHome": 1.91,
-        "spreadLine": -0.75,
-        "spreadAway": 2.02
-      },
-      {
-        "bookmaker": "PlayUp",
-        "bookmakerKey": "playup",
-        "homeOdds": 1.65,
-        "drawOdds": 3.85,
-        "awayOdds": 5,
-        "overOdds": 1.88,
-        "overLine": 2.5,
-        "underOdds": 1.9,
-        "spreadHome": 2.85,
-        "spreadLine": -1.5,
-        "spreadAway": 1.42
-      },
-      {
-        "bookmaker": "Winamax (FR)",
-        "bookmakerKey": "winamax_fr",
-        "homeOdds": 1.64,
-        "drawOdds": 3.9,
-        "awayOdds": 4.8
-      },
-      {
-        "bookmaker": "DraftKings",
-        "bookmakerKey": "draftkings",
-        "homeOdds": 1.67,
-        "drawOdds": 3.95,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Ladbrokes",
-        "bookmakerKey": "ladbrokes_uk",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Coral",
-        "bookmakerKey": "coral",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Neds",
-        "bookmakerKey": "neds",
-        "homeOdds": 1.64,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Ladbrokes",
-        "bookmakerKey": "ladbrokes_au",
-        "homeOdds": 1.64,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Bet Victor",
-        "bookmakerKey": "betvictor",
-        "homeOdds": 1.65,
-        "drawOdds": 3.9,
-        "awayOdds": 5.25
-      },
-      {
-        "bookmaker": "Smarkets",
-        "bookmakerKey": "smarkets",
-        "homeOdds": 1.71,
-        "drawOdds": 4,
-        "awayOdds": 5.6
-      },
-      {
-        "bookmaker": "Everygame",
-        "bookmakerKey": "everygame",
-        "homeOdds": 1.67,
-        "drawOdds": 3.9,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Suprabets",
-        "bookmakerKey": "suprabets",
-        "homeOdds": 1.67,
-        "drawOdds": 3.93,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "Nordic Bet",
-        "bookmakerKey": "nordicbet",
-        "homeOdds": 1.68,
-        "drawOdds": 3.95,
-        "awayOdds": 5.25,
-        "overOdds": 1.88,
-        "overLine": 2.5,
-        "underOdds": 1.92
-      },
-      {
-        "bookmaker": "Betsson",
-        "bookmakerKey": "betsson",
-        "homeOdds": 1.68,
-        "drawOdds": 3.95,
-        "awayOdds": 5.25,
-        "overOdds": 1.88,
-        "overLine": 2.5,
-        "underOdds": 1.92
-      },
-      {
-        "bookmaker": "PointsBet (AU)",
-        "bookmakerKey": "pointsbetau",
-        "homeOdds": 1.69,
-        "drawOdds": 4,
-        "awayOdds": 5
-      },
-      {
-        "bookmaker": "BetUS",
-        "bookmakerKey": "betus",
-        "homeOdds": 1.67,
-        "drawOdds": 3.95,
-        "awayOdds": 5.1,
-        "overOdds": 1.93,
-        "overLine": 2.5,
-        "underOdds": 1.89,
-        "spreadHome": 1.67,
-        "spreadLine": -0.5,
-        "spreadAway": 2.3
-      },
-      {
-        "bookmaker": "Coolbet",
-        "bookmakerKey": "coolbet",
-        "homeOdds": 1.69,
-        "drawOdds": 4.05,
-        "awayOdds": 5.4,
-        "overOdds": 1.95,
-        "overLine": 2.5,
-        "underOdds": 1.91
-      },
-      {
-        "bookmaker": "BetOnline.ag",
-        "bookmakerKey": "betonlineag",
-        "homeOdds": 1.67,
-        "drawOdds": 4,
-        "awayOdds": 5.4,
-        "overOdds": 1.93,
-        "overLine": 2.5,
-        "underOdds": 1.89,
-        "spreadHome": 1.82,
-        "spreadLine": -0.75,
-        "spreadAway": 2.02
-      },
-      {
-        "bookmaker": "LowVig.ag",
-        "bookmakerKey": "lowvig",
-        "homeOdds": 1.67,
-        "drawOdds": 4,
-        "awayOdds": 5.4,
-        "overOdds": 1.93,
-        "overLine": 2.5,
-        "underOdds": 1.89,
-        "spreadHome": 1.82,
-        "spreadLine": -0.75,
-        "spreadAway": 2.02
-      },
-      {
-        "bookmaker": "Betway",
-        "bookmakerKey": "betway",
-        "homeOdds": 1.7,
-        "drawOdds": 3.8,
-        "awayOdds": 4.75
-      },
-      {
-        "bookmaker": "Marathon Bet",
-        "bookmakerKey": "marathonbet",
-        "homeOdds": 1.73,
-        "drawOdds": 3.94,
-        "awayOdds": 4.85
-      },
-      {
-        "bookmaker": "TAB",
-        "bookmakerKey": "tab",
-        "homeOdds": 1.68,
-        "drawOdds": 3.8,
-        "awayOdds": 4.75
-      },
-      {
-        "bookmaker": "Bovada",
-        "bookmakerKey": "bovada",
-        "homeOdds": 1.66,
-        "drawOdds": 3.95,
-        "awayOdds": 5.05,
-        "overOdds": 1.93,
-        "overLine": 2.5,
-        "underOdds": 1.89,
-        "spreadHome": 1.85,
-        "spreadLine": -0.75,
-        "spreadAway": 1.98
-      },
-      {
-        "bookmaker": "Betr",
-        "bookmakerKey": "betr_au",
-        "homeOdds": 1.68,
-        "drawOdds": 3.7,
-        "awayOdds": 4.9
-      },
-      {
-        "bookmaker": "Bet Right",
-        "bookmakerKey": "betright",
-        "homeOdds": 1.65,
-        "drawOdds": 3.8,
-        "awayOdds": 4.9
-      },
-      {
-        "bookmaker": "Matchbook",
-        "bookmakerKey": "matchbook",
-        "homeOdds": 1.72,
-        "drawOdds": 4,
-        "awayOdds": 5.6,
-        "overOdds": 1.99,
-        "overLine": 2.5,
-        "underOdds": 2,
-        "spreadHome": 1.51,
-        "spreadLine": -0.25,
-        "spreadAway": 2.92
-      },
-      {
-        "bookmaker": "BetAnything",
-        "bookmakerKey": "betanysports",
-        "homeOdds": 1.67,
-        "drawOdds": 4,
-        "awayOdds": 5.4,
-        "overOdds": 1.93,
-        "overLine": 2.5,
-        "underOdds": 1.89,
-        "spreadHome": 2.3,
-        "spreadLine": -1,
-        "spreadAway": 1.67
-      }
-    ],
-    "bestHome": 1.77,
-    "bestDraw": 4.1,
-    "bestAway": 5.75,
-    "pinnacleHome": 1.69,
-    "pinnacleDraw": 4.04,
-    "pinnacleAway": 5.11
-  },
-  {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "1129cf840f0de50325d4a46fd25efcff",
     "homeTeam": "Newcastle",
     "awayTeam": "Barcelona",
@@ -1262,455 +126,429 @@
       {
         "bookmaker": "Unibet",
         "bookmakerKey": "unibet",
-        "homeOdds": 2.7,
-        "drawOdds": 3.85,
-        "awayOdds": 2.38
+        "homeOdds": 3,
+        "drawOdds": 2.45,
+        "awayOdds": 3.2
       },
       {
         "bookmaker": "LiveScore Bet",
         "bookmakerKey": "livescorebet",
-        "homeOdds": 2.63,
-        "drawOdds": 3.8,
-        "awayOdds": 2.3
+        "homeOdds": 2.8,
+        "drawOdds": 2.35,
+        "awayOdds": 3.3
       },
       {
         "bookmaker": "BetRivers",
         "bookmakerKey": "betrivers",
-        "homeOdds": 2.7,
-        "drawOdds": 3.85,
-        "awayOdds": 2.35
+        "homeOdds": 2.8,
+        "drawOdds": 2.3,
+        "awayOdds": 3.35
       },
       {
         "bookmaker": "Casumo",
         "bookmakerKey": "casumo",
-        "homeOdds": 2.6,
-        "drawOdds": 3.75,
-        "awayOdds": 2.3
+        "homeOdds": 2.85,
+        "drawOdds": 2.38,
+        "awayOdds": 3.4
       },
       {
         "bookmaker": "Unibet (NL)",
         "bookmakerKey": "unibet_nl",
-        "homeOdds": 2.8,
-        "drawOdds": 3.95,
-        "awayOdds": 2.45
-      },
-      {
-        "bookmaker": "1xBet",
-        "bookmakerKey": "onexbet",
-        "homeOdds": 2.77,
-        "drawOdds": 3.95,
-        "awayOdds": 2.49,
-        "spreadHome": 2.07,
-        "spreadLine": 0,
-        "spreadAway": 1.88
+        "homeOdds": 2.88,
+        "drawOdds": 2.33,
+        "awayOdds": 3.45
       },
       {
         "bookmaker": "Unibet (SE)",
         "bookmakerKey": "unibet_se",
-        "homeOdds": 2.75,
-        "drawOdds": 3.95,
-        "awayOdds": 2.43
+        "homeOdds": 2.85,
+        "drawOdds": 2.38,
+        "awayOdds": 3.4
       },
       {
         "bookmaker": "Grosvenor",
         "bookmakerKey": "grosvenor",
-        "homeOdds": 2.7,
-        "drawOdds": 3.85,
-        "awayOdds": 2.38
+        "homeOdds": 2.8,
+        "drawOdds": 2.35,
+        "awayOdds": 3.3
       },
       {
         "bookmaker": "LeoVegas",
         "bookmakerKey": "leovegas",
-        "homeOdds": 2.65,
-        "drawOdds": 3.8,
-        "awayOdds": 2.32
+        "homeOdds": 2.8,
+        "drawOdds": 2.38,
+        "awayOdds": 3.35
       },
       {
         "bookmaker": "Virgin Bet",
         "bookmakerKey": "virginbet",
-        "homeOdds": 2.63,
-        "drawOdds": 3.8,
-        "awayOdds": 2.3
+        "homeOdds": 2.85,
+        "drawOdds": 2.32,
+        "awayOdds": 3.35
       },
       {
         "bookmaker": "TABtouch",
         "bookmakerKey": "tabtouch",
-        "homeOdds": 2.65,
-        "drawOdds": 3.8,
-        "awayOdds": 2.33
+        "homeOdds": 2.8,
+        "drawOdds": 2.38,
+        "awayOdds": 3.35
       },
       {
         "bookmaker": "LeoVegas (SE)",
         "bookmakerKey": "leovegas_se",
-        "homeOdds": 2.7,
-        "drawOdds": 3.9,
-        "awayOdds": 2.38
+        "homeOdds": 2.85,
+        "drawOdds": 2.38,
+        "awayOdds": 3.4
       },
       {
         "bookmaker": "888sport",
         "bookmakerKey": "sport888",
-        "homeOdds": 2.6,
-        "drawOdds": 3.7,
-        "awayOdds": 2.45
-      },
-      {
-        "bookmaker": "Parions Sport (FR)",
-        "bookmakerKey": "parionssport_fr",
-        "homeOdds": 2.7,
-        "drawOdds": 4,
-        "awayOdds": 2.45
+        "homeOdds": 2.75,
+        "drawOdds": 2.2,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Unibet (UK)",
         "bookmakerKey": "unibet_uk",
-        "homeOdds": 2.65,
-        "drawOdds": 3.9,
-        "awayOdds": 2.4
+        "homeOdds": 2.9,
+        "drawOdds": 2.3,
+        "awayOdds": 3.5
       },
       {
         "bookmaker": "Betclic (FR)",
         "bookmakerKey": "betclic_fr",
-        "homeOdds": 2.7,
-        "drawOdds": 3.95,
-        "awayOdds": 2.45
-      },
-      {
-        "bookmaker": "William Hill",
-        "bookmakerKey": "williamhill",
-        "homeOdds": 2.6,
-        "drawOdds": 3.7,
-        "awayOdds": 2.45,
-        "overOdds": 1.4,
-        "overLine": 2.5,
-        "underOdds": 2.75
-      },
-      {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 2.5,
-        "drawOdds": 3.8,
-        "awayOdds": 2.38
-      },
-      {
-        "bookmaker": "Codere (IT)",
-        "bookmakerKey": "codere_it",
-        "homeOdds": 2.65,
-        "drawOdds": 3.9,
-        "awayOdds": 2.4
-      },
-      {
-        "bookmaker": "Unibet (FR)",
-        "bookmakerKey": "unibet_fr",
-        "homeOdds": 2.7,
-        "drawOdds": 3.98,
-        "awayOdds": 2.45
-      },
-      {
-        "bookmaker": "PMU (FR)",
-        "bookmakerKey": "pmu_fr",
-        "homeOdds": 2.6,
-        "drawOdds": 3.9,
-        "awayOdds": 2.35
+        "homeOdds": 2.8,
+        "drawOdds": 2.72,
+        "awayOdds": 2.88
       },
       {
         "bookmaker": "Winamax (DE)",
         "bookmakerKey": "winamax_de",
-        "homeOdds": 2.6,
-        "drawOdds": 4,
-        "awayOdds": 2.35
-      },
-      {
-        "bookmaker": "SportsBet",
-        "bookmakerKey": "sportsbet",
-        "homeOdds": 2.62,
-        "drawOdds": 3.9,
-        "awayOdds": 2.4
+        "homeOdds": 2.85,
+        "drawOdds": 2.25,
+        "awayOdds": 3.35
       },
       {
         "bookmaker": "FanDuel",
         "bookmakerKey": "fanduel",
-        "homeOdds": 2.65,
-        "drawOdds": 3.9,
-        "awayOdds": 2.4
+        "homeOdds": 3.1,
+        "drawOdds": 2.3,
+        "awayOdds": 3.2
       },
       {
         "bookmaker": "Sky Bet",
         "bookmakerKey": "skybet",
-        "homeOdds": 2.63,
-        "drawOdds": 4,
-        "awayOdds": 2.3
+        "homeOdds": 2.88,
+        "drawOdds": 2.4,
+        "awayOdds": 3.3
       },
       {
         "bookmaker": "Paddy Power",
         "bookmakerKey": "paddypower",
-        "homeOdds": 2.62,
-        "drawOdds": 3.8,
-        "awayOdds": 2.38
+        "homeOdds": 2.88,
+        "drawOdds": 2.38,
+        "awayOdds": 3.25
       },
       {
         "bookmaker": "Pinnacle",
         "bookmakerKey": "pinnacle",
-        "homeOdds": 2.69,
-        "drawOdds": 3.99,
-        "awayOdds": 2.46,
-        "spreadHome": 2.06,
+        "homeOdds": 2.83,
+        "drawOdds": 2.73,
+        "awayOdds": 2.94,
+        "spreadHome": 1.91,
         "spreadLine": 0,
-        "spreadAway": 1.88
+        "spreadAway": 1.99
       },
       {
         "bookmaker": "Winamax (FR)",
         "bookmakerKey": "winamax_fr",
-        "homeOdds": 2.55,
-        "drawOdds": 3.9,
-        "awayOdds": 2.3
+        "homeOdds": 2.75,
+        "drawOdds": 2.2,
+        "awayOdds": 3.25
       },
       {
         "bookmaker": "DraftKings",
         "bookmakerKey": "draftkings",
-        "homeOdds": 2.65,
-        "drawOdds": 3.85,
-        "awayOdds": 2.45
+        "homeOdds": 2.9,
+        "drawOdds": 2.3,
+        "awayOdds": 3.5
       },
       {
         "bookmaker": "BetMGM",
         "bookmakerKey": "betmgm",
-        "homeOdds": 2.6,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
+        "homeOdds": 2.9,
+        "drawOdds": 2.2,
+        "awayOdds": 3.5
       },
       {
         "bookmaker": "Ladbrokes",
         "bookmakerKey": "ladbrokes_uk",
-        "homeOdds": 2.6,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
+        "homeOdds": 2.87,
+        "drawOdds": 2.2,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Coral",
         "bookmakerKey": "coral",
-        "homeOdds": 2.6,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
-      },
-      {
-        "bookmaker": "PlayUp",
-        "bookmakerKey": "playup",
-        "homeOdds": 2.6,
-        "drawOdds": 3.85,
-        "awayOdds": 2.35,
-        "spreadHome": 1.2,
-        "spreadLine": 1.5,
-        "spreadAway": 4.5
-      },
-      {
-        "bookmaker": "Neds",
-        "bookmakerKey": "neds",
-        "homeOdds": 2.6,
-        "drawOdds": 3.75,
-        "awayOdds": 2.4
-      },
-      {
-        "bookmaker": "Ladbrokes",
-        "bookmakerKey": "ladbrokes_au",
-        "homeOdds": 2.6,
-        "drawOdds": 3.75,
-        "awayOdds": 2.4
+        "homeOdds": 2.9,
+        "drawOdds": 2.25,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 2.76,
-        "drawOdds": 4.1,
-        "awayOdds": 2.5
+        "homeOdds": 2.84,
+        "drawOdds": 2.52,
+        "awayOdds": 3.9
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 2.76,
-        "drawOdds": 4.1,
-        "awayOdds": 2.5
+        "homeOdds": 3.05,
+        "drawOdds": 2.48,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 2.78,
-        "drawOdds": 4.1,
-        "awayOdds": 2.5
-      },
-      {
-        "bookmaker": "GTbets",
-        "bookmakerKey": "gtbets",
-        "homeOdds": 2.64,
-        "drawOdds": 3.93,
-        "awayOdds": 2.4,
-        "spreadHome": 1.58,
-        "spreadLine": 0.5,
-        "spreadAway": 2.33
-      },
-      {
-        "bookmaker": "Everygame",
-        "bookmakerKey": "everygame",
-        "homeOdds": 2.6,
-        "drawOdds": 3.85,
-        "awayOdds": 2.45
+        "homeOdds": 3,
+        "drawOdds": 2.44,
+        "awayOdds": 3.8
       },
       {
         "bookmaker": "Suprabets",
         "bookmakerKey": "suprabets",
-        "homeOdds": 2.62,
-        "drawOdds": 3.84,
-        "awayOdds": 2.43
+        "homeOdds": 2.85,
+        "drawOdds": 2.7,
+        "awayOdds": 3
       },
       {
         "bookmaker": "Smarkets",
         "bookmakerKey": "smarkets",
         "homeOdds": 2.98,
-        "drawOdds": 4.1,
-        "awayOdds": 2.48
+        "drawOdds": 2.42,
+        "awayOdds": 3.75
       },
       {
         "bookmaker": "Nordic Bet",
         "bookmakerKey": "nordicbet",
-        "homeOdds": 2.68,
-        "drawOdds": 3.95,
-        "awayOdds": 2.42
+        "homeOdds": 2.92,
+        "drawOdds": 2.3,
+        "awayOdds": 3.2
       },
       {
         "bookmaker": "Betsson",
         "bookmakerKey": "betsson",
-        "homeOdds": 2.68,
-        "drawOdds": 3.95,
-        "awayOdds": 2.42
+        "homeOdds": 2.92,
+        "drawOdds": 2.3,
+        "awayOdds": 3.2
       },
       {
         "bookmaker": "PointsBet (AU)",
         "bookmakerKey": "pointsbetau",
-        "homeOdds": 2.6,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
-      },
-      {
-        "bookmaker": "BetUS",
-        "bookmakerKey": "betus",
-        "homeOdds": 2.65,
-        "drawOdds": 3.87,
-        "awayOdds": 2.45,
-        "spreadHome": 2,
-        "spreadLine": 0,
-        "spreadAway": 1.83
+        "homeOdds": 3,
+        "drawOdds": 2.25,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Coolbet",
         "bookmakerKey": "coolbet",
-        "homeOdds": 2.72,
-        "drawOdds": 4,
-        "awayOdds": 2.46
-      },
-      {
-        "bookmaker": "LowVig.ag",
-        "bookmakerKey": "lowvig",
-        "homeOdds": 2.78,
-        "drawOdds": 4.13,
-        "awayOdds": 2.31,
-        "spreadHome": 2,
-        "spreadLine": 0,
-        "spreadAway": 1.83
-      },
-      {
-        "bookmaker": "BetOnline.ag",
-        "bookmakerKey": "betonlineag",
-        "homeOdds": 2.78,
-        "drawOdds": 4.13,
-        "awayOdds": 2.31,
-        "spreadHome": 2,
-        "spreadLine": 0,
-        "spreadAway": 1.83
+        "homeOdds": 2.95,
+        "drawOdds": 2.35,
+        "awayOdds": 3.55
       },
       {
         "bookmaker": "Betway",
         "bookmakerKey": "betway",
-        "homeOdds": 2.62,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
+        "homeOdds": 3,
+        "drawOdds": 2.25,
+        "awayOdds": 3.3
       },
       {
         "bookmaker": "Bet Victor",
         "bookmakerKey": "betvictor",
-        "homeOdds": 2.6,
-        "drawOdds": 3.9,
-        "awayOdds": 2.4
-      },
-      {
-        "bookmaker": "Marathon Bet",
-        "bookmakerKey": "marathonbet",
-        "homeOdds": 2.7,
-        "drawOdds": 3.9,
-        "awayOdds": 2.48
+        "homeOdds": 2.8,
+        "drawOdds": 2.3,
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "TAB",
         "bookmakerKey": "tab",
-        "homeOdds": 2.6,
-        "drawOdds": 3.8,
-        "awayOdds": 2.4
+        "homeOdds": 3,
+        "drawOdds": 2.3,
+        "awayOdds": 3.15
       },
       {
         "bookmaker": "Bovada",
         "bookmakerKey": "bovada",
-        "homeOdds": 2.61,
-        "drawOdds": 3.85,
-        "awayOdds": 2.43,
-        "spreadHome": 1.98,
+        "homeOdds": 2.85,
+        "drawOdds": 2.3,
+        "awayOdds": 3.6,
+        "spreadHome": 1.72,
         "spreadLine": 0,
-        "spreadAway": 1.85
-      },
-      {
-        "bookmaker": "Betr",
-        "bookmakerKey": "betr_au",
-        "homeOdds": 2.45,
-        "drawOdds": 4,
-        "awayOdds": 2.35
-      },
-      {
-        "bookmaker": "Bet Right",
-        "bookmakerKey": "betright",
-        "homeOdds": 2.6,
-        "drawOdds": 3.9,
-        "awayOdds": 2.3
+        "spreadAway": 2.14
       },
       {
         "bookmaker": "Matchbook",
         "bookmakerKey": "matchbook",
-        "homeOdds": 2.76,
-        "drawOdds": 4.1,
-        "awayOdds": 2.5,
-        "overOdds": 1.44,
+        "homeOdds": 2.98,
+        "drawOdds": 2.44,
+        "awayOdds": 3.85,
+        "overOdds": 7.6,
         "overLine": 2.5,
-        "underOdds": 3.15,
-        "spreadHome": 1.81,
-        "spreadLine": 0.25,
-        "spreadAway": 2.18
-      },
-      {
-        "bookmaker": "BetAnything",
-        "bookmakerKey": "betanysports",
-        "homeOdds": 2.61,
-        "drawOdds": 3.85,
-        "awayOdds": 2.43,
-        "spreadHome": 1.98,
-        "spreadLine": 0,
-        "spreadAway": 1.85
+        "underOdds": 1.14,
+        "spreadHome": 2.94,
+        "spreadLine": -0.5,
+        "spreadAway": 1.47
       }
     ],
-    "bestHome": 2.98,
-    "bestDraw": 4.13,
-    "bestAway": 2.5,
-    "pinnacleHome": 2.69,
-    "pinnacleDraw": 3.99,
-    "pinnacleAway": 2.46
+    "bestHome": 3.1,
+    "bestDraw": 2.73,
+    "bestAway": 3.9,
+    "pinnacleHome": 2.83,
+    "pinnacleDraw": 2.73,
+    "pinnacleAway": 2.94
   },
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
+    "matchId": "5e256c6ee31e77cef2c88df9556b9dcf",
+    "homeTeam": "Atlético Madrid",
+    "awayTeam": "Tottenham",
+    "commenceTime": "2026-03-10T20:03:00Z",
+    "bookmakers": [
+      {
+        "bookmaker": "Unibet (UK)",
+        "bookmakerKey": "unibet_uk",
+        "homeOdds": 1,
+        "drawOdds": 61,
+        "awayOdds": 501
+      },
+      {
+        "bookmaker": "Sky Bet",
+        "bookmakerKey": "skybet",
+        "homeOdds": 1,
+        "drawOdds": 126,
+        "awayOdds": 251
+      },
+      {
+        "bookmaker": "Paddy Power",
+        "bookmakerKey": "paddypower",
+        "homeOdds": 1,
+        "drawOdds": 81,
+        "awayOdds": 501
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_uk",
+        "homeOdds": 1.01,
+        "drawOdds": 110,
+        "awayOdds": 160
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_eu",
+        "homeOdds": 1.01,
+        "drawOdds": 100,
+        "awayOdds": 150
+      },
+      {
+        "bookmaker": "FanDuel",
+        "bookmakerKey": "fanduel",
+        "homeOdds": 1,
+        "drawOdds": 101,
+        "awayOdds": 101
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_au",
+        "homeOdds": 1.01,
+        "drawOdds": 100,
+        "awayOdds": 90
+      },
+      {
+        "bookmaker": "Winamax (DE)",
+        "bookmakerKey": "winamax_de",
+        "homeOdds": 1,
+        "drawOdds": 50,
+        "awayOdds": 150
+      },
+      {
+        "bookmaker": "Winamax (FR)",
+        "bookmakerKey": "winamax_fr",
+        "homeOdds": 1.01,
+        "drawOdds": 50,
+        "awayOdds": 160
+      },
+      {
+        "bookmaker": "Ladbrokes",
+        "bookmakerKey": "ladbrokes_uk",
+        "homeOdds": 1,
+        "drawOdds": 46,
+        "awayOdds": 101
+      },
+      {
+        "bookmaker": "Coral",
+        "bookmakerKey": "coral",
+        "homeOdds": 1,
+        "drawOdds": 51,
+        "awayOdds": 126
+      },
+      {
+        "bookmaker": "Bet Victor",
+        "bookmakerKey": "betvictor",
+        "homeOdds": 1,
+        "drawOdds": 18,
+        "awayOdds": 56
+      },
+      {
+        "bookmaker": "Smarkets",
+        "bookmakerKey": "smarkets",
+        "homeOdds": 1.01,
+        "drawOdds": 64.94,
+        "awayOdds": 222.22
+      },
+      {
+        "bookmaker": "Suprabets",
+        "bookmakerKey": "suprabets",
+        "homeOdds": 1,
+        "drawOdds": 23,
+        "awayOdds": 126
+      },
+      {
+        "bookmaker": "Nordic Bet",
+        "bookmakerKey": "nordicbet",
+        "homeOdds": 1,
+        "drawOdds": 26,
+        "awayOdds": 36
+      },
+      {
+        "bookmaker": "Betsson",
+        "bookmakerKey": "betsson",
+        "homeOdds": 1,
+        "drawOdds": 26,
+        "awayOdds": 36
+      },
+      {
+        "bookmaker": "PointsBet (AU)",
+        "bookmakerKey": "pointsbetau",
+        "homeOdds": 1,
+        "drawOdds": 91,
+        "awayOdds": 351
+      },
+      {
+        "bookmaker": "Betway",
+        "bookmakerKey": "betway",
+        "homeOdds": 1,
+        "drawOdds": 41,
+        "awayOdds": 151
+      }
+    ],
+    "bestHome": 1.01,
+    "bestDraw": 126,
+    "bestAway": 501
+  },
+  {
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "963a779ed5805946e8621a6aea80ab10",
     "homeTeam": "Bayer Leverkusen",
     "awayTeam": "Arsenal",
@@ -1731,13 +569,6 @@
         "awayOdds": 1.54
       },
       {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 5.5,
-        "drawOdds": 4,
-        "awayOdds": 1.53
-      },
-      {
         "bookmaker": "Winamax (DE)",
         "bookmakerKey": "winamax_de",
         "homeOdds": 5.7,
@@ -1747,7 +578,7 @@
       {
         "bookmaker": "Coolbet",
         "bookmakerKey": "coolbet",
-        "homeOdds": 6.45,
+        "homeOdds": 6.5,
         "drawOdds": 4.45,
         "awayOdds": 1.55,
         "overOdds": 1.9,
@@ -1762,14 +593,14 @@
         "awayOdds": 1.54,
         "overOdds": 1.81,
         "overLine": 2.5,
-        "underOdds": 1.9
+        "underOdds": 1.89
       },
       {
         "bookmaker": "Smarkets",
         "bookmakerKey": "smarkets",
-        "homeOdds": 6.8,
+        "homeOdds": 6.6,
         "drawOdds": 4.4,
-        "awayOdds": 1.55
+        "awayOdds": 1.58
       },
       {
         "bookmaker": "Bet Victor",
@@ -1833,9 +664,9 @@
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 7,
-        "drawOdds": 4.5,
-        "awayOdds": 1.56
+        "homeOdds": 6.6,
+        "drawOdds": 4.4,
+        "awayOdds": 1.58
       },
       {
         "bookmaker": "Winamax (FR)",
@@ -1854,9 +685,9 @@
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 7,
+        "homeOdds": 6.6,
         "drawOdds": 4.5,
-        "awayOdds": 1.56
+        "awayOdds": 1.58
       },
       {
         "bookmaker": "Betclic (FR)",
@@ -1868,9 +699,9 @@
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 7,
-        "drawOdds": 4.5,
-        "awayOdds": 1.56
+        "homeOdds": 6.6,
+        "drawOdds": 4.4,
+        "awayOdds": 1.58
       },
       {
         "bookmaker": "Paddy Power",
@@ -1888,9 +719,9 @@
         "overOdds": 1.88,
         "overLine": 2.5,
         "underOdds": 1.94,
-        "spreadHome": 1.88,
+        "spreadHome": 1.9,
         "spreadLine": 1,
-        "spreadAway": 1.94
+        "spreadAway": 1.92
       },
       {
         "bookmaker": "BetOnline.ag",
@@ -1901,29 +732,29 @@
         "overOdds": 1.88,
         "overLine": 2.5,
         "underOdds": 1.94,
-        "spreadHome": 1.88,
+        "spreadHome": 1.9,
         "spreadLine": 1,
-        "spreadAway": 1.94
+        "spreadAway": 1.92
       },
       {
         "bookmaker": "PointsBet (AU)",
         "bookmakerKey": "pointsbetau",
-        "homeOdds": 5.75,
+        "homeOdds": 6,
         "drawOdds": 4.3,
-        "awayOdds": 1.56
+        "awayOdds": 1.53
       },
       {
         "bookmaker": "PlayUp",
         "bookmakerKey": "playup",
         "homeOdds": 6,
-        "drawOdds": 4.2,
-        "awayOdds": 1.5,
+        "drawOdds": 4.1,
+        "awayOdds": 1.52,
         "overOdds": 1.85,
         "overLine": 2.5,
         "underOdds": 1.93,
-        "spreadHome": 1.52,
+        "spreadHome": 1.5,
         "spreadLine": 1.5,
-        "spreadAway": 2.5
+        "spreadAway": 2.55
       },
       {
         "bookmaker": "1xBet",
@@ -1942,34 +773,34 @@
         "bookmaker": "GTbets",
         "bookmakerKey": "gtbets",
         "homeOdds": 5.87,
-        "drawOdds": 4.2,
-        "awayOdds": 1.56,
-        "overOdds": 1.86,
+        "drawOdds": 4.25,
+        "awayOdds": 1.55,
+        "overOdds": 1.85,
         "overLine": 2.5,
         "underOdds": 1.92,
-        "spreadHome": 2.44,
-        "spreadLine": 0.5,
-        "spreadAway": 1.54
+        "spreadHome": 1.54,
+        "spreadLine": 1.5,
+        "spreadAway": 2.44
       },
       {
         "bookmaker": "Pinnacle",
         "bookmakerKey": "pinnacle",
-        "homeOdds": 6.34,
-        "drawOdds": 4.45,
+        "homeOdds": 6.29,
+        "drawOdds": 4.4,
         "awayOdds": 1.53,
-        "overOdds": 1.89,
+        "overOdds": 1.9,
         "overLine": 2.5,
         "underOdds": 1.99,
-        "spreadHome": 1.97,
+        "spreadHome": 1.95,
         "spreadLine": 1,
-        "spreadAway": 1.93
+        "spreadAway": 1.95
       },
       {
         "bookmaker": "TAB",
         "bookmakerKey": "tab",
         "homeOdds": 6,
-        "drawOdds": 4.5,
-        "awayOdds": 1.5
+        "drawOdds": 4.25,
+        "awayOdds": 1.52
       },
       {
         "bookmaker": "Everygame",
@@ -1991,36 +822,36 @@
         "homeOdds": 6.75,
         "drawOdds": 4.3,
         "awayOdds": 1.48,
-        "overOdds": 1.82,
+        "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.95
+        "underOdds": 1.94
       },
       {
         "bookmaker": "LeoVegas",
         "bookmakerKey": "leovegas",
         "homeOdds": 6.5,
-        "drawOdds": 4.25,
+        "drawOdds": 4.2,
         "awayOdds": 1.45,
-        "overOdds": 1.81,
+        "overOdds": 1.82,
         "overLine": 2.5,
-        "underOdds": 1.94
+        "underOdds": 1.93
       },
       {
         "bookmaker": "LiveScore Bet",
         "bookmakerKey": "livescorebet",
-        "homeOdds": 6.1,
+        "homeOdds": 6.25,
         "drawOdds": 4.1,
         "awayOdds": 1.43
       },
       {
         "bookmaker": "TABtouch",
         "bookmakerKey": "tabtouch",
-        "homeOdds": 6.5,
-        "drawOdds": 4.3,
+        "homeOdds": 6.75,
+        "drawOdds": 4.25,
         "awayOdds": 1.47,
         "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.96
+        "underOdds": 1.95
       },
       {
         "bookmaker": "LeoVegas (SE)",
@@ -2028,14 +859,14 @@
         "homeOdds": 6.75,
         "drawOdds": 4.35,
         "awayOdds": 1.5,
-        "overOdds": 1.83,
+        "overOdds": 1.85,
         "overLine": 2.5,
-        "underOdds": 1.97
+        "underOdds": 1.96
       },
       {
         "bookmaker": "Virgin Bet",
         "bookmakerKey": "virginbet",
-        "homeOdds": 6.1,
+        "homeOdds": 6.25,
         "drawOdds": 4.1,
         "awayOdds": 1.43
       },
@@ -2043,41 +874,41 @@
         "bookmaker": "Grosvenor",
         "bookmakerKey": "grosvenor",
         "homeOdds": 6.75,
-        "drawOdds": 4.35,
+        "drawOdds": 4.3,
         "awayOdds": 1.49,
-        "overOdds": 1.82,
+        "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.95
+        "underOdds": 1.94
       },
       {
         "bookmaker": "Unibet (SE)",
         "bookmakerKey": "unibet_se",
-        "homeOdds": 6.75,
+        "homeOdds": 7,
         "drawOdds": 4.4,
         "awayOdds": 1.53,
-        "overOdds": 1.83,
+        "overOdds": 1.85,
         "overLine": 2.5,
-        "underOdds": 1.97
+        "underOdds": 1.96
       },
       {
         "bookmaker": "Casumo",
         "bookmakerKey": "casumo",
-        "homeOdds": 6.4,
+        "homeOdds": 6.5,
         "drawOdds": 4.2,
         "awayOdds": 1.43,
         "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.96
+        "underOdds": 1.95
       },
       {
         "bookmaker": "Unibet",
         "bookmakerKey": "unibet",
         "homeOdds": 6.75,
-        "drawOdds": 4.35,
+        "drawOdds": 4.3,
         "awayOdds": 1.49,
         "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.96
+        "underOdds": 1.95
       },
       {
         "bookmaker": "Unibet (NL)",
@@ -2087,20 +918,20 @@
         "awayOdds": 1.54,
         "overOdds": 1.83,
         "overLine": 2.5,
-        "underOdds": 1.96
+        "underOdds": 1.95
       },
       {
         "bookmaker": "Bovada",
         "bookmakerKey": "bovada",
         "homeOdds": 6,
-        "drawOdds": 4.35,
-        "awayOdds": 1.51,
+        "drawOdds": 4.3,
+        "awayOdds": 1.52,
         "overOdds": 1.87,
         "overLine": 2.5,
         "underOdds": 1.95,
-        "spreadHome": 1.93,
+        "spreadHome": 1.91,
         "spreadLine": 1,
-        "spreadAway": 1.89
+        "spreadAway": 1.91
       },
       {
         "bookmaker": "DraftKings",
@@ -2113,14 +944,14 @@
         "bookmaker": "BetUS",
         "bookmakerKey": "betus",
         "homeOdds": 6.05,
-        "drawOdds": 4.35,
-        "awayOdds": 1.53,
+        "drawOdds": 4.3,
+        "awayOdds": 1.54,
         "overOdds": 1.87,
         "overLine": 2.5,
         "underOdds": 1.95,
-        "spreadHome": 1.87,
+        "spreadHome": 1.91,
         "spreadLine": 1,
-        "spreadAway": 1.95
+        "spreadAway": 1.91
       },
       {
         "bookmaker": "Betway",
@@ -2132,9 +963,9 @@
       {
         "bookmaker": "Nordic Bet",
         "bookmakerKey": "nordicbet",
-        "homeOdds": 6.5,
-        "drawOdds": 4.3,
-        "awayOdds": 1.52,
+        "homeOdds": 6.2,
+        "drawOdds": 4.35,
+        "awayOdds": 1.55,
         "overOdds": 1.85,
         "overLine": 2.5,
         "underOdds": 1.95
@@ -2142,9 +973,9 @@
       {
         "bookmaker": "Betsson",
         "bookmakerKey": "betsson",
-        "homeOdds": 6.5,
-        "drawOdds": 4.3,
-        "awayOdds": 1.52,
+        "homeOdds": 6.2,
+        "drawOdds": 4.35,
+        "awayOdds": 1.55,
         "overOdds": 1.85,
         "overLine": 2.5,
         "underOdds": 1.95
@@ -2152,57 +983,57 @@
       {
         "bookmaker": "Ladbrokes",
         "bookmakerKey": "ladbrokes_au",
-        "homeOdds": 5.4,
+        "homeOdds": 5.6,
         "drawOdds": 4.1,
-        "awayOdds": 1.55
+        "awayOdds": 1.53
       },
       {
         "bookmaker": "Ladbrokes",
         "bookmakerKey": "ladbrokes_uk",
-        "homeOdds": 5.5,
+        "homeOdds": 5.75,
         "drawOdds": 4.2,
-        "awayOdds": 1.57
+        "awayOdds": 1.55
       },
       {
         "bookmaker": "Neds",
         "bookmakerKey": "neds",
-        "homeOdds": 5.4,
+        "homeOdds": 5.6,
         "drawOdds": 4.1,
-        "awayOdds": 1.55
+        "awayOdds": 1.53
       },
       {
         "bookmaker": "BetMGM",
         "bookmakerKey": "betmgm",
         "homeOdds": 5.75,
-        "drawOdds": 4.1,
-        "awayOdds": 1.57,
-        "overOdds": 1.83,
+        "drawOdds": 4.2,
+        "awayOdds": 1.54,
+        "overOdds": 1.8,
         "overLine": 2.5,
         "underOdds": 1.91
       },
       {
         "bookmaker": "Coral",
         "bookmakerKey": "coral",
-        "homeOdds": 5.5,
+        "homeOdds": 5.75,
         "drawOdds": 4.2,
-        "awayOdds": 1.57
+        "awayOdds": 1.55
       },
       {
         "bookmaker": "Matchbook",
         "bookmakerKey": "matchbook",
-        "homeOdds": 7,
+        "homeOdds": 6.6,
         "drawOdds": 4.5,
-        "awayOdds": 1.57,
-        "spreadHome": 2.02,
+        "awayOdds": 1.58,
+        "spreadHome": 1.99,
         "spreadLine": 1,
-        "spreadAway": 1.94
+        "spreadAway": 1.98
       },
       {
         "bookmaker": "Betr",
         "bookmakerKey": "betr_au",
-        "homeOdds": 5.75,
-        "drawOdds": 4,
-        "awayOdds": 1.55
+        "homeOdds": 6,
+        "drawOdds": 4.1,
+        "awayOdds": 1.52
       },
       {
         "bookmaker": "Bet Right",
@@ -2220,20 +1051,20 @@
         "overOdds": 1.87,
         "overLine": 2.5,
         "underOdds": 1.95,
-        "spreadHome": 1.88,
+        "spreadHome": 1.9,
         "spreadLine": 1,
-        "spreadAway": 1.94
+        "spreadAway": 1.92
       }
     ],
     "bestHome": 7,
     "bestDraw": 4.5,
     "bestAway": 1.59,
-    "pinnacleHome": 6.34,
-    "pinnacleDraw": 4.45,
+    "pinnacleHome": 6.29,
+    "pinnacleDraw": 4.4,
     "pinnacleAway": 1.53
   },
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "9116f649adc0271804f423b2e782e6fe",
     "homeTeam": "Bodø/Glimt",
     "awayTeam": "Sporting Lisbon",
@@ -2251,20 +1082,13 @@
         "bookmakerKey": "unibet_uk",
         "homeOdds": 2.6,
         "drawOdds": 3.6,
-        "awayOdds": 2.55
-      },
-      {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 2.5,
-        "drawOdds": 3.75,
-        "awayOdds": 2.5
+        "awayOdds": 2.6
       },
       {
         "bookmaker": "Winamax (DE)",
         "bookmakerKey": "winamax_de",
         "homeOdds": 2.55,
-        "drawOdds": 3.8,
+        "drawOdds": 3.75,
         "awayOdds": 2.5
       },
       {
@@ -2285,8 +1109,8 @@
         "bookmaker": "Codere (IT)",
         "bookmakerKey": "codere_it",
         "homeOdds": 2.6,
-        "drawOdds": 3.65,
-        "awayOdds": 2.55,
+        "drawOdds": 3.6,
+        "awayOdds": 2.6,
         "overOdds": 1.58,
         "overLine": 2.5,
         "underOdds": 2.23
@@ -2294,23 +1118,16 @@
       {
         "bookmaker": "Smarkets",
         "bookmakerKey": "smarkets",
-        "homeOdds": 2.64,
+        "homeOdds": 2.66,
         "drawOdds": 3.8,
-        "awayOdds": 2.68
-      },
-      {
-        "bookmaker": "Bet Victor",
-        "bookmakerKey": "betvictor",
-        "homeOdds": 2.55,
-        "drawOdds": 3.7,
-        "awayOdds": 2.55
+        "awayOdds": 2.7
       },
       {
         "bookmaker": "Unibet (FR)",
         "bookmakerKey": "unibet_fr",
         "homeOdds": 2.6,
-        "drawOdds": 3.75,
-        "awayOdds": 2.58
+        "drawOdds": 3.72,
+        "awayOdds": 2.6
       },
       {
         "bookmaker": "FanDuel",
@@ -2352,7 +1169,7 @@
         "bookmakerKey": "parionssport_fr",
         "homeOdds": 2.5,
         "drawOdds": 3.7,
-        "awayOdds": 2.6
+        "awayOdds": 2.65
       },
       {
         "bookmaker": "William Hill",
@@ -2382,15 +1199,15 @@
         "bookmaker": "Sky Bet",
         "bookmakerKey": "skybet",
         "homeOdds": 2.5,
-        "drawOdds": 3.6,
+        "drawOdds": 3.75,
         "awayOdds": 2.5
       },
       {
         "bookmaker": "Betclic (FR)",
         "bookmakerKey": "betclic_fr",
         "homeOdds": 2.6,
-        "drawOdds": 3.75,
-        "awayOdds": 2.57
+        "drawOdds": 3.7,
+        "awayOdds": 2.6
       },
       {
         "bookmaker": "Paddy Power",
@@ -2442,8 +1259,8 @@
       {
         "bookmaker": "PlayUp",
         "bookmakerKey": "playup",
-        "homeOdds": 2.45,
-        "drawOdds": 3.6,
+        "homeOdds": 2.5,
+        "drawOdds": 3.65,
         "awayOdds": 2.55,
         "overOdds": 1.63,
         "overLine": 2.5,
@@ -2458,9 +1275,9 @@
         "homeOdds": 2.6,
         "drawOdds": 3.77,
         "awayOdds": 2.61,
-        "spreadHome": 1.94,
+        "spreadHome": 1.95,
         "spreadLine": 0,
-        "spreadAway": 1.96
+        "spreadAway": 1.95
       },
       {
         "bookmaker": "Betsson",
@@ -2537,9 +1354,9 @@
       {
         "bookmaker": "BetRivers",
         "bookmakerKey": "betrivers",
-        "homeOdds": 2.55,
+        "homeOdds": 2.48,
         "drawOdds": 3.65,
-        "awayOdds": 2.55,
+        "awayOdds": 2.63,
         "overOdds": 1.56,
         "overLine": 2.5,
         "underOdds": 2.38
@@ -2547,26 +1364,26 @@
       {
         "bookmaker": "LeoVegas",
         "bookmakerKey": "leovegas",
-        "homeOdds": 2.5,
+        "homeOdds": 2.43,
         "drawOdds": 3.6,
-        "awayOdds": 2.5,
+        "awayOdds": 2.6,
         "overOdds": 1.56,
         "overLine": 2.5,
-        "underOdds": 2.38
+        "underOdds": 2.35
       },
       {
         "bookmaker": "LiveScore Bet",
         "bookmakerKey": "livescorebet",
-        "homeOdds": 2.45,
+        "homeOdds": 2.38,
         "drawOdds": 3.45,
-        "awayOdds": 2.43
+        "awayOdds": 2.5
       },
       {
         "bookmaker": "TABtouch",
         "bookmakerKey": "tabtouch",
-        "homeOdds": 2.55,
-        "drawOdds": 3.65,
-        "awayOdds": 2.55,
+        "homeOdds": 2.45,
+        "drawOdds": 3.6,
+        "awayOdds": 2.63,
         "overOdds": 1.57,
         "overLine": 2.5,
         "underOdds": 2.4
@@ -2574,26 +1391,26 @@
       {
         "bookmaker": "LeoVegas (SE)",
         "bookmakerKey": "leovegas_se",
-        "homeOdds": 2.55,
-        "drawOdds": 3.7,
-        "awayOdds": 2.6,
+        "homeOdds": 2.5,
+        "drawOdds": 3.65,
+        "awayOdds": 2.65,
         "overOdds": 1.57,
         "overLine": 2.5,
-        "underOdds": 2.43
+        "underOdds": 2.4
       },
       {
         "bookmaker": "Virgin Bet",
         "bookmakerKey": "virginbet",
-        "homeOdds": 2.45,
+        "homeOdds": 2.38,
         "drawOdds": 3.45,
-        "awayOdds": 2.43
+        "awayOdds": 2.5
       },
       {
         "bookmaker": "Grosvenor",
         "bookmakerKey": "grosvenor",
-        "homeOdds": 2.55,
+        "homeOdds": 2.48,
         "drawOdds": 3.65,
-        "awayOdds": 2.55,
+        "awayOdds": 2.65,
         "overOdds": 1.56,
         "overLine": 2.5,
         "underOdds": 2.38
@@ -2601,19 +1418,19 @@
       {
         "bookmaker": "Unibet (SE)",
         "bookmakerKey": "unibet_se",
-        "homeOdds": 2.63,
+        "homeOdds": 2.55,
         "drawOdds": 3.75,
-        "awayOdds": 2.65,
+        "awayOdds": 2.7,
         "overOdds": 1.57,
         "overLine": 2.5,
-        "underOdds": 2.43
+        "underOdds": 2.4
       },
       {
         "bookmaker": "Casumo",
         "bookmakerKey": "casumo",
-        "homeOdds": 2.48,
+        "homeOdds": 2.4,
         "drawOdds": 3.55,
-        "awayOdds": 2.5,
+        "awayOdds": 2.55,
         "overOdds": 1.57,
         "overLine": 2.5,
         "underOdds": 2.4
@@ -2621,9 +1438,9 @@
       {
         "bookmaker": "Unibet",
         "bookmakerKey": "unibet",
-        "homeOdds": 2.55,
+        "homeOdds": 2.48,
         "drawOdds": 3.65,
-        "awayOdds": 2.55,
+        "awayOdds": 2.65,
         "overOdds": 1.57,
         "overLine": 2.5,
         "underOdds": 2.4
@@ -2631,9 +1448,9 @@
       {
         "bookmaker": "Unibet (NL)",
         "bookmakerKey": "unibet_nl",
-        "homeOdds": 2.63,
-        "drawOdds": 3.8,
-        "awayOdds": 2.65,
+        "homeOdds": 2.55,
+        "drawOdds": 3.75,
+        "awayOdds": 2.75,
         "overOdds": 1.57,
         "overLine": 2.5,
         "underOdds": 2.4
@@ -2644,9 +1461,9 @@
         "homeOdds": 2.55,
         "drawOdds": 3.7,
         "awayOdds": 2.56,
-        "spreadHome": 1.89,
+        "spreadHome": 1.91,
         "spreadLine": 0,
-        "spreadAway": 1.93
+        "spreadAway": 1.91
       },
       {
         "bookmaker": "DraftKings",
@@ -2675,16 +1492,16 @@
       {
         "bookmaker": "Betr",
         "bookmakerKey": "betr_au",
-        "homeOdds": 2.4,
-        "drawOdds": 3.6,
+        "homeOdds": 2.35,
+        "drawOdds": 3.7,
         "awayOdds": 2.55
       },
       {
         "bookmaker": "Bet Right",
         "bookmakerKey": "betright",
-        "homeOdds": 2.45,
+        "homeOdds": 2.5,
         "drawOdds": 3.65,
-        "awayOdds": 2.55
+        "awayOdds": 2.5
       },
       {
         "bookmaker": "Matchbook",
@@ -2694,7 +1511,7 @@
         "awayOdds": 2.7,
         "spreadHome": 1.73,
         "spreadLine": 0.25,
-        "spreadAway": 2.34
+        "spreadAway": 2.36
       },
       {
         "bookmaker": "BetAnything",
@@ -2709,13 +1526,13 @@
     ],
     "bestHome": 2.68,
     "bestDraw": 3.84,
-    "bestAway": 2.7,
+    "bestAway": 2.75,
     "pinnacleHome": 2.6,
     "pinnacleDraw": 3.77,
     "pinnacleAway": 2.61
   },
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "9effb0e71099ba08f8813f7f61bb0f5d",
     "homeTeam": "Paris Saint Germain",
     "awayTeam": "Chelsea",
@@ -2736,18 +1553,11 @@
         "awayOdds": 3.6
       },
       {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 1.87,
-        "drawOdds": 3.6,
-        "awayOdds": 3.8
-      },
-      {
         "bookmaker": "Winamax (DE)",
         "bookmakerKey": "winamax_de",
         "homeOdds": 1.92,
         "drawOdds": 3.85,
-        "awayOdds": 3.65
+        "awayOdds": 3.6
       },
       {
         "bookmaker": "Coolbet",
@@ -2771,7 +1581,7 @@
         "bookmakerKey": "smarkets",
         "homeOdds": 2,
         "drawOdds": 3.95,
-        "awayOdds": 3.85
+        "awayOdds": 3.9
       },
       {
         "bookmaker": "Bet Victor",
@@ -2785,7 +1595,7 @@
         "bookmakerKey": "unibet_fr",
         "homeOdds": 1.9,
         "drawOdds": 3.88,
-        "awayOdds": 3.9
+        "awayOdds": 3.88
       },
       {
         "bookmaker": "FanDuel",
@@ -2818,7 +1628,7 @@
       {
         "bookmaker": "Parions Sport (FR)",
         "bookmakerKey": "parionssport_fr",
-        "homeOdds": 1.91,
+        "homeOdds": 1.92,
         "drawOdds": 4,
         "awayOdds": 3.8
       },
@@ -2837,12 +1647,12 @@
         "bookmakerKey": "betfair_ex_eu",
         "homeOdds": 2,
         "drawOdds": 3.95,
-        "awayOdds": 3.9
+        "awayOdds": 3.95
       },
       {
         "bookmaker": "Winamax (FR)",
         "bookmakerKey": "winamax_fr",
-        "homeOdds": 1.88,
+        "homeOdds": 1.9,
         "drawOdds": 3.75,
         "awayOdds": 3.55
       },
@@ -2850,22 +1660,22 @@
         "bookmaker": "Sky Bet",
         "bookmakerKey": "skybet",
         "homeOdds": 1.91,
-        "drawOdds": 3.75,
+        "drawOdds": 3.8,
         "awayOdds": 3.6
       },
       {
         "bookmaker": "Betclic (FR)",
         "bookmakerKey": "betclic_fr",
-        "homeOdds": 1.9,
+        "homeOdds": 1.91,
         "drawOdds": 3.9,
-        "awayOdds": 3.9
+        "awayOdds": 3.85
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_uk",
         "homeOdds": 2,
         "drawOdds": 3.95,
-        "awayOdds": 3.9
+        "awayOdds": 3.95
       },
       {
         "bookmaker": "Paddy Power",
@@ -2879,27 +1689,27 @@
         "bookmakerKey": "betfair_ex_au",
         "homeOdds": 2,
         "drawOdds": 3.95,
-        "awayOdds": 3.9
+        "awayOdds": 3.95
       },
       {
         "bookmaker": "BetOnline.ag",
         "bookmakerKey": "betonlineag",
-        "homeOdds": 1.93,
-        "drawOdds": 3.8,
-        "awayOdds": 3.95,
-        "spreadHome": 1.93,
+        "homeOdds": 1.96,
+        "drawOdds": 3.77,
+        "awayOdds": 3.85,
+        "spreadHome": 1.96,
         "spreadLine": -0.5,
-        "spreadAway": 1.89
+        "spreadAway": 1.86
       },
       {
         "bookmaker": "LowVig.ag",
         "bookmakerKey": "lowvig",
-        "homeOdds": 1.93,
-        "drawOdds": 3.8,
-        "awayOdds": 3.95,
-        "spreadHome": 1.93,
+        "homeOdds": 1.96,
+        "drawOdds": 3.77,
+        "awayOdds": 3.85,
+        "spreadHome": 1.96,
         "spreadLine": -0.5,
-        "spreadAway": 1.89
+        "spreadAway": 1.86
       },
       {
         "bookmaker": "PointsBet (AU)",
@@ -2912,12 +1722,12 @@
         "bookmaker": "GTbets",
         "bookmakerKey": "gtbets",
         "homeOdds": 1.93,
-        "drawOdds": 3.8,
-        "awayOdds": 3.7,
+        "drawOdds": 3.79,
+        "awayOdds": 3.72,
         "overOdds": 1.6,
         "overLine": 2.5,
         "underOdds": 2.3,
-        "spreadHome": 1.89,
+        "spreadHome": 1.88,
         "spreadLine": -0.5,
         "spreadAway": 1.88
       },
@@ -2925,12 +1735,12 @@
         "bookmaker": "PlayUp",
         "bookmakerKey": "playup",
         "homeOdds": 1.93,
-        "drawOdds": 3.65,
-        "awayOdds": 3.55,
+        "drawOdds": 3.7,
+        "awayOdds": 3.6,
         "overOdds": 1.58,
         "overLine": 2.5,
         "underOdds": 2.35,
-        "spreadHome": 3.4,
+        "spreadHome": 3.5,
         "spreadLine": -1.5,
         "spreadAway": 1.3
       },
@@ -2940,9 +1750,9 @@
         "homeOdds": 1.97,
         "drawOdds": 3.92,
         "awayOdds": 3.98,
-        "overOdds": 1.64,
+        "overOdds": 1.66,
         "overLine": 2.5,
-        "underOdds": 2.46,
+        "underOdds": 2.43,
         "spreadHome": 1.39,
         "spreadLine": 0,
         "spreadAway": 2.74
@@ -2951,7 +1761,7 @@
         "bookmaker": "Pinnacle",
         "bookmakerKey": "pinnacle",
         "homeOdds": 1.94,
-        "drawOdds": 3.82,
+        "drawOdds": 3.81,
         "awayOdds": 3.87,
         "spreadHome": 1.95,
         "spreadLine": -0.5,
@@ -2967,16 +1777,16 @@
       {
         "bookmaker": "Everygame",
         "bookmakerKey": "everygame",
-        "homeOdds": 1.9,
-        "drawOdds": 3.75,
-        "awayOdds": 3.85
+        "homeOdds": 1.91,
+        "drawOdds": 3.65,
+        "awayOdds": 3.75
       },
       {
         "bookmaker": "Suprabets",
         "bookmakerKey": "suprabets",
-        "homeOdds": 1.9,
-        "drawOdds": 3.73,
-        "awayOdds": 3.82
+        "homeOdds": 1.92,
+        "drawOdds": 3.7,
+        "awayOdds": 3.79
       },
       {
         "bookmaker": "BetMGM",
@@ -3020,35 +1830,35 @@
         "bookmaker": "BetRivers",
         "bookmakerKey": "betrivers",
         "homeOdds": 1.91,
-        "drawOdds": 3.7,
-        "awayOdds": 3.8,
-        "overOdds": 1.57,
+        "drawOdds": 3.8,
+        "awayOdds": 3.7,
+        "overOdds": 1.6,
         "overLine": 2.5,
-        "underOdds": 2.35
+        "underOdds": 2.33
       },
       {
         "bookmaker": "LeoVegas",
         "bookmakerKey": "leovegas",
         "homeOdds": 1.88,
-        "drawOdds": 3.65,
-        "awayOdds": 3.75,
-        "overOdds": 1.56,
+        "drawOdds": 3.75,
+        "awayOdds": 3.6,
+        "overOdds": 1.57,
         "overLine": 2.5,
-        "underOdds": 2.33
+        "underOdds": 2.32
       },
       {
         "bookmaker": "LiveScore Bet",
         "bookmakerKey": "livescorebet",
         "homeOdds": 1.83,
-        "drawOdds": 3.5,
-        "awayOdds": 3.65
+        "drawOdds": 3.6,
+        "awayOdds": 3.5
       },
       {
         "bookmaker": "TABtouch",
         "bookmakerKey": "tabtouch",
         "homeOdds": 1.89,
-        "drawOdds": 3.65,
-        "awayOdds": 3.8,
+        "drawOdds": 3.8,
+        "awayOdds": 3.65,
         "overOdds": 1.6,
         "overLine": 2.5,
         "underOdds": 2.35
@@ -3057,45 +1867,45 @@
         "bookmaker": "LeoVegas (SE)",
         "bookmakerKey": "leovegas_se",
         "homeOdds": 1.93,
-        "drawOdds": 3.7,
-        "awayOdds": 3.85,
-        "overOdds": 1.6,
+        "drawOdds": 3.85,
+        "awayOdds": 3.7,
+        "overOdds": 1.61,
         "overLine": 2.5,
-        "underOdds": 2.38
+        "underOdds": 2.35
       },
       {
         "bookmaker": "Virgin Bet",
         "bookmakerKey": "virginbet",
         "homeOdds": 1.83,
-        "drawOdds": 3.5,
-        "awayOdds": 3.65
+        "drawOdds": 3.6,
+        "awayOdds": 3.5
       },
       {
         "bookmaker": "Grosvenor",
         "bookmakerKey": "grosvenor",
         "homeOdds": 1.92,
-        "drawOdds": 3.7,
-        "awayOdds": 3.8,
-        "overOdds": 1.57,
+        "drawOdds": 3.85,
+        "awayOdds": 3.7,
+        "overOdds": 1.6,
         "overLine": 2.5,
-        "underOdds": 2.35
+        "underOdds": 2.33
       },
       {
         "bookmaker": "Unibet (SE)",
         "bookmakerKey": "unibet_se",
-        "homeOdds": 1.96,
-        "drawOdds": 3.8,
-        "awayOdds": 3.9,
-        "overOdds": 1.6,
+        "homeOdds": 1.97,
+        "drawOdds": 3.95,
+        "awayOdds": 3.8,
+        "overOdds": 1.61,
         "overLine": 2.5,
-        "underOdds": 2.38
+        "underOdds": 2.35
       },
       {
         "bookmaker": "Casumo",
         "bookmakerKey": "casumo",
         "homeOdds": 1.85,
-        "drawOdds": 3.6,
-        "awayOdds": 3.7,
+        "drawOdds": 3.7,
+        "awayOdds": 3.6,
         "overOdds": 1.6,
         "overLine": 2.5,
         "underOdds": 2.35
@@ -3104,8 +1914,8 @@
         "bookmaker": "Unibet",
         "bookmakerKey": "unibet",
         "homeOdds": 1.92,
-        "drawOdds": 3.7,
-        "awayOdds": 3.8,
+        "drawOdds": 3.85,
+        "awayOdds": 3.7,
         "overOdds": 1.6,
         "overLine": 2.5,
         "underOdds": 2.35
@@ -3114,8 +1924,8 @@
         "bookmaker": "Unibet (NL)",
         "bookmakerKey": "unibet_nl",
         "homeOdds": 1.97,
-        "drawOdds": 3.8,
-        "awayOdds": 3.95,
+        "drawOdds": 3.95,
+        "awayOdds": 3.8,
         "overOdds": 1.6,
         "overLine": 2.5,
         "underOdds": 2.35
@@ -3142,7 +1952,7 @@
         "bookmakerKey": "betus",
         "homeOdds": 1.91,
         "drawOdds": 3.75,
-        "awayOdds": 3.85,
+        "awayOdds": 3.8,
         "spreadHome": 1.91,
         "spreadLine": -0.5,
         "spreadAway": 1.91
@@ -3192,8 +2002,8 @@
         "bookmaker": "Matchbook",
         "bookmakerKey": "matchbook",
         "homeOdds": 2,
-        "drawOdds": 4,
-        "awayOdds": 3.9,
+        "drawOdds": 3.9,
+        "awayOdds": 3.95,
         "spreadHome": 1.75,
         "spreadLine": -0.25,
         "spreadAway": 2.3
@@ -3213,11 +2023,11 @@
     "bestDraw": 4,
     "bestAway": 3.98,
     "pinnacleHome": 1.94,
-    "pinnacleDraw": 3.82,
+    "pinnacleDraw": 3.81,
     "pinnacleAway": 3.87
   },
   {
-    "timestamp": "2026-03-10T18:11:15.969Z",
+    "timestamp": "2026-03-10T21:17:27.554Z",
     "matchId": "d507893e733fad8be9be6fb53d5b95d9",
     "homeTeam": "Real Madrid",
     "awayTeam": "Manchester City",
@@ -3228,7 +2038,7 @@
         "bookmakerKey": "sportsbet",
         "homeOdds": 3.4,
         "drawOdds": 3.8,
-        "awayOdds": 2
+        "awayOdds": 1.95
       },
       {
         "bookmaker": "Unibet (UK)",
@@ -3238,39 +2048,35 @@
         "awayOdds": 2.02
       },
       {
-        "bookmaker": "BoyleSports",
-        "bookmakerKey": "boylesports",
-        "homeOdds": 3.3,
-        "drawOdds": 3.75,
-        "awayOdds": 1.95
-      },
-      {
         "bookmaker": "Winamax (DE)",
         "bookmakerKey": "winamax_de",
         "homeOdds": 3.35,
         "drawOdds": 3.9,
-        "awayOdds": 2
+        "awayOdds": 1.98
       },
       {
         "bookmaker": "Coolbet",
         "bookmakerKey": "coolbet",
-        "homeOdds": 3.55,
+        "homeOdds": 3.5,
         "drawOdds": 4,
-        "awayOdds": 2.04
+        "awayOdds": 2.05
       },
       {
         "bookmaker": "Codere (IT)",
         "bookmakerKey": "codere_it",
         "homeOdds": 3.45,
         "drawOdds": 3.8,
-        "awayOdds": 2.01
+        "awayOdds": 2.01,
+        "overOdds": 1.55,
+        "overLine": 2.5,
+        "underOdds": 2.29
       },
       {
         "bookmaker": "Smarkets",
         "bookmakerKey": "smarkets",
-        "homeOdds": 3.55,
+        "homeOdds": 3.6,
         "drawOdds": 4,
-        "awayOdds": 2.08
+        "awayOdds": 2.06
       },
       {
         "bookmaker": "Bet Victor",
@@ -3289,15 +2095,15 @@
       {
         "bookmaker": "FanDuel",
         "bookmakerKey": "fanduel",
-        "homeOdds": 3.4,
+        "homeOdds": 3.5,
         "drawOdds": 3.8,
-        "awayOdds": 2
+        "awayOdds": 1.95
       },
       {
         "bookmaker": "Marathon Bet",
         "bookmakerKey": "marathonbet",
-        "homeOdds": 3.54,
-        "drawOdds": 3.92,
+        "homeOdds": 3.56,
+        "drawOdds": 3.9,
         "awayOdds": 2.03
       },
       {
@@ -3310,14 +2116,14 @@
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_au",
-        "homeOdds": 3.55,
+        "homeOdds": 3.65,
         "drawOdds": 4,
-        "awayOdds": 2.1
+        "awayOdds": 2.08
       },
       {
         "bookmaker": "PMU (FR)",
         "bookmakerKey": "pmu_fr",
-        "homeOdds": 3.35,
+        "homeOdds": 3.45,
         "drawOdds": 3.8,
         "awayOdds": 1.95
       },
@@ -3348,16 +2154,16 @@
       {
         "bookmaker": "Sky Bet",
         "bookmakerKey": "skybet",
-        "homeOdds": 3.3,
-        "drawOdds": 3.75,
-        "awayOdds": 2
+        "homeOdds": 3.4,
+        "drawOdds": 3.8,
+        "awayOdds": 1.95
       },
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_eu",
-        "homeOdds": 3.55,
+        "homeOdds": 3.65,
         "drawOdds": 4,
-        "awayOdds": 2.1
+        "awayOdds": 2.08
       },
       {
         "bookmaker": "Betclic (FR)",
@@ -3369,36 +2175,36 @@
       {
         "bookmaker": "Betfair",
         "bookmakerKey": "betfair_ex_uk",
-        "homeOdds": 3.55,
+        "homeOdds": 3.65,
         "drawOdds": 4,
-        "awayOdds": 2.1
+        "awayOdds": 2.08
       },
       {
         "bookmaker": "Paddy Power",
         "bookmakerKey": "paddypower",
-        "homeOdds": 3.3,
+        "homeOdds": 3.4,
         "drawOdds": 3.75,
         "awayOdds": 1.95
       },
       {
         "bookmaker": "LowVig.ag",
         "bookmakerKey": "lowvig",
-        "homeOdds": 3.49,
-        "drawOdds": 3.85,
-        "awayOdds": 2.05,
-        "spreadHome": 1.8,
+        "homeOdds": 3.57,
+        "drawOdds": 3.92,
+        "awayOdds": 2,
+        "spreadHome": 1.83,
         "spreadLine": 0.5,
-        "spreadAway": 2.05
+        "spreadAway": 2
       },
       {
         "bookmaker": "BetOnline.ag",
         "bookmakerKey": "betonlineag",
-        "homeOdds": 3.49,
-        "drawOdds": 3.85,
-        "awayOdds": 2.05,
-        "spreadHome": 1.8,
+        "homeOdds": 3.57,
+        "drawOdds": 3.92,
+        "awayOdds": 2,
+        "spreadHome": 1.83,
         "spreadLine": 0.5,
-        "spreadAway": 2.05
+        "spreadAway": 2
       },
       {
         "bookmaker": "PointsBet (AU)",
@@ -3410,12 +2216,12 @@
       {
         "bookmaker": "1xBet",
         "bookmakerKey": "onexbet",
-        "homeOdds": 3.59,
-        "drawOdds": 3.98,
+        "homeOdds": 3.61,
+        "drawOdds": 3.96,
         "awayOdds": 2.06,
-        "overOdds": 1.63,
+        "overOdds": 1.67,
         "overLine": 2.5,
-        "underOdds": 2.48,
+        "underOdds": 2.4,
         "spreadHome": 2.61,
         "spreadLine": 0,
         "spreadAway": 1.52
@@ -3423,12 +2229,12 @@
       {
         "bookmaker": "GTbets",
         "bookmakerKey": "gtbets",
-        "homeOdds": 3.42,
+        "homeOdds": 3.47,
         "drawOdds": 3.86,
-        "awayOdds": 2.01,
-        "overOdds": 1.57,
+        "awayOdds": 1.99,
+        "overOdds": 1.59,
         "overLine": 2.5,
-        "underOdds": 2.36,
+        "underOdds": 2.31,
         "spreadHome": 1.83,
         "spreadLine": 0.5,
         "spreadAway": 1.95
@@ -3436,33 +2242,36 @@
       {
         "bookmaker": "PlayUp",
         "bookmakerKey": "playup",
-        "homeOdds": 3.3,
-        "drawOdds": 3.75,
-        "awayOdds": 1.98,
+        "homeOdds": 3.4,
+        "drawOdds": 3.65,
+        "awayOdds": 2,
+        "overOdds": 1.6,
+        "overLine": 2.5,
+        "underOdds": 2.3,
         "spreadHome": 1.28,
         "spreadLine": 1.5,
-        "spreadAway": 3.55
+        "spreadAway": 3.6
       },
       {
         "bookmaker": "TAB",
         "bookmakerKey": "tab",
-        "homeOdds": 3.3,
-        "drawOdds": 3.7,
+        "homeOdds": 3.4,
+        "drawOdds": 3.6,
         "awayOdds": 2
       },
       {
         "bookmaker": "Everygame",
         "bookmakerKey": "everygame",
         "homeOdds": 3.45,
-        "drawOdds": 3.85,
+        "drawOdds": 3.75,
         "awayOdds": 2
       },
       {
         "bookmaker": "Suprabets",
         "bookmakerKey": "suprabets",
         "homeOdds": 3.45,
-        "drawOdds": 3.84,
-        "awayOdds": 1.98
+        "drawOdds": 3.77,
+        "awayOdds": 2
       },
       {
         "bookmaker": "Neds",
@@ -3505,99 +2314,99 @@
       {
         "bookmaker": "Pinnacle",
         "bookmakerKey": "pinnacle",
-        "homeOdds": 3.49,
-        "drawOdds": 3.95,
-        "awayOdds": 2.02,
-        "spreadHome": 1.88,
+        "homeOdds": 3.53,
+        "drawOdds": 3.85,
+        "awayOdds": 2.03,
+        "spreadHome": 1.87,
         "spreadLine": 0.5,
-        "spreadAway": 2.03
+        "spreadAway": 2.04
       },
       {
         "bookmaker": "Casumo",
         "bookmakerKey": "casumo",
-        "homeOdds": 3.4,
+        "homeOdds": 3.3,
         "drawOdds": 3.65,
-        "awayOdds": 1.93
+        "awayOdds": 1.95
       },
       {
         "bookmaker": "Unibet (NL)",
         "bookmakerKey": "unibet_nl",
-        "homeOdds": 3.65,
-        "drawOdds": 3.9,
-        "awayOdds": 2.05
+        "homeOdds": 3.55,
+        "drawOdds": 3.85,
+        "awayOdds": 2.08
       },
       {
         "bookmaker": "Unibet",
         "bookmakerKey": "unibet",
-        "homeOdds": 3.5,
-        "drawOdds": 3.8,
-        "awayOdds": 1.97
+        "homeOdds": 3.4,
+        "drawOdds": 3.75,
+        "awayOdds": 2.02
       },
       {
         "bookmaker": "BetRivers",
         "bookmakerKey": "betrivers",
-        "homeOdds": 3.5,
+        "homeOdds": 3.4,
         "drawOdds": 3.75,
-        "awayOdds": 1.97
+        "awayOdds": 2.02
       },
       {
         "bookmaker": "LeoVegas",
         "bookmakerKey": "leovegas",
-        "homeOdds": 3.45,
+        "homeOdds": 3.35,
         "drawOdds": 3.7,
-        "awayOdds": 1.94
+        "awayOdds": 1.97
       },
       {
         "bookmaker": "LiveScore Bet",
         "bookmakerKey": "livescorebet",
-        "homeOdds": 3.35,
+        "homeOdds": 3.25,
         "drawOdds": 3.55,
-        "awayOdds": 1.9
+        "awayOdds": 1.93
       },
       {
         "bookmaker": "TABtouch",
         "bookmakerKey": "tabtouch",
-        "homeOdds": 3.45,
-        "drawOdds": 3.75,
-        "awayOdds": 1.96
+        "homeOdds": 3.4,
+        "drawOdds": 3.7,
+        "awayOdds": 2
       },
       {
         "bookmaker": "LeoVegas (SE)",
         "bookmakerKey": "leovegas_se",
-        "homeOdds": 3.5,
+        "homeOdds": 3.45,
         "drawOdds": 3.8,
-        "awayOdds": 2
+        "awayOdds": 2.04
       },
       {
         "bookmaker": "Virgin Bet",
         "bookmakerKey": "virginbet",
-        "homeOdds": 3.35,
+        "homeOdds": 3.25,
         "drawOdds": 3.55,
-        "awayOdds": 1.9
+        "awayOdds": 1.93
       },
       {
         "bookmaker": "Grosvenor",
         "bookmakerKey": "grosvenor",
-        "homeOdds": 3.5,
-        "drawOdds": 3.8,
-        "awayOdds": 1.97
+        "homeOdds": 3.4,
+        "drawOdds": 3.75,
+        "awayOdds": 2.02
       },
       {
         "bookmaker": "Unibet (SE)",
         "bookmakerKey": "unibet_se",
-        "homeOdds": 3.6,
-        "drawOdds": 3.9,
-        "awayOdds": 2.04
+        "homeOdds": 3.5,
+        "drawOdds": 3.85,
+        "awayOdds": 2.08
       },
       {
         "bookmaker": "Bovada",
         "bookmakerKey": "bovada",
-        "homeOdds": 3.4,
-        "drawOdds": 3.85,
-        "awayOdds": 1.99,
-        "spreadHome": 1.85,
+        "homeOdds": 3.45,
+        "drawOdds": 3.75,
+        "awayOdds": 2,
+        "spreadHome": 1.83,
         "spreadLine": 0.5,
-        "spreadAway": 1.98
+        "spreadAway": 2
       },
       {
         "bookmaker": "DraftKings",
@@ -3609,7 +2418,7 @@
       {
         "bookmaker": "BetUS",
         "bookmakerKey": "betus",
-        "homeOdds": 3.45,
+        "homeOdds": 3.5,
         "drawOdds": 3.85,
         "awayOdds": 2,
         "spreadHome": 1.83,
@@ -3626,27 +2435,27 @@
       {
         "bookmaker": "Betsson",
         "bookmakerKey": "betsson",
-        "homeOdds": 3.45,
-        "drawOdds": 3.9,
-        "awayOdds": 2.02,
-        "overOdds": 1.55,
+        "homeOdds": 3.5,
+        "drawOdds": 3.8,
+        "awayOdds": 2.05,
+        "overOdds": 1.6,
         "overLine": 2.5,
-        "underOdds": 2.42
+        "underOdds": 2.35
       },
       {
         "bookmaker": "Nordic Bet",
         "bookmakerKey": "nordicbet",
-        "homeOdds": 3.45,
-        "drawOdds": 3.9,
-        "awayOdds": 2.02,
-        "overOdds": 1.55,
+        "homeOdds": 3.5,
+        "drawOdds": 3.8,
+        "awayOdds": 2.05,
+        "overOdds": 1.6,
         "overLine": 2.5,
-        "underOdds": 2.42
+        "underOdds": 2.35
       },
       {
         "bookmaker": "Bet Right",
         "bookmakerKey": "betright",
-        "homeOdds": 3.2,
+        "homeOdds": 3.15,
         "drawOdds": 3.8,
         "awayOdds": 2
       },
@@ -3660,29 +2469,218 @@
       {
         "bookmaker": "Matchbook",
         "bookmakerKey": "matchbook",
-        "homeOdds": 3.55,
-        "drawOdds": 3.95,
+        "homeOdds": 3.65,
+        "drawOdds": 4,
         "awayOdds": 2.08,
-        "spreadHome": 2.68,
+        "spreadHome": 2.72,
         "spreadLine": 0,
-        "spreadAway": 1.58
+        "spreadAway": 1.56
       },
       {
         "bookmaker": "BetAnything",
         "bookmakerKey": "betanysports",
-        "homeOdds": 3.4,
-        "drawOdds": 3.85,
-        "awayOdds": 1.99,
-        "spreadHome": 1.85,
+        "homeOdds": 3.45,
+        "drawOdds": 3.75,
+        "awayOdds": 2,
+        "spreadHome": 1.83,
         "spreadLine": 0.5,
-        "spreadAway": 1.98
+        "spreadAway": 2
       }
     ],
     "bestHome": 3.65,
     "bestDraw": 4,
-    "bestAway": 2.1,
-    "pinnacleHome": 3.49,
-    "pinnacleDraw": 3.95,
-    "pinnacleAway": 2.02
+    "bestAway": 2.08,
+    "pinnacleHome": 3.53,
+    "pinnacleDraw": 3.85,
+    "pinnacleAway": 2.03
+  },
+  {
+    "timestamp": "2026-03-10T21:17:27.554Z",
+    "matchId": "a142e47748a46aa75f8c4f6488850819",
+    "homeTeam": "Liverpool",
+    "awayTeam": "Galatasaray",
+    "commenceTime": "2026-03-18T20:00:00Z",
+    "bookmakers": [
+      {
+        "bookmaker": "SportsBet",
+        "bookmakerKey": "sportsbet",
+        "homeOdds": 1.36,
+        "drawOdds": 5,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "GTbets",
+        "bookmakerKey": "gtbets",
+        "homeOdds": 1.44,
+        "drawOdds": 5.02,
+        "awayOdds": 6.35,
+        "spreadHome": 2.06,
+        "spreadLine": -1.5,
+        "spreadAway": 1.74
+      },
+      {
+        "bookmaker": "BetMGM",
+        "bookmakerKey": "betmgm",
+        "homeOdds": 1.43,
+        "drawOdds": 5,
+        "awayOdds": 6.25
+      },
+      {
+        "bookmaker": "Parions Sport (FR)",
+        "bookmakerKey": "parionssport_fr",
+        "homeOdds": 1.38,
+        "drawOdds": 4.9,
+        "awayOdds": 6
+      },
+      {
+        "bookmaker": "Coral",
+        "bookmakerKey": "coral",
+        "homeOdds": 1.4,
+        "drawOdds": 4.6,
+        "awayOdds": 5.5
+      },
+      {
+        "bookmaker": "Neds",
+        "bookmakerKey": "neds",
+        "homeOdds": 1.4,
+        "drawOdds": 4.6,
+        "awayOdds": 5.5
+      },
+      {
+        "bookmaker": "1xBet",
+        "bookmakerKey": "onexbet",
+        "homeOdds": 1.43,
+        "drawOdds": 4.86,
+        "awayOdds": 8.95,
+        "spreadHome": 2.03,
+        "spreadLine": -1.5,
+        "spreadAway": 1.91
+      },
+      {
+        "bookmaker": "Ladbrokes",
+        "bookmakerKey": "ladbrokes_uk",
+        "homeOdds": 1.4,
+        "drawOdds": 4.6,
+        "awayOdds": 5.5
+      },
+      {
+        "bookmaker": "Codere (IT)",
+        "bookmakerKey": "codere_it",
+        "homeOdds": 1.43,
+        "drawOdds": 5.2,
+        "awayOdds": 6.4
+      },
+      {
+        "bookmaker": "PMU (FR)",
+        "bookmakerKey": "pmu_fr",
+        "homeOdds": 1.36,
+        "drawOdds": 5.1,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "Unibet (FR)",
+        "bookmakerKey": "unibet_fr",
+        "homeOdds": 1.37,
+        "drawOdds": 5.05,
+        "awayOdds": 6.25
+      },
+      {
+        "bookmaker": "FanDuel",
+        "bookmakerKey": "fanduel",
+        "homeOdds": 1.37,
+        "drawOdds": 5.3,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "Unibet (UK)",
+        "bookmakerKey": "unibet_uk",
+        "homeOdds": 1.42,
+        "drawOdds": 5,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "Ladbrokes",
+        "bookmakerKey": "ladbrokes_au",
+        "homeOdds": 1.4,
+        "drawOdds": 4.6,
+        "awayOdds": 5.5
+      },
+      {
+        "bookmaker": "Betclic (FR)",
+        "bookmakerKey": "betclic_fr",
+        "homeOdds": 1.39,
+        "drawOdds": 5,
+        "awayOdds": 6.1
+      },
+      {
+        "bookmaker": "Paddy Power",
+        "bookmakerKey": "paddypower",
+        "homeOdds": 1.36,
+        "drawOdds": 5,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "Sky Bet",
+        "bookmakerKey": "skybet",
+        "homeOdds": 1.4,
+        "drawOdds": 5,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "PointsBet (AU)",
+        "bookmakerKey": "pointsbetau",
+        "homeOdds": 1.42,
+        "drawOdds": 5,
+        "awayOdds": 6
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_au",
+        "homeOdds": 1.24,
+        "drawOdds": 4.9,
+        "awayOdds": 7.4
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_uk",
+        "homeOdds": 1.25,
+        "drawOdds": 4.7,
+        "awayOdds": 7.4
+      },
+      {
+        "bookmaker": "Betfair",
+        "bookmakerKey": "betfair_ex_eu",
+        "homeOdds": 1.25,
+        "drawOdds": 4.9,
+        "awayOdds": 7.4
+      },
+      {
+        "bookmaker": "888sport",
+        "bookmakerKey": "sport888",
+        "homeOdds": 1.36,
+        "drawOdds": 5,
+        "awayOdds": 6.5
+      },
+      {
+        "bookmaker": "William Hill",
+        "bookmakerKey": "williamhill",
+        "homeOdds": 1.36,
+        "drawOdds": 5,
+        "awayOdds": 6.5,
+        "overOdds": 1.4,
+        "overLine": 2.5,
+        "underOdds": 2.75
+      },
+      {
+        "bookmaker": "Smarkets",
+        "bookmakerKey": "smarkets",
+        "homeOdds": 1.23,
+        "drawOdds": 3.7,
+        "awayOdds": 3.95
+      }
+    ],
+    "bestHome": 1.44,
+    "bestDraw": 5.3,
+    "bestAway": 8.95
   }
 ]
