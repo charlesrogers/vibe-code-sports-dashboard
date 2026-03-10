@@ -24,6 +24,7 @@ import { fetchMatchesWithOdds, type MatchWithOdds } from "@/lib/football-data-uk
 import { fetchUnderstatCached, aggregateXgBeforeDate, type UnderstatTeamHistory } from "@/lib/understat";
 import { calculateTeamVariance } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
+import { devigOdds } from "@/lib/models/composite";
 
 // ---------------------------------------------------------------------------
 // Understat → football-data.co.uk team name mapping
@@ -356,6 +357,286 @@ function runModel(
 }
 
 // ---------------------------------------------------------------------------
+// V3: Market-Aware Model — "Does Ted's variance find VALUE vs the market?"
+//
+// Ted's actual process:
+//   1. MI model produces fair line from market odds (bivariate Poisson)
+//   2. xG variance analysis identifies regression direction
+//   3. Only bet when BOTH agree there's ≥10 cents of play vs market
+//
+// Our V3 proxy:
+//   1. Devig Pinnacle closing odds → market-implied fair probabilities
+//   2. Variance assessment provides direction + confidence
+//   3. Convert variance confidence to probability shift
+//   4. Only bet when our shifted probability exceeds market by ≥ threshold
+//   5. Track ROI — the metric that actually matters
+// ---------------------------------------------------------------------------
+
+interface MarketAwareResults extends ModelRunResults {
+  marketStats: {
+    matchesWithOdds: number;
+    avgEdge: number;          // avg probability edge on bets taken
+    avgOdds: number;          // avg decimal odds on bets taken
+    valueFilterKilled: number; // bets that variance liked but market didn't
+    flatROI: number;          // flat 1-unit bet ROI
+    totalPnl: number;         // total profit/loss in units
+  };
+}
+
+/**
+ * Convert variance assessment into a probability adjustment.
+ *
+ * The variance edge (from assessMatch) is a dimensionless measure of
+ * how much regression favors one side. We convert this into a probability
+ * shift that can be compared to market probabilities.
+ *
+ * Calibration: A strong variance edge (~0.15) should shift probability
+ * by roughly 8-12% (the range where Ted finds value). A moderate edge
+ * (~0.08) shifts ~4-6%.
+ */
+function varianceEdgeToProbShift(
+  varianceEdge: number,
+  confidence: number,
+  grade: "A" | "B" | "C" | null
+): number {
+  // Base shift proportional to edge magnitude
+  const baseShift = varianceEdge * 0.6; // 0.15 edge → ~9% shift
+
+  // Grade multiplier — higher grade = more confident in the shift
+  const gradeMultiplier = grade === "A" ? 1.2 : grade === "B" ? 1.0 : 0.8;
+
+  // Confidence dampener
+  const confFactor = 0.5 + 0.5 * confidence; // range: 0.5 to 1.0
+
+  return baseShift * gradeMultiplier * confFactor;
+}
+
+function runModelMarketAware(
+  evalData: EvalMatchData[]
+): MarketAwareResults {
+  const benchmarkMatches: BenchmarkMatch[] = [];
+
+  // Market stats tracking
+  let matchesWithOdds = 0;
+  let valueFilterKilled = 0;
+  let totalEdge = 0;
+  let totalOdds = 0;
+  let betCount = 0;
+
+  // Min edge threshold: ~5% probability edge (Ted's "10 cents of play" ≈ 5-7% prob)
+  const MIN_EDGE = 0.05;
+
+  for (const { match, homeHistory, awayHistory, hasXg } of evalData) {
+    let tedResult: BenchmarkMatch["ted"] = null;
+    let tedCorrect: boolean | null = null;
+
+    // Get market fair probabilities from Pinnacle closing odds
+    const hasOdds = match.pinnacleHome > 1 && match.pinnacleDraw > 1 && match.pinnacleAway > 1;
+    const marketProbs = hasOdds
+      ? devigOdds(match.pinnacleHome, match.pinnacleDraw, match.pinnacleAway)
+      : (match.avgHome > 1 && match.avgDraw > 1 && match.avgAway > 1)
+        ? devigOdds(match.avgHome, match.avgDraw, match.avgAway)
+        : null;
+
+    if (marketProbs) matchesWithOdds++;
+
+    if (hasXg && homeHistory && awayHistory) {
+      const homeXg = aggregateXgBeforeDate(homeHistory, match.date, "h");
+      const awayXg = aggregateXgBeforeDate(awayHistory, match.date, "a");
+
+      if (homeXg && awayXg) {
+        const homeV = calculateTeamVariance(homeXg, { venue: "home" });
+        const awayV = calculateTeamVariance(awayXg, { venue: "away" });
+        const assessment = assessMatch(homeV, awayV); // v2 (current) logic
+
+        // V3: Apply market filter on top of variance assessment
+        let v3HasBet = assessment.hasBet;
+        let v3Grade = assessment.betGrade;
+
+        if (assessment.hasBet && marketProbs && assessment.edgeSide !== "neutral") {
+          // Our model's probability = market fair prob + variance-driven shift
+          const probShift = varianceEdgeToProbShift(
+            Math.abs(assessment.varianceEdge),
+            assessment.confidence,
+            assessment.betGrade
+          );
+
+          const marketFairProb = assessment.edgeSide === "home"
+            ? marketProbs.home
+            : marketProbs.away;
+
+          // Our assessed probability for the favored side
+          const ourProb = Math.min(marketFairProb + probShift, 0.95);
+
+          // Edge = our prob vs what the bookmaker OFFERS (raw implied, includes vig)
+          // This is the actual edge we'd capture when placing the bet
+          const bookOdds = assessment.edgeSide === "home"
+            ? (hasOdds ? match.pinnacleHome : match.avgHome)
+            : (hasOdds ? match.pinnacleAway : match.avgAway);
+          const bookImpliedProb = 1 / bookOdds;
+          const edge = ourProb - bookImpliedProb;
+
+          // Only bet if edge exceeds threshold
+          // Ted's "10 cents of play" on a handicap ≈ 5% probability edge on 1X2
+          if (edge < MIN_EDGE) {
+            v3HasBet = false;
+            v3Grade = null;
+            valueFilterKilled++;
+          } else {
+            // Grade based on edge magnitude
+            if (edge >= 0.12) v3Grade = "A";    // 12%+ edge = strong value
+            else if (edge >= 0.08) v3Grade = "B"; // 8-12% = solid
+            else v3Grade = "C";                   // 5-8% = marginal
+
+            totalEdge += edge;
+            totalOdds += bookOdds;
+            betCount++;
+          }
+        } else if (assessment.hasBet && !marketProbs) {
+          // No market data — can't verify value, skip entirely
+          v3HasBet = false;
+          v3Grade = null;
+          valueFilterKilled++;
+        }
+
+        tedResult = {
+          edgeSide: assessment.edgeSide,
+          hasBet: v3HasBet,
+          grade: v3Grade,
+          confidence: assessment.confidence,
+        };
+
+        if (assessment.edgeSide !== "neutral") {
+          tedCorrect =
+            (assessment.edgeSide === "home" && match.result === "H") ||
+            (assessment.edgeSide === "away" && match.result === "A");
+        }
+      }
+    }
+
+    benchmarkMatches.push({
+      date: match.date,
+      homeTeam: match.homeTeam,
+      awayTeam: match.awayTeam,
+      result: match.result,
+      homeGoals: match.homeGoals,
+      awayGoals: match.awayGoals,
+      ted: tedResult,
+      tedCorrect,
+      closingOdds: hasOdds
+        ? { home: match.pinnacleHome, draw: match.pinnacleDraw, away: match.pinnacleAway }
+        : match.avgHome > 1
+          ? { home: match.avgHome, draw: match.avgDraw, away: match.avgAway }
+          : null,
+    });
+  }
+
+  // Score (reuse same logic as runModel)
+  const withSignal = benchmarkMatches.filter((m) => m.ted && m.ted.edgeSide !== "neutral");
+  const withBet = benchmarkMatches.filter((m) => m.ted && m.ted.hasBet);
+
+  let directionalCorrect = 0;
+  for (const m of withSignal) {
+    if (
+      (m.ted!.edgeSide === "home" && m.result === "H") ||
+      (m.ted!.edgeSide === "away" && m.result === "A")
+    ) directionalCorrect++;
+  }
+
+  let betWins = 0;
+  let drawsOnBets = 0;
+  let totalPnl = 0;
+  for (const m of withBet) {
+    const won =
+      (m.ted!.edgeSide === "home" && m.result === "H") ||
+      (m.ted!.edgeSide === "away" && m.result === "A");
+    if (won) {
+      betWins++;
+      if (m.closingOdds) {
+        const odds = m.ted!.edgeSide === "home" ? m.closingOdds.home : m.closingOdds.away;
+        totalPnl += (odds - 1);
+      }
+    } else {
+      totalPnl -= 1;
+    }
+    if (m.result === "D") drawsOnBets++;
+  }
+
+  // By grade
+  const gradeMap = new Map<string, { wins: number; losses: number; draws: number; bets: number; pnl: number }>();
+  for (const m of withBet) {
+    const g = m.ted!.grade || "C";
+    if (!gradeMap.has(g)) gradeMap.set(g, { wins: 0, losses: 0, draws: 0, bets: 0, pnl: 0 });
+    const entry = gradeMap.get(g)!;
+    entry.bets++;
+    const tedSide = m.ted!.edgeSide;
+    const won = (tedSide === "home" && m.result === "H") || (tedSide === "away" && m.result === "A");
+    const draw = m.result === "D";
+    if (won) {
+      entry.wins++;
+      if (m.closingOdds) {
+        const odds = tedSide === "home" ? m.closingOdds.home : m.closingOdds.away;
+        entry.pnl += (odds - 1);
+      }
+    } else if (draw) {
+      entry.draws++;
+      entry.pnl -= 1;
+    } else {
+      entry.losses++;
+      entry.pnl -= 1;
+    }
+  }
+
+  const byGrade: GradeResult[] = [...gradeMap.entries()]
+    .map(([grade, data]) => ({
+      grade,
+      bets: data.bets,
+      wins: data.wins,
+      losses: data.losses,
+      draws: data.draws,
+      hitRate: data.bets > 0 ? Math.round((data.wins / data.bets) * 1000) / 10 : 0,
+      roi: data.bets > 0 ? Math.round((data.pnl / data.bets) * 1000) / 10 : null,
+    }))
+    .sort((a, b) => a.grade.localeCompare(b.grade));
+
+  const homePicks = withSignal.filter((m) => m.ted!.edgeSide === "home");
+  const awayPicks = withSignal.filter((m) => m.ted!.edgeSide === "away");
+  const homeWins = homePicks.filter((m) => m.result === "H").length;
+  const awayWins = awayPicks.filter((m) => m.result === "A").length;
+
+  const flatROI = withBet.length > 0 ? Math.round((totalPnl / withBet.length) * 1000) / 10 : 0;
+
+  return {
+    totalSignals: withSignal.length,
+    totalBets: withBet.length,
+    directionalAccuracy: withSignal.length > 0
+      ? Math.round((directionalCorrect / withSignal.length) * 1000) / 10 : 0,
+    betHitRate: withBet.length > 0 ? Math.round((betWins / withBet.length) * 1000) / 10 : 0,
+    byGrade,
+    homePicks: {
+      total: homePicks.length,
+      wins: homeWins,
+      hitRate: homePicks.length > 0 ? Math.round((homeWins / homePicks.length) * 1000) / 10 : 0,
+    },
+    awayPicks: {
+      total: awayPicks.length,
+      wins: awayWins,
+      hitRate: awayPicks.length > 0 ? Math.round((awayWins / awayPicks.length) * 1000) / 10 : 0,
+    },
+    drawsOnBets,
+    matchLog: benchmarkMatches,
+    marketStats: {
+      matchesWithOdds,
+      avgEdge: betCount > 0 ? Math.round((totalEdge / betCount) * 1000) / 10 : 0,
+      avgOdds: betCount > 0 ? Math.round((totalOdds / betCount) * 100) / 100 : 0,
+      valueFilterKilled,
+      flatROI,
+      totalPnl: Math.round(totalPnl * 100) / 100,
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Permanent save helper
 // ---------------------------------------------------------------------------
 
@@ -484,6 +765,16 @@ export async function GET(request: NextRequest) {
     saveModelVersion("v2", league, seasonKey, v2Results);
     console.log(`[ted-benchmark] V2: ${v2Results.totalBets} bets, ${v2Results.betHitRate}% hit rate`);
 
+    // Run V3 (market-aware) model
+    console.log(`[ted-benchmark] Running V3 (market-aware) model on ${allEvalData.length} matches...`);
+    const v3Results = runModelMarketAware(allEvalData);
+    saveModelVersion("v3", league, seasonKey, v3Results);
+    const ms = v3Results.marketStats;
+    console.log(
+      `[ted-benchmark] V3: ${v3Results.totalBets} bets, ${v3Results.betHitRate}% hit rate, ` +
+      `${ms.flatROI}% ROI, ${ms.valueFilterKilled} bets killed by market filter`
+    );
+
     // Build delta comparison
     const matchesWithXg = allEvalData.filter((d) => d.hasXg && d.homeHistory && d.awayHistory).length;
 
@@ -536,6 +827,36 @@ export async function GET(request: NextRequest) {
       improved: v2Results.awayPicks.hitRate > v1Results.awayPicks.hitRate,
     });
 
+    // V3 (market-aware) deltas vs V2
+    deltas.push({
+      metric: "V3 Total Bets",
+      v1: v2Results.totalBets,
+      v2: v3Results.totalBets,
+      delta: v3Results.totalBets - v2Results.totalBets,
+      improved: v3Results.totalBets < v2Results.totalBets, // fewer = more selective
+    });
+    deltas.push({
+      metric: "V3 Hit Rate",
+      v1: v2Results.betHitRate,
+      v2: v3Results.betHitRate,
+      delta: Math.round((v3Results.betHitRate - v2Results.betHitRate) * 10) / 10,
+      improved: v3Results.betHitRate > v2Results.betHitRate,
+    });
+    deltas.push({
+      metric: "V3 Flat ROI",
+      v1: 0, // V2 doesn't have market-aware ROI
+      v2: v3Results.marketStats.flatROI,
+      delta: v3Results.marketStats.flatROI,
+      improved: v3Results.marketStats.flatROI > 0,
+    });
+    deltas.push({
+      metric: "V3 Value Filter Kills",
+      v1: 0,
+      v2: v3Results.marketStats.valueFilterKilled,
+      delta: v3Results.marketStats.valueFilterKilled,
+      improved: v3Results.marketStats.valueFilterKilled > 0, // filtering = good
+    });
+
     // Grade-level deltas
     for (const grade of ["A", "B", "C"]) {
       const v1g = v1Results.byGrade.find((g) => g.grade === grade);
@@ -558,25 +879,34 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Gap analysis vs Ted
+    // Gap analysis vs Ted — use V3 (market-aware) as primary comparison
     const gaps: BenchmarkResult["gaps"] = [];
     if (tedBenchmark?.overall) {
       gaps.push({
-        metric: "Overall Bet Hit Rate",
-        ours: v2Results.betHitRate,
+        metric: "Overall Bet Hit Rate (V3)",
+        ours: v3Results.betHitRate,
         teds: tedBenchmark.overall.hitRate,
-        gap: Math.round((v2Results.betHitRate - tedBenchmark.overall.hitRate) * 10) / 10,
-        interpretation: v2Results.betHitRate < tedBenchmark.overall.hitRate - 5
+        gap: Math.round((v3Results.betHitRate - tedBenchmark.overall.hitRate) * 10) / 10,
+        interpretation: v3Results.betHitRate < tedBenchmark.overall.hitRate - 5
           ? "Significant gap — likely xG quality difference (Understat vs StatsBomb)"
-          : v2Results.betHitRate < tedBenchmark.overall.hitRate
+          : v3Results.betHitRate < tedBenchmark.overall.hitRate
             ? "Small gap — could be xG quality, thresholds, or sample size"
-            : "Competitive — our free xG is performing at or above Ted's level",
+            : "Competitive — our market-aware model is performing at or above Ted's level",
+      });
+      gaps.push({
+        metric: "Overall ROI (V3)",
+        ours: v3Results.marketStats.flatROI,
+        teds: tedBenchmark.overall.roi,
+        gap: Math.round((v3Results.marketStats.flatROI - tedBenchmark.overall.roi) * 10) / 10,
+        interpretation: v3Results.marketStats.flatROI > 0
+          ? "Positive ROI — the market filter is adding value"
+          : "Negative ROI — variance signals don't consistently beat the market",
       });
     }
-    const ourGradeA = v2Results.byGrade.find((g) => g.grade === "A");
+    const ourGradeA = v3Results.byGrade.find((g) => g.grade === "A");
     if (tedBenchmark?.gradeA && ourGradeA) {
       gaps.push({
-        metric: "Grade A Hit Rate",
+        metric: "Grade A Hit Rate (V3)",
         ours: ourGradeA.hitRate,
         teds: tedBenchmark.gradeA.hitRate,
         gap: Math.round((ourGradeA.hitRate - tedBenchmark.gradeA.hitRate) * 10) / 10,
@@ -585,10 +915,10 @@ export async function GET(request: NextRequest) {
           : "Grade A signals are comparable",
       });
     }
-    const ourGradeB = v2Results.byGrade.find((g) => g.grade === "B");
+    const ourGradeB = v3Results.byGrade.find((g) => g.grade === "B");
     if (tedBenchmark?.gradeB && ourGradeB) {
       gaps.push({
-        metric: "Grade B Hit Rate",
+        metric: "Grade B Hit Rate (V3)",
         ours: ourGradeB.hitRate,
         teds: tedBenchmark.gradeB.hitRate,
         gap: Math.round((ourGradeB.hitRate - tedBenchmark.gradeB.hitRate) * 10) / 10,
@@ -598,7 +928,7 @@ export async function GET(request: NextRequest) {
       });
     }
     if (tedBenchmark?.overall) {
-      const ourBetsPerMatch = v2Results.totalBets / allEvalData.length;
+      const ourBetsPerMatch = v3Results.totalBets / allEvalData.length;
       const tedBetsPerMatch = tedBenchmark.overall.bets / (380 * 2);
       gaps.push({
         metric: "Signal Density (bets/match)",
@@ -630,7 +960,7 @@ export async function GET(request: NextRequest) {
         homePicks: v2Results.homePicks,
         awayPicks: v2Results.awayPicks,
       },
-      // V1 vs V2 comparison
+      // Model version comparison
       modelComparison: {
         v1: {
           label: "V1 (Original)",
@@ -651,6 +981,17 @@ export async function GET(request: NextRequest) {
           byGrade: v2Results.byGrade,
           homePicks: v2Results.homePicks,
           awayPicks: v2Results.awayPicks,
+        },
+        v3: {
+          label: "V3 (Market-Aware)",
+          description: "V2 + devigged Pinnacle odds, ≥5% edge filter, value-based grading",
+          totalBets: v3Results.totalBets,
+          betHitRate: v3Results.betHitRate,
+          drawsOnBets: v3Results.drawsOnBets,
+          byGrade: v3Results.byGrade,
+          homePicks: v3Results.homePicks,
+          awayPicks: v3Results.awayPicks,
+          marketStats: v3Results.marketStats,
         },
         deltas,
       },

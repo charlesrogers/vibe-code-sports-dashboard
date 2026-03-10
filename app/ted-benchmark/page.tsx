@@ -42,6 +42,15 @@ interface DeltaEntry {
   improved: boolean;
 }
 
+interface MarketStats {
+  matchesWithOdds: number;
+  avgEdge: number;
+  avgOdds: number;
+  valueFilterKilled: number;
+  flatROI: number;
+  totalPnl: number;
+}
+
 interface ModelVersionSummary {
   label: string;
   description: string;
@@ -51,6 +60,7 @@ interface ModelVersionSummary {
   byGrade: GradeResult[];
   homePicks: { total: number; wins: number; hitRate: number };
   awayPicks: { total: number; wins: number; hitRate: number };
+  marketStats?: MarketStats;
 }
 
 interface BenchmarkData {
@@ -72,6 +82,7 @@ interface BenchmarkData {
   modelComparison?: {
     v1: ModelVersionSummary;
     v2: ModelVersionSummary;
+    v3?: ModelVersionSummary;
     deltas: DeltaEntry[];
   };
   tedBenchmark: TedBenchmarkRef | null;
@@ -411,6 +422,9 @@ export default function TedBenchmarkPage() {
     }
   }
 
+  // V3 market stats from modelComparison
+  const v3 = data?.modelComparison?.v3;
+
   // Filter versions for the detail panel
   const filteredVersions = selectedVersion === "all"
     ? versions
@@ -483,6 +497,78 @@ export default function TedBenchmarkPage() {
               <div className="text-xs text-zinc-500">Ted&apos;s Hit Rate</div>
             </div>
           </div>
+
+          {/* V3 Market-Aware Summary */}
+          {data.modelComparison?.v3 && (
+            <div className="border border-emerald-900/50 rounded-lg p-4 bg-emerald-950/10">
+              <h2 className="font-semibold mb-1">V3: Market-Aware Model</h2>
+              <p className="text-xs text-zinc-500 mb-3">
+                {data.modelComparison.v3.description}
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+                <div className="text-center">
+                  <div className="text-xl font-bold font-mono">{data.modelComparison.v3.totalBets}</div>
+                  <div className="text-[10px] text-zinc-500">Value Bets</div>
+                </div>
+                <div className="text-center">
+                  <div className={`text-xl font-bold font-mono ${data.modelComparison.v3.betHitRate >= 48 ? "text-green-400" : "text-yellow-400"}`}>
+                    {pct(data.modelComparison.v3.betHitRate)}
+                  </div>
+                  <div className="text-[10px] text-zinc-500">Hit Rate</div>
+                </div>
+                <div className="text-center">
+                  <div className={`text-xl font-bold font-mono ${(data.modelComparison.v3.marketStats?.flatROI ?? 0) > 0 ? "text-green-400" : "text-red-400"}`}>
+                    {data.modelComparison.v3.marketStats?.flatROI ?? 0}%
+                  </div>
+                  <div className="text-[10px] text-zinc-500">Flat ROI</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-bold font-mono text-cyan-400">
+                    {data.modelComparison.v3.marketStats?.avgEdge ?? 0}%
+                  </div>
+                  <div className="text-[10px] text-zinc-500">Avg Edge</div>
+                </div>
+                <div className="text-center">
+                  <div className={`text-xl font-bold font-mono ${(data.modelComparison.v3.marketStats?.totalPnl ?? 0) > 0 ? "text-green-400" : "text-red-400"}`}>
+                    {(data.modelComparison.v3.marketStats?.totalPnl ?? 0) > 0 ? "+" : ""}{data.modelComparison.v3.marketStats?.totalPnl ?? 0}u
+                  </div>
+                  <div className="text-[10px] text-zinc-500">P&L (units)</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-bold font-mono text-orange-400">
+                    {data.modelComparison.v3.marketStats?.valueFilterKilled ?? 0}
+                  </div>
+                  <div className="text-[10px] text-zinc-500">Killed by Market</div>
+                </div>
+              </div>
+              {data.modelComparison.v3.byGrade.length > 0 && (
+                <table className="w-full text-xs mt-3">
+                  <thead>
+                    <tr className="border-b border-zinc-800 text-zinc-500">
+                      <th className="py-1 text-left">Grade</th>
+                      <th className="py-1 text-right">Bets</th>
+                      <th className="py-1 text-right">Hit%</th>
+                      <th className="py-1 text-right">ROI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.modelComparison.v3.byGrade.map((g) => (
+                      <tr key={g.grade} className="border-b border-zinc-800/30">
+                        <td className="py-1">Grade {g.grade}</td>
+                        <td className="py-1 text-right text-zinc-400">{g.bets}</td>
+                        <td className={`py-1 text-right font-mono font-bold ${g.hitRate >= 50 ? "text-green-400" : "text-red-400"}`}>
+                          {pct(g.hitRate)}
+                        </td>
+                        <td className={`py-1 text-right font-mono ${g.roi !== null && g.roi > 0 ? "text-green-400" : "text-red-400"}`}>
+                          {g.roi !== null ? `${g.roi > 0 ? "+" : ""}${g.roi}%` : "--"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
 
           {/* Gap Analysis vs Ted */}
           {data.gaps.length > 0 && (
