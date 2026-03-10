@@ -2,21 +2,30 @@
   "version": "v3",
   "league": "epl",
   "season": "2024-25",
-  "savedAt": "2026-03-10T16:58:28.110Z",
+  "savedAt": "2026-03-10T17:03:17.143Z",
   "results": {
     "totalSignals": 142,
-    "totalBets": 5,
+    "totalBets": 7,
     "directionalAccuracy": 46.5,
-    "betHitRate": 60,
+    "betHitRate": 57.1,
     "byGrade": [
       {
+        "grade": "B",
+        "bets": 1,
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "hitRate": 100,
+        "roi": 50
+      },
+      {
         "grade": "C",
-        "bets": 5,
+        "bets": 6,
         "wins": 3,
         "losses": 1,
-        "draws": 1,
-        "hitRate": 60,
-        "roi": 29.8
+        "draws": 2,
+        "hitRate": 50,
+        "roi": 26
       }
     ],
     "homePicks": {
@@ -29,7 +38,7 @@
       "wins": 16,
       "hitRate": 69.6
     },
-    "drawsOnBets": 1,
+    "drawsOnBets": 2,
     "matchLog": [
       {
         "date": "2024-08-16",
@@ -4580,8 +4589,8 @@
         "awayGoals": 1,
         "ted": {
           "edgeSide": "home",
-          "hasBet": false,
-          "grade": null,
+          "hasBet": true,
+          "grade": "C",
           "confidence": 0.9
         },
         "tedCorrect": false,
@@ -4842,7 +4851,7 @@
           "edgeSide": "home",
           "hasBet": true,
           "grade": "C",
-          "confidence": 0.95
+          "confidence": 0.85
         },
         "tedCorrect": false,
         "closingOdds": {
@@ -4980,8 +4989,8 @@
         "awayGoals": 1,
         "ted": {
           "edgeSide": "home",
-          "hasBet": false,
-          "grade": null,
+          "hasBet": true,
+          "grade": "C",
           "confidence": 0.9
         },
         "tedCorrect": true,
@@ -5062,7 +5071,7 @@
           "edgeSide": "home",
           "hasBet": false,
           "grade": null,
-          "confidence": 0
+          "confidence": 0.65
         },
         "tedCorrect": true,
         "closingOdds": {
@@ -5201,7 +5210,7 @@
         "ted": {
           "edgeSide": "home",
           "hasBet": true,
-          "grade": "C",
+          "grade": "B",
           "confidence": 0.9
         },
         "tedCorrect": true,
@@ -7334,11 +7343,11 @@
     ],
     "marketStats": {
       "matchesWithOdds": 380,
-      "avgEdge": 6,
-      "avgOdds": 2.44,
-      "valueFilterKilled": 21,
-      "flatROI": 29.8,
-      "totalPnl": 1.49
+      "avgEdge": 7.2,
+      "avgOdds": 2.31,
+      "valueFilterKilled": 20,
+      "flatROI": 29.4,
+      "totalPnl": 2.06
     }
   }
 }

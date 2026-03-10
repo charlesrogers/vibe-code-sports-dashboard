@@ -21,7 +21,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { fetchMatchesWithOdds, type MatchWithOdds } from "@/lib/football-data-uk";
-import { fetchUnderstatCached, aggregateXgBeforeDate, type UnderstatTeamHistory } from "@/lib/understat";
+import { fetchUnderstatCached, aggregateXgBeforeDate, aggregateXgLast10BeforeDate, type UnderstatTeamHistory } from "@/lib/understat";
 import { calculateTeamVariance } from "@/lib/variance/calculator";
 import { assessMatch } from "@/lib/variance/match-assessor";
 import { devigOdds } from "@/lib/models/composite";
@@ -228,13 +228,19 @@ function runModel(
       const awayXg = aggregateXgBeforeDate(awayHistory, match.date, "a");
 
       if (homeXg && awayXg) {
+        // Last-10 rolling window (only for non-legacy/V2+ mode)
+        const homeLast10 = legacy ? undefined : aggregateXgLast10BeforeDate(homeHistory, match.date, "h") ?? undefined;
+        const awayLast10 = legacy ? undefined : aggregateXgLast10BeforeDate(awayHistory, match.date, "a") ?? undefined;
+
         const homeV = calculateTeamVariance(homeXg, {
           venue: "home",
           legacy,
+          last10Xg: homeLast10,
         });
         const awayV = calculateTeamVariance(awayXg, {
           venue: "away",
           legacy,
+          last10Xg: awayLast10,
         });
         const assessment = assessMatch(homeV, awayV, { legacy });
 
@@ -400,7 +406,8 @@ function varianceEdgeToProbShift(
   grade: "A" | "B" | "C" | null
 ): number {
   // Base shift proportional to edge magnitude
-  const baseShift = varianceEdge * 0.6; // 0.15 edge → ~9% shift
+  // Tuned up from 0.6 to 0.75 — last-10 + double variance increase signal quality
+  const baseShift = varianceEdge * 0.75; // 0.15 edge → ~11% shift
 
   // Grade multiplier — higher grade = more confident in the shift
   const gradeMultiplier = grade === "A" ? 1.2 : grade === "B" ? 1.0 : 0.8;
@@ -445,9 +452,13 @@ function runModelMarketAware(
       const awayXg = aggregateXgBeforeDate(awayHistory, match.date, "a");
 
       if (homeXg && awayXg) {
-        const homeV = calculateTeamVariance(homeXg, { venue: "home" });
-        const awayV = calculateTeamVariance(awayXg, { venue: "away" });
-        const assessment = assessMatch(homeV, awayV); // v2 (current) logic
+        // Last-10 rolling window for V3
+        const homeLast10 = aggregateXgLast10BeforeDate(homeHistory, match.date, "h") ?? undefined;
+        const awayLast10 = aggregateXgLast10BeforeDate(awayHistory, match.date, "a") ?? undefined;
+
+        const homeV = calculateTeamVariance(homeXg, { venue: "home", last10Xg: homeLast10 });
+        const awayV = calculateTeamVariance(awayXg, { venue: "away", last10Xg: awayLast10 });
+        const assessment = assessMatch(homeV, awayV); // v2 (current) logic + last-10 + double variance
 
         // V3: Apply market filter on top of variance assessment
         let v3HasBet = assessment.hasBet;
@@ -759,14 +770,14 @@ export async function GET(request: NextRequest) {
     saveModelVersion("v1", league, seasonKey, v1Results);
     console.log(`[ted-benchmark] V1: ${v1Results.totalBets} bets, ${v1Results.betHitRate}% hit rate`);
 
-    // Run V2 (current) model
-    console.log(`[ted-benchmark] Running V2 (current) model on ${allEvalData.length} matches...`);
+    // Run V2 (current) model — now with last-10 rolling window + double variance
+    console.log(`[ted-benchmark] Running V2 (current + last-10 + double-var) on ${allEvalData.length} matches...`);
     const v2Results = runModel(allEvalData, false);
     saveModelVersion("v2", league, seasonKey, v2Results);
     console.log(`[ted-benchmark] V2: ${v2Results.totalBets} bets, ${v2Results.betHitRate}% hit rate`);
 
-    // Run V3 (market-aware) model
-    console.log(`[ted-benchmark] Running V3 (market-aware) model on ${allEvalData.length} matches...`);
+    // Run V3 (market-aware + last-10 + double variance)
+    console.log(`[ted-benchmark] Running V3 (market-aware + last-10 + double-var) on ${allEvalData.length} matches...`);
     const v3Results = runModelMarketAware(allEvalData);
     saveModelVersion("v3", league, seasonKey, v3Results);
     const ms = v3Results.marketStats;
@@ -974,7 +985,7 @@ export async function GET(request: NextRequest) {
         },
         v2: {
           label: "V2 (Current)",
-          description: "Venue-aware quality, dimension grading, draw-prone filter",
+          description: "Venue-aware quality, dimension grading, draw filter, last-10 rolling, double variance",
           totalBets: v2Results.totalBets,
           betHitRate: v2Results.betHitRate,
           drawsOnBets: v2Results.drawsOnBets,
@@ -984,7 +995,7 @@ export async function GET(request: NextRequest) {
         },
         v3: {
           label: "V3 (Market-Aware)",
-          description: "V2 + devigged Pinnacle odds, ≥5% edge filter, value-based grading",
+          description: "V2 + devigged Pinnacle odds, ≥5% edge filter, tuned probability shift (0.75x)",
           totalBets: v3Results.totalBets,
           betHitRate: v3Results.betHitRate,
           drawsOnBets: v3Results.drawsOnBets,

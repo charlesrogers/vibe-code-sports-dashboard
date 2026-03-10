@@ -2,12 +2,12 @@
   "version": "v2",
   "league": "epl",
   "season": "2024-25",
-  "savedAt": "2026-03-10T15:42:47.250Z",
+  "savedAt": "2026-03-10T17:03:17.136Z",
   "results": {
     "totalSignals": 142,
-    "totalBets": 26,
+    "totalBets": 27,
     "directionalAccuracy": 46.5,
-    "betHitRate": 42.3,
+    "betHitRate": 44.4,
     "byGrade": [
       {
         "grade": "A",
@@ -29,12 +29,12 @@
       },
       {
         "grade": "C",
-        "bets": 3,
-        "wins": 2,
+        "bets": 4,
+        "wins": 3,
         "losses": 1,
         "draws": 0,
-        "hitRate": 66.7,
-        "roi": 98.7
+        "hitRate": 75,
+        "roi": 87.3
       }
     ],
     "homePicks": {
@@ -4860,7 +4860,7 @@
           "edgeSide": "home",
           "hasBet": true,
           "grade": "A",
-          "confidence": 0.95
+          "confidence": 0.85
         },
         "tedCorrect": false,
         "closingOdds": {
@@ -5078,9 +5078,9 @@
         "awayGoals": 2,
         "ted": {
           "edgeSide": "home",
-          "hasBet": false,
-          "grade": null,
-          "confidence": 0
+          "hasBet": true,
+          "grade": "C",
+          "confidence": 0.65
         },
         "tedCorrect": true,
         "closingOdds": {
