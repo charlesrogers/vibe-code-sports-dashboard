@@ -1,7 +1,8 @@
 {
   "date": "2026-03-10",
-  "model": "MI Bivariate Poisson + Variance v2",
-  "generated": "2026-03-10T21:43:23.389Z",
+  "model": "MI Bivariate Poisson + Variance v2 + Totals",
+  "marketMode": "both",
+  "generated": "2026-03-10T22:31:41.806Z",
   "filters": {
     "minEdge": 0.05,
     "maxOdds": 2.8,
@@ -69,6 +70,46 @@
       "signal": "model_only"
     },
     {
+      "match": "Birmingham City v Sheffield United",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.124,
+      "pinnacleOdds": 2.12,
+      "fairOdds": 1.76,
+      "signal": "model_only"
+    },
+    {
+      "match": "West Bromwich Albion v Hull City",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.112,
+      "pinnacleOdds": 1.98,
+      "fairOdds": 1.7,
+      "signal": "model_only"
+    },
+    {
+      "match": "Bayer Leverkusen v Arsenal",
+      "league": "ucl",
+      "date": "11 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.109,
+      "pinnacleOdds": 1.99,
+      "fairOdds": 1.67,
+      "signal": "model_only"
+    },
+    {
+      "match": "Middlesbrough v Bristol City",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.087,
+      "pinnacleOdds": 2.3,
+      "fairOdds": 2.01,
+      "signal": "model_only"
+    },
+    {
       "match": "Stoke City v Watford",
       "league": "championship",
       "date": "14 Mar",
@@ -86,6 +127,56 @@
       "edge": 0.079,
       "pinnacleOdds": 1.78,
       "fairOdds": 1.63,
+      "signal": "model_only"
+    },
+    {
+      "match": "Southampton v Norwich City",
+      "league": "championship",
+      "date": "18 Mar",
+      "selection": "Over 2.5",
+      "edge": 0.073,
+      "pinnacleOdds": 1.57,
+      "fairOdds": 1.49,
+      "signal": "model_only"
+    },
+    {
+      "match": "Coventry City v Southampton",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Over 2.5",
+      "edge": 0.063,
+      "pinnacleOdds": 1.62,
+      "fairOdds": 1.55,
+      "signal": "model_only"
+    },
+    {
+      "match": "Birmingham City v Queens Park Rangers",
+      "league": "championship",
+      "date": "11 Mar",
+      "selection": "Queens Park Rangers +0.75",
+      "edge": 0.059,
+      "pinnacleOdds": 1.9,
+      "fairOdds": 1.75,
+      "signal": "model_only"
+    },
+    {
+      "match": "Coventry City v Preston North End",
+      "league": "championship",
+      "date": "11 Mar",
+      "selection": "Under 2.5",
+      "edge": 0.059,
+      "pinnacleOdds": 2.27,
+      "fairOdds": 2.16,
+      "signal": "model_only"
+    },
+    {
+      "match": "Leicester v Queens Park Rangers",
+      "league": "championship",
+      "date": "14 Mar",
+      "selection": "Over 2.5",
+      "edge": 0.053,
+      "pinnacleOdds": 1.81,
+      "fairOdds": 1.75,
       "signal": "model_only"
     }
   ]

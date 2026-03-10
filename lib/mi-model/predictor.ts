@@ -38,9 +38,9 @@ export function predictMatch(
 
   // Derive all market probabilities
   const probs1X2 = derive1X2(grid);
-  const overUnder = deriveOverUnder(grid, [0.5, 1.5, 2.5, 3.5, 4.5]);
+  const overUnder = deriveOverUnder(grid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]);
   const btts = deriveBTTS(grid);
-  const asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2.5]);
+  const asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]);
   const eg = expectedGoalsFromGrid(grid);
   const mls = mostLikelyScore(grid);
 

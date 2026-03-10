@@ -19,7 +19,7 @@ import { solveRatings } from "../lib/mi-model/solver";
 import { computeAllPPG } from "../lib/mi-model/ppg-converter";
 import { predictMatch } from "../lib/mi-model/predictor";
 import { generateScoreGrid, derive1X2, deriveOverUnder, deriveBTTS, deriveAsianHandicap, expectedGoalsFromGrid, mostLikelyScore } from "../lib/mi-model/bivariate-poisson";
-import type { MISolverConfig, MatchPrediction } from "../lib/mi-model/types";
+import type { MISolverConfig, MatchPrediction, MarketMode } from "../lib/mi-model/types";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 
@@ -287,39 +287,69 @@ function findBestAHLine(
     }
   }
 
-  // O/U 2.5
-  if (pinnacle?.overOdds && pinnacle?.underOdds) {
-    const ou = pred.overUnder["2.5"];
-    if (ou) {
-      const marketOU = devigOdds2Way(pinnacle.overOdds, pinnacle.underOdds);
-      if (marketOU) {
-        if (ou.over - marketOU.prob1 >= minEdge) {
-          bets.push({
-            match: `${homeTeam} v ${awayTeam}`,
-            date,
-            selection: `Over 2.5`,
-            modelProb: ou.over,
-            marketProb: marketOU.prob1,
-            edge: ou.over - marketOU.prob1,
-            pinnacleOdds: pinnacle.overOdds,
-            fairOdds: 1 / ou.over,
-            signal: "model_only",
-          });
-        }
-        if (ou.under - marketOU.prob2 >= minEdge) {
-          bets.push({
-            match: `${homeTeam} v ${awayTeam}`,
-            date,
-            selection: `Under 2.5`,
-            modelProb: ou.under,
-            marketProb: marketOU.prob2,
-            edge: ou.under - marketOU.prob2,
-            pinnacleOdds: pinnacle.underOdds,
-            fairOdds: 1 / ou.under,
-            signal: "model_only",
-          });
+  // ─── Multi-line O/U: collect all available totals lines from all bookmakers ──
+  const totalsLines: { line: number; overPrice: number; underPrice: number; source: string }[] = [];
+
+  for (const bk of snap.bookmakers) {
+    // Primary O/U line (usually 2.5)
+    if (bk.overOdds && bk.underOdds && bk.overLine != null) {
+      totalsLines.push({ line: bk.overLine, overPrice: bk.overOdds, underPrice: bk.underOdds, source: bk.bookmakerKey });
+    }
+    // Alt totals lines (when available from per-event API)
+    if (bk.altTotals) {
+      for (const alt of bk.altTotals) {
+        if (alt.over && alt.under) {
+          totalsLines.push({ line: alt.line, overPrice: alt.over, underPrice: alt.under, source: bk.bookmakerKey });
         }
       }
+    }
+  }
+
+  // Prefer Pinnacle totals, then any other bookmaker — deduplicate by line
+  const bestTotalsByLine = new Map<number, typeof totalsLines[0]>();
+  for (const tl of totalsLines) {
+    const existing = bestTotalsByLine.get(tl.line);
+    if (!existing || tl.source === "pinnacle") {
+      bestTotalsByLine.set(tl.line, tl);
+    }
+  }
+
+  // Evaluate each available line against model
+  for (const [line, tl] of bestTotalsByLine) {
+    const ouKey = String(line);
+    const modelOU = pred.overUnder[ouKey];
+    if (!modelOU) continue;
+
+    const marketOU = devigOdds2Way(tl.overPrice, tl.underPrice);
+    if (!marketOU) continue;
+
+    const overEdge = modelOU.over - marketOU.prob1;
+    if (overEdge >= minEdge) {
+      bets.push({
+        match: `${homeTeam} v ${awayTeam}`,
+        date,
+        selection: `Over ${line}`,
+        modelProb: modelOU.over,
+        marketProb: marketOU.prob1,
+        edge: overEdge,
+        pinnacleOdds: tl.overPrice,
+        fairOdds: 1 / modelOU.over,
+        signal: "model_only",
+      });
+    }
+    const underEdge = modelOU.under - marketOU.prob2;
+    if (underEdge >= minEdge) {
+      bets.push({
+        match: `${homeTeam} v ${awayTeam}`,
+        date,
+        selection: `Under ${line}`,
+        modelProb: modelOU.under,
+        marketProb: marketOU.prob2,
+        edge: underEdge,
+        pinnacleOdds: tl.underPrice,
+        fairOdds: 1 / modelOU.under,
+        signal: "model_only",
+      });
     }
   }
 
@@ -365,7 +395,7 @@ function predictCrossLeague(homeTeam: string, awayTeam: string): MatchPrediction
     homeTeam, awayTeam,
     lambdaHome, lambdaAway, lambda3: avgL3, scoreGrid: grid,
     probs1X2: derive1X2(grid),
-    overUnder: deriveOverUnder(grid, [0.5, 1.5, 2.5, 3.5, 4.5]),
+    overUnder: deriveOverUnder(grid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]),
     btts: deriveBTTS(grid),
     asianHandicap: deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]),
     expectedGoals: { home: lambdaHome, away: lambdaAway, total: lambdaHome + lambdaAway },
@@ -380,6 +410,12 @@ console.log("══════════════════════�
 console.log("  OUR BETS — " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }));
 console.log("  MI Bivariate Poisson + Variance Model");
 console.log("═══════════════════════════════════════════════════════════════════════");
+
+// ─── Market mode (Phase 2: totals-preference mechanism) ──────────────────────
+// "sides_only" = AH + ML + Draw (current behavior, backtested)
+// "totals_only" = O/U at all available lines (for debugging/research)
+// "both" = all markets, up to 2 bets per match (one side + one total)
+const MARKET_MODE: MarketMode = "both";
 
 // ─── Conservative filters (learned from 2-season backtest) ───────────────────
 const MIN_EDGE = 0.05;      // was 0.03 — fewer but higher-conviction bets
@@ -436,7 +472,7 @@ if (EXCLUDE_DRAWS) {
 // Cap maximum odds
 filtered = filtered.filter(b => b.pinnacleOdds <= MAX_ODDS);
 
-// Group by match, pick best per match (prefer AH/OU over ML)
+// Group by match — market mode determines how many bets per match
 const byMatch = new Map<string, TedBet[]>();
 for (const b of filtered) {
   const key = b.match;
@@ -444,11 +480,37 @@ for (const b of filtered) {
   byMatch.get(key)!.push(b);
 }
 
+const isTotalsBet = (b: TedBet) => b.selection.startsWith("Over") || b.selection.startsWith("Under");
+const isSideBet = (b: TedBet) => !isTotalsBet(b);
+
 const bestPerMatch: TedBet[] = [];
-for (const [match, bets] of byMatch) {
-  const ahBets = bets.filter(b => !b.selection.includes("ML") && !b.selection.includes("Draw"));
-  const best = ahBets.length > 0 ? ahBets[0] : bets[0];
-  bestPerMatch.push(best);
+for (const [, bets] of byMatch) {
+  // Sort all bets by edge descending
+  bets.sort((a, b) => b.edge - a.edge);
+
+  const sides = bets.filter(isSideBet);
+  const totals = bets.filter(isTotalsBet);
+
+  // For totals: keep only best per direction (Over or Under), then pick the best overall
+  const bestOver = totals.filter(b => b.selection.startsWith("Over"))[0];
+  const bestUnder = totals.filter(b => b.selection.startsWith("Under"))[0];
+  const bestTotal = bestOver && bestUnder
+    ? (bestOver.edge >= bestUnder.edge ? bestOver : bestUnder)
+    : bestOver || bestUnder || null;
+
+  // For sides: prefer AH over ML
+  const ahSides = sides.filter(b => !b.selection.includes("ML") && !b.selection.includes("Draw"));
+  const bestSide = ahSides.length > 0 ? ahSides[0] : sides[0] || null;
+
+  if (MARKET_MODE === "sides_only") {
+    if (bestSide) bestPerMatch.push(bestSide);
+  } else if (MARKET_MODE === "totals_only") {
+    if (bestTotal) bestPerMatch.push(bestTotal);
+  } else {
+    // "both" — up to one side + one total per match
+    if (bestSide) bestPerMatch.push(bestSide);
+    if (bestTotal) bestPerMatch.push(bestTotal);
+  }
 }
 
 bestPerMatch.sort((a, b) => b.edge - a.edge);
@@ -471,6 +533,7 @@ if (bestPerMatch.length === 0) {
 }
 
 console.log(`  ─────────────────────────────────────────────────────────────────`);
+console.log(`  Market mode: ${MARKET_MODE}`);
 console.log(`  Filters: min edge ${(MIN_EDGE * 100).toFixed(0)}%, max odds ${MAX_ODDS}, no draws`);
 console.log(`  Total: ${bestPerMatch.length} bets across ${new Set(bestPerMatch.map(b => b.match)).size} matches`);
 if (bestPerMatch.length > 0) {
@@ -489,7 +552,8 @@ if (!existsSync(betLogDir)) mkdirSync(betLogDir, { recursive: true });
 const today = new Date().toISOString().split("T")[0];
 const betLog = {
   date: today,
-  model: "MI Bivariate Poisson + Variance v2",
+  model: "MI Bivariate Poisson + Variance v2 + Totals",
+  marketMode: MARKET_MODE,
   generated: new Date().toISOString(),
   filters: { minEdge: MIN_EDGE, maxOdds: MAX_ODDS, excludeDraws: EXCLUDE_DRAWS },
   bets: bestPerMatch.map(b => ({

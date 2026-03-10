@@ -4,6 +4,9 @@
  * All interfaces for the MI model system.
  */
 
+/** Market mode: which markets the system evaluates */
+export type MarketMode = "sides_only" | "totals_only" | "both";
+
 /** Per-team ratings solved from market odds */
 export interface MITeamRating {
   team: string;
