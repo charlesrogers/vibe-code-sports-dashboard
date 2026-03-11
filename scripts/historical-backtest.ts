@@ -47,6 +47,7 @@ const baseConfig: MISolverConfig = {
   decayRate: 0.005, regularization: 0.001,
   klWeight: 1.0, ahWeight: 0.3, printEvery: 999,
   driftFactor: 0,
+  outcomeWeight: 0.3, xgWeight: 0.2, recentFormBoost: 1.5,
 };
 
 // ─── Types ───────────────────────────────────────────────────────────────────

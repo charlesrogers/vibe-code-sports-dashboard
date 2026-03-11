@@ -103,6 +103,7 @@ const solverConfig: MISolverConfig = {
   ahWeight: 0.3,
   printEvery: 10,
   driftFactor: 0.0,
+  outcomeWeight: 0.3, xgWeight: 0.2, recentFormBoost: 1.5,
 };
 
 const params = solveRatings(marketMatches, "epl", "2024-25", solverConfig);

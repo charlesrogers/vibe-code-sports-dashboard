@@ -186,15 +186,17 @@ function analyzeTeamVariance(teamName: string, venue: "h" | "a"): TeamVariance |
   return {
     team: teamName,
     matches: mp,
-    xGFor: r(xGFor),
-    xGAgainst: r(xGAgainst),
-    goalsFor: gf,
-    goalsAgainst: ga,
+    xG: r(xGFor),
+    xGA: r(xGAgainst),
+    goals: gf,
+    goalsConceded: ga,
     xGD: r(xGD),
     actualGD,
     attackVariance: r(attackVar),
     defenseVariance: r(defenseVar),
     totalVariance: r(totalVar),
+    attackVariancePct: r(gf / xGFor),
+    defenseVariancePct: r(ga / xGAgainst),
     xGDPerMatch: r(xGDPerMatch),
     qualityTier,
     signal,
@@ -203,8 +205,7 @@ function analyzeTeamVariance(teamName: string, venue: "h" | "a"): TeamVariance |
     doubleVariance,
     regressionConfidence: r(confidence),
     regressionDirection,
-    trend: null,
-    lastNVariance: null,
+    explanation: `${signal} variance (${dominantType})`,
   };
 }
 
@@ -340,6 +341,7 @@ const solverConfig: MISolverConfig = {
   ahWeight: 0.3,
   printEvery: 10,
   driftFactor: 0.1, // Championship uses rating drift
+  outcomeWeight: 0.3, xgWeight: 0.2, recentFormBoost: 1.5,
 };
 
 const params = solveRatings(allMarketMatches, "championship", "2024-25", solverConfig);

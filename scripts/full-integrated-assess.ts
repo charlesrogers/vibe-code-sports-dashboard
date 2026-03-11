@@ -241,13 +241,15 @@ function analyzeTeamVariance(teamName: string, venue: "h" | "a"): TeamVariance |
 
   return {
     team: teamName, matches: mp,
-    xGFor: r(xGFor), xGAgainst: r(xGAgainst), goalsFor: gf, goalsAgainst: ga,
+    xG: r(xGFor), goals: gf, xGA: r(xGAgainst), goalsConceded: ga,
     xGD: r(xGD), actualGD,
     attackVariance: r(attackVar), defenseVariance: r(defenseVar), totalVariance: r(totalVar),
+    attackVariancePct: xGFor > 0 ? r(gf / xGFor) : 1,
+    defenseVariancePct: xGAgainst > 0 ? r(ga / xGAgainst) : 1,
     xGDPerMatch: r(xGDPerMatch), qualityTier, signal, dominantType,
     persistentDefiance, doubleVariance,
     regressionConfidence: r(confidence), regressionDirection,
-    trend: null, lastNVariance: null,
+    explanation: "",
   };
 }
 
@@ -357,6 +359,7 @@ async function main() {
     decayRate: 0.005, regularization: 0.001,
     klWeight: 1.0, ahWeight: 0.3, printEvery: 50,
     driftFactor: 0.1,
+    outcomeWeight: 0.3, xgWeight: 0.2, recentFormBoost: 1.5,
   };
 
   const champParams = solveRatings(allMarketMatches, "championship", "2024-25", champConfig);

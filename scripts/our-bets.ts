@@ -584,7 +584,7 @@ console.log("══════════════════════�
 // "sides_only" = AH + ML + Draw (current behavior, backtested)
 // "totals_only" = O/U at all available lines (for debugging/research)
 // "both" = all markets, up to 2 bets per match (one side + one total)
-const MARKET_MODE: MarketMode = "both";
+const MARKET_MODE = "both" as string;
 
 // ─── Totals filters (from backtest-totals.ts results) ────────────────────────
 // Overs: -5.9% ROI across 2 seasons — model overestimates, public money efficient

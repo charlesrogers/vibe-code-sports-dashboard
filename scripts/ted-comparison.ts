@@ -61,6 +61,7 @@ const baseConfig: MISolverConfig = {
   decayRate: 0.005, regularization: 0.001,
   klWeight: 1.0, ahWeight: 0.3, printEvery: 999,
   driftFactor: 0,
+  outcomeWeight: 0.3, xgWeight: 0.2, recentFormBoost: 1.5,
 };
 
 // ─── Load all match data ─────────────────────────────────────────────────────
@@ -105,7 +106,7 @@ const TED_TO_FD: Record<string, string> = {
   "Southampton": "Southampton", "Burnley": "Burnley", "Luton": "Luton",
   "Sheffield United": "Sheffield United",
   // Championship
-  "Leeds": "Leeds", "Burnley": "Burnley",
+  "Leeds": "Leeds",
   "Sheffield Wednesday": "Sheff Wed", "Sheff Wed": "Sheff Wed",
   "Sheffield Utd": "Sheffield United",
   "QPR": "QPR", "Sunderland": "Sunderland",
@@ -122,7 +123,7 @@ const TED_TO_FD: Record<string, string> = {
   "Swansea": "Swansea", "Swansea City": "Swansea",
   "Plymouth": "Plymouth", "Plymouth Argyle": "Plymouth",
   "Oxford": "Oxford United", "Oxford Utd": "Oxford United", "Oxford United": "Oxford United",
-  "Luton": "Luton", "Luton Town": "Luton",
+  "Luton Town": "Luton",
   "Cardiff": "Cardiff", "Cardiff City": "Cardiff",
   "Portsmouth": "Portsmouth", "Pompey": "Portsmouth",
   "Birmingham": "Birmingham", "Birmingham City": "Birmingham",
