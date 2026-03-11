@@ -30,29 +30,70 @@ export interface TeamInjuryReport {
   summary: string;
 }
 
-// Fotmob team IDs for Serie A teams
-const SERIE_A_TEAM_IDS: Record<string, number> = {
-  Inter: 8636,
-  Milan: 8564,
-  Napoli: 9875,
-  Juventus: 9885,
-  Atalanta: 8524,
-  Roma: 8686,
-  Lazio: 8543,
-  Fiorentina: 8535,
-  Bologna: 9857,
-  Como: 10171,
-  Torino: 9804,
-  Genoa: 10233,
-  Udinese: 8600,
-  Cagliari: 8529,
-  Verona: 9876,
-  Parma: 10167,
-  Lecce: 9888,
-  Sassuolo: 7943,
-  Pisa: 6479,
-  Cremonese: 7801,
+// Fotmob team IDs by league
+// Keys use football-data cache names (what our-bets.ts uses)
+const FOTMOB_TEAM_IDS: Record<string, Record<string, number>> = {
+  epl: {
+    "Arsenal": 9825,
+    "Man City": 8456, "Manchester City": 8456,
+    "Man United": 10260, "Manchester United": 10260,
+    "Aston Villa": 10252,
+    "Chelsea": 8455,
+    "Liverpool": 8650,
+    "Brentford": 9937,
+    "Everton": 8668,
+    "Bournemouth": 8678, "AFC Bournemouth": 8678,
+    "Fulham": 9879,
+    "Sunderland": 8472,
+    "Newcastle": 10261, "Newcastle United": 10261,
+    "Crystal Palace": 9826,
+    "Brighton": 10204, "Brighton and Hove Albion": 10204,
+    "Leeds": 8463, "Leeds United": 8463,
+    "Tottenham": 8586, "Tottenham Hotspur": 8586,
+    "Nott'm Forest": 10203, "Nottingham Forest": 10203,
+    "West Ham": 8654, "West Ham United": 8654,
+    "Burnley": 8191,
+    "Wolves": 8602, "Wolverhampton Wanderers": 8602,
+  },
+  championship: {
+    "Coventry": 8669, "Coventry City": 8669,
+    "Middlesbrough": 8549,
+    "Millwall": 10004,
+    "Ipswich": 9902, "Ipswich Town": 9902,
+    "Hull": 8667, "Hull City": 8667,
+    "Wrexham": 9841, "Wrexham AFC": 9841,
+    "Derby": 10170, "Derby County": 10170,
+    "Southampton": 8466,
+    "Watford": 9817,
+    "Swansea": 10003, "Swansea City": 10003,
+    "Bristol City": 8427,
+    "Sheffield United": 8657, "Sheffield Utd": 8657,
+    "Birmingham": 8658, "Birmingham City": 8658,
+    "Preston": 8411, "Preston North End": 8411,
+    "Stoke": 10194, "Stoke City": 10194,
+    "QPR": 10172, "Queens Park Rangers": 10172,
+    "Norwich": 9850, "Norwich City": 9850,
+    "Charlton": 8451, "Charlton Athletic": 8451,
+    "Portsmouth": 8462,
+    "Blackburn": 8655, "Blackburn Rovers": 8655,
+    "Leicester": 8197, "Leicester City": 8197,
+    "West Brom": 8659, "West Bromwich Albion": 8659,
+    "Oxford": 8653, "Oxford United": 8653,
+    "Sheffield Weds": 10163, "Sheffield Wed": 10163, "Sheffield Wednesday": 10163,
+  },
+  "serie-a": {
+    "Inter": 8636, "Milan": 8564, "Napoli": 9875,
+    "Juventus": 9885, "Atalanta": 8524, "Roma": 8686,
+    "Lazio": 8543, "Fiorentina": 8535, "Bologna": 9857,
+    "Como": 10171, "Torino": 9804, "Genoa": 10233,
+    "Udinese": 8600, "Cagliari": 8529, "Verona": 9876,
+    "Parma": 10167, "Lecce": 9888, "Sassuolo": 7943,
+    "Pisa": 6479, "Cremonese": 7801,
+  },
 };
+
+// Legacy alias
+const SERIE_A_TEAM_IDS = FOTMOB_TEAM_IDS["serie-a"];
 
 // Market value threshold for "key player" (in euros)
 const KEY_PLAYER_VALUE_THRESHOLD = 15_000_000;
@@ -206,6 +247,13 @@ async function fetchTeamInjuries(
   }
 }
 
+/** Map league identifiers to FOTMOB_TEAM_IDS keys */
+const LEAGUE_ALIASES: Record<string, string> = {
+  serieA: "serie-a", "serie-a": "serie-a",
+  epl: "epl", premierLeague: "epl",
+  championship: "championship",
+};
+
 /**
  * Fetch injury reports for all teams in a league.
  * Rate-limited to avoid hammering Fotmob.
@@ -213,12 +261,19 @@ async function fetchTeamInjuries(
 export async function fetchAllInjuries(
   league: string = "serieA"
 ): Promise<TeamInjuryReport[]> {
-  if (league !== "serieA") {
-    // Only Serie A team IDs are mapped for now
-    return [];
-  }
+  const leagueKey = LEAGUE_ALIASES[league] ?? league;
+  const teamIds = FOTMOB_TEAM_IDS[leagueKey];
+  if (!teamIds) return [];
 
-  const entries = Object.entries(SERIE_A_TEAM_IDS);
+  // Deduplicate (multiple name aliases point to same ID)
+  const seen = new Set<number>();
+  const entries: [string, number][] = [];
+  for (const [name, id] of Object.entries(teamIds)) {
+    if (!seen.has(id)) {
+      seen.add(id);
+      entries.push([name, id]);
+    }
+  }
 
   // Fetch in batches of 5 to be polite
   const results: TeamInjuryReport[] = [];
@@ -239,16 +294,71 @@ export async function fetchAllInjuries(
 }
 
 /**
- * Get injury report for a specific team.
+ * Get injury report for a specific team by name.
+ * Tries exact match then fuzzy (first word).
  */
 export async function fetchTeamInjuryReport(
   team: string,
   league: string = "serieA"
 ): Promise<TeamInjuryReport | null> {
-  if (league !== "serieA") return null;
+  const leagueKey = LEAGUE_ALIASES[league] ?? league;
+  const teamIds = FOTMOB_TEAM_IDS[leagueKey];
+  if (!teamIds) return null;
 
-  const id = SERIE_A_TEAM_IDS[team];
+  // Exact match
+  let id = teamIds[team];
+
+  // Fuzzy: first word
+  if (!id) {
+    const firstWord = team.split(" ")[0].toLowerCase();
+    for (const [name, fid] of Object.entries(teamIds)) {
+      if (name.toLowerCase().startsWith(firstWord)) { id = fid; break; }
+    }
+  }
+
   if (!id) return null;
-
   return fetchTeamInjuries(team, id);
+}
+
+/**
+ * Fetch injury reports for a list of specific teams (faster than fetching whole league).
+ * Accepts team names as they appear in our odds data.
+ */
+export async function fetchInjuriesForTeams(
+  teams: string[],
+  league: string,
+): Promise<Map<string, TeamInjuryReport>> {
+  const leagueKey = LEAGUE_ALIASES[league] ?? league;
+  const teamIds = FOTMOB_TEAM_IDS[leagueKey];
+  const results = new Map<string, TeamInjuryReport>();
+  if (!teamIds) return results;
+
+  const toFetch: { name: string; id: number }[] = [];
+  for (const team of teams) {
+    let id = teamIds[team];
+    // Fuzzy: first word
+    if (!id) {
+      const firstWord = team.split(" ")[0].toLowerCase();
+      for (const [name, fid] of Object.entries(teamIds)) {
+        if (name.toLowerCase().startsWith(firstWord)) { id = fid; break; }
+      }
+    }
+    if (id) toFetch.push({ name: team, id });
+  }
+
+  // Fetch in batches of 5
+  for (let i = 0; i < toFetch.length; i += 5) {
+    const batch = toFetch.slice(i, i + 5);
+    const batchResults = await Promise.all(
+      batch.map(({ name, id }) => fetchTeamInjuries(name, id))
+    );
+    for (const r of batchResults) {
+      results.set(r.team, r);
+    }
+    if (i + 5 < toFetch.length) {
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  }
+
+  return results;
 }

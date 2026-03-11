@@ -24,6 +24,8 @@ import { calculateTeamVariance, assessTotalsThesis } from "../lib/variance/calcu
 import type { TeamVariance, TotalsThesis } from "../lib/variance/calculator";
 import { assessMatch } from "../lib/variance/match-assessor";
 import type { TeamXg } from "../lib/types";
+import { fetchInjuriesForTeams } from "../lib/injuries";
+import type { TeamInjuryReport } from "../lib/injuries";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 
@@ -534,8 +536,13 @@ function predictCrossLeague(homeTeam: string, awayTeam: string): MatchPrediction
 
 // ─── Variance tagging (Phase 3) ──────────────────────────────────────────────
 
-function tagBetsWithVariance(bets: TedBet[], homeV: TeamVariance, awayV: TeamVariance) {
-  const sideAssess = assessMatch(homeV, awayV);
+function tagBetsWithVariance(
+  bets: TedBet[],
+  homeV: TeamVariance,
+  awayV: TeamVariance,
+  injuries?: { homeSeverity: "none" | "minor" | "moderate" | "major" | "crisis"; awaySeverity: "none" | "minor" | "moderate" | "major" | "crisis" },
+) {
+  const sideAssess = assessMatch(homeV, awayV, { injuries });
   const totalsThesis = assessTotalsThesis(homeV, awayV);
 
   for (const bet of bets) {
@@ -576,12 +583,14 @@ function tagBetsWithVariance(bets: TedBet[], homeV: TeamVariance, awayV: TeamVar
   }
 }
 
-// ─── Main output ─────────────────────────────────────────────────────────────
+// ─── Main output (async for injury fetching) ────────────────────────────────
+
+async function main() {
 
 console.log("\n");
 console.log("═══════════════════════════════════════════════════════════════════════");
 console.log("  OUR BETS — " + new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }));
-console.log("  MI Bivariate Poisson + Variance Model");
+console.log("  MI Bivariate Poisson + Variance Model + Injuries");
 console.log("═══════════════════════════════════════════════════════════════════════");
 
 // ─── Market mode (Phase 2: totals-preference mechanism) ──────────────────────
@@ -603,10 +612,66 @@ const EXCLUDE_DRAWS = true;  // 24% hit rate in backtest — almost always -EV
 
 const allBets: TedBet[] = [];
 
+// ─── Fetch injury data from FotMob ──────────────────────────────────────────
+
+console.log("\n[PROGRESS] Fetching injury data from FotMob...");
+
+// Collect all team names from today's odds
+const uclOddsPreload = loadLiveOdds("ucl");
+const champOddsPreload = loadLiveOdds("championship");
+
+const champTeamNames = new Set<string>();
+for (const snap of champOddsPreload) {
+  const homeFD = CHAMP_MAP[snap.homeTeam] ?? snap.homeTeam;
+  const awayFD = CHAMP_MAP[snap.awayTeam] ?? snap.awayTeam;
+  champTeamNames.add(homeFD);
+  champTeamNames.add(awayFD);
+}
+
+// Also collect EPL teams from UCL matches
+const eplTeamNames = new Set<string>();
+for (const snap of uclOddsPreload) {
+  const hi = UCL_MAP[snap.homeTeam];
+  const ai = UCL_MAP[snap.awayTeam];
+  if (hi?.league === "epl") eplTeamNames.add(hi.fd);
+  if (ai?.league === "epl") eplTeamNames.add(ai.fd);
+}
+
+// Fetch injuries for relevant teams only (not whole leagues)
+const [champInjuries, eplInjuries] = await Promise.all([
+  champTeamNames.size > 0 ? fetchInjuriesForTeams([...champTeamNames], "championship") : Promise.resolve(new Map<string, TeamInjuryReport>()),
+  eplTeamNames.size > 0 ? fetchInjuriesForTeams([...eplTeamNames], "epl") : Promise.resolve(new Map<string, TeamInjuryReport>()),
+]);
+
+const allInjuries = new Map<string, TeamInjuryReport>([...champInjuries, ...eplInjuries]);
+
+// Print injury summary
+const notableInjuries = [...allInjuries.values()].filter(r => r.severity !== "none" && r.severity !== "minor");
+if (notableInjuries.length > 0) {
+  console.log(`[PROGRESS] Injury alerts (${notableInjuries.length} teams with notable absences):`);
+  for (const r of notableInjuries.sort((a, b) => b.totalOut - a.totalOut)) {
+    const keyNames = r.unavailable.filter(p => p.isKeyPlayer).map(p => p.name).join(", ");
+    console.log(`  ${r.severity.toUpperCase().padEnd(8)} ${r.team.padEnd(20)} ${r.totalOut} out${keyNames ? ` (key: ${keyNames})` : ""}`);
+  }
+} else {
+  console.log(`[PROGRESS] No notable injury alerts for today's matches.`);
+}
+
+/** Get injury severities for a matchup */
+function getInjurySeverities(homeTeam: string, awayTeam: string) {
+  const homeReport = allInjuries.get(homeTeam);
+  const awayReport = allInjuries.get(awayTeam);
+  if (!homeReport && !awayReport) return undefined;
+  return {
+    homeSeverity: homeReport?.severity ?? "none" as const,
+    awaySeverity: awayReport?.severity ?? "none" as const,
+  };
+}
+
 // UCL
 console.log("\n  ─── CHAMPIONS LEAGUE R16 ──────────────────────────────────────────\n");
 
-const uclOdds = loadLiveOdds("ucl");
+const uclOdds = uclOddsPreload;
 for (const snap of uclOdds) {
   const pred = predictCrossLeague(snap.homeTeam, snap.awayTeam);
   if (!pred) {
@@ -615,14 +680,15 @@ for (const snap of uclOdds) {
   }
   const bets = findBestAHLine(pred, snap, MIN_EDGE);
 
-  // Variance tagging for UCL
+  // Variance + injury tagging for UCL
   const hi = UCL_MAP[snap.homeTeam];
   const ai = UCL_MAP[snap.awayTeam];
   if (hi?.league && ai?.league) {
     const hv = getTeamVariance(hi.fd, hi.league, "home");
     const av = getTeamVariance(ai.fd, ai.league, "away");
     if (hv && av) {
-      tagBetsWithVariance(bets, hv, av);
+      const injuries = getInjurySeverities(hi.fd, ai.fd);
+      tagBetsWithVariance(bets, hv, av, injuries);
     }
   }
 
@@ -632,7 +698,7 @@ for (const snap of uclOdds) {
 // Championship
 console.log("\n  ─── CHAMPIONSHIP ─────────────────────────────────────────────────\n");
 
-const champOdds = loadLiveOdds("championship");
+const champOdds = champOddsPreload;
 const champModel = models["championship"];
 for (const snap of champOdds) {
   const homeFD = CHAMP_MAP[snap.homeTeam] ?? snap.homeTeam;
@@ -649,11 +715,12 @@ for (const snap of champOdds) {
 
   const bets = findBestAHLine(pred, snap, MIN_EDGE);
 
-  // Variance tagging for Championship
+  // Variance + injury tagging for Championship
   const hv = getTeamVariance(homeFD, "championship", "home");
   const av = getTeamVariance(awayFD, "championship", "away");
   if (hv && av) {
-    tagBetsWithVariance(bets, hv, av);
+    const injuries = getInjurySeverities(homeFD, awayFD);
+    tagBetsWithVariance(bets, hv, av, injuries);
   }
 
   allBets.push(...bets);
@@ -732,6 +799,25 @@ if (bestPerMatch.length === 0) {
     const pinnStr = b.pinnacleOdds.toFixed(2);
     const fairStr = b.fairOdds.toFixed(2);
     console.log(`  ${String(betNum).padStart(2)}. ${b.match.padEnd(38)} ${b.selection.padEnd(28)} +${edgePct.padStart(5)}%  @ ${pinnStr}  (fair ${fairStr})  [${b.signal}]`);
+
+    // Print injury context for this match
+    const [homeT, awayT] = b.match.split(" v ");
+    const homeInj = allInjuries.get(homeT) || allInjuries.get(CHAMP_MAP[homeT] ?? homeT);
+    const awayInj = allInjuries.get(awayT) || allInjuries.get(CHAMP_MAP[awayT] ?? awayT);
+    const injNotes: string[] = [];
+    if (homeInj && homeInj.severity !== "none" && homeInj.severity !== "minor") {
+      const keyNames = homeInj.unavailable.filter(p => p.isKeyPlayer).map(p => p.name).join(", ");
+      injNotes.push(`${homeInj.team}: ${homeInj.totalOut} out [${homeInj.severity}]${keyNames ? ` — ${keyNames}` : ""}`);
+    }
+    if (awayInj && awayInj.severity !== "none" && awayInj.severity !== "minor") {
+      const keyNames = awayInj.unavailable.filter(p => p.isKeyPlayer).map(p => p.name).join(", ");
+      injNotes.push(`${awayInj.team}: ${awayInj.totalOut} out [${awayInj.severity}]${keyNames ? ` — ${keyNames}` : ""}`);
+    }
+    if (injNotes.length > 0) {
+      for (const note of injNotes) {
+        console.log(`      INJURY: ${note}`);
+      }
+    }
   }
   console.log();
 }
@@ -756,7 +842,7 @@ if (!existsSync(betLogDir)) mkdirSync(betLogDir, { recursive: true });
 const today = new Date().toISOString().split("T")[0];
 const betLog = {
   date: today,
-  model: "MI Bivariate Poisson + Variance v2 + Totals",
+  model: "MI Bivariate Poisson + Variance v2 + Totals + Injuries",
   marketMode: MARKET_MODE,
   generated: new Date().toISOString(),
   filters: { minEdge: MIN_EDGE, maxOdds: MAX_ODDS, excludeDraws: EXCLUDE_DRAWS },
@@ -782,3 +868,7 @@ const betLogPath = join(betLogDir, `${today}.json`);
 writeFileSync(betLogPath, JSON.stringify(betLog, null, 2));
 console.log(`  Bet log saved to data/bet-log/${today}.json`);
 console.log();
+
+} // end main()
+
+main().catch(e => { console.error(e); process.exit(1); });
