@@ -417,6 +417,12 @@ console.log("══════════════════════�
 // "both" = all markets, up to 2 bets per match (one side + one total)
 const MARKET_MODE: MarketMode = "both";
 
+// ─── Totals filters (from backtest-totals.ts results) ────────────────────────
+// Overs: -5.9% ROI across 2 seasons — model overestimates, public money efficient
+// Unders: +2.3% ROI — contrarian edge survives, model good at spotting low-scoring
+// Only bet Unders until Overs model improves
+const TOTALS_UNDERS_ONLY = true;
+
 // ─── Conservative filters (learned from 2-season backtest) ───────────────────
 const MIN_EDGE = 0.05;      // was 0.03 — fewer but higher-conviction bets
 const MAX_ODDS = 2.80;      // kills longshot bleeding (backtest avg was 3.39)
@@ -467,6 +473,11 @@ let filtered = allBets;
 // Filter out draws
 if (EXCLUDE_DRAWS) {
   filtered = filtered.filter(b => !b.selection.includes("Draw"));
+}
+
+// Filter out Overs (backtested at -5.9% ROI — model overestimates)
+if (TOTALS_UNDERS_ONLY) {
+  filtered = filtered.filter(b => !b.selection.startsWith("Over"));
 }
 
 // Cap maximum odds
