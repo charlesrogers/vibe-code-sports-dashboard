@@ -16,8 +16,8 @@ export async function GET(request: NextRequest) {
   }
 
   const state = await loadSchedulerState();
-  const cronKey = getApiKey("cron"); // Key 1 for automated collection
-  const results: Record<string, unknown> = { timestamp: new Date().toISOString(), apiKey: "key1 (cron)", actions: [] };
+  const cronKey = getApiKey("adhoc"); // Key 2 — Key 1 reserved for paper-trade logger
+  const results: Record<string, unknown> = { timestamp: new Date().toISOString(), apiKey: "key2 (dashboard)", actions: [] };
   const actions: unknown[] = [];
 
   for (const league of ["serieA", "serieB", "epl", "laLiga", "bundesliga"] as const) {
@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
     monthlyUsed: updatedState.pollCount[monthKey] || 0,
     monthlyLimit: 500,
     remaining: 500 - (updatedState.pollCount[monthKey] || 0),
-    note: "Key 1 quota (cron). Key 2 has separate 500 quota for adhoc.",
+    note: "Key 2 quota (dashboard). Key 1 reserved for paper-trade logger.",
   };
 
   return NextResponse.json(results);

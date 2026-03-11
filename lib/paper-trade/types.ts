@@ -1,4 +1,4 @@
-export type BetStatus = "pending" | "won" | "lost" | "push";
+export type BetStatus = "pending" | "won" | "lost" | "push" | "superseded";
 export type MarketType = "1X2" | "AH" | "OU25";
 
 export interface PaperBet {
@@ -16,6 +16,8 @@ export interface PaperBet {
   marketOdds: number;
   edge: number;
   confidenceGrade: "A" | "B" | "C" | null;
+  oddsTimestamp?: string;
+  evalWindow?: number;
   status: BetStatus;
   settledAt?: string;
   homeGoals?: number;
