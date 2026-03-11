@@ -7,16 +7,14 @@
 - [x] Fix Overs bias — tightened lambda3 range to [-0.08, 0.02], added 3.5% totals deflation for O/U grid
 - [x] Re-backtest totals — Unders improved to +6.8% ROI (558 bets), Overs still -7.5%. TOTALS_UNDERS_ONLY confirmed correct.
 - [x] Write model_cannon.md — comprehensive Ted methodology + our findings
+- [x] Wire injury data into bet pipeline — EPL + Champ FotMob IDs mapped, injuries fetched per-match, passed to assessMatch() for confidence adjustment, printed per-bet
+- [x] Alt totals lines — fetch-live-odds.ts now does per-event deep fetch for alt totals (2.0, 2.25, 2.75, 3.0, 3.25). Found 4 new Under 2.25 bets on first run.
 
 ## Up Next (priority order)
 
 ### High Value — Improve existing profitable signals
-- [ ] **Wire injury data into bet pipeline** — `lib/injuries.ts` exists but `our-bets.ts` never calls it. Need to: (1) map FotMob team IDs for EPL + Championship, (2) fetch injuries before bet generation, (3) pass to `assessMatch()` for confidence adjustment, (4) optionally adjust lambdas for key player absences. Infrastructure is ~30% done.
 - [ ] **Odds capping** — Ted averages ~1.9 odds, caps ~2.5. We have no cap. Backtest ROI at different max-odds thresholds (2.0, 2.5, 2.8, 3.0) to find optimal filter.
 - [ ] **Score existing bets** — run `score-bets.ts` on March 10+ bets to validate live performance vs backtest expectations.
-
-### Medium Value — Expand Under opportunities
-- [ ] **Alt totals lines from Odds API** — collect O/U 2.25, 2.75, 3.0, 3.25 from per-event endpoint (~3-5 extra API calls/run). Unlocks Under 2.25 and Under 2.75 value we currently miss.
 - [ ] **League whitelist for totals** — EPL (+11.9%), Championship (+5.2%), Ligue-1 (+4.2%) are profitable. Bundesliga (-16.6%) and Serie A (-9.5%) hurt. Consider filtering.
 
 ### Low Value — Park for now
