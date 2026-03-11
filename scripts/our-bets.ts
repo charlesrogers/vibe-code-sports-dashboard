@@ -43,7 +43,7 @@ const dataDir = join(projectRoot, "data/football-data-cache");
 const baseConfig: MISolverConfig = {
   maxIterations: 200, convergenceThreshold: 1e-6,
   attackRange: [0.3, 3.0], defenseRange: [0.3, 3.0],
-  homeAdvantageRange: [0.8, 1.8], lambda3Range: [-0.15, 0.05],
+  homeAdvantageRange: [0.8, 1.8], lambda3Range: [-0.08, 0.02],
   avgGoalRateRange: [1.0, 1.8], gridSteps: 30,
   decayRate: 0.005, regularization: 0.001,
   klWeight: 0.6, ahWeight: 0.2,
@@ -516,11 +516,15 @@ function predictCrossLeague(homeTeam: string, awayTeam: string): MatchPrediction
   const lambdaAway = awayAttackAdj * homeDefenseAdj * avgGR;
   const grid = generateScoreGrid(lambdaHome, lambdaAway, avgL3);
 
+  // Totals deflation: same correction as predictMatch (model over-predicts goals by ~6.5%)
+  const TOTALS_DEFLATION = 0.965;
+  const deflatedGrid = generateScoreGrid(lambdaHome * TOTALS_DEFLATION, lambdaAway * TOTALS_DEFLATION, avgL3);
+
   return {
     homeTeam, awayTeam,
     lambdaHome, lambdaAway, lambda3: avgL3, scoreGrid: grid,
     probs1X2: derive1X2(grid),
-    overUnder: deriveOverUnder(grid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]),
+    overUnder: deriveOverUnder(deflatedGrid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]),
     btts: deriveBTTS(grid),
     asianHandicap: deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]),
     expectedGoals: { home: lambdaHome, away: lambdaAway, total: lambdaHome + lambdaAway },

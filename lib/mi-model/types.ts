@@ -126,6 +126,8 @@ export interface MISolverConfig {
   printEvery: number;         // print progress every N iterations
   /** Rating drift factor for Monte Carlo (0 = no drift) */
   driftFactor: number;
+  /** Totals deflation: scale lambdas down for O/U computation (default 0.965 = -3.5%) */
+  totalsDeflation?: number;
 }
 
 export const DEFAULT_SOLVER_CONFIG: MISolverConfig = {
@@ -134,7 +136,7 @@ export const DEFAULT_SOLVER_CONFIG: MISolverConfig = {
   attackRange: [0.3, 3.0],
   defenseRange: [0.3, 3.0],
   homeAdvantageRange: [0.8, 1.8],
-  lambda3Range: [-0.15, 0.05],
+  lambda3Range: [-0.08, 0.02],       // tightened: solver was always hitting +0.05 boundary, inflating Overs
   avgGoalRateRange: [1.0, 1.8],
   gridSteps: 40,
   decayRate: 0.005,           // half-life ~140 days

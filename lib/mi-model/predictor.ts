@@ -33,12 +33,19 @@ export function predictMatch(
   const lambdaAway = away.attack * home.defense * params.avgGoalRate;
   const lambda3 = params.correlation;
 
-  // Generate score probability grid
+  // Generate score probability grid (used for 1X2, AH, BTTS)
   const grid = generateScoreGrid(lambdaHome, lambdaAway, lambda3, maxGoals);
+
+  // Totals deflation: model over-predicts goals by ~6.5% (diagnostic confirmed).
+  // Apply a correction ONLY for O/U to avoid affecting side bet probabilities.
+  const deflation = (params as any).totalsDeflation ?? 0.965;
+  const deflatedGrid = deflation < 1.0
+    ? generateScoreGrid(lambdaHome * deflation, lambdaAway * deflation, lambda3, maxGoals)
+    : grid;
 
   // Derive all market probabilities
   const probs1X2 = derive1X2(grid);
-  const overUnder = deriveOverUnder(grid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]);
+  const overUnder = deriveOverUnder(deflatedGrid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]);
   const btts = deriveBTTS(grid);
   const asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]);
   const eg = expectedGoalsFromGrid(grid);

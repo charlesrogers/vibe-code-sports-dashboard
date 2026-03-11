@@ -24,7 +24,7 @@ const dataDir = join(projectRoot, "data/football-data-cache");
 const config: MISolverConfig = {
   maxIterations: 200, convergenceThreshold: 1e-6,
   attackRange: [0.3, 3.0], defenseRange: [0.3, 3.0],
-  homeAdvantageRange: [0.8, 1.8], lambda3Range: [-0.15, 0.05],
+  homeAdvantageRange: [0.8, 1.8], lambda3Range: [-0.08, 0.02],
   avgGoalRateRange: [1.0, 1.8], gridSteps: 30,
   decayRate: 0.005, regularization: 0.001,
   klWeight: 0.6, ahWeight: 0.2,
