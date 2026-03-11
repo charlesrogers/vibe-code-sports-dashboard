@@ -68,6 +68,41 @@ export function predictMatch(
 }
 
 /**
+ * Predict a match using pre-computed lambdas (for injury-adjusted predictions).
+ */
+export function predictMatchFromLambdas(
+  homeTeam: string,
+  awayTeam: string,
+  lambdaHome: number,
+  lambdaAway: number,
+  lambda3: number,
+  maxGoals: number = 8
+): MatchPrediction {
+  const grid = generateScoreGrid(lambdaHome, lambdaAway, lambda3, maxGoals);
+  const probs1X2 = derive1X2(grid);
+  const overUnder = deriveOverUnder(grid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]);
+  const btts = deriveBTTS(grid);
+  const asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]);
+  const eg = expectedGoalsFromGrid(grid);
+  const mls = mostLikelyScore(grid);
+
+  return {
+    homeTeam,
+    awayTeam,
+    lambdaHome,
+    lambdaAway,
+    lambda3,
+    scoreGrid: grid,
+    probs1X2,
+    overUnder,
+    btts,
+    asianHandicap,
+    expectedGoals: { home: eg.home, away: eg.away, total: eg.home + eg.away },
+    mostLikelyScore: mls,
+  };
+}
+
+/**
  * Format a MatchPrediction for display.
  */
 export function formatPrediction(pred: MatchPrediction): string {

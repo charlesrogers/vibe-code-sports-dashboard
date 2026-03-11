@@ -128,6 +128,14 @@ export interface MISolverConfig {
   driftFactor: number;
   /** Totals deflation: scale lambdas down for O/U computation (default 0.965 = -3.5%) */
   totalsDeflation?: number;
+  /** Warm-start: seed team ratings from a previous solve (teams not found default to 1.0/1.0) */
+  initialRatings?: Record<string, { attack: number; defense: number }>;
+  /** Warm-start: seed global home advantage */
+  initialHomeAdvantage?: number;
+  /** Warm-start: seed global lambda3 (correlation) */
+  initialCorrelation?: number;
+  /** Warm-start: seed global average goal rate */
+  initialAvgGoalRate?: number;
 }
 
 export const DEFAULT_SOLVER_CONFIG: MISolverConfig = {

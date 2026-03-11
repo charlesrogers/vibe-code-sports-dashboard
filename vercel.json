@@ -7,6 +7,14 @@
     {
       "path": "/api/cron/accumulate-xg",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/paper-trade/log",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/paper-trade/settle",
+      "schedule": "0 9 * * *"
     }
   ]
 }

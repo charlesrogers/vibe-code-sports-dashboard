@@ -53,7 +53,7 @@ const MONTHLY_BUDGET_PER_LEAGUE = 200; // leaves 100 for deep + ad-hoc
  * Determine if we should poll right now for a given league
  */
 export function shouldPollNow(
-  league: "serieA" | "serieB" | "epl" | "epl",
+  league: string,
   upcomingKickoffs: string[], // ISO timestamps of upcoming match kickoffs
   lastPollTime: string | null, // ISO timestamp of last poll for this league
   monthlyPollCount: number = 0

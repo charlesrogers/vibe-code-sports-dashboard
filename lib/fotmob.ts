@@ -28,7 +28,11 @@ interface FotmobStatResponse {
 
 const LEAGUE_IDS: Record<string, number> = {
   serieA: 55,
+  "serie-a": 55,
   serieB: 53,
+  epl: 47,
+  "la-liga": 87,
+  bundesliga: 54,
 };
 
 async function fetchFotmobStat(url: string): Promise<FotmobStatEntry[]> {

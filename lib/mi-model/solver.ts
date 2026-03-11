@@ -193,14 +193,15 @@ export function solveRatings(
   matches.forEach(m => { teamNames.add(m.homeTeam); teamNames.add(m.awayTeam); });
   console.log(`[solver] ${teamNames.size} teams found`);
 
-  // Initialize ratings
+  // Initialize ratings (warm-start from previous solve if available)
   const teams: Record<string, { attack: number; defense: number }> = {};
   for (const t of teamNames) {
-    teams[t] = { attack: 1.0, defense: 1.0 };
+    const prev = config.initialRatings?.[t];
+    teams[t] = prev ? { attack: prev.attack, defense: prev.defense } : { attack: 1.0, defense: 1.0 };
   }
-  let homeAdvantage = 1.25;
-  let lambda3 = 0.05;
-  let avgGoalRate = 1.35;
+  let homeAdvantage = config.initialHomeAdvantage ?? 1.25;
+  let lambda3 = config.initialCorrelation ?? 0.05;
+  let avgGoalRate = config.initialAvgGoalRate ?? 1.35;
 
   const maxGoals = 8;
   let prevLoss = Infinity;

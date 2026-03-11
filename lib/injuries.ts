@@ -90,6 +90,39 @@ const FOTMOB_TEAM_IDS: Record<string, Record<string, number>> = {
     "Parma": 10167, "Lecce": 9888, "Sassuolo": 7943,
     "Pisa": 6479, "Cremonese": 7801,
   },
+  "la-liga": {
+    "Real Madrid": 8633, "Barcelona": 8634, "Ath Madrid": 8302,
+    "Atletico Madrid": 8302,
+    "Ath Bilbao": 9906, "Athletic Bilbao": 9906,
+    "Betis": 9600, "Real Betis": 9600,
+    "Sociedad": 9740, "Real Sociedad": 9740,
+    "Villarreal": 10205, "Mallorca": 8329, "RCD Mallorca": 8329,
+    "Celta": 10243, "Celta Vigo": 10243,
+    "Osasuna": 8371, "Sevilla": 8583,
+    "Getafe": 8305, "Vallecano": 9768, "Rayo Vallecano": 9768,
+    "Alaves": 9682, "Deportivo Alaves": 9682,
+    "Leganes": 7942, "CD Leganes": 7942,
+    "Las Palmas": 7626, "UD Las Palmas": 7626,
+    "Girona": 7772, "Valencia": 10267,
+    "Valladolid": 8077, "Espanyol": 8558,
+  },
+  bundesliga: {
+    "Bayern Munich": 9823, "Dortmund": 9789, "Borussia Dortmund": 9789,
+    "Leverkusen": 9871, "Bayer Leverkusen": 9871,
+    "RB Leipzig": 178475,
+    "Ein Frankfurt": 9810, "Eintracht Frankfurt": 9810,
+    "Stuttgart": 10269, "VfB Stuttgart": 10269,
+    "Freiburg": 9790, "SC Freiburg": 9790,
+    "Wolfsburg": 9836, "VfL Wolfsburg": 9836,
+    "M'gladbach": 9788, "Borussia Monchengladbach": 9788,
+    "Mainz": 9905, "Augsburg": 9791, "FC Augsburg": 9791,
+    "Hoffenheim": 9553, "TSG Hoffenheim": 9553,
+    "Union Berlin": 36360,
+    "St Pauli": 9776, "FC St. Pauli": 9776,
+    "Heidenheim": 37042,
+    "Bochum": 9911, "VfL Bochum": 9911,
+    "Holstein Kiel": 9869,
+  },
 };
 
 // Legacy alias
@@ -252,6 +285,8 @@ const LEAGUE_ALIASES: Record<string, string> = {
   serieA: "serie-a", "serie-a": "serie-a",
   epl: "epl", premierLeague: "epl",
   championship: "championship",
+  "la-liga": "la-liga", laLiga: "la-liga",
+  bundesliga: "bundesliga",
 };
 
 /**
