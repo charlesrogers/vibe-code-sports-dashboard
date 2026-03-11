@@ -2,19 +2,19 @@
   "crons": [
     {
       "path": "/api/cron-odds",
-      "schedule": "0 9,18 * * *"
-    },
-    {
-      "path": "/api/cron/accumulate-xg",
-      "schedule": "0 8 * * *"
+      "schedule": "0 9 * * *"
     },
     {
       "path": "/api/paper-trade/log",
-      "schedule": "0 10,13,16,19 * * *"
+      "schedule": "0 12 * * *"
     },
     {
       "path": "/api/paper-trade/settle",
       "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron/accumulate-xg",
+      "schedule": "0 8 * * *"
     }
   ]
 }
