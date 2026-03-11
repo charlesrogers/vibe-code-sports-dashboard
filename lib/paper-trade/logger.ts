@@ -25,6 +25,7 @@ export async function logPicks(leagues?: string[]): Promise<{ added: number; ski
         awayTeam: pick.awayTeam,
         marketType: vb.marketType,
         selection: vb.selection,
+        ...(vb.ahLine != null && { ahLine: vb.ahLine }),
         stake: 1,
         modelProb: vb.modelProb,
         marketOdds: vb.marketOdds,
