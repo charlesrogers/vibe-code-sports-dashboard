@@ -11,7 +11,7 @@ import { generatePicks } from "../mi-picks/picks-engine";
 import { appendBets, loadLedger, saveLedger } from "./storage";
 import { collectAndSaveOdds, getApiKey } from "../odds-collector/the-odds-api";
 import { MI_LEAGUES } from "../mi-picks/league-config";
-import { PAPER_CONFIG, type PaperBet } from "./types";
+import { PAPER_CONFIG, kellyStake, type PaperBet } from "./types";
 
 const LAST_WINDOW_HOUR = 19; // UTC — triggers best execution
 
@@ -51,6 +51,9 @@ export async function logPicks(
         (1 + (vb.marketOdds - 1) * (1 - PAPER_CONFIG.slippage)) * 1000
       ) / 1000;
 
+      // Quarter Kelly sizing based on model edge
+      const stake = kellyStake(vb.modelProb, executionOdds);
+
       newBets.push({
         id,
         createdAt: new Date().toISOString(),
@@ -61,7 +64,7 @@ export async function logPicks(
         marketType: vb.marketType,
         selection: vb.selection,
         ...(vb.ahLine != null && { ahLine: vb.ahLine }),
-        stake: PAPER_CONFIG.stakeSize,
+        stake,
         modelProb: vb.modelProb,
         marketOdds: vb.marketOdds,
         executionOdds,
