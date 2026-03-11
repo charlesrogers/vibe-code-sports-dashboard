@@ -15,7 +15,7 @@ if (existsSync(envPath)) {
   }
 }
 
-import { fetchLiveOdds, getApiKey } from "../lib/odds-collector/the-odds-api";
+import { fetchLiveOdds, fetchEventOdds, getUpcomingEventIds, getApiKey } from "../lib/odds-collector/the-odds-api";
 import { devigOdds1X2 } from "../lib/mi-model/data-prep";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
@@ -41,12 +41,51 @@ async function main() {
     console.log(`[PROGRESS] Fetching ${league} odds (h2h,totals,spreads)...`);
     try {
       const snapshots = await fetchLiveOdds(league, "h2h,totals,spreads", apiKey);
-      console.log(`  Got ${snapshots.length} matches\n`);
+      console.log(`  Got ${snapshots.length} matches`);
 
-      // Save raw snapshots
-      const filename = `${league}-live-${new Date().toISOString().split("T")[0]}.json`;
+      // ─── Deep fetch: alt totals for today's matches ─────────────────────
+      // getUpcomingEventIds is FREE (no quota cost)
+      const upcoming = await getUpcomingEventIds(league, apiKey);
+      const today = new Date().toISOString().split("T")[0];
+      const todayEvents = upcoming.filter(e => e.commence.startsWith(today));
+
+      if (todayEvents.length > 0) {
+        console.log(`  Fetching alt totals for ${todayEvents.length} matches (${todayEvents.length} API requests)...`);
+        let deepCount = 0;
+        for (const event of todayEvents) {
+          try {
+            const deep = await fetchEventOdds(league, event.id, apiKey);
+            if (!deep) continue;
+            deepCount++;
+
+            // Merge alt totals into bulk snapshot
+            const existing = snapshots.find(s => s.matchId === event.id);
+            if (existing) {
+              for (const bk of deep.bookmakers) {
+                if (!bk.altTotals?.length) continue;
+                const existingBk = existing.bookmakers.find(
+                  b => b.bookmakerKey === bk.bookmakerKey || b.bookmaker === bk.bookmaker
+                );
+                if (existingBk) {
+                  existingBk.altTotals = bk.altTotals;
+                } else {
+                  existing.bookmakers.push(bk);
+                }
+              }
+            }
+          } catch (e: any) {
+            console.warn(`    Deep fetch failed for ${event.home} v ${event.away}: ${e.message}`);
+          }
+        }
+        console.log(`  Merged alt totals from ${deepCount} events`);
+      } else {
+        console.log(`  No matches scheduled today — skipping alt totals`);
+      }
+
+      // Save snapshots (now includes alt totals)
+      const filename = `${league}-live-${today}.json`;
       writeFileSync(join(outDir, filename), JSON.stringify(snapshots, null, 2));
-      console.log(`  Saved to data/live-odds/${filename}`);
+      console.log(`  Saved to data/live-odds/${filename}\n`);
 
       // Print summary with Pinnacle odds + devigged probabilities
       console.log(`\n  ${"Match".padEnd(45)} ${"Pinnacle H".padStart(10)} ${"D".padStart(8)} ${"A".padStart(8)}   ${"Fair H%".padStart(8)} ${"D%".padStart(8)} ${"A%".padStart(8)}`);
