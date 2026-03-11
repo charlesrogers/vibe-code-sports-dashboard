@@ -17,10 +17,15 @@ export async function loadLedger(): Promise<PaperTradeLedger> {
   // Try Vercel Blob first
   if (process.env.BLOB_READ_WRITE_TOKEN) {
     try {
-      const { head } = await import("@vercel/blob");
-      const blob = await head(BLOB_PATH);
-      if (blob?.url) {
-        const res = await fetch(blob.url);
+      const { list } = await import("@vercel/blob");
+      // Find the exact blob (addRandomSuffix: false means path IS the pathname)
+      const blobs = await list({ prefix: BLOB_PATH });
+      // Sort by uploadedAt descending to get the latest version
+      const sorted = blobs.blobs.sort((a, b) =>
+        new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+      );
+      if (sorted.length > 0) {
+        const res = await fetch(sorted[0].url);
         if (res.ok) return await res.json();
       }
     } catch { /* fall through to file — blob may not exist yet */ }
