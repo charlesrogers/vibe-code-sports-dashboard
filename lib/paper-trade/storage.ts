@@ -11,17 +11,19 @@ function getFilePath(): string {
   return join(process.cwd(), "data", "bet-log", "ledger.json");
 }
 
+const BLOB_PATH = "paper-trade/ledger.json";
+
 export async function loadLedger(): Promise<PaperTradeLedger> {
   // Try Vercel Blob first
   if (process.env.BLOB_READ_WRITE_TOKEN) {
     try {
-      const { list } = await import("@vercel/blob");
-      const blobs = await list({ prefix: "paper-trade/ledger" });
-      if (blobs.blobs.length > 0) {
-        const res = await fetch(blobs.blobs[0].url);
+      const { head } = await import("@vercel/blob");
+      const blob = await head(BLOB_PATH);
+      if (blob?.url) {
+        const res = await fetch(blob.url);
         if (res.ok) return await res.json();
       }
-    } catch { /* fall through to file */ }
+    } catch { /* fall through to file — blob may not exist yet */ }
   }
 
   // File-based fallback
