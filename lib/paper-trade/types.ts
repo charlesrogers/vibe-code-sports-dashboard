@@ -1,28 +1,12 @@
 export type BetStatus = "pending" | "won" | "lost" | "push" | "superseded";
 export type MarketType = "1X2" | "AH" | "OU25";
 
-/** Paper trading configuration */
+/** Paper trading configuration — flat staking per Ted's Variance Betting Playbook */
 export const PAPER_CONFIG = {
-  bankroll: 1000,         // $1000 starting capital
-  kellyFraction: 0.25,    // quarter Kelly
-  maxStakePct: 0.05,      // max 5% of bankroll per bet
-  minStake: 5,            // floor: $5 minimum
-  slippage: 0.01,         // 1% odds degradation (line moves against you)
+  bankroll: 1000,      // $1000 starting capital
+  unitSize: 20,        // $20 flat stake (2% of bankroll, 50 units)
+  slippage: 0.01,      // 1% odds degradation (line moves against you)
 } as const;
-
-/** Quarter Kelly stake sizing: stake = bankroll × min(kelly, maxPct) × fraction */
-export function kellyStake(
-  modelProb: number,
-  odds: number,
-  bankroll: number = PAPER_CONFIG.bankroll,
-): number {
-  const b = odds - 1; // net odds
-  const q = 1 - modelProb;
-  const kelly = Math.max(0, (b * modelProb - q) / b);
-  const capped = Math.min(kelly, PAPER_CONFIG.maxStakePct);
-  const stake = bankroll * capped * PAPER_CONFIG.kellyFraction;
-  return Math.max(PAPER_CONFIG.minStake, Math.round(stake * 100) / 100);
-}
 
 export interface PaperBet {
   id: string;

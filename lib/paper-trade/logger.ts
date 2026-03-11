@@ -11,7 +11,7 @@ import { generatePicks } from "../mi-picks/picks-engine";
 import { appendBets, loadLedger, saveLedger } from "./storage";
 import { collectAndSaveOdds, getApiKey } from "../odds-collector/the-odds-api";
 import { MI_LEAGUES } from "../mi-picks/league-config";
-import { PAPER_CONFIG, kellyStake, type PaperBet } from "./types";
+import { PAPER_CONFIG, type PaperBet } from "./types";
 
 const LAST_WINDOW_HOUR = 19; // UTC — triggers best execution
 
@@ -51,8 +51,8 @@ export async function logPicks(
         (1 + (vb.marketOdds - 1) * (1 - PAPER_CONFIG.slippage)) * 1000
       ) / 1000;
 
-      // Quarter Kelly sizing based on model edge
-      const stake = kellyStake(vb.modelProb, executionOdds);
+      // Flat stake per Ted's playbook (2% of bankroll = $20/unit)
+      const stake = PAPER_CONFIG.unitSize;
 
       newBets.push({
         id,
