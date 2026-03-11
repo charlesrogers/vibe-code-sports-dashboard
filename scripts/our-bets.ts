@@ -20,6 +20,10 @@ import { computeAllPPG } from "../lib/mi-model/ppg-converter";
 import { predictMatch } from "../lib/mi-model/predictor";
 import { generateScoreGrid, derive1X2, deriveOverUnder, deriveBTTS, deriveAsianHandicap, expectedGoalsFromGrid, mostLikelyScore } from "../lib/mi-model/bivariate-poisson";
 import type { MISolverConfig, MatchPrediction, MarketMode } from "../lib/mi-model/types";
+import { calculateTeamVariance, assessTotalsThesis } from "../lib/variance/calculator";
+import type { TeamVariance, TotalsThesis } from "../lib/variance/calculator";
+import { assessMatch } from "../lib/variance/match-assessor";
+import type { TeamXg } from "../lib/types";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 
@@ -85,6 +89,127 @@ models["bundesliga"] = solveLeague(["bundesliga-2024-25.json"], "bundesliga");
 models["ligue-1"] = solveLeague(["ligue-1-2024-25.json"], "ligue-1");
 models["serie-a"] = solveLeague(["serie-a-2024-25.json"], "serie-a");
 models["championship"] = solveLeague(["championship-2023-24.json", "championship-2024-25.json"], "championship", 0.1);
+
+// ─── Load xG data for variance (Phase 3) ────────────────────────────────────
+
+const SOT_TO_XG = 0.32;  // shots-on-target to xG conversion factor
+
+/** Aggregate Understat per-match xG into TeamXg for a league */
+function loadUnderstatTeamXg(league: string): Map<string, TeamXg> {
+  const UNDERSTAT_MAP: Record<string, string> = {
+    epl: "premierLeague", "la-liga": "laLiga", bundesliga: "bundesliga",
+    "serie-a": "serieA", "ligue-1": "ligue1",
+  };
+  const uLeague = UNDERSTAT_MAP[league];
+  if (!uLeague) return new Map();
+
+  const map = new Map<string, TeamXg>();
+  for (const year of [2024, 2025]) {
+    const fp = join(projectRoot, "data/understat-cache", `${uLeague}-${year}.json`);
+    if (!existsSync(fp)) continue;
+    try {
+      const raw = JSON.parse(readFileSync(fp, "utf-8"));
+
+      // Two formats: rawHistory (EPL) or teams dict (other leagues)
+      let teamEntries: { name: string; matches: any[] }[] = [];
+
+      if (raw.rawHistory?.length) {
+        // EPL format: rawHistory[].team, rawHistory[].matches[]
+        teamEntries = raw.rawHistory.map((t: any) => ({ name: t.team, matches: t.matches ?? [] }));
+      } else if (raw.teams && typeof raw.teams === "object") {
+        // Other leagues: teams[id].title, teams[id].history[]
+        for (const id of Object.keys(raw.teams)) {
+          const t = raw.teams[id];
+          teamEntries.push({ name: t.title, matches: t.history ?? [] });
+        }
+      }
+
+      for (const { name, matches } of teamEntries) {
+        let xGFor = 0, xGAgainst = 0, goalsFor = 0, goalsAgainst = 0;
+        for (const m of matches) {
+          xGFor += m.xG ?? 0;
+          xGAgainst += m.xGA ?? 0;
+          goalsFor += m.scored ?? 0;
+          goalsAgainst += m.missed ?? 0;
+        }
+        map.set(name, {
+          team: name, xGFor, xGAgainst, goalsFor, goalsAgainst,
+          xGDiff: xGFor - xGAgainst,
+          overperformance: goalsFor - xGFor,
+          matches: matches.length,
+        });
+      }
+    } catch {}
+  }
+  return map;
+}
+
+/** Aggregate Championship TeamXg from football-data cache using SoT proxy */
+function loadChampionshipTeamXg(): Map<string, TeamXg> {
+  const map = new Map<string, TeamXg>();
+  for (const f of ["championship-2024-25.json", "championship-2025-26.json"]) {
+    const fp = join(dataDir, f);
+    if (!existsSync(fp)) continue;
+    try {
+      const raw = JSON.parse(readFileSync(fp, "utf-8"));
+      for (const m of raw.matches ?? []) {
+        if (m.homeGoals == null || m.awayGoals == null) continue;
+        const hSoT = m.homeShotsOnTarget ?? 0;
+        const aSoT = m.awayShotsOnTarget ?? 0;
+        for (const [team, isHome] of [[m.homeTeam, true], [m.awayTeam, false]] as [string, boolean][]) {
+          const existing = map.get(team) ?? { team, xGFor: 0, xGAgainst: 0, goalsFor: 0, goalsAgainst: 0, xGDiff: 0, overperformance: 0, matches: 0 };
+          existing.goalsFor += isHome ? m.homeGoals : m.awayGoals;
+          existing.goalsAgainst += isHome ? m.awayGoals : m.homeGoals;
+          existing.xGFor += (isHome ? hSoT : aSoT) * SOT_TO_XG;
+          existing.xGAgainst += (isHome ? aSoT : hSoT) * SOT_TO_XG;
+          existing.matches += 1;
+          existing.xGDiff = existing.xGFor - existing.xGAgainst;
+          existing.overperformance = existing.goalsFor - existing.xGFor;
+          map.set(team, existing);
+        }
+      }
+    } catch {}
+  }
+  return map;
+}
+
+console.log("[PROGRESS] Loading xG data for variance...");
+const leagueXg: Record<string, Map<string, TeamXg>> = {};
+for (const league of ["epl", "la-liga", "bundesliga", "serie-a", "ligue-1"]) {
+  leagueXg[league] = loadUnderstatTeamXg(league);
+}
+leagueXg["championship"] = loadChampionshipTeamXg();
+
+const xgCounts = Object.entries(leagueXg).map(([l, m]) => `${l}: ${m.size}`).join(", ");
+console.log(`[PROGRESS] Loaded xG: ${xgCounts}`);
+
+/** Get variance for a team from its league's xG data (fuzzy name matching) */
+function getTeamVariance(teamName: string, league: string, venue?: "home" | "away"): TeamVariance | null {
+  const xgMap = leagueXg[league];
+  if (!xgMap) return null;
+
+  // Try exact match first
+  let xg = xgMap.get(teamName);
+
+  // Fuzzy: try normalizing hyphens/spaces
+  if (!xg) {
+    const normalized = teamName.replace(/-/g, " ").toLowerCase();
+    for (const [key, val] of xgMap) {
+      if (key.replace(/-/g, " ").toLowerCase() === normalized) { xg = val; break; }
+    }
+  }
+
+  // Fuzzy: try first word match (e.g. "Atalanta" matches "Atalanta")
+  if (!xg) {
+    const firstWord = teamName.split(" ")[0].toLowerCase();
+    for (const [key, val] of xgMap) {
+      if (key.toLowerCase().startsWith(firstWord)) { xg = val; break; }
+    }
+  }
+
+  if (!xg) return null;
+  return calculateTeamVariance(xg, venue);
+}
 
 // ─── Team name maps ──────────────────────────────────────────────────────────
 
@@ -403,6 +528,50 @@ function predictCrossLeague(homeTeam: string, awayTeam: string): MatchPrediction
   };
 }
 
+// ─── Variance tagging (Phase 3) ──────────────────────────────────────────────
+
+function tagBetsWithVariance(bets: TedBet[], homeV: TeamVariance, awayV: TeamVariance) {
+  const sideAssess = assessMatch(homeV, awayV);
+  const totalsThesis = assessTotalsThesis(homeV, awayV);
+
+  for (const bet of bets) {
+    const isTotal = bet.selection.startsWith("Over") || bet.selection.startsWith("Under");
+
+    if (isTotal) {
+      // Tag totals bets based on variance totals thesis
+      if (totalsThesis.direction === "none") {
+        bet.signal = "model_only";
+        continue;
+      }
+      const betDir = bet.selection.startsWith("Over") ? "over" : "under";
+      if (betDir === totalsThesis.direction && totalsThesis.confidence >= 0.4) {
+        bet.signal = "model+variance";
+      } else if (betDir !== totalsThesis.direction && totalsThesis.confidence >= 0.4) {
+        bet.signal = "model_only (variance_conflict)";
+      } else {
+        bet.signal = "model_only";
+      }
+    } else {
+      // Tag side bets based on match variance assessment
+      if (!sideAssess.hasBet) {
+        bet.signal = "model_only";
+        continue;
+      }
+      // Check if variance agrees with the bet side
+      const betTeam = bet.selection.split(" ")[0]; // first word is team name
+      const matchStr = bet.match;
+      const homeTeam = matchStr.split(" v ")[0];
+      const varianceSide = sideAssess.betSide === "home" ? homeTeam : matchStr.split(" v ")[1];
+
+      if (bet.selection.includes(varianceSide) || varianceSide?.includes(betTeam)) {
+        bet.signal = `model+variance (${sideAssess.betGrade})`;
+      } else {
+        bet.signal = "model_only";
+      }
+    }
+  }
+}
+
 // ─── Main output ─────────────────────────────────────────────────────────────
 
 console.log("\n");
@@ -441,6 +610,18 @@ for (const snap of uclOdds) {
     continue;
   }
   const bets = findBestAHLine(pred, snap, MIN_EDGE);
+
+  // Variance tagging for UCL
+  const hi = UCL_MAP[snap.homeTeam];
+  const ai = UCL_MAP[snap.awayTeam];
+  if (hi?.league && ai?.league) {
+    const hv = getTeamVariance(hi.fd, hi.league, "home");
+    const av = getTeamVariance(ai.fd, ai.league, "away");
+    if (hv && av) {
+      tagBetsWithVariance(bets, hv, av);
+    }
+  }
+
   allBets.push(...bets);
 }
 
@@ -463,6 +644,14 @@ for (const snap of champOdds) {
   pred = { ...pred, homeTeam: snap.homeTeam, awayTeam: snap.awayTeam };
 
   const bets = findBestAHLine(pred, snap, MIN_EDGE);
+
+  // Variance tagging for Championship
+  const hv = getTeamVariance(homeFD, "championship", "home");
+  const av = getTeamVariance(awayFD, "championship", "away");
+  if (hv && av) {
+    tagBetsWithVariance(bets, hv, av);
+  }
+
   allBets.push(...bets);
 }
 

@@ -369,3 +369,101 @@ export function calculateAllVariance(teams: TeamXg[]): TeamVariance[] {
         Math.abs(b.totalVariance) - Math.abs(a.totalVariance)
     );
 }
+
+// ─── Totals Thesis (Phase 3) ────────────────────────────────────────────────
+
+export interface TotalsThesis {
+  direction: "over" | "under" | "none";
+  confidence: number;          // 0-1
+  reasoning: string;
+  varianceAlignment: number;   // how strongly both teams' variance points to same totals direction
+}
+
+/**
+ * Map a team's dominantType to a totals direction.
+ *
+ * | Variance pattern             | Totals implication |
+ * |------------------------------|--------------------|
+ * | attack_overperf              | Under (attack regresses down → fewer goals) |
+ * | attack_underperf             | Over (attack regresses up → more goals) |
+ * | defense_underperf            | Over (defense leaking → more goals) |
+ * | defense_overperf             | Under (defense overperforming → fewer goals, may crack) |
+ * | balanced                     | None |
+ */
+function varianceToTotalsDirection(v: TeamVariance): "over" | "under" | "none" {
+  switch (v.dominantType) {
+    case "attack_overperf": return "under";   // scoring will dry up
+    case "attack_underperf": return "over";   // finishing will normalize up
+    case "defense_underperf": return "over";  // leaking goals, more coming
+    case "defense_overperf": return "under";  // fewer goals (or dam breaks — use with caution)
+    case "balanced": return "none";
+  }
+}
+
+/**
+ * Assess whether variance signals point to a totals bet (Over/Under)
+ * rather than a sides bet.
+ *
+ * The key insight: when BOTH teams' variance points in the same totals
+ * direction, that's a strong signal. When they disagree, there's no thesis.
+ */
+export function assessTotalsThesis(
+  homeVariance: TeamVariance,
+  awayVariance: TeamVariance
+): TotalsThesis {
+  const homeDir = varianceToTotalsDirection(homeVariance);
+  const awayDir = varianceToTotalsDirection(awayVariance);
+
+  // Both balanced or both none → no thesis
+  if (homeDir === "none" && awayDir === "none") {
+    return { direction: "none", confidence: 0, reasoning: "No variance signal for totals — both teams balanced.", varianceAlignment: 0 };
+  }
+
+  // One has direction, other is balanced → weak thesis from one side only
+  if (homeDir === "none" || awayDir === "none") {
+    const active = homeDir !== "none" ? homeVariance : awayVariance;
+    const dir = homeDir !== "none" ? homeDir : awayDir;
+    const conf = active.regressionConfidence * 0.4; // single-team signal = weak
+    return {
+      direction: dir as "over" | "under",
+      confidence: Math.round(conf * 100) / 100,
+      reasoning: `Weak totals signal from ${active.team} only (${active.dominantType}). Other team is balanced.`,
+      varianceAlignment: Math.round(conf * 100) / 100,
+    };
+  }
+
+  // Both point same direction → strong thesis
+  if (homeDir === awayDir) {
+    const alignment = (homeVariance.regressionConfidence + awayVariance.regressionConfidence) / 2;
+    const parts: string[] = [];
+
+    if (homeDir === "over") {
+      parts.push(`Both teams' variance points to MORE goals.`);
+      if (homeVariance.dominantType === "attack_underperf") parts.push(`${homeVariance.team} underscoring xG.`);
+      if (homeVariance.dominantType === "defense_underperf") parts.push(`${homeVariance.team} leaking above xGA.`);
+      if (awayVariance.dominantType === "attack_underperf") parts.push(`${awayVariance.team} underscoring xG.`);
+      if (awayVariance.dominantType === "defense_underperf") parts.push(`${awayVariance.team} leaking above xGA.`);
+    } else {
+      parts.push(`Both teams' variance points to FEWER goals.`);
+      if (homeVariance.dominantType === "attack_overperf") parts.push(`${homeVariance.team} overscoring xG — will dry up.`);
+      if (homeVariance.dominantType === "defense_overperf") parts.push(`${homeVariance.team} conceding below xGA.`);
+      if (awayVariance.dominantType === "attack_overperf") parts.push(`${awayVariance.team} overscoring xG — will dry up.`);
+      if (awayVariance.dominantType === "defense_overperf") parts.push(`${awayVariance.team} conceding below xGA.`);
+    }
+
+    return {
+      direction: homeDir as "over" | "under",
+      confidence: Math.round(alignment * 100) / 100,
+      reasoning: parts.join(" "),
+      varianceAlignment: Math.round(alignment * 100) / 100,
+    };
+  }
+
+  // Opposite directions → no totals thesis (sides territory)
+  return {
+    direction: "none",
+    confidence: 0,
+    reasoning: `Variance points in opposite totals directions (${homeVariance.team}: ${homeDir}, ${awayVariance.team}: ${awayDir}). This is sides territory, not totals.`,
+    varianceAlignment: 0,
+  };
+}
