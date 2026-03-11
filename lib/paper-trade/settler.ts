@@ -62,12 +62,18 @@ export async function settlePendingBets(): Promise<{ settled: number; results: {
     bet.awayGoals = result.awayGoals;
     bet.settledAt = new Date().toISOString();
 
-    // Determine outcome
+    // Use executionOdds (post-slippage) for settlement; fall back to marketOdds for old bets
+    const odds = bet.executionOdds || bet.marketOdds;
+    const stake = bet.stake || 10;
+
+    // Determine outcome — profit in dollars
     if (bet.marketType === "1X2") {
       const actual = result.homeGoals > result.awayGoals ? "Home"
         : result.awayGoals > result.homeGoals ? "Away" : "Draw";
       bet.status = bet.selection === actual ? "won" : "lost";
-      bet.profit = bet.status === "won" ? bet.marketOdds - 1 : -1;
+      bet.profit = bet.status === "won"
+        ? Math.round(stake * (odds - 1) * 100) / 100
+        : -stake;
     } else if (bet.marketType === "AH") {
       // Asian Handicap settlement
       // selection format: "Home -0.5", "Away +1.0", etc.
@@ -76,27 +82,23 @@ export async function settlePendingBets(): Promise<{ settled: number; results: {
         const side = parts[1];
         const line = parseFloat(parts[2]);
         const goalDiff = result.homeGoals - result.awayGoals;
-        // Handicap-adjusted diff from the selection side's perspective
         const adjDiff = side === "Home" ? goalDiff + line : -goalDiff + line;
 
         if (adjDiff > 0.25) {
           bet.status = "won";
-          bet.profit = bet.marketOdds - 1;
+          bet.profit = Math.round(stake * (odds - 1) * 100) / 100;
         } else if (adjDiff === 0.25) {
-          // Half win
           bet.status = "won";
-          bet.profit = (bet.marketOdds - 1) / 2;
+          bet.profit = Math.round(stake * (odds - 1) * 0.5 * 100) / 100;
         } else if (adjDiff === 0) {
-          // Push (refund)
           bet.status = "push";
           bet.profit = 0;
         } else if (adjDiff === -0.25) {
-          // Half loss
           bet.status = "lost";
-          bet.profit = -0.5;
+          bet.profit = Math.round(-stake * 0.5 * 100) / 100;
         } else {
           bet.status = "lost";
-          bet.profit = -1;
+          bet.profit = -stake;
         }
       }
     }

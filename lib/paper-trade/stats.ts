@@ -10,31 +10,33 @@ export function computeStats(bets: PaperBet[]): PaperTradeStats {
   const pushes = settled.filter(b => b.status === "push");
 
   const totalProfit = settled.reduce((s, b) => s + (b.profit || 0), 0);
-  const totalStaked = settled.length;
+  const totalStaked = settled.reduce((s, b) => s + (b.stake || 10), 0);
 
   // By league
-  const byLeague: Record<string, { n: number; roi: number; clv: number; profit: number }> = {};
+  const byLeague: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number }> = {};
   for (const b of settled) {
-    if (!byLeague[b.league]) byLeague[b.league] = { n: 0, roi: 0, clv: 0, profit: 0 };
+    if (!byLeague[b.league]) byLeague[b.league] = { n: 0, roi: 0, clv: 0, profit: 0, staked: 0 };
     byLeague[b.league].n++;
     byLeague[b.league].profit += b.profit || 0;
+    byLeague[b.league].staked += b.stake || 10;
   }
-  for (const [, v] of Object.entries(byLeague)) {
-    v.roi = v.n > 0 ? v.profit / v.n : 0;
-    const leagueBets = settled.filter(b => b.league === Object.keys(byLeague).find(k => byLeague[k] === v));
+  for (const [league, v] of Object.entries(byLeague)) {
+    v.roi = v.staked > 0 ? Math.round((v.profit / v.staked) * 10000) / 100 : 0;
+    const leagueBets = settled.filter(b => b.league === league);
     v.clv = leagueBets.length > 0 ? leagueBets.reduce((s, b) => s + (b.clv || 0), 0) / leagueBets.length : 0;
   }
 
   // By grade
-  const byGrade: Record<string, { n: number; roi: number; clv: number; profit: number }> = {};
+  const byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number }> = {};
   for (const b of settled) {
     const g = b.confidenceGrade || "none";
-    if (!byGrade[g]) byGrade[g] = { n: 0, roi: 0, clv: 0, profit: 0 };
+    if (!byGrade[g]) byGrade[g] = { n: 0, roi: 0, clv: 0, profit: 0, staked: 0 };
     byGrade[g].n++;
     byGrade[g].profit += b.profit || 0;
+    byGrade[g].staked += b.stake || 10;
   }
   for (const [g, v] of Object.entries(byGrade)) {
-    v.roi = v.n > 0 ? v.profit / v.n : 0;
+    v.roi = v.staked > 0 ? Math.round((v.profit / v.staked) * 10000) / 100 : 0;
     const gradeBets = settled.filter(b => (b.confidenceGrade || "none") === g);
     v.clv = gradeBets.length > 0 ? gradeBets.reduce((s, b) => s + (b.clv || 0), 0) / gradeBets.length : 0;
   }

@@ -11,7 +11,7 @@ import { generatePicks } from "../mi-picks/picks-engine";
 import { appendBets, loadLedger, saveLedger } from "./storage";
 import { collectAndSaveOdds, getApiKey } from "../odds-collector/the-odds-api";
 import { MI_LEAGUES } from "../mi-picks/league-config";
-import type { PaperBet } from "./types";
+import { PAPER_CONFIG, type PaperBet } from "./types";
 
 const LAST_WINDOW_HOUR = 19; // UTC — triggers best execution
 
@@ -46,6 +46,11 @@ export async function logPicks(
       const id = `${pick.date}_${pick.homeTeam}_vs_${pick.awayTeam}_${vb.marketType}_${vb.selection}_T${String(evalHour).padStart(2, "0")}`
         .replace(/\s+/g, "_");
 
+      // Apply slippage: odds degrade by ~1% (line moves against you)
+      const executionOdds = Math.round(
+        (1 + (vb.marketOdds - 1) * (1 - PAPER_CONFIG.slippage)) * 1000
+      ) / 1000;
+
       newBets.push({
         id,
         createdAt: new Date().toISOString(),
@@ -56,9 +61,10 @@ export async function logPicks(
         marketType: vb.marketType,
         selection: vb.selection,
         ...(vb.ahLine != null && { ahLine: vb.ahLine }),
-        stake: 1,
+        stake: PAPER_CONFIG.stakeSize,
         modelProb: vb.modelProb,
         marketOdds: vb.marketOdds,
+        executionOdds,
         edge: vb.edge,
         confidenceGrade: pick.grade,
         oddsTimestamp,

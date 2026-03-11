@@ -1,6 +1,13 @@
 export type BetStatus = "pending" | "won" | "lost" | "push" | "superseded";
 export type MarketType = "1X2" | "AH" | "OU25";
 
+/** Paper trading configuration */
+export const PAPER_CONFIG = {
+  stakeSize: 10,          // $10 per bet
+  slippage: 0.01,         // 1% odds degradation (line moves against you)
+  startingBankroll: 1000, // $1000 starting capital
+} as const;
+
 export interface PaperBet {
   id: string;
   createdAt: string;
@@ -14,6 +21,7 @@ export interface PaperBet {
   stake: number;
   modelProb: number;
   marketOdds: number;
+  executionOdds: number;  // marketOdds after slippage — what you actually got
   edge: number;
   confidenceGrade: "A" | "B" | "C" | null;
   oddsTimestamp?: string;
