@@ -93,6 +93,8 @@ interface Pick {
     away: { name: string; isNewThisSeason: boolean; isMidSeasonChange: boolean; seasonRecord: { win: number; draw: number; loss: number } | null; previousManager: string | null } | null;
     recentChanges: boolean;
   };
+  isPostBreak?: boolean;
+  isDerby?: boolean;
 }
 
 interface PicksSummary {
@@ -110,6 +112,7 @@ const LEAGUE_LABELS: Record<string, string> = {
   "la-liga": "La Liga",
   bundesliga: "Bundesliga",
   "serie-a": "Serie A",
+  "serie-b": "Serie B",
 };
 
 function GradeBadge({ grade }: { grade: "A" | "B" | "C" | null }) {
@@ -418,6 +421,16 @@ function PickCard({ pick }: { pick: Pick }) {
           <VerdictBadge verdict={pick.tedVerdict} />
           {pick.grade && <GradeBadge grade={pick.grade} />}
           <span className="text-xs text-zinc-500">{LEAGUE_LABELS[pick.league] || pick.league}</span>
+          {pick.isPostBreak && (
+            <span className="inline-block rounded px-1.5 py-0.5 text-[9px] font-bold bg-amber-900/50 text-amber-400 border border-amber-800">
+              Intl Break
+            </span>
+          )}
+          {pick.isDerby && (
+            <span className="inline-block rounded px-1.5 py-0.5 text-[9px] font-bold bg-red-900/50 text-red-400 border border-red-800">
+              Derby
+            </span>
+          )}
         </div>
         <span className="text-xs text-zinc-600">{timeStr}</span>
       </div>

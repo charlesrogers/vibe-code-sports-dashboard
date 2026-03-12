@@ -34,6 +34,8 @@ import {
   type TedFilterConfig,
   checkPassRate,
 } from "./ted-filters";
+import { isPostInternationalBreak } from "./international-breaks";
+import { isDerby as checkDerby } from "./derbies";
 
 const projectRoot = join(process.cwd());
 const paramsDir = join(projectRoot, "data", "mi-params", "latest");
@@ -123,6 +125,8 @@ export interface Pick {
     away: ManagerInfo | null;
     recentChanges: boolean; // true if either team has a new/mid-season manager
   };
+  isPostBreak?: boolean;
+  isDerby?: boolean;
 }
 
 export interface PicksSummary {
@@ -779,6 +783,8 @@ export async function generatePicks(
           away: awayMgr,
           recentChanges: (homeMgr?.isNewThisSeason || homeMgr?.isMidSeasonChange || awayMgr?.isNewThisSeason || awayMgr?.isMidSeasonChange) ?? false,
         } : undefined,
+        isPostBreak: isPostInternationalBreak(matchDate) || undefined,
+        isDerby: checkDerby(homeTeam, awayTeam, league.id) || undefined,
       });
     }
 
