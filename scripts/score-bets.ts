@@ -32,8 +32,24 @@ function loadResults(): MatchResult[] {
   for (const file of files) {
     try {
       const raw = JSON.parse(readFileSync(join(cacheDir, file), "utf-8"));
-      for (const m of raw) {
-        if (m.FTHG != null && m.FTAG != null) {
+
+      // Handle both formats: { matches: [...] } and flat array [...]
+      const matches = Array.isArray(raw) ? raw : (raw.matches || []);
+
+      for (const m of matches) {
+        // Format 1: Our normalized format (homeGoals/awayGoals)
+        if (m.homeGoals != null && m.awayGoals != null) {
+          results.push({
+            homeTeam: m.homeTeam,
+            awayTeam: m.awayTeam,
+            date: m.date,
+            fthg: m.homeGoals,
+            ftag: m.awayGoals,
+            result: m.result || (m.homeGoals > m.awayGoals ? "H" : m.homeGoals < m.awayGoals ? "A" : "D"),
+          });
+        }
+        // Format 2: football-data.co.uk CSV format (FTHG/FTAG)
+        else if (m.FTHG != null && m.FTAG != null) {
           results.push({
             homeTeam: m.HomeTeam,
             awayTeam: m.AwayTeam,
@@ -71,17 +87,44 @@ function normalize(name: string): string {
     .trim();
 }
 
+/** Parse "11 Mar" or "14 Mar" into month number for date matching */
+function parseShortDate(dateStr: string): { day: number; month: number } | null {
+  const months: Record<string, number> = {
+    jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+    jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12,
+  };
+  const m = dateStr.match(/^(\d+)\s+(\w+)$/);
+  if (!m) return null;
+  const month = months[m[2].toLowerCase()];
+  if (!month) return null;
+  return { day: parseInt(m[1]), month };
+}
+
 function findMatch(bet: any, results: MatchResult[]): MatchResult | null {
   const parts = bet.match.split(" v ");
   if (parts.length !== 2) return null;
   const homeN = normalize(parts[0]);
   const awayN = normalize(parts[1]);
 
+  // Parse bet date for filtering (optional — helps narrow results)
+  const betDate = parseShortDate(bet.date);
+
   return results.find(r => {
     const rh = normalize(r.homeTeam);
     const ra = normalize(r.awayTeam);
-    return (rh.includes(homeN) || homeN.includes(rh)) &&
-           (ra.includes(awayN) || awayN.includes(ra));
+    const teamMatch = (rh.includes(homeN) || homeN.includes(rh)) &&
+                      (ra.includes(awayN) || awayN.includes(ra));
+    if (!teamMatch) return false;
+
+    // If we have date info, verify month/day match (handles "11 Mar" vs "2026-03-11")
+    if (betDate && r.date.includes("-")) {
+      const parts = r.date.split("-");
+      const rMonth = parseInt(parts[1]);
+      const rDay = parseInt(parts[2]);
+      if (rMonth !== betDate.month || rDay !== betDate.day) return false;
+    }
+
+    return true;
   }) ?? null;
 }
 
