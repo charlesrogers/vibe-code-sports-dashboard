@@ -132,6 +132,26 @@ export const DEFAULT_CONFIG: CollectionConfig = {
       })),
       pollsPerDay: 1,
     },
+    {
+      key: "laLiga",
+      label: "La Liga",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 2,
+    },
+    {
+      key: "bundesliga",
+      label: "Bundesliga",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 2,
+    },
   ],
   priorityBooks: [
     "pinnacle",    // Sharpest book — THE benchmark
