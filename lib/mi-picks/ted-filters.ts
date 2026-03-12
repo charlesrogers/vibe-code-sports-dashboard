@@ -6,6 +6,7 @@
  */
 
 import type { MIModelParams } from "../mi-model/types";
+import { isPostInternationalBreak } from "./international-breaks";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -15,6 +16,9 @@ export interface TeamMatchRecord {
   actualGF: number;
   expectedGA: number;
   actualGA: number;
+  /** Match-level xG from Understat (when available) */
+  matchXGF?: number;
+  matchXGA?: number;
 }
 
 export interface TeamHistory {
@@ -33,23 +37,25 @@ export interface TedFilterConfig {
   maxOdds: number;               // odds cap (default 2.5)
   minEdge: number;               // min CLV edge (default 0.07)
   noDraws: boolean;              // exclude draw bets (default true)
+  internationalBreakFilter: boolean; // skip post-international-break matchdays (default false)
 }
 
 export const DEFAULT_TED_CONFIG: TedFilterConfig = {
   varianceLookback: 10,
   varianceMinGap: 3.0,
-  defianceStreak: 8,
+  defianceStreak: 10,
   skipEarlyMatchdays: 5,
   congestionDays: 8,
   congestionMatchCount: 3,
   maxOdds: 2.0,  // backtest: 2.0 = +2.0% ROI vs 2.5 = +0.3%, 3.0 = -1.7%
   minEdge: 0.07,
   noDraws: true,
+  internationalBreakFilter: false,
 };
 
 export interface TedFilterResult {
   pass: boolean;
-  reason: "early_season" | "congestion" | "no_variance" | "defiance" | "low_pass_rate" | null;
+  reason: "early_season" | "congestion" | "no_variance" | "defiance" | "international_break" | "low_pass_rate" | null;
 }
 
 // ─── Team History Builder ───────────────────────────────────────────────────
@@ -185,13 +191,18 @@ export function applyTedFilters(
     return { pass: false, reason: "early_season" };
   }
 
-  // 2. Congestion filter
+  // 2. International break filter
+  if (config.internationalBreakFilter && isPostInternationalBreak(matchDate)) {
+    return { pass: false, reason: "international_break" };
+  }
+
+  // 3. Congestion filter
   if (isCongested(homeTeam, matchDate, teamMatchDates, config) ||
       isCongested(awayTeam, matchDate, teamMatchDates, config)) {
     return { pass: false, reason: "congestion" };
   }
 
-  // 3. Variance filter — at least one team must be a regression candidate
+  // 4. Variance filter — at least one team must be a regression candidate
   const homeHist = teamHistory[homeTeam];
   const awayHist = teamHistory[awayTeam];
   const homeRegression = homeHist ? isRegressionCandidate(homeHist, config) : false;
@@ -200,7 +211,7 @@ export function applyTedFilters(
     return { pass: false, reason: "no_variance" };
   }
 
-  // 4. Defiance filter
+  // 5. Defiance filter
   const homeDefiant = homeHist && homeHist.defianceCount >= config.defianceStreak;
   const awayDefiant = awayHist && awayHist.defianceCount >= config.defianceStreak;
   if (homeDefiant || awayDefiant) {
@@ -219,6 +230,7 @@ export function tedReasonLabel(reason: TedFilterResult["reason"]): string {
     case "congestion": return "Fixture congestion — team playing 3+ in 8 days";
     case "no_variance": return "No regression candidate — no xG divergence";
     case "defiance": return "Persistent model defiance — structural mismatch";
+    case "international_break": return "Post-international break — unpredictable matchday";
     case "low_pass_rate": return "Low historical win rate — below threshold";
     default: return "";
   }

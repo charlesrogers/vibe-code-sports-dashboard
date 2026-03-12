@@ -44,12 +44,41 @@ export function predictMatch(
     : grid;
 
   // Derive all market probabilities
-  const probs1X2 = derive1X2(grid);
+  let probs1X2 = derive1X2(grid);
   const overUnder = deriveOverUnder(deflatedGrid, [0.5, 1.5, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 4, 4.5]);
   const btts = deriveBTTS(grid);
-  const asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]);
+  let asianHandicap = deriveAsianHandicap(grid, [-2.5, -1.5, -1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1, 1.5, 2.5]);
   const eg = expectedGoalsFromGrid(grid);
   const mls = mostLikelyScore(grid);
+
+  // Calibration shrinkage: shrink probabilities toward uninformative prior
+  const shrink = params.calibrationShrink;
+  if (shrink != null && shrink < 1.0) {
+    // 1X2: shrink toward 1/3 each
+    probs1X2 = {
+      home: probs1X2.home * shrink + (1 / 3) * (1 - shrink),
+      draw: probs1X2.draw * shrink + (1 / 3) * (1 - shrink),
+      away: probs1X2.away * shrink + (1 / 3) * (1 - shrink),
+    };
+    // O/U: shrink toward 0.5 each
+    for (const key of Object.keys(overUnder)) {
+      const ou = overUnder[key];
+      overUnder[key] = {
+        over: ou.over * shrink + 0.5 * (1 - shrink),
+        under: ou.under * shrink + 0.5 * (1 - shrink),
+      };
+    }
+    // AH: shrink toward 0.5 each
+    const newAH: Record<string, { home: number; away: number }> = {};
+    for (const key of Object.keys(asianHandicap)) {
+      const ah = asianHandicap[key];
+      newAH[key] = {
+        home: ah.home * shrink + 0.5 * (1 - shrink),
+        away: ah.away * shrink + 0.5 * (1 - shrink),
+      };
+    }
+    asianHandicap = newAH;
+  }
 
   return {
     homeTeam,

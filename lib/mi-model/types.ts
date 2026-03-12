@@ -33,6 +33,9 @@ export interface MIModelParams {
   driftFactor: number;
   /** League strength index (1.0 = EPL baseline, <1.0 = weaker league) */
   leagueStrength?: number;
+  /** Calibration shrinkage: shrink probabilities toward prior (1/3 for 1X2, 0.5 for 2-way).
+   *  Value of 0.90 means 90% model + 10% prior. undefined = no shrinkage. */
+  calibrationShrink?: number;
 }
 
 /** Match with devigged market probabilities (solver input) */
