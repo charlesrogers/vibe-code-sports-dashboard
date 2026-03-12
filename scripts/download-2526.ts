@@ -164,16 +164,21 @@ async function main() {
   const cacheDir = path.join(process.cwd(), "data", "football-data-cache");
   fs.mkdirSync(cacheDir, { recursive: true });
 
-  console.log("=== Downloading football-data.co.uk CSVs ===\n");
+  const force = process.argv.includes("--force");
+  const onlyCurrent = process.argv.includes("--current"); // only 2025-26
+
+  console.log(`=== Downloading football-data.co.uk CSVs${force ? " (FORCE REFRESH)" : ""} ===\n`);
 
   let downloaded = 0;
   let skipped = 0;
 
   for (const cfg of TARGETS) {
+    if (onlyCurrent && cfg.season !== "2025-26") { skipped++; continue; }
+
     const outFile = path.join(cacheDir, `${cfg.league}-${cfg.season}.json`);
 
-    // Skip if already cached
-    if (fs.existsSync(outFile)) {
+    // Skip if already cached (unless --force)
+    if (!force && fs.existsSync(outFile)) {
       const existing = JSON.parse(fs.readFileSync(outFile, "utf-8"));
       console.log(`[SKIP] ${cfg.label} — already cached (${existing.matchCount} matches, fetched ${existing.fetchedAt})`);
       skipped++;

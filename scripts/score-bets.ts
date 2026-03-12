@@ -65,6 +65,47 @@ function loadResults(): MatchResult[] {
   return results;
 }
 
+/** Fetch live results from Fotmob leagues API (real-time, no delay) */
+async function fetchFotmobResults(leagueIds: number[]): Promise<MatchResult[]> {
+  const results: MatchResult[] = [];
+  for (const lid of leagueIds) {
+    try {
+      const res = await fetch(
+        `https://www.fotmob.com/api/leagues?id=${lid}&ccode3=USA`,
+        { headers: { "User-Agent": "Mozilla/5.0" } },
+      );
+      if (!res.ok) continue;
+      const data = await res.json();
+      const allMatches = data?.fixtures?.allMatches || [];
+      for (const m of allMatches) {
+        if (!m.status?.finished) continue;
+        const scoreStr = m.status?.scoreStr || "";
+        const parts = scoreStr.split(" - ");
+        if (parts.length !== 2) continue;
+        const fthg = parseInt(parts[0]);
+        const ftag = parseInt(parts[1]);
+        if (isNaN(fthg) || isNaN(ftag)) continue;
+        const date = (m.status?.utcTime || "").slice(0, 10);
+        results.push({
+          homeTeam: m.home?.name || "",
+          awayTeam: m.away?.name || "",
+          date,
+          fthg,
+          ftag,
+          result: fthg > ftag ? "H" : fthg < ftag ? "A" : "D",
+        });
+      }
+      console.log(`[PROGRESS] Fotmob league ${lid}: ${allMatches.filter((m: any) => m.status?.finished).length} finished matches`);
+    } catch (e) {
+      console.log(`[WARN] Fotmob league ${lid} fetch failed: ${e}`);
+    }
+  }
+  return results;
+}
+
+// Fotmob league IDs for our bet leagues
+const FOTMOB_LEAGUES = [47, 48, 55, 87, 54]; // EPL, Championship, Serie A, La Liga, Bundesliga
+
 // ─── Bet grading logic ───────────────────────────────────────────────────────
 
 // Normalize team names for fuzzy matching
@@ -221,10 +262,11 @@ function gradeBet(selection: string, match: MatchResult): { outcome: BetOutcome;
 
 // ─── Main ────────────────────────────────────────────────────────────────────
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   const showSummary = args.includes("--summary");
   const specificDate = args.find(a => /^\d{4}-\d{2}-\d{2}$/.test(a));
+  const useFotmob = !args.includes("--no-fotmob");
 
   if (!existsSync(betLogDir)) {
     console.log("No bet-log directory found.");
@@ -232,7 +274,26 @@ function main() {
   }
 
   const results = loadResults();
-  console.log(`[PROGRESS] Loaded ${results.length} match results from cache\n`);
+  console.log(`[PROGRESS] Loaded ${results.length} match results from cache`);
+
+  // Fetch live results from Fotmob (fills gaps where football-data lags)
+  if (useFotmob) {
+    console.log(`[PROGRESS] Fetching live results from Fotmob...`);
+    const fotmobResults = await fetchFotmobResults(FOTMOB_LEAGUES);
+    // Merge: Fotmob results fill in anything not in the cache
+    const existingKeys = new Set(results.map(r => `${r.date}_${normalize(r.homeTeam)}_${normalize(r.awayTeam)}`));
+    let added = 0;
+    for (const fr of fotmobResults) {
+      const key = `${fr.date}_${normalize(fr.homeTeam)}_${normalize(fr.awayTeam)}`;
+      if (!existingKeys.has(key)) {
+        results.push(fr);
+        existingKeys.add(key);
+        added++;
+      }
+    }
+    console.log(`[PROGRESS] Fotmob added ${added} new results (total: ${results.length})`);
+  }
+  console.log();
 
   const logFiles = readdirSync(betLogDir)
     .filter(f => f.endsWith(".json"))
@@ -362,4 +423,4 @@ function main() {
   console.log();
 }
 
-main();
+main().catch(e => { console.error("Fatal:", e); process.exit(1); });
