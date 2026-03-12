@@ -173,6 +173,7 @@ function buildExplanation(v: {
   regressionConfidence: number;
   qualityTier: TeamVariance["qualityTier"];
   persistentDefiance: boolean;
+  managerChange?: { isNewThisSeason: boolean; isMidSeasonChange: boolean };
 }): string {
   const parts: string[] = [];
 
@@ -220,6 +221,17 @@ function buildExplanation(v: {
     );
   }
 
+  // Manager change warning
+  if (v.managerChange?.isMidSeasonChange) {
+    parts.push(
+      `⚠️ MID-SEASON MANAGER CHANGE: xG data reflects mixed tactical systems. Regression confidence heavily reduced.`
+    );
+  } else if (v.managerChange?.isNewThisSeason) {
+    parts.push(
+      `NEW MANAGER: xG reflects new system still forming. Regression confidence reduced.`
+    );
+  }
+
   if (v.regressionDirection === "improve") {
     parts.push(`Expect results to IMPROVE.`);
   } else if (v.regressionDirection === "decline") {
@@ -237,6 +249,8 @@ export interface VarianceOptions {
   venue?: "home" | "away";
   legacy?: boolean; // When true, use v1 logic (no venue offset)
   last10Xg?: TeamXg; // Last-10 rolling window xG data (optional)
+  /** Manager change info — reduces regression confidence since xG reflects old system */
+  managerChange?: { isNewThisSeason: boolean; isMidSeasonChange: boolean };
 }
 
 export function calculateTeamVariance(
@@ -313,6 +327,17 @@ export function calculateTeamVariance(
     regressionConfidence = Math.max(0, Math.min(1, regressionConfidence));
   }
 
+  // Manager change: xG data reflects old tactical system — reduce trust
+  // Mid-season change is worse (less post-change data available)
+  // Ted: "A new manager changes everything — tactical system, player roles,
+  // pressing intensity. Historical form data becomes unreliable."
+  if (opts.managerChange?.isMidSeasonChange) {
+    regressionConfidence -= 0.25; // heavy penalty — very little reliable data
+  } else if (opts.managerChange?.isNewThisSeason) {
+    regressionConfidence -= 0.15; // moderate penalty — some data but system still forming
+  }
+  regressionConfidence = Math.max(0, Math.min(1, regressionConfidence));
+
   // If overperforming (positive signal) -> will regress DOWN -> decline
   // If underperforming (negative signal) -> will regress UP -> improve
   let regressionDirection: TeamVariance["regressionDirection"] = "stable";
@@ -331,6 +356,7 @@ export function calculateTeamVariance(
     regressionConfidence,
     qualityTier,
     persistentDefiance,
+    managerChange: opts.managerChange,
   });
 
   return {

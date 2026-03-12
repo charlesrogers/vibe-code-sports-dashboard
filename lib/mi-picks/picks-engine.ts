@@ -12,6 +12,7 @@ import { fetchInjuriesForTeams, enrichWithMinutes } from "../injuries";
 import { fetchGKStats, fetchPlayerMinutes, getStartingGK, buildMinutesLookup, type GKStats, type PlayerMinutes } from "../gk-psxg";
 import { fetchManagersForTeams, type ManagerInfo } from "../manager-changes";
 import { adjustLambdas } from "./injury-adjust";
+import { adjustLambdasForGK, type GKAdjustment } from "./gk-adjust";
 import { devigOdds1X2, devigOdds2Way } from "../mi-model/data-prep";
 import type { MIModelParams, MatchPrediction } from "../mi-model/types";
 import { MI_LEAGUES, type LeagueConfig } from "./league-config";
@@ -111,6 +112,7 @@ export interface Pick {
     home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
     away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
   };
+  gkAdjustment?: GKAdjustment;
   strengthOfSchedule?: {
     home: { avgOpponentElo: number; last5Opponents: string[] } | null;
     away: { avgOpponentElo: number; last5Opponents: string[] } | null;
@@ -516,6 +518,17 @@ export async function generatePicks(
         pred = predictMatchFromLambdas(homeTeam, awayTeam, adjLH, adjLA, pred.lambda3);
       }
 
+      // Apply GK PSxG+/- adjustment (after injuries)
+      const homeGK = getStartingGK(homeTeam, gkStats, playerMins);
+      const awayGK = getStartingGK(awayTeam, gkStats, playerMins);
+      const { lambdaHome: gkLH, lambdaAway: gkLA, adjustment: gkAdj } = adjustLambdasForGK(
+        pred.lambdaHome, pred.lambdaAway, homeGK, awayGK
+      );
+      const gkAdjusted = gkAdj.homeGKAdj !== 1.0 || gkAdj.awayGKAdj !== 1.0;
+      if (gkAdjusted) {
+        pred = predictMatchFromLambdas(homeTeam, awayTeam, gkLH, gkLA, pred.lambda3);
+      }
+
       // ─── Ensemble enrichment (DC + Elo + xG + Ted assessment) ─────────
       let dcProbs: { home: number; draw: number; away: number } | null = null;
       try {
@@ -551,10 +564,18 @@ export async function generatePicks(
 
       // Full Ted assessment (when xG available for both)
       let tedAssessmentData: Pick["tedAssessment"] = undefined;
+      const homeMgr = managerMap.get(homeTeam) ?? null;
+      const awayMgr = managerMap.get(awayTeam) ?? null;
       if (homeXgData && awayXgData) {
         try {
-          const homeV = calculateTeamVariance(homeXgData, "home");
-          const awayV = calculateTeamVariance(awayXgData, "away");
+          const homeV = calculateTeamVariance(homeXgData, {
+            venue: "home",
+            managerChange: homeMgr ? { isNewThisSeason: homeMgr.isNewThisSeason, isMidSeasonChange: homeMgr.isMidSeasonChange } : undefined,
+          });
+          const awayV = calculateTeamVariance(awayXgData, {
+            venue: "away",
+            managerChange: awayMgr ? { isNewThisSeason: awayMgr.isNewThisSeason, isMidSeasonChange: awayMgr.isMidSeasonChange } : undefined,
+          });
           const assessment = tedAssessMatch(homeV, awayV);
           tedAssessmentData = {
             betGrade: assessment.betGrade,
@@ -742,28 +763,22 @@ export async function generatePicks(
           away: awayXgData ? { xGFor: awayXgData.xGFor, xGAgainst: awayXgData.xGAgainst, overperformance: awayXgData.overperformance } : null,
         } : undefined,
         gkContext: gkStats.length > 0 ? (() => {
-          const homeGK = getStartingGK(homeTeam, gkStats, playerMins);
-          const awayGK = getStartingGK(awayTeam, gkStats, playerMins);
           return (homeGK || awayGK) ? {
             home: homeGK ? { player: homeGK.player, goalsPrevented: homeGK.goalsPrevented, goalsPreventedPer90: homeGK.goalsPreventedPer90, matchesPlayed: homeGK.matchesPlayed } : null,
             away: awayGK ? { player: awayGK.player, goalsPrevented: awayGK.goalsPrevented, goalsPreventedPer90: awayGK.goalsPreventedPer90, matchesPlayed: awayGK.matchesPlayed } : null,
           } : undefined;
         })() : undefined,
+        gkAdjustment: gkAdjusted ? gkAdj : undefined,
         strengthOfSchedule: (() => {
           const homeSoS = computeTeamSoS(homeTeam, playedMatches, eloMap);
           const awaySoS = computeTeamSoS(awayTeam, playedMatches, eloMap);
           return (homeSoS || awaySoS) ? { home: homeSoS, away: awaySoS, leagueAvgElo } : undefined;
         })(),
-        managerContext: (() => {
-          const homeMgr = managerMap.get(homeTeam) ?? null;
-          const awayMgr = managerMap.get(awayTeam) ?? null;
-          if (!homeMgr && !awayMgr) return undefined;
-          return {
-            home: homeMgr,
-            away: awayMgr,
-            recentChanges: (homeMgr?.isNewThisSeason || homeMgr?.isMidSeasonChange || awayMgr?.isNewThisSeason || awayMgr?.isMidSeasonChange) ?? false,
-          };
-        })(),
+        managerContext: (homeMgr || awayMgr) ? {
+          home: homeMgr,
+          away: awayMgr,
+          recentChanges: (homeMgr?.isNewThisSeason || homeMgr?.isMidSeasonChange || awayMgr?.isNewThisSeason || awayMgr?.isMidSeasonChange) ?? false,
+        } : undefined,
       });
     }
 

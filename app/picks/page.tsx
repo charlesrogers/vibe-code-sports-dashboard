@@ -79,6 +79,10 @@ interface Pick {
     home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
     away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
   };
+  gkAdjustment?: {
+    homeGKAdj: number;
+    awayGKAdj: number;
+  };
   strengthOfSchedule?: {
     home: { avgOpponentElo: number; last5Opponents: string[] } | null;
     away: { avgOpponentElo: number; last5Opponents: string[] } | null;
@@ -278,6 +282,7 @@ function GKRow({ pick }: { pick: Pick }) {
   if (!pick.gkContext) return null;
   const { home, away } = pick.gkContext;
   if (!home && !away) return null;
+  const adj = pick.gkAdjustment;
   return (
     <div className="mb-2 flex items-center gap-2 rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1.5 text-[10px]">
       <span className="text-zinc-500 font-semibold uppercase">GK</span>
@@ -285,6 +290,11 @@ function GKRow({ pick }: { pick: Pick }) {
         {home ? <GKIndicator gk={home} team={pick.homeTeam.split(" ")[0]} /> : <span className="text-zinc-700">--</span>}
         {away ? <GKIndicator gk={away} team={pick.awayTeam.split(" ")[0]} /> : <span className="text-zinc-700">--</span>}
       </div>
+      {adj && (adj.homeGKAdj !== 1 || adj.awayGKAdj !== 1) && (
+        <span className="text-amber-500/80 font-mono" title="Lambda adjustment from GK quality (homeGKAdj affects home scoring, awayGKAdj affects away scoring)">
+          xG adj: {adj.homeGKAdj !== 1 ? `H×${adj.homeGKAdj.toFixed(2)}` : ""}{adj.homeGKAdj !== 1 && adj.awayGKAdj !== 1 ? " " : ""}{adj.awayGKAdj !== 1 ? `A×${adj.awayGKAdj.toFixed(2)}` : ""}
+        </span>
+      )}
     </div>
   );
 }
