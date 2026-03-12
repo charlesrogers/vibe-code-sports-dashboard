@@ -7,7 +7,7 @@
  */
 
 import { MarketMatch } from "./types";
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, existsSync, readdirSync } from "fs";
 import { join } from "path";
 
 // ---------- Devig (multiplicative) ----------
@@ -77,6 +77,65 @@ export function timeDecayWeight(matchDate: string, referenceDate: string, decayR
 
 /** Shots on target to xG conversion factor (league-average conversion rate) */
 const SOT_TO_XG = 0.32;
+
+// ---------- Match-level xG from data/match-xg/ ----------
+
+let matchXgFileCache: Map<string, { home: number; away: number }> | null = null;
+
+/**
+ * Load all match-level xG from data/match-xg/*.json into a cache.
+ * Keyed by "date_homeTeamNorm_awayTeamNorm" (lowercase).
+ */
+function loadMatchXgFiles(): Map<string, { home: number; away: number }> {
+  if (matchXgFileCache) return matchXgFileCache;
+  matchXgFileCache = new Map();
+
+  const dir = join(process.cwd(), "data", "match-xg");
+  if (!existsSync(dir)) return matchXgFileCache;
+
+  for (const f of readdirSync(dir).filter(f => f.endsWith(".json"))) {
+    try {
+      const data = JSON.parse(readFileSync(join(dir, f), "utf-8"));
+      for (const m of data.matches || []) {
+        const key = `${m.date}_${m.homeTeam.toLowerCase()}_${m.awayTeam.toLowerCase()}`;
+        matchXgFileCache.set(key, { home: m.homeXG, away: m.awayXG });
+      }
+    } catch { /* skip corrupt */ }
+  }
+  return matchXgFileCache;
+}
+
+/**
+ * Try to find match-level xG from data/match-xg/ files.
+ * Uses fuzzy team name matching.
+ */
+function findMatchXgFromFiles(
+  homeTeam: string,
+  awayTeam: string,
+  date: string,
+): { home: number; away: number } | null {
+  const cache = loadMatchXgFiles();
+  if (cache.size === 0) return null;
+
+  // Exact match
+  const key = `${date}_${homeTeam.toLowerCase()}_${awayTeam.toLowerCase()}`;
+  if (cache.has(key)) return cache.get(key)!;
+
+  // Fuzzy: scan for date match
+  const homeNorm = homeTeam.toLowerCase();
+  const awayNorm = awayTeam.toLowerCase();
+  for (const [k, v] of cache) {
+    if (!k.startsWith(date + "_")) continue;
+    const parts = k.split("_");
+    const kHome = parts.slice(1, -1).join("_"); // handle multi-word names
+    // Simple: just check the whole remainder
+    const remainder = k.slice(date.length + 1);
+    if (remainder.includes(homeNorm.split(" ")[0]) && remainder.includes(awayNorm.split(" ")[0])) {
+      return v;
+    }
+  }
+  return null;
+}
 
 /**
  * Load Understat xG cache for a league/season.
@@ -248,14 +307,25 @@ export function prepareMarketMatches(
   const result: MarketMatch[] = [];
   let skipped = 0;
 
-  for (const m of matches) {
-    // Pick odds source
-    const homeOdds = useClosing ? (m.pinnacleCloseHome || m.pinnacleHome) : m.pinnacleHome;
-    const drawOdds = useClosing ? (m.pinnacleCloseDraw || m.pinnacleDraw) : m.pinnacleDraw;
-    const awayOdds = useClosing ? (m.pinnacleCloseAway || m.pinnacleAway) : m.pinnacleAway;
+  let fallbackUsed = 0;
 
+  for (const m of matches) {
+    // Pick odds source: Pinnacle closing → Pinnacle opening → avg closing → avg opening
+    let homeOdds = useClosing ? (m.pinnacleCloseHome || m.pinnacleHome) : m.pinnacleHome;
+    let drawOdds = useClosing ? (m.pinnacleCloseDraw || m.pinnacleDraw) : m.pinnacleDraw;
+    let awayOdds = useClosing ? (m.pinnacleCloseAway || m.pinnacleAway) : m.pinnacleAway;
+
+    // Fallback to avg/max odds when Pinnacle not available (e.g., recent in-season matches)
     if (!homeOdds || !drawOdds || !awayOdds) {
-      if (requirePinnacle) {
+      const fallbackHome = (m as any).avgCloseHome || (m as any).avgHome || (m as any).maxHome;
+      const fallbackDraw = (m as any).avgCloseDraw || (m as any).avgDraw || (m as any).maxDraw;
+      const fallbackAway = (m as any).avgCloseAway || (m as any).avgAway || (m as any).maxAway;
+      if (fallbackHome && fallbackDraw && fallbackAway) {
+        homeOdds = fallbackHome;
+        drawOdds = fallbackDraw;
+        awayOdds = fallbackAway;
+        fallbackUsed++;
+      } else if (requirePinnacle) {
         skipped++;
         continue;
       }
@@ -279,8 +349,13 @@ export function prepareMarketMatches(
     let ahHomeProb: number | null = null;
 
     const rawAHLine = useClosing ? (m.ahCloseLine ?? m.ahLine) : m.ahLine;
-    const ahHomeOdds = useClosing ? (m.pinnacleCloseAHHome || m.pinnacleAHHome) : m.pinnacleAHHome;
-    const ahAwayOdds = useClosing ? (m.pinnacleCloseAHAway || m.pinnacleAHAway) : m.pinnacleAHAway;
+    let ahHomeOdds = useClosing ? (m.pinnacleCloseAHHome || m.pinnacleAHHome) : m.pinnacleAHHome;
+    let ahAwayOdds = useClosing ? (m.pinnacleCloseAHAway || m.pinnacleAHAway) : m.pinnacleAHAway;
+    // Fallback to avg AH odds
+    if ((!ahHomeOdds || !ahAwayOdds) && rawAHLine != null) {
+      ahHomeOdds = ahHomeOdds || (m as any).avgCloseAHHome || (m as any).avgAHHome;
+      ahAwayOdds = ahAwayOdds || (m as any).avgCloseAHAway || (m as any).avgAHAway;
+    }
 
     if (rawAHLine != null && ahHomeOdds && ahAwayOdds) {
       const ahProbs = devigOdds2Way(ahHomeOdds, ahAwayOdds);
@@ -295,10 +370,15 @@ export function prepareMarketMatches(
       ? { homeGoals: m.homeGoals, awayGoals: m.awayGoals }
       : null;
 
-    // xG enrichment: try provided map first, then Understat, then SoT proxy
+    // xG enrichment: try provided map, then match-xg files, then Understat cache, then SoT proxy
     let matchXg: { home: number; away: number } | null = null;
     if (xgData) {
       matchXg = xgData.get(`${m.homeTeam} vs ${m.awayTeam} ${m.date}`) ?? null;
+    }
+
+    // Try match-level xG from data/match-xg/ (per-match scrapes)
+    if (!matchXg) {
+      matchXg = findMatchXgFromFiles(m.homeTeam, m.awayTeam, m.date);
     }
 
     // Shots-on-target proxy for leagues without xG (e.g., Championship)
@@ -342,7 +422,7 @@ export function prepareMarketMatches(
   }
 
   const recentCount = result.filter(m => m.recentForm).length;
-  console.log(`[data-prep] Prepared ${result.length} matches (skipped ${skipped} without valid odds)`);
+  console.log(`[data-prep] Prepared ${result.length} matches (skipped ${skipped} without valid odds, ${fallbackUsed} used avg/max fallback)`);
   console.log(`[data-prep] Matches with AH data: ${result.filter(m => m.ahLine != null).length}`);
   console.log(`[data-prep] Matches with xG data: ${result.filter(m => m.xG != null).length}`);
   console.log(`[data-prep] Recent form tagged: ${recentCount}`);

@@ -34,13 +34,25 @@ const TARGETS: Target[] = [
 // ─── CSV Parsing (same as backfill-historical.ts) ────────────────────────────
 
 function parseCSV(text: string): Record<string, string>[] {
-  const lines = text.trim().split("\n");
+  const lines = text.trim().split("\n").filter(l => l.trim());
   if (lines.length < 2) return [];
-  const headers = lines[0].split(",").map(h => h.trim());
+  // Handle BOM
+  let headerLine = lines[0];
+  if (headerLine.charCodeAt(0) === 0xFEFF) headerLine = headerLine.slice(1);
+  const headers = headerLine.split(",").map(h => h.trim());
   const rows: Record<string, string>[] = [];
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(",");
-    if (values.length < headers.length / 2) continue;
+    // Quote-aware CSV split
+    const values: string[] = [];
+    let current = "";
+    let inQuotes = false;
+    for (const ch of lines[i]) {
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { values.push(current.trim()); current = ""; }
+      else { current += ch; }
+    }
+    values.push(current.trim());
+    if (values.length < 5) continue;
     const row: Record<string, string> = {};
     for (let j = 0; j < headers.length; j++) {
       row[headers[j]] = (values[j] || "").trim();
@@ -63,6 +75,13 @@ function parseUKDate(dateStr: string): string {
 function pf(val: string): number {
   const n = parseFloat(val);
   return isNaN(n) ? 0 : n;
+}
+
+/** Like pf but returns null instead of 0 for missing values (for optional fields like AH/closing odds) */
+function pfn(val: string): number | null {
+  if (!val || val.trim() === "") return null;
+  const n = parseFloat(val);
+  return isNaN(n) ? null : n;
 }
 
 // ─── Download + Parse ────────────────────────────────────────────────────────
@@ -136,6 +155,32 @@ async function downloadAndParse(cfg: Target) {
       pinnacleUnder25: pf(r["P<2.5"]),
       avgOver25: pf(r["Avg>2.5"]),
       avgUnder25: pf(r["Avg<2.5"]),
+      // Asian Handicap (opening)
+      ahLine: pfn(r["AHh"] || r["BbAHh"]),
+      b365AHHome: pfn(r["B365AHH"]),
+      b365AHAway: pfn(r["B365AHA"]),
+      pinnacleAHHome: pfn(r["PAHH"]),
+      pinnacleAHAway: pfn(r["PAHA"]),
+      maxAHHome: pfn(r["MaxAHH"] || r["BbMxAHH"]),
+      maxAHAway: pfn(r["MaxAHA"] || r["BbMxAHA"]),
+      avgAHHome: pfn(r["AvgAHH"] || r["BbAvAHH"]),
+      avgAHAway: pfn(r["AvgAHA"] || r["BbAvAHA"]),
+      // Closing 1X2 odds (Pinnacle)
+      pinnacleCloseHome: pfn(r["PSCH"]),
+      pinnacleCloseDraw: pfn(r["PSCD"]),
+      pinnacleCloseAway: pfn(r["PSCA"]),
+      avgCloseHome: pfn(r["AvgCH"]),
+      avgCloseDraw: pfn(r["AvgCD"]),
+      avgCloseAway: pfn(r["AvgCA"]),
+      // Closing Asian Handicap
+      ahCloseLine: pfn(r["AHCh"]),
+      pinnacleCloseAHHome: pfn(r["PCAHH"]),
+      pinnacleCloseAHAway: pfn(r["PCAHA"]),
+      avgCloseAHHome: pfn(r["AvgCAHH"]),
+      avgCloseAHAway: pfn(r["AvgCAHA"]),
+      // Closing Over/Under 2.5
+      pinnacleCloseOver25: pfn(r["PC>2.5"]),
+      pinnacleCloseUnder25: pfn(r["PC<2.5"]),
     });
   }
 

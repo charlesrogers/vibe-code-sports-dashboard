@@ -24,6 +24,10 @@ const dataDir = join(projectRoot, "data/football-data-cache");
 const outDir = join(projectRoot, "data/backtest");
 if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
 
+// Default EPL-only: Championship has no team xG data, results corrupt the signal.
+// Use --include-championship to add it back.
+const EPL_ONLY_MODE = !process.argv.includes("--include-championship");
+
 // ─── Load Ted's bets ─────────────────────────────────────────────────────────
 
 interface TedBet {
@@ -92,47 +96,71 @@ const eplMatches = loadLeagueMatches("epl");
 console.log(`[PROGRESS] Championship: ${champMatches.length} matches, EPL: ${eplMatches.length} matches\n`);
 
 // ─── Team name mapping (Ted → football-data.co.uk) ──────────────────────────
+// Maps each name variant to ALL possible football-data names (varies by season).
+// EPL 2024-25 uses full names; 2025-26 uses abbreviations; Championship also varies.
 
-const TED_TO_FD: Record<string, string> = {
-  // EPL
-  "Man City": "Man City", "Man United": "Man United",
-  "Nott Forest": "Nott'm Forest", "Nottingham Forest": "Nott'm Forest", "Nott'm Forest": "Nott'm Forest", "Forest": "Nott'm Forest",
-  "Newcastle": "Newcastle", "Wolves": "Wolves", "Brighton": "Brighton",
-  "Crystal Palace": "Crystal Palace", "West Ham": "West Ham",
-  "Aston Villa": "Aston Villa", "Tottenham": "Tottenham", "Spurs": "Tottenham",
-  "Liverpool": "Liverpool", "Arsenal": "Arsenal", "Chelsea": "Chelsea",
-  "Everton": "Everton", "Bournemouth": "Bournemouth", "Brentford": "Brentford",
-  "Fulham": "Fulham", "Ipswich": "Ipswich", "Leicester": "Leicester",
-  "Southampton": "Southampton", "Burnley": "Burnley", "Luton": "Luton",
-  "Sheffield United": "Sheffield United",
+const TEAM_VARIANTS: Record<string, string[]> = {
+  // EPL — teams with season-varying names
+  "Man City": ["Man City", "Manchester City"],
+  "Manchester City": ["Man City", "Manchester City"],
+  "Man United": ["Man United", "Manchester United"],
+  "Manchester United": ["Man United", "Manchester United"],
+  "Wolves": ["Wolves", "Wolverhampton"],
+  "Wolverhampton": ["Wolves", "Wolverhampton"],
+  "Forest": ["Nott'm Forest", "Nottingham Forest"],
+  "Nott Forest": ["Nott'm Forest", "Nottingham Forest"],
+  "Nottingham Forest": ["Nott'm Forest", "Nottingham Forest"],
+  "Nott'm Forest": ["Nott'm Forest", "Nottingham Forest"],
+  // EPL — stable names
+  "Newcastle": ["Newcastle"], "Newcastle United": ["Newcastle"],
+  "Brighton": ["Brighton"],
+  "Crystal Palace": ["Crystal Palace"], "Palace": ["Crystal Palace"],
+  "West Ham": ["West Ham"],
+  "Aston Villa": ["Aston Villa"], "Tottenham": ["Tottenham"], "Spurs": ["Tottenham"],
+  "Liverpool": ["Liverpool"], "Arsenal": ["Arsenal"], "Chelsea": ["Chelsea"],
+  "Everton": ["Everton"], "Bournemouth": ["Bournemouth"], "Brentford": ["Brentford"],
+  "Fulham": ["Fulham"],
+  "Ipswich": ["Ipswich"], "Ipswich Town": ["Ipswich"],
+  "Leicester": ["Leicester"], "Leicester City": ["Leicester"], "LCFC": ["Leicester"],
+  "Southampton": ["Southampton"], "Burnley": ["Burnley"], "Luton": ["Luton"],
+  "Sheffield United": ["Sheffield United", "Sheffield Utd"],
+  "Sheff United": ["Sheffield United", "Sheffield Utd"],
   // Championship
-  "Leeds": "Leeds",
-  "Sheffield Wednesday": "Sheff Wed", "Sheff Wed": "Sheff Wed",
-  "Sheffield Utd": "Sheffield United",
-  "QPR": "QPR", "Sunderland": "Sunderland",
-  "West Brom": "West Brom", "WBA": "West Brom",
-  "Hull": "Hull", "Hull City": "Hull",
-  "Bristol City": "Bristol City", "Bristol": "Bristol City",
-  "Stoke": "Stoke", "Stoke City": "Stoke",
-  "Middlesbrough": "Middlesbrough", "Boro": "Middlesbrough",
-  "Blackburn": "Blackburn", "Blackburn Rovers": "Blackburn",
-  "Millwall": "Millwall", "Derby": "Derby", "Derby County": "Derby",
-  "Watford": "Watford", "Coventry": "Coventry", "Coventry City": "Coventry",
-  "Preston": "Preston", "Preston North End": "Preston", "PNE": "Preston",
-  "Norwich": "Norwich", "Norwich City": "Norwich",
-  "Swansea": "Swansea", "Swansea City": "Swansea",
-  "Plymouth": "Plymouth", "Plymouth Argyle": "Plymouth",
-  "Oxford": "Oxford United", "Oxford Utd": "Oxford United", "Oxford United": "Oxford United",
-  "Luton Town": "Luton",
-  "Cardiff": "Cardiff", "Cardiff City": "Cardiff",
-  "Portsmouth": "Portsmouth", "Pompey": "Portsmouth",
-  "Birmingham": "Birmingham", "Birmingham City": "Birmingham",
-  "Wrexham": "Wrexham", "Wrexham AFC": "Wrexham",
-  "Charlton": "Charlton", "Charlton Athletic": "Charlton",
+  "Leeds": ["Leeds"], "Leeds United": ["Leeds"],
+  "Sheffield Wednesday": ["Sheff Wed", "Sheffield Wed", "Sheffield Weds"],
+  "Sheff Wed": ["Sheff Wed", "Sheffield Wed", "Sheffield Weds"],
+  "Sheff Weds": ["Sheff Wed", "Sheffield Wed", "Sheffield Weds"],
+  "Sheffield Weds": ["Sheff Wed", "Sheffield Wed", "Sheffield Weds"],
+  "Sheffield Utd": ["Sheffield United", "Sheffield Utd"],
+  "QPR": ["QPR"], "Sunderland": ["Sunderland"],
+  "West Brom": ["West Brom"], "WBA": ["West Brom"], "West Bromwich Albion": ["West Brom"],
+  "Hull": ["Hull"], "Hull City": ["Hull"],
+  "Bristol City": ["Bristol City"], "Bristol": ["Bristol City"],
+  "Stoke": ["Stoke"], "Stoke City": ["Stoke"],
+  "Middlesbrough": ["Middlesbrough"], "Boro": ["Middlesbrough"],
+  "Blackburn": ["Blackburn"], "Blackburn Rovers": ["Blackburn"],
+  "Millwall": ["Millwall"], "Derby": ["Derby"], "Derby County": ["Derby"],
+  "Watford": ["Watford"], "Coventry": ["Coventry"], "Coventry City": ["Coventry"],
+  "Preston": ["Preston"], "Preston North End": ["Preston"], "PNE": ["Preston"],
+  "Norwich": ["Norwich"], "Norwich City": ["Norwich"],
+  "Swansea": ["Swansea"], "Swansea City": ["Swansea"],
+  "Plymouth": ["Plymouth"], "Plymouth Argyle": ["Plymouth"],
+  "Oxford": ["Oxford", "Oxford United"], "Oxford Utd": ["Oxford", "Oxford United"], "Oxford United": ["Oxford", "Oxford United"],
+  "Luton Town": ["Luton"],
+  "Cardiff": ["Cardiff"], "Cardiff City": ["Cardiff"],
+  "Portsmouth": ["Portsmouth"], "Pompey": ["Portsmouth"],
+  "Birmingham": ["Birmingham"], "Birmingham City": ["Birmingham"],
+  "Wrexham": ["Wrexham"], "Wrexham AFC": ["Wrexham"],
+  "Charlton": ["Charlton"], "Charlton Athletic": ["Charlton"],
 };
 
+function getTeamVariants(name: string): string[] {
+  return TEAM_VARIANTS[name] || [name];
+}
+
 function mapTeam(name: string): string {
-  return TED_TO_FD[name] || name;
+  const variants = TEAM_VARIANTS[name];
+  return variants ? variants[0] : name;
 }
 
 // ─── Parse Ted's match into home/away ────────────────────────────────────────
@@ -145,11 +173,34 @@ function parseMatch(matchStr: string): { home: string; away: string } | null {
 }
 
 // ─── Score a bet ─────────────────────────────────────────────────────────────
+// Returns { result, profit } where profit accounts for quarter-line half-win/half-loss
+
+interface ScoreResult {
+  result: "W" | "L" | "P" | "HW" | "HL" | "SKIP";
+  profitMultiplier: number; // multiplied by (odds-1) for wins, -1 for losses
+}
+
+function matchesTeam(teamQuery: string, teamName: string): boolean {
+  const q = teamQuery.toLowerCase();
+  const t = teamName.toLowerCase();
+  // Direct substring match
+  if (t.includes(q) || q.includes(t)) return true;
+  // Try all mapped variants
+  for (const variant of getTeamVariants(teamName)) {
+    const v = variant.toLowerCase();
+    if (v.includes(q) || q.includes(v)) return true;
+  }
+  for (const variant of getTeamVariants(teamQuery)) {
+    const v = variant.toLowerCase();
+    if (v.includes(t) || t.includes(v)) return true;
+  }
+  return false;
+}
 
 function scoreBet(
   selection: string, homeGoals: number, awayGoals: number,
   homeTeam: string, awayTeam: string
-): "W" | "L" | "P" {
+): ScoreResult {
   const sel = selection.toLowerCase().trim();
   const margin = homeGoals - awayGoals;
 
@@ -157,73 +208,84 @@ function scoreBet(
   if (sel.startsWith("over ")) {
     const line = parseFloat(sel.replace("over ", ""));
     const total = homeGoals + awayGoals;
-    return total > line ? "W" : total < line ? "L" : "P";
+    const diff = total - line;
+    // Quarter-line O/U
+    if (line % 0.5 !== 0 && line % 0.25 === 0) {
+      if (diff > 0.25) return { result: "W", profitMultiplier: 1 };
+      if (diff < -0.25) return { result: "L", profitMultiplier: -1 };
+      if (diff > 0) return { result: "HW", profitMultiplier: 0.5 }; // half win
+      if (diff < 0) return { result: "HL", profitMultiplier: -0.5 }; // half loss
+      return { result: "P", profitMultiplier: 0 };
+    }
+    return diff > 0 ? { result: "W", profitMultiplier: 1 }
+      : diff < 0 ? { result: "L", profitMultiplier: -1 }
+      : { result: "P", profitMultiplier: 0 };
   }
   if (sel.startsWith("under ")) {
     const line = parseFloat(sel.replace("under ", ""));
     const total = homeGoals + awayGoals;
-    return total < line ? "W" : total > line ? "L" : "P";
+    const diff = line - total;
+    if (line % 0.5 !== 0 && line % 0.25 === 0) {
+      if (diff > 0.25) return { result: "W", profitMultiplier: 1 };
+      if (diff < -0.25) return { result: "L", profitMultiplier: -1 };
+      if (diff > 0) return { result: "HW", profitMultiplier: 0.5 };
+      if (diff < 0) return { result: "HL", profitMultiplier: -0.5 };
+      return { result: "P", profitMultiplier: 0 };
+    }
+    return diff > 0 ? { result: "W", profitMultiplier: 1 }
+      : diff < 0 ? { result: "L", profitMultiplier: -1 }
+      : { result: "P", profitMultiplier: 0 };
   }
 
   // AH: "Team +0.5" or "Team -0.75"
   const ahMatch = selection.match(/(.+?)\s+([+-]?\d*\.?\d+)$/);
   if (ahMatch) {
-    const team = ahMatch[1].trim().toLowerCase();
+    const team = ahMatch[1].trim();
     const line = parseFloat(ahMatch[2]);
 
-    // Determine if bet is on home or away
-    const isHome = homeTeam.toLowerCase().includes(team) || team.includes(homeTeam.toLowerCase());
-    const isAway = awayTeam.toLowerCase().includes(team) || team.includes(awayTeam.toLowerCase());
+    const isHome = matchesTeam(team, homeTeam);
+    const isAway = matchesTeam(team, awayTeam);
 
     let adjustedMargin: number;
-    if (isHome) {
+    if (isHome && !isAway) {
       adjustedMargin = margin + line;
-    } else if (isAway) {
+    } else if (isAway && !isHome) {
       adjustedMargin = -margin + line;
+    } else if (isHome && isAway) {
+      // Both match (rare) — prefer exact match
+      adjustedMargin = team.toLowerCase() === homeTeam.toLowerCase() ? margin + line : -margin + line;
     } else {
-      // Try mapping
-      const mappedHome = mapTeam(homeTeam).toLowerCase();
-      const mappedAway = mapTeam(awayTeam).toLowerCase();
-      if (team.includes(mappedHome) || mappedHome.includes(team)) {
-        adjustedMargin = margin + line;
-      } else if (team.includes(mappedAway) || mappedAway.includes(team)) {
-        adjustedMargin = -margin + line;
-      } else {
-        return "L"; // can't determine side
-      }
+      return { result: "SKIP", profitMultiplier: 0 }; // can't determine side
     }
 
-    // Handle quarter lines
+    // Quarter lines: half-win / half-loss
     if (line % 0.5 !== 0 && line % 0.25 === 0) {
-      // Quarter line = half on each adjacent line
-      const lowerLine = line - 0.25;
-      const upperLine = line + 0.25;
-      const lowerResult = adjustedMargin - 0.25 > 0 ? 1 : adjustedMargin - 0.25 < 0 ? -1 : 0;
-      const upperResult = adjustedMargin + 0.25 > 0 ? 1 : adjustedMargin + 0.25 < 0 ? -1 : 0;
-
-      // Actually for quarter lines, simplified:
-      if (adjustedMargin > 0.25) return "W";
-      if (adjustedMargin < -0.25) return "L";
-      if (adjustedMargin === 0) return "P"; // half win half push essentially
-      return adjustedMargin > 0 ? "W" : "L"; // half win or half loss
+      if (adjustedMargin > 0.25) return { result: "W", profitMultiplier: 1 };
+      if (adjustedMargin < -0.25) return { result: "L", profitMultiplier: -1 };
+      if (adjustedMargin > 0) return { result: "HW", profitMultiplier: 0.5 }; // half win: +0.5 * (odds-1)
+      if (adjustedMargin < 0) return { result: "HL", profitMultiplier: -0.5 }; // half loss: -0.5
+      return { result: "P", profitMultiplier: 0 };
     }
 
-    return adjustedMargin > 0 ? "W" : adjustedMargin < 0 ? "L" : "P";
+    return adjustedMargin > 0 ? { result: "W", profitMultiplier: 1 }
+      : adjustedMargin < 0 ? { result: "L", profitMultiplier: -1 }
+      : { result: "P", profitMultiplier: 0 };
   }
 
   // Draw
-  if (sel === "draw") return margin === 0 ? "W" : "L";
+  if (sel === "draw") return margin === 0
+    ? { result: "W", profitMultiplier: 1 }
+    : { result: "L", profitMultiplier: -1 };
 
   // Moneyline
   if (sel.includes("ml") || sel.includes("moneyline")) {
-    // Determine team
     const teamPart = sel.replace(/\s*(ml|moneyline)\s*/i, "").trim();
-    const isHome = homeTeam.toLowerCase().includes(teamPart) || teamPart.includes(homeTeam.toLowerCase());
-    if (isHome) return margin > 0 ? "W" : "L";
-    return margin < 0 ? "W" : "L";
+    const isHome = matchesTeam(teamPart, homeTeam);
+    if (isHome) return margin > 0 ? { result: "W", profitMultiplier: 1 } : { result: "L", profitMultiplier: -1 };
+    return margin < 0 ? { result: "W", profitMultiplier: 1 } : { result: "L", profitMultiplier: -1 };
   }
 
-  return "L";
+  return { result: "SKIP", profitMultiplier: 0 };
 }
 
 // ─── Solve model and generate predictions ────────────────────────────────────
@@ -456,71 +518,234 @@ interface WeekResult {
 }
 
 const weekResults: WeekResult[] = [];
+const eplWeekResults: WeekResult[] = [];
 let processedWeeks = 0;
 let cumTedProfit = 0;
 let cumOurProfit = 0;
 
-// Only process Championship and EPL (not UCL/MLS as we don't have model for those)
+// EPL-only accumulators
+const eplOnly = {
+  tedBets: 0, tedW: 0, tedL: 0, tedProfit: 0,
+  ourBets: 0, ourW: 0, ourL: 0, ourProfit: 0,
+  overlap: 0,
+};
+
+// ─── Diagnostic counters ──────────────────────────────────────────────────────
+const diag = {
+  totalBets: tedBets.length,
+  relevantBets: 0,
+  matchFound: 0,
+  scored: 0,
+  skipped: 0,
+  usedRealOdds: 0,
+  usedEstimatedOdds: 0,
+  excludedLeagues: new Map<string, number>(),
+  unmatchedBets: [] as { bet: TedBet; reason: string }[],
+};
+
+// Count excluded leagues
+for (const b of tedBets) {
+  if (b.league !== "Championship" && b.league !== "EPL") {
+    diag.excludedLeagues.set(b.league, (diag.excludedLeagues.get(b.league) || 0) + 1);
+  }
+}
+
+// ─── Match finder: searches BOTH leagues, 7-day window ────────────────────────
+
+function findMatchInData(
+  homeVariants: string[], awayVariants: string[], newsletterDate: string
+): RawMatch | null {
+  const dateObj = new Date(newsletterDate);
+  const allPools = [eplMatches, champMatches]; // Search BOTH leagues regardless of Ted's label
+  let bestMatch: RawMatch | null = null;
+  let bestDayDiff = Infinity;
+
+  for (const pool of allPools) {
+    for (const m of pool) {
+      const mDate = new Date(m.date);
+      const dayDiff = (mDate.getTime() - dateObj.getTime()) / 86400000;
+      // Look 2 days before to 7 days after the newsletter date
+      if (dayDiff < -2 || dayDiff > 7) continue;
+      const absDiff = Math.abs(dayDiff);
+
+      const homeMatch = homeVariants.some(v => v === m.homeTeam);
+      const awayMatch = awayVariants.some(v => v === m.awayTeam);
+      if (homeMatch && awayMatch && absDiff < bestDayDiff) {
+        bestMatch = m;
+        bestDayDiff = absDiff;
+      }
+    }
+  }
+  return bestMatch;
+}
+
+// ─── Resolve Ted's selection for "or" bets ──────────────────────────────────
+
+function resolveSelection(selection: string): string {
+  // Handle "or" selections: "Portsmouth +.75 or +.5" → take first line
+  const orMatch = selection.match(/^(.+?)\s+or\s+/i);
+  if (orMatch) return orMatch[1].trim();
+  return selection;
+}
+
+// ─── Compute Ted's profit using real Pinnacle odds when available ──────────
+
+function computeTedProfit(
+  scoreResult: ScoreResult,
+  bet: TedBet,
+  matchData: RawMatch,
+  homeTeam: string, awayTeam: string
+): { profit: number; usedRealOdds: boolean } {
+  const DEFAULT_ODDS = 1.90;
+
+  // Try to find real Pinnacle odds
+  let realOdds: number | null = null;
+
+  if (bet.bet_type === "ah") {
+    const ahMatch = bet.selection.match(/(.+?)\s+([+-]?\d*\.?\d+)$/);
+    if (ahMatch) {
+      const teamName = ahMatch[1].trim();
+      const tedLine = parseFloat(ahMatch[2]);
+      const isHome = matchesTeam(teamName, homeTeam);
+      const isAway = matchesTeam(teamName, awayTeam);
+
+      // Try opening AH first, then closing AH as fallback
+      const ahSources: { line: number | null; homeOdds: number; awayOdds: number }[] = [];
+      if (matchData.ahLine != null && matchData.pinnacleAHHome > 1 && matchData.pinnacleAHAway > 1) {
+        ahSources.push({ line: matchData.ahLine, homeOdds: matchData.pinnacleAHHome, awayOdds: matchData.pinnacleAHAway });
+      }
+      if (matchData.ahCloseLine != null && matchData.pinnacleCloseAHHome > 1 && matchData.pinnacleCloseAHAway > 1) {
+        ahSources.push({ line: matchData.ahCloseLine, homeOdds: matchData.pinnacleCloseAHHome, awayOdds: matchData.pinnacleCloseAHAway });
+      }
+
+      for (const src of ahSources) {
+        if (realOdds !== null) break;
+        if (isHome && !isAway) {
+          if (Math.abs(tedLine - src.line!) < 0.01) {
+            realOdds = src.homeOdds;
+          }
+        } else if (isAway && !isHome) {
+          if (Math.abs(tedLine - (-src.line!)) < 0.01) {
+            realOdds = src.awayOdds;
+          }
+        }
+      }
+    }
+  } else if (bet.bet_type === "ou") {
+    const sel = bet.selection.toLowerCase().trim();
+    // Only have Pinnacle O/U for 2.5 line
+    if ((sel.includes("over 2.5") || sel.includes("under 2.5")) &&
+        matchData.pinnacleOver25 > 1 && matchData.pinnacleUnder25 > 1) {
+      realOdds = sel.includes("over") ? matchData.pinnacleOver25 : matchData.pinnacleUnder25;
+    }
+  }
+
+  const odds = realOdds || DEFAULT_ODDS;
+  const usedReal = realOdds !== null;
+
+  // Compute profit using score result's profitMultiplier
+  let profit: number;
+  if (scoreResult.profitMultiplier > 0) {
+    // Win or half-win: profit = multiplier * (odds - 1)
+    profit = scoreResult.profitMultiplier * (odds - 1);
+  } else if (scoreResult.profitMultiplier < 0) {
+    // Loss or half-loss: profit = multiplier (already negative, 1u stake)
+    profit = scoreResult.profitMultiplier;
+  } else {
+    profit = 0;
+  }
+
+  return { profit, usedRealOdds: usedReal };
+}
+
+// Filter leagues: EPL only by default (Championship has no team xG, drags P/L)
+const RELEVANT_LEAGUES = EPL_ONLY_MODE ? ["EPL"] : ["EPL", "Championship"];
 const relevantDates = sortedDates.filter(d => {
   const bets = tedByDate.get(d) || [];
-  return bets.some(b => b.league === "Championship" || b.league === "EPL");
+  return bets.some(b => RELEVANT_LEAGUES.includes(b.league));
 });
 
-console.log(`[PROGRESS] Processing ${relevantDates.length} relevant newsletter dates (Championship + EPL)\n`);
+console.log(`[PROGRESS] Mode: ${EPL_ONLY_MODE ? "EPL-only" : "EPL + Championship"}`);
+console.log(`[PROGRESS] Processing ${relevantDates.length} relevant newsletter dates\n`);
 
 for (let i = 0; i < relevantDates.length; i++) {
   const date = relevantDates[i];
   const tedWeekBets = (tedByDate.get(date) || []).filter(
-    b => b.league === "Championship" || b.league === "EPL"
+    b => RELEVANT_LEAGUES.includes(b.league)
   );
 
   if (tedWeekBets.length === 0) continue;
+  diag.relevantBets += tedWeekBets.length;
 
   // Solve models for this date
-  const leaguesNeeded = new Set(tedWeekBets.map(b => b.league === "Championship" ? "championship" : "epl"));
-  for (const l of leaguesNeeded) {
-    getModel(l, date);
-  }
+  if (!EPL_ONLY_MODE) getModel("championship", date);
+  getModel("epl", date);
 
   // For each Ted bet, find the match in our data to get Pinnacle odds and results
-  const tedResults: { bet: TedBet; matchData: any; result: "W" | "L" | "P" | "?"; profit: number }[] = [];
-  const ourResults: { match: string; selection: string; edge: number; result: "W" | "L" | "P" | "?"; profit: number; pinnOdds: number }[] = [];
+  const tedResults: { bet: TedBet; matchData: any; result: ScoreResult["result"]; profit: number; usedRealOdds: boolean; isEPL: boolean }[] = [];
+  const ourResults: { match: string; selection: string; edge: number; result: ScoreResult["result"]; profit: number; pinnOdds: number; isEPL: boolean }[] = [];
   const overlapMatches = new Set<string>();
-
-  // Also track which matches Ted analyzed but didn't bet (so we can show our bets on those)
-  const allMatchesThisWeek: { match: string; homeTeam: string; awayTeam: string; league: string; found: any }[] = [];
 
   for (const tb of tedWeekBets) {
     const parsed = parseMatch(tb.match);
-    if (!parsed) continue;
+    if (!parsed) {
+      diag.unmatchedBets.push({ bet: tb, reason: "unparseable match string" });
+      continue;
+    }
 
-    const homeFD = mapTeam(parsed.home);
-    const awayFD = mapTeam(parsed.away);
-    const leagueKey = tb.league === "Championship" ? "championship" : "epl";
-    const allMatches = leagueKey === "championship" ? champMatches : eplMatches;
+    // Resolve "or" selections
+    const resolvedSelection = resolveSelection(tb.selection);
+    const wasOr = resolvedSelection !== tb.selection;
 
-    // Find the match in our data (within 5 days of newsletter date)
-    const dateObj = new Date(date);
-    const match = allMatches.find(m => {
-      const mDate = new Date(m.date);
-      const dayDiff = Math.abs(mDate.getTime() - dateObj.getTime()) / 86400000;
-      return dayDiff <= 5 &&
-        ((m.homeTeam === homeFD && m.awayTeam === awayFD) ||
-         (m.homeTeam === parsed.home && m.awayTeam === parsed.away));
-    });
+    const homeVariants = getTeamVariants(parsed.home);
+    const awayVariants = getTeamVariants(parsed.away);
 
-    if (!match) continue;
+    // Search BOTH leagues
+    const match = findMatchInData(homeVariants, awayVariants, date);
+
+    if (!match) {
+      diag.unmatchedBets.push({ bet: tb, reason: `no match found for ${homeVariants.join("/")} v ${awayVariants.join("/")}` });
+      continue;
+    }
+    diag.matchFound++;
+
+    // Determine actual league from which pool the match came from
+    const isEPL = eplMatches.some(m => m.id === match.id);
 
     // Score Ted's bet
-    const tedResult = scoreBet(tb.selection, match.homeGoals, match.awayGoals, match.homeTeam, match.awayTeam);
+    const scoreResult = scoreBet(resolvedSelection, match.homeGoals, match.awayGoals, match.homeTeam, match.awayTeam);
+
+    if (scoreResult.result === "SKIP") {
+      diag.skipped++;
+      diag.unmatchedBets.push({ bet: tb, reason: `team unresolvable in selection: "${resolvedSelection}" vs ${match.homeTeam}/${match.awayTeam}` });
+      continue;
+    }
+
+    diag.scored++;
+
+    // Compute Ted's profit with real odds
+    const { profit: tedProfit, usedRealOdds } = computeTedProfit(scoreResult, tb, match, match.homeTeam, match.awayTeam);
+    if (usedRealOdds) diag.usedRealOdds++;
+    else diag.usedEstimatedOdds++;
+
     tedResults.push({
-      bet: tb,
+      bet: { ...tb, selection: resolvedSelection },
       matchData: match,
-      result: tedResult,
-      profit: tedResult === "W" ? 0.9 : tedResult === "L" ? -1 : 0, // ~1.9 avg odds
+      result: scoreResult.result,
+      profit: tedProfit,
+      usedRealOdds,
+      isEPL,
     });
 
-    // Generate our bet for same match
+    // EPL-only tracking for Ted
+    if (isEPL) {
+      eplOnly.tedBets++;
+      if (scoreResult.result === "W" || scoreResult.result === "HW") eplOnly.tedW++;
+      if (scoreResult.result === "L" || scoreResult.result === "HL") eplOnly.tedL++;
+      eplOnly.tedProfit += tedProfit;
+    }
+
+    // Generate our bet for same match — require real Pinnacle odds (avg odds produce noisy edge signals)
     if (match.pinnacleHome > 1 && match.pinnacleDraw > 1 && match.pinnacleAway > 1) {
       const ourBet = generateOurBet(
         match.homeTeam, match.awayTeam, tb.league,
@@ -531,31 +756,46 @@ for (let i = 0; i < relevantDates.length; i++) {
       );
 
       if (ourBet) {
-        const ourResult = scoreBet(ourBet.selection, match.homeGoals, match.awayGoals, match.homeTeam, match.awayTeam);
+        const ourScore = scoreBet(ourBet.selection, match.homeGoals, match.awayGoals, match.homeTeam, match.awayTeam);
+        let ourProfit: number;
+        if (ourScore.profitMultiplier > 0) {
+          ourProfit = ourScore.profitMultiplier * (ourBet.pinnacleOdds - 1);
+        } else {
+          ourProfit = ourScore.profitMultiplier;
+        }
         ourResults.push({
           match: tb.match,
           selection: ourBet.selection,
           edge: ourBet.edge,
-          result: ourResult,
-          profit: ourResult === "W" ? ourBet.pinnacleOdds - 1 : ourResult === "L" ? -1 : 0,
+          result: ourScore.result,
+          profit: ourProfit,
           pinnOdds: ourBet.pinnacleOdds,
+          isEPL,
         });
+
+        // EPL-only tracking for our model
+        if (isEPL) {
+          eplOnly.ourBets++;
+          if (ourScore.result === "W" || ourScore.result === "HW") eplOnly.ourW++;
+          if (ourScore.result === "L" || ourScore.result === "HL") eplOnly.ourL++;
+          eplOnly.ourProfit += ourProfit;
+        }
 
         // Check overlap
         const ourTeam = ourBet.selection.split(" ")[0].toLowerCase();
-        const tedTeam = tb.selection.split(" ")[0].toLowerCase();
-        if (ourTeam === tedTeam || tb.selection.toLowerCase().includes(ourTeam)) {
+        const tedTeam = resolvedSelection.split(" ")[0].toLowerCase();
+        if (ourTeam === tedTeam || resolvedSelection.toLowerCase().includes(ourTeam)) {
           overlapMatches.add(tb.match);
         }
       }
     }
   }
 
-  const tedW = tedResults.filter(r => r.result === "W").length;
-  const tedL = tedResults.filter(r => r.result === "L").length;
+  const tedW = tedResults.filter(r => r.result === "W" || r.result === "HW").length;
+  const tedL = tedResults.filter(r => r.result === "L" || r.result === "HL").length;
   const tedP = tedResults.filter(r => r.result === "P").length;
-  const ourW = ourResults.filter(r => r.result === "W").length;
-  const ourL = ourResults.filter(r => r.result === "L").length;
+  const ourW = ourResults.filter(r => r.result === "W" || r.result === "HW").length;
+  const ourL = ourResults.filter(r => r.result === "L" || r.result === "HL").length;
   const ourP = ourResults.filter(r => r.result === "P").length;
   const tedWeekProfit = tedResults.reduce((s, r) => s + r.profit, 0);
   const ourWeekProfit = ourResults.reduce((s, r) => s + r.profit, 0);
@@ -573,6 +813,25 @@ for (let i = 0; i < relevantDates.length; i++) {
     tedProfit: tedWeekProfit, ourProfit: ourWeekProfit,
   });
 
+  // EPL-only per-week results
+  const eplTed = tedResults.filter(r => r.isEPL);
+  const eplOur = ourResults.filter(r => r.isEPL);
+  if (eplTed.length > 0 || eplOur.length > 0) {
+    const eTedW = eplTed.filter(r => r.result === "W" || r.result === "HW").length;
+    const eTedL = eplTed.filter(r => r.result === "L" || r.result === "HL").length;
+    const eOurW = eplOur.filter(r => r.result === "W" || r.result === "HW").length;
+    const eOurL = eplOur.filter(r => r.result === "L" || r.result === "HL").length;
+    eplWeekResults.push({
+      date,
+      tedBets: eplTed.length, ourBets: eplOur.length, overlap: 0,
+      tedOnlyW: eTedW, tedOnlyL: eTedL,
+      ourOnlyW: eOurW, ourOnlyL: eOurL,
+      overlapW: 0, overlapL: 0,
+      tedProfit: eplTed.reduce((s, r) => s + r.profit, 0),
+      ourProfit: eplOur.reduce((s, r) => s + r.profit, 0),
+    });
+  }
+
   processedWeeks++;
 
   // ─── PRINT EVERY WEEK IN DETAIL ─────────────────────────────────────
@@ -583,9 +842,10 @@ for (let i = 0; i < relevantDates.length; i++) {
   // Ted's bets
   console.log(`\n  TED'S BETS (${tedResults.length}):`);
   for (const tr of tedResults) {
-    const icon = tr.result === "W" ? "W" : tr.result === "L" ? "L" : "P";
+    const icon = tr.result === "HW" ? "½W" : tr.result === "HL" ? "½L" : tr.result;
     const score = tr.matchData ? `${tr.matchData.homeGoals}-${tr.matchData.awayGoals}` : "?-?";
-    console.log(`    [${icon}] ${tr.bet.match.padEnd(35)} ${tr.bet.selection.padEnd(22)} (${score})`);
+    const oddsTag = tr.usedRealOdds ? "" : " [est]";
+    console.log(`    [${icon}] ${tr.bet.match.padEnd(35)} ${tr.bet.selection.padEnd(22)} (${score}) ${tr.profit >= 0 ? "+" : ""}${tr.profit.toFixed(2)}u${oddsTag}`);
   }
 
   // Our bets
@@ -594,7 +854,7 @@ for (let i = 0; i < relevantDates.length; i++) {
     console.log(`    (no value found)`);
   } else {
     for (const or2 of ourResults) {
-      const icon = or2.result === "W" ? "W" : or2.result === "L" ? "L" : "P";
+      const icon = or2.result === "HW" ? "½W" : or2.result === "HL" ? "½L" : or2.result;
       console.log(`    [${icon}] ${or2.match.padEnd(35)} ${or2.selection.padEnd(22)} edge: +${(or2.edge * 100).toFixed(1)}%  @ ${or2.pinnOdds.toFixed(2)}`);
     }
   }
@@ -621,9 +881,10 @@ const totalTedProfit = weekResults.reduce((s, w) => s + w.tedProfit, 0);
 const totalOurProfit = weekResults.reduce((s, w) => s + w.ourProfit, 0);
 
 console.log(`  Ted's Bets:`);
-console.log(`    Total: ${totalTedBets} | W: ${totalTedW} | L: ${totalTedL}`);
+console.log(`    Total scored: ${totalTedBets} | W: ${totalTedW} | L: ${totalTedL}`);
 console.log(`    Win rate: ${(totalTedW / Math.max(1, totalTedBets) * 100).toFixed(1)}%`);
-console.log(`    Est. P/L: ${totalTedProfit >= 0 ? "+" : ""}${totalTedProfit.toFixed(1)} units`);
+console.log(`    P/L: ${totalTedProfit >= 0 ? "+" : ""}${totalTedProfit.toFixed(1)} units`);
+console.log(`    ROI: ${(totalTedProfit / Math.max(1, totalTedBets) * 100).toFixed(1)}%`);
 console.log();
 
 console.log(`  Our Model (MI Poisson):`);
@@ -636,6 +897,23 @@ console.log();
 const totalOverlap = weekResults.reduce((s, w) => s + w.overlap, 0);
 console.log(`  Overlap: ${totalOverlap} matches where both picked same side`);
 console.log(`  Weeks processed: ${processedWeeks}`);
+console.log();
+
+// EPL-only summary
+console.log(`${"═".repeat(70)}`);
+console.log("  EPL-ONLY COMPARISON (where we have team xG data)");
+console.log(`${"═".repeat(70)}\n`);
+console.log(`  Ted (EPL only):`);
+console.log(`    Total: ${eplOnly.tedBets} | W: ${eplOnly.tedW} | L: ${eplOnly.tedL}`);
+console.log(`    Win rate: ${(eplOnly.tedW / Math.max(1, eplOnly.tedBets) * 100).toFixed(1)}%`);
+console.log(`    P/L: ${eplOnly.tedProfit >= 0 ? "+" : ""}${eplOnly.tedProfit.toFixed(1)} units`);
+console.log(`    ROI: ${(eplOnly.tedProfit / Math.max(1, eplOnly.tedBets) * 100).toFixed(1)}%`);
+console.log();
+console.log(`  Our Model (EPL only):`);
+console.log(`    Total: ${eplOnly.ourBets} | W: ${eplOnly.ourW} | L: ${eplOnly.ourL}`);
+console.log(`    Win rate: ${(eplOnly.ourW / Math.max(1, eplOnly.ourBets) * 100).toFixed(1)}%`);
+console.log(`    P/L: ${eplOnly.ourProfit >= 0 ? "+" : ""}${eplOnly.ourProfit.toFixed(1)} units`);
+console.log(`    ROI: ${(eplOnly.ourProfit / Math.max(1, eplOnly.ourBets) * 100).toFixed(1)}%`);
 console.log();
 
 // Weekly comparison table
@@ -660,6 +938,56 @@ for (const w of weekResults) {
   );
 }
 
+// EPL-only weekly table
+console.log(`\n  ─── EPL-ONLY WEEKLY COMPARISON ────────────────────────────────────\n`);
+console.log(`  ${"Date".padEnd(12)} ${"Ted".padStart(4)} ${"W/L".padStart(5)} ${"P/L".padStart(7)} ${"Ours".padStart(5)} ${"W/L".padStart(5)} ${"P/L".padStart(7)} ${"CumTed".padStart(8)} ${"CumOurs".padStart(8)}`);
+console.log(`  ${"─".repeat(70)}`);
+
+let eCumTed = 0, eCumOurs = 0;
+for (const w of eplWeekResults) {
+  eCumTed += w.tedProfit;
+  eCumOurs += w.ourProfit;
+  console.log(
+    `  ${w.date.padEnd(12)} ` +
+    `${String(w.tedBets).padStart(4)} ` +
+    `${w.tedOnlyW}/${w.tedOnlyL}`.padStart(5) + ` ` +
+    `${(w.tedProfit >= 0 ? "+" : "") + w.tedProfit.toFixed(1)}`.padStart(7) + ` ` +
+    `${String(w.ourBets).padStart(5)} ` +
+    `${w.ourOnlyW}/${w.ourOnlyL}`.padStart(5) + ` ` +
+    `${(w.ourProfit >= 0 ? "+" : "") + w.ourProfit.toFixed(1)}`.padStart(7) + ` ` +
+    `${(eCumTed >= 0 ? "+" : "") + eCumTed.toFixed(1)}`.padStart(8) + ` ` +
+    `${(eCumOurs >= 0 ? "+" : "") + eCumOurs.toFixed(1)}`.padStart(8)
+  );
+}
+
+// ─── Diagnostic summary ─────────────────────────────────────────────────────
+
+console.log(`\n${"═".repeat(70)}`);
+console.log("  SCORING DIAGNOSTICS");
+console.log(`${"═".repeat(70)}\n`);
+console.log(`  Total Ted bets in data:       ${diag.totalBets}`);
+console.log(`  Relevant (EPL+Champ):          ${diag.relevantBets}`);
+console.log(`  Match found in FD data:        ${diag.matchFound}`);
+console.log(`  Successfully scored:           ${diag.scored}`);
+console.log(`  Skipped (unresolvable):        ${diag.skipped}`);
+console.log(`  Used real Pinnacle odds:       ${diag.usedRealOdds}`);
+console.log(`  Used estimated 1.90 odds:      ${diag.usedEstimatedOdds}`);
+console.log(`  Leagues excluded:`);
+for (const [league, count] of diag.excludedLeagues) {
+  console.log(`    ${league}: ${count}`);
+}
+
+if (diag.unmatchedBets.length > 0) {
+  console.log(`\n  Unmatched/skipped bets (${diag.unmatchedBets.length}):`);
+  for (const { bet, reason } of diag.unmatchedBets.slice(0, 30)) {
+    console.log(`    ${bet.newsletter_date} | ${bet.match.padEnd(30)} | ${reason}`);
+  }
+  if (diag.unmatchedBets.length > 30) {
+    console.log(`    ... and ${diag.unmatchedBets.length - 30} more`);
+  }
+}
+console.log();
+
 // Save results
 const output = {
   generated: new Date().toISOString(),
@@ -668,9 +996,24 @@ const output = {
     ours: { bets: totalOurBets, wins: totalOurW, losses: totalOurL, profit: totalOurProfit },
     overlap: totalOverlap, weeksProcessed: processedWeeks,
   },
+  eplOnly: {
+    ted: { bets: eplOnly.tedBets, wins: eplOnly.tedW, losses: eplOnly.tedL, profit: eplOnly.tedProfit },
+    ours: { bets: eplOnly.ourBets, wins: eplOnly.ourW, losses: eplOnly.ourL, profit: eplOnly.ourProfit },
+  },
+  diagnostics: {
+    totalBets: diag.totalBets,
+    relevantBets: diag.relevantBets,
+    matchFound: diag.matchFound,
+    scored: diag.scored,
+    skipped: diag.skipped,
+    usedRealOdds: diag.usedRealOdds,
+    usedEstimatedOdds: diag.usedEstimatedOdds,
+    excludedLeagues: Object.fromEntries(diag.excludedLeagues),
+  },
   weekResults,
+  eplWeekResults,
 };
 
 writeFileSync(join(outDir, "ted-comparison.json"), JSON.stringify(output, null, 2));
-console.log(`\n  Results saved to data/backtest/ted-comparison.json\n`);
+console.log(`  Results saved to data/backtest/ted-comparison.json\n`);
 console.log(`  [DONE]\n`);
