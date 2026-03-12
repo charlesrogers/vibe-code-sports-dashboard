@@ -1,0 +1,204 @@
+{
+  "teams": {
+    "Liverpool": {
+      "team": "Liverpool",
+      "attack": 1.2746113989637309,
+      "defense": 0.7263157894736844,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Bournemouth": {
+      "team": "Bournemouth",
+      "attack": 1.134715025906736,
+      "defense": 1.1526315789473687,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Aston Villa": {
+      "team": "Aston Villa",
+      "attack": 1.134715025906736,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Newcastle": {
+      "team": "Newcastle",
+      "attack": 1.2746113989637309,
+      "defense": 0.8684210526315792,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Brighton": {
+      "team": "Brighton",
+      "attack": 1.134715025906736,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Fulham": {
+      "team": "Fulham",
+      "attack": 0.9948186528497411,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Sunderland": {
+      "team": "Sunderland",
+      "attack": 0.7150259067357515,
+      "defense": 0.8684210526315792,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "West Ham": {
+      "team": "West Ham",
+      "attack": 0.8549222797927463,
+      "defense": 1.1526315789473687,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Tottenham": {
+      "team": "Tottenham",
+      "attack": 0.9948186528497411,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Burnley": {
+      "team": "Burnley",
+      "attack": 0.7150259067357515,
+      "defense": 1.1526315789473687,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Wolves": {
+      "team": "Wolves",
+      "attack": 0.7150259067357515,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Man City": {
+      "team": "Man City",
+      "attack": 1.4145077720207258,
+      "defense": 0.7263157894736844,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Chelsea": {
+      "team": "Chelsea",
+      "attack": 1.134715025906736,
+      "defense": 0.7263157894736844,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Crystal Palace": {
+      "team": "Crystal Palace",
+      "attack": 0.8549222797927463,
+      "defense": 0.8684210526315792,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Nott'm Forest": {
+      "team": "Nott'm Forest",
+      "attack": 0.9948186528497411,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Brentford": {
+      "team": "Brentford",
+      "attack": 1.134715025906736,
+      "defense": 1.1526315789473687,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Man United": {
+      "team": "Man United",
+      "attack": 1.4145077720207258,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Arsenal": {
+      "team": "Arsenal",
+      "attack": 1.2746113989637309,
+      "defense": 0.5842105263157896,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Leeds": {
+      "team": "Leeds",
+      "attack": 1.134715025906736,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 21
+    },
+    "Everton": {
+      "team": "Everton",
+      "attack": 0.7150259067357515,
+      "defense": 0.8684210526315792,
+      "ppg": 0,
+      "matchesUsed": 59
+    },
+    "Manchester United": {
+      "team": "Manchester United",
+      "attack": 0.9948186528497411,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Ipswich": {
+      "team": "Ipswich",
+      "attack": 0.7150259067357515,
+      "defense": 1.4368421052631581,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Wolverhampton": {
+      "team": "Wolverhampton",
+      "attack": 0.8549222797927463,
+      "defense": 1.1526315789473687,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Southampton": {
+      "team": "Southampton",
+      "attack": 0.5751295336787566,
+      "defense": 1.4368421052631581,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Nottingham Forest": {
+      "team": "Nottingham Forest",
+      "attack": 0.9948186528497411,
+      "defense": 1.010526315789474,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Manchester City": {
+      "team": "Manchester City",
+      "attack": 1.2746113989637309,
+      "defense": 0.7263157894736844,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Leicester": {
+      "team": "Leicester",
+      "attack": 0.5751295336787566,
+      "defense": 1.2947368421052634,
+      "ppg": 0,
+      "matchesUsed": 38
+    }
+  },
+  "homeAdvantage": 1.2210526315789474,
+  "correlation": -0.08,
+  "avgGoalRate": 1.2526315789473685,
+  "leagueId": "epl",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 81,
+    "finalLoss": 0.7154585161069629,
+    "converged": false
+  },
+  "driftFactor": 0
+}

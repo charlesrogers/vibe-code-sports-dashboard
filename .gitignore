@@ -42,3 +42,6 @@ next-env.d.ts
 
 # odds data (local collection, not code)
 /data/odds-snapshots/
+/data/live-odds/
+/data/bet-log/
+/data/backtest/solver-cache/

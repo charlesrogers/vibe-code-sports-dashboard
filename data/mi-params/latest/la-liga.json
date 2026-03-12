@@ -1,0 +1,204 @@
+{
+  "teams": {
+    "Girona": {
+      "team": "Girona",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Vallecano": {
+      "team": "Vallecano",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Villarreal": {
+      "team": "Villarreal",
+      "attack": 1.3085106382978726,
+      "defense": 0.8776595744680854,
+      "ppg": 0,
+      "matchesUsed": 56
+    },
+    "Oviedo": {
+      "team": "Oviedo",
+      "attack": 0.5904255319148938,
+      "defense": 1.3085106382978726,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Mallorca": {
+      "team": "Mallorca",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Barcelona": {
+      "team": "Barcelona",
+      "attack": 1.73936170212766,
+      "defense": 0.7340425531914896,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Alaves": {
+      "team": "Alaves",
+      "attack": 0.7340425531914896,
+      "defense": 0.8776595744680854,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Levante": {
+      "team": "Levante",
+      "attack": 0.8776595744680854,
+      "defense": 1.3085106382978726,
+      "ppg": 0,
+      "matchesUsed": 18
+    },
+    "Valencia": {
+      "team": "Valencia",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Sociedad": {
+      "team": "Sociedad",
+      "attack": 1.164893617021277,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Celta": {
+      "team": "Celta",
+      "attack": 1.0212765957446812,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Getafe": {
+      "team": "Getafe",
+      "attack": 0.7340425531914896,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Ath Bilbao": {
+      "team": "Ath Bilbao",
+      "attack": 0.8776595744680854,
+      "defense": 0.8776595744680854,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Sevilla": {
+      "team": "Sevilla",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Espanol": {
+      "team": "Espanol",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Ath Madrid": {
+      "team": "Ath Madrid",
+      "attack": 1.3085106382978726,
+      "defense": 0.7340425531914896,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Elche": {
+      "team": "Elche",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Betis": {
+      "team": "Betis",
+      "attack": 1.3085106382978726,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 19
+    },
+    "Real Madrid": {
+      "team": "Real Madrid",
+      "attack": 1.73936170212766,
+      "defense": 0.8776595744680854,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Osasuna": {
+      "team": "Osasuna",
+      "attack": 0.8776595744680854,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 57
+    },
+    "Athletic Bilbao": {
+      "team": "Athletic Bilbao",
+      "attack": 1.0212765957446812,
+      "defense": 0.7340425531914896,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Real Betis": {
+      "team": "Real Betis",
+      "attack": 1.164893617021277,
+      "defense": 1.0212765957446812,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Las Palmas": {
+      "team": "Las Palmas",
+      "attack": 0.7340425531914896,
+      "defense": 1.164893617021277,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Leganes": {
+      "team": "Leganes",
+      "attack": 0.8776595744680854,
+      "defense": 1.164893617021277,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Real Sociedad": {
+      "team": "Real Sociedad",
+      "attack": 0.8776595744680854,
+      "defense": 0.8776595744680854,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Valladolid": {
+      "team": "Valladolid",
+      "attack": 0.5904255319148938,
+      "defense": 1.4521276595744685,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Atletico Madrid": {
+      "team": "Atletico Madrid",
+      "attack": 1.3085106382978726,
+      "defense": 0.7340425531914896,
+      "ppg": 0,
+      "matchesUsed": 38
+    }
+  },
+  "homeAdvantage": 1.3263157894736843,
+  "correlation": 0.020000000000000004,
+  "avgGoalRate": 1.1263157894736842,
+  "leagueId": "la-liga",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 4,
+    "finalLoss": 0.6843735533433883,
+    "converged": true
+  },
+  "driftFactor": 0
+}

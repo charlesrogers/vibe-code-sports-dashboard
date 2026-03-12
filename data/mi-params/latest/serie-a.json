@@ -1,0 +1,190 @@
+{
+  "teams": {
+    "Genoa": {
+      "team": "Genoa",
+      "attack": 1.0113780025284451,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Lecce": {
+      "team": "Lecce",
+      "attack": 0.5847029077117574,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Sassuolo": {
+      "team": "Sassuolo",
+      "attack": 0.8691529709228826,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 20
+    },
+    "Napoli": {
+      "team": "Napoli",
+      "attack": 1.1536030341340078,
+      "defense": 0.5914322250639388,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Milan": {
+      "team": "Milan",
+      "attack": 1.2958280657395702,
+      "defense": 0.8791560102301792,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Cremonese": {
+      "team": "Cremonese",
+      "attack": 0.8691529709228826,
+      "defense": 1.31074168797954,
+      "ppg": 0,
+      "matchesUsed": 20
+    },
+    "Roma": {
+      "team": "Roma",
+      "attack": 1.1536030341340078,
+      "defense": 0.735294117647059,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Bologna": {
+      "team": "Bologna",
+      "attack": 1.1536030341340078,
+      "defense": 0.8791560102301792,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Cagliari": {
+      "team": "Cagliari",
+      "attack": 0.8691529709228826,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Fiorentina": {
+      "team": "Fiorentina",
+      "attack": 1.0113780025284451,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Como": {
+      "team": "Como",
+      "attack": 1.1536030341340078,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Lazio": {
+      "team": "Lazio",
+      "attack": 1.1536030341340078,
+      "defense": 0.8791560102301792,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Atalanta": {
+      "team": "Atalanta",
+      "attack": 1.1536030341340078,
+      "defense": 0.735294117647059,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Pisa": {
+      "team": "Pisa",
+      "attack": 0.7269279393173199,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 20
+    },
+    "Juventus": {
+      "team": "Juventus",
+      "attack": 1.4380530973451329,
+      "defense": 0.8791560102301792,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Parma": {
+      "team": "Parma",
+      "attack": 0.7269279393173199,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Udinese": {
+      "team": "Udinese",
+      "attack": 0.8691529709228826,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Verona": {
+      "team": "Verona",
+      "attack": 0.8691529709228826,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 20
+    },
+    "Inter": {
+      "team": "Inter",
+      "attack": 1.5802781289506955,
+      "defense": 0.5914322250639388,
+      "ppg": 0,
+      "matchesUsed": 20
+    },
+    "Torino": {
+      "team": "Torino",
+      "attack": 1.0113780025284451,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 58
+    },
+    "Inter Milan": {
+      "team": "Inter Milan",
+      "attack": 1.4380530973451329,
+      "defense": 0.735294117647059,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Empoli": {
+      "team": "Empoli",
+      "attack": 0.8691529709228826,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Monza": {
+      "team": "Monza",
+      "attack": 0.7269279393173199,
+      "defense": 1.31074168797954,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Hellas Verona": {
+      "team": "Hellas Verona",
+      "attack": 0.5847029077117574,
+      "defense": 1.0230179028132995,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Venezia": {
+      "team": "Venezia",
+      "attack": 0.7269279393173199,
+      "defense": 1.1668797953964196,
+      "ppg": 0,
+      "matchesUsed": 38
+    }
+  },
+  "homeAdvantage": 1.168421052631579,
+  "correlation": -0.08,
+  "avgGoalRate": 1.168421052631579,
+  "leagueId": "serie-a",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 5,
+    "finalLoss": 0.7307815197326933,
+    "converged": true
+  },
+  "driftFactor": 0
+}

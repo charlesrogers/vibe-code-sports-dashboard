@@ -1,0 +1,176 @@
+{
+  "teams": {
+    "Bayern Munich": {
+      "team": "Bayern Munich",
+      "attack": 1.7136021872863982,
+      "defense": 0.5816814764183187,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "RB Leipzig": {
+      "team": "RB Leipzig",
+      "attack": 1.1476418318523585,
+      "defense": 0.8646616541353386,
+      "ppg": 0,
+      "matchesUsed": 50
+    },
+    "Ein Frankfurt": {
+      "team": "Ein Frankfurt",
+      "attack": 1.0061517429938485,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Werder Bremen": {
+      "team": "Werder Bremen",
+      "attack": 0.8646616541353386,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 50
+    },
+    "Freiburg": {
+      "team": "Freiburg",
+      "attack": 1.0061517429938485,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Augsburg": {
+      "team": "Augsburg",
+      "attack": 0.7231715652768287,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Heidenheim": {
+      "team": "Heidenheim",
+      "attack": 0.7231715652768287,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Wolfsburg": {
+      "team": "Wolfsburg",
+      "attack": 1.0061517429938485,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Leverkusen": {
+      "team": "Leverkusen",
+      "attack": 1.1476418318523585,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 16
+    },
+    "Hoffenheim": {
+      "team": "Hoffenheim",
+      "attack": 1.0061517429938485,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 50
+    },
+    "Union Berlin": {
+      "team": "Union Berlin",
+      "attack": 0.7231715652768287,
+      "defense": 0.8646616541353386,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Stuttgart": {
+      "team": "Stuttgart",
+      "attack": 1.2891319207108685,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "St Pauli": {
+      "team": "St Pauli",
+      "attack": 0.7231715652768287,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 50
+    },
+    "Dortmund": {
+      "team": "Dortmund",
+      "attack": 1.1476418318523585,
+      "defense": 0.7231715652768287,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "Mainz": {
+      "team": "Mainz",
+      "attack": 0.8646616541353386,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "FC Koln": {
+      "team": "FC Koln",
+      "attack": 1.0061517429938485,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "M'gladbach": {
+      "team": "M'gladbach",
+      "attack": 1.0061517429938485,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "Hamburg": {
+      "team": "Hamburg",
+      "attack": 0.8646616541353386,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 16
+    },
+    "Monchengladbach": {
+      "team": "Monchengladbach",
+      "attack": 1.0061517429938485,
+      "defense": 1.1476418318523585,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "Bayer Leverkusen": {
+      "team": "Bayer Leverkusen",
+      "attack": 1.1476418318523585,
+      "defense": 0.7231715652768287,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "Holstein Kiel": {
+      "team": "Holstein Kiel",
+      "attack": 0.8646616541353386,
+      "defense": 1.4306220095693785,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "Bochum": {
+      "team": "Bochum",
+      "attack": 0.7231715652768287,
+      "defense": 1.0061517429938485,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "Borussia Dortmund": {
+      "team": "Borussia Dortmund",
+      "attack": 1.2891319207108685,
+      "defense": 0.8646616541353386,
+      "ppg": 0,
+      "matchesUsed": 34
+    }
+  },
+  "homeAdvantage": 1.2736842105263158,
+  "correlation": 0.020000000000000004,
+  "avgGoalRate": 1.3368421052631578,
+  "leagueId": "bundesliga",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 5,
+    "finalLoss": 0.6675186553581526,
+    "converged": true
+  },
+  "driftFactor": 0
+}
