@@ -10,12 +10,13 @@ what to do about it. It's the single source of truth for methodology decisions.
 
 1. [Ted's System Architecture](#1-teds-system-architecture)
 2. [Ted's Approach to Totals](#2-teds-approach-to-totals)
-3. [Our Model vs Ted's — Where We Align and Diverge](#3-our-model-vs-teds)
-4. [Backtest Results](#4-backtest-results)
-5. [The Overs Problem — Diagnosis and Root Causes](#5-the-overs-problem)
-6. [Decision: Totals Strategy Going Forward](#6-decision-totals-strategy)
-7. [Ted's Key Principles (Reference)](#7-teds-key-principles)
-8. [Open Questions](#8-open-questions)
+3. [Our Full Algorithm Pipeline](#3-our-full-algorithm-pipeline)
+4. [Our Model vs Ted's — Where We Align and Diverge](#4-our-model-vs-teds)
+5. [Backtest Results](#5-backtest-results)
+6. [The Overs Problem — Diagnosis and Root Causes](#6-the-overs-problem)
+7. [Decision: Totals Strategy Going Forward](#7-decision-totals-strategy)
+8. [Ted's Key Principles (Reference)](#8-teds-key-principles)
+9. [Open Questions](#9-open-questions)
 
 ---
 
@@ -164,7 +165,250 @@ the side and total are **positively correlated** (big favorite + Over).
 
 ---
 
-## 3. Our Model vs Ted's
+## 3. Our Full Algorithm Pipeline
+
+Everything that runs when `/picks` generates predictions. Every signal is live
+and affects outputs as of 2026-03-12.
+
+### Stage 1: Data Loading
+
+For each league (EPL, La Liga, Serie A, Bundesliga, Championship):
+
+| Data | Source | Cache | File |
+|------|--------|-------|------|
+| Pre-solved MI params | Local JSON | Per-league | `data/mi-params/{league}.json` |
+| Upcoming fixtures + live odds | The Odds API | Vercel cron 09:00 UTC | `lib/odds-collector/the-odds-api.ts` |
+| Historical matches | football-data.co.uk cache | Local JSON | `data/football-data-cache/` |
+| xG (season-level) | Fotmob API → xG cache | 24h, daily snapshot | `lib/xg-cache.ts`, `lib/fotmob.ts` |
+| GK PSxG+/- | Fotmob `_goals_prevented` stat | 24h in-memory + disk | `lib/gk-psxg.ts` |
+| Player minutes | Fotmob `_minutes_played` stat | 24h | `lib/gk-psxg.ts` |
+| Injury reports | Fotmob team API | 24h in-memory | `lib/injuries.ts` |
+| Manager changes | Fotmob `coachHistory` | 24h in-memory | `lib/manager-changes.ts` |
+
+### Stage 2: Model Predictions (per match)
+
+**2a. MI Bivariate Poisson** (`lib/mi-model/predictor.ts`)
+
+```
+lambdaHome = homeTeam.attack * awayTeam.defense * homeAdvantage * avgGoalRate
+lambdaAway = awayTeam.attack * homeTeam.defense * avgGoalRate
+```
+
+Generates 10x10 score grid via Karlis-Ntzoufras bivariate Poisson PMF with
+correlation parameter lambda3 (range [-0.08, 0.02]). Derives:
+- 1X2 probabilities
+- Asian Handicap probabilities (any line)
+- Over/Under with totals deflation (0.965x)
+- Most likely scoreline, expected goals
+
+**2b. Dixon-Coles Model** (`lib/models/dixon-coles.ts`)
+
+Independent bivariate Poisson fitted on historical match results (not market
+odds). Provides second opinion on 1X2 probabilities.
+
+**2c. Elo Ratings** (`lib/models/elo.ts`)
+
+Rolling Elo from historical results. Provides third 1X2 probability opinion
+plus strength-of-schedule context.
+
+**2d. Ensemble Consensus**
+
+```
+consensus = average(MI_probs, DC_probs, Elo_probs)
+agreement = "strong" | "moderate" | "split"  (do all models agree on favorite?)
+```
+
+### Stage 3: Lambda Adjustments (sequential, multiplicative)
+
+Each adjustment modifies the base lambdas, then regenerates the full
+probability distribution. Applied in this order:
+
+**3a. Injury Adjustment** (`lib/mi-picks/injury-adjust.ts`)
+
+| Severity | Lambda Multiplier | Trigger |
+|----------|-------------------|---------|
+| Crisis | 0.90 (-10%) | 3+ key starters out |
+| Major | 0.95 (-5%) | 2 key starters out |
+| Moderate/Minor | 1.0 (no change) | Display-only |
+
+Injury classification uses Fotmob unavailability data, enriched with
+player minutes to filter out bench players (<15% of possible minutes).
+Players whose absence is already priced in (out 3+ matches) are excluded
+from severity calculation.
+
+**3b. GK PSxG+/- Adjustment** (`lib/mi-picks/gk-adjust.ts`)
+
+Adjusts opponent's expected goals based on goalkeeper quality:
+
+```
+// Elite GK (positive PSxG+/-) -> reduce opponent's lambda
+// Poor GK (negative PSxG+/-) -> increase opponent's lambda
+adjustment = goalsPreventedPer90 * 0.12  (capped at +/-15%)
+lambdaHome *= (1 - awayGK_adjustment)   // away GK affects home scoring
+lambdaAway *= (1 - homeGK_adjustment)   // home GK affects away scoring
+```
+
+- Requires 8+ matches for reliability
+- Impact: ~6% lambda change for a GK saving +0.5 goals/90 above expected
+- Ted's thesis: "GK quality is the hidden variable that determines whether
+  defensive xGA divergence will actually regress"
+
+### Stage 4: Ted Variance Assessment
+
+**4a. Team Variance Calculation** (`lib/variance/calculator.ts`)
+
+For each team, compares actual results to xG:
+
+```
+attackVariance = goals - xGFor        (positive = scoring above expectation)
+defenseVariance = goalsConceded - xGA (positive = leaking more than expected)
+totalVariance = actualGD - xGD
+```
+
+Classifies:
+- Signal strength: strong/weak positive/negative, neutral
+- Dominant type: attack_overperf, attack_underperf, defense_overperf,
+  defense_underperf, balanced
+- Quality tier: elite/good/average/poor/bad (venue-adjusted xGD/match)
+- Persistent defiance: 15+ matches without correcting
+- Double variance: attack AND defense diverging simultaneously
+
+**4b. Regression Confidence** (0-1 score, influenced by):
+
+| Factor | Effect |
+|--------|--------|
+| Gap > 5 goals | +0.20 confidence |
+| Gap > 8 goals | +0.10 additional |
+| Defense underperformance dominant | +0.15 (most reliable signal) |
+| Attack overperformance dominant | -0.10 (fragile signal) |
+| 10+ matches sample | +0.10 |
+| <5 matches sample | -0.15 |
+| Persistent defiance (15+ matches) | -0.20 |
+| Bad team quality | -0.15 |
+| Last-10 trend improving (>0.3 xGD/match divergence) | +0.10 |
+| Last-10 trend declining | -0.10 |
+| Mid-season manager change | -0.25 (xG reflects mixed systems) |
+| New-this-season manager | -0.15 (system still forming) |
+
+**4c. Ted Bet Filters** (`lib/mi-picks/ted-filters.ts`)
+
+| Filter | Config | What it does |
+|--------|--------|--------------|
+| Skip early season | First 5 matchdays | Noisy ratings |
+| Variance filter | 10-match lookback, 3.0 goal gap | Only bet regression candidates |
+| Congestion filter | 3rd match in 8 days | Avoid fatigue unpredictability |
+| Defiance filter | 8+ consecutive wrong-direction matches | Model may be structurally wrong |
+
+### Stage 5: Value Bet Detection
+
+For each match passing Ted filters:
+
+1. **Devig market odds** (Pinnacle preferred, best-book fallback) using
+   multiplicative devigging
+2. Compare model probability vs market implied probability
+3. **Edge = modelProb - impliedProb** (must exceed threshold)
+4. Emit bet if edge >= configured minimum (currently 5%)
+
+Markets evaluated:
+- **1X2**: Home or Away only (no draws)
+- **Asian Handicap**: Lines from -2.5 to +2.5, step 0.25
+- **Over/Under 2.5**: Unders only (`TOTALS_UNDERS_ONLY = true`)
+
+### Stage 6: Best-Book Odds Shopping
+
+For each value bet, checks all available bookmakers and reports:
+- Which book has the best odds for that selection
+- Odds at each book for comparison
+- Execution odds = best available * (1 - 1% slippage)
+
+### Stage 7: Grading and Output
+
+**Grade assignment:**
+
+| Grade | Criteria |
+|-------|----------|
+| A | Edge >= 10%, ensemble agreement "strong", Ted confidence >= 0.6 |
+| B | Edge >= 7%, ensemble agreement "moderate"+, Ted confidence >= 0.4 |
+| C | Edge >= 5%, any agreement, any confidence |
+
+**Pick output includes:**
+- Model probabilities (MI + DC + Elo + consensus)
+- Fair odds vs market odds
+- xG context (season-level for both teams)
+- GK PSxG+/- with lambda adjustment when active
+- Strength of schedule (avg opponent Elo, last 5 opponents)
+- Manager change flags (new/mid-season, W/D/L record, predecessor)
+- Ted assessment (bet grade, confidence, edge side, positive factors, pass reasons)
+- Injury context (severity, key players out, bench player filtering)
+- All value bets with edge, best book, execution odds
+
+### Stage 8: Paper Trade Execution
+
+**Logging** (`lib/paper-trade/logger.ts`):
+- Vercel cron at 12:00 UTC runs `logPicks()`
+- Fetches fresh odds, generates picks, logs bets with time-windowed IDs
+- At 19:00 UTC, applies "best execution" — keeps only the bet with best
+  odds per match/market across all evaluation windows
+- Flat $20 stake (2% of $1000 bankroll)
+
+**Settlement** (`lib/paper-trade/settler.ts`):
+- Vercel cron at 07:00 UTC runs `settlePendingBets()`
+- Result sources: Fotmob real-time (primary) -> football-data cache ->
+  football-data.co.uk live (closing odds)
+- Canonical team name matching (resolves MI/Fotmob/UK CSV name variants)
+- Computes CLV from Pinnacle closing odds
+- AH settlement handles quarter-line splits (half-win, half-loss, push)
+
+**Drift Monitoring** (`lib/paper-trade/stats.ts`):
+- Rolling 30/50-bet windows: hit rate, ROI, avg CLV
+- Alerts: CLV negative (warning at -1%, critical at -3%), ROI negative,
+  hit rate < 45%, CLV declining trend
+
+### Data Flow Diagram
+
+```
+The Odds API --> Live odds ---|
+football-data.co.uk --> Historical matches ---|
+Fotmob --> xG, GK PSxG, injuries, managers --|
+                                              v
+                                    MI Solver (pre-computed params)
+                                              v
+                               |-- MI Prediction (lambdas -> score grid -> probs)
+                               |-- Dixon-Coles Prediction
+                               |-- Elo Prediction
+                               v
+                         Ensemble Consensus
+                               v
+                    Lambda Adjustments (sequential):
+                    1. Injury (-0% to -10%)
+                    2. GK PSxG (+/-15% max)
+                               v
+                    Regenerate probabilities
+                               v
+                    Ted Variance Assessment:
+                    - xG divergence analysis
+                    - Manager change confidence reduction
+                    - Regression direction + confidence
+                               v
+                    Ted Bet Filters:
+                    - Variance filter (regression candidates only)
+                    - Congestion, defiance, early-season
+                               v
+                    Value Bet Detection:
+                    - Devig odds, compare model vs market
+                    - Best-book shopping
+                               v
+                    Grade (A/B/C) + Output
+                               v
+                    Paper Trade:
+                    - Log bets (Vercel Blob)
+                    - Settle next day (Fotmob results)
+                    - CLV + drift monitoring
+```
+
+---
+
+## 4. Our Model vs Ted's
 
 ### Where we align
 
@@ -185,11 +429,11 @@ the side and total are **positively correlated** (big favorite + Over).
 | Aspect | Ted | Us | Impact |
 |--------|-----|----|--------|
 | **Totals methodology** | Qualitative (tempo, weather, coaching) | Poisson model P(O/U) | **Our Overs fail** |
-| **Injury overlay** | Central to his process | Not implemented | Missing signal |
+| **Injury overlay** | Central to his process | Fotmob injuries + minutes-based severity | **Aligned** |
 | **Timing** | 1-2 days before match | Day of | Different market |
 | **League scope** | EPL + Championship primary | 6 leagues | More noise |
 | **xG source** | FBref (StatsBomb) | Understat + football-data proxy | Different numbers |
-| **Qualitative override** | Coaching changes, motivation, etc. | None | Missing signal |
+| **Qualitative override** | Coaching changes, motivation, etc. | Manager change detection + GK PSxG | **Partially aligned** |
 
 ### The critical divergence: Totals
 
@@ -216,7 +460,7 @@ The asymmetry likely exists because:
 
 ---
 
-## 4. Backtest Results
+## 5. Backtest Results
 
 ### Ted Comparison (76 weeks, 2024-25 + 2025-26)
 
@@ -271,7 +515,7 @@ Fixes helped Unders significantly. Overs remain unprofitable.
 
 ---
 
-## 5. The Overs Problem
+## 6. The Overs Problem
 
 ### Diagnostic findings (`scripts/diagnose-overs-bias.ts`)
 
@@ -323,7 +567,7 @@ Under prediction is more tractable because:
 
 ---
 
-## 6. Decision: Totals Strategy Going Forward
+## 7. Decision: Totals Strategy Going Forward
 
 ### Current state (validated)
 
@@ -377,7 +621,7 @@ Bundesliga (-16.6%) and Serie A (-9.5%) are actively harmful. Consider:
 
 ---
 
-## 7. Ted's Key Principles (Reference)
+## 8. Ted's Key Principles (Reference)
 
 ### Betting philosophy
 
@@ -415,34 +659,48 @@ totals. His totals process is qualitative, team-specific, and situational.
 
 ---
 
-## 8. Open Questions
+## 9. Open Questions
+
+### Resolved (previously open)
+
+- ~~**Injury data**~~: Implemented. Fotmob injuries + player minutes for
+  bench filtering + priced-in exclusion. Lambda adjustment for crisis/major.
+- ~~**GK PSxG**~~: Implemented. Fotmob goals_prevented feeds lambda adjustment.
+- ~~**Manager changes**~~: Implemented. Fotmob coachHistory reduces regression
+  confidence for teams with new/mid-season managers.
+
+### Still Open
 
 1. **Odds capping**: Ted averages ~1.9 odds. We don't cap. Should we filter
    out bets above 2.5-2.8 odds? Backtest needed.
 
-2. **Injury data**: Ted's biggest qualitative overlay. Could we integrate
-   FotMob or another injury feed to adjust lambdas?
-
-3. **Tempo/pace metrics**: If we had shot pace or possession % data, could
+2. **Tempo/pace metrics**: If we had shot pace or possession % data, could
    we build a non-Poisson Over classifier?
 
-4. **Per-league totals thresholds**: Should Bundesliga/Serie A totals be
+3. **Per-league totals thresholds**: Should Bundesliga/Serie A totals be
    excluded entirely, or just held to a higher edge bar?
 
-5. **Correlated Over prototype**: Worth building the filter from Section 6
+4. **Correlated Over prototype**: Worth building the filter from Section 7
    Option C? Small bet volume but higher conviction.
 
-6. **Variance-only totals mode**: Instead of model edge, use ONLY
-   `assessTotalsThesis()` for totals — completely decouple from Poisson
-   for O/U. Would this perform better?
-
-7. **Alt totals lines**: We compute O/U at 11 lines but only compare
+5. **Alt totals lines**: We compute O/U at 11 lines but only compare
    against O/U 2.5 market odds. Collecting 2.25/2.75/3.0/3.25 lines
    from the per-event Odds API could unlock Under 2.25 or Under 2.75
    value that O/U 2.5 misses.
 
+6. **GK PSxG impact calibration**: Current GK_IMPACT_PER90 = 0.12 is
+   a conservative estimate. Once we have enough settled bets, backtest
+   different values (0.08-0.20 range) to find optimal.
+
+7. **Match-level xG for manager window**: Currently using season-level
+   xG aggregates. With match-level xG, could filter to only post-change
+   matches instead of just reducing confidence.
+
+8. **"Me bet" vs "Model bet" tracking**: Flag when human overrides the
+   model. Track separate performance to quantify if gut adds value.
+
 ---
 
-*Last updated: 2026-03-11*
+*Last updated: 2026-03-12*
 *Based on: Ted Knutson's Variance Betting canon (~110 newsletters, 2024-2026),
-our MI Poisson model backtest (6 leagues × 2 seasons), and diagnostic analysis.*
+our MI Poisson model backtest (6 leagues x 2 seasons), and diagnostic analysis.*
