@@ -18,7 +18,15 @@
       "status": "accepted",
       "result": "2.0 cap: +2.0% ROI, +33.2u. vs 2.5: +0.3%, vs 3.0: -1.7%. Clear winner.",
       "deployed": "2026-03-10",
-      "deployedIn": "lib/mi-picks/ted-filters.ts → DEFAULT_TED_CONFIG.maxOdds = 2.0"
+      "deployedIn": "lib/mi-picks/ted-filters.ts → DEFAULT_TED_CONFIG.maxOdds = 2.0",
+      "backtestStats": {
+        "standaloneROI": 0.012822636300897148,
+        "standaloneCLV": 0.10989856640929939,
+        "standaloneN": 1449,
+        "marginalROI": 0.06052508069754009,
+        "correlationWithBase": 0.7860593512767425,
+        "testedAt": "2026-03-12"
+      }
     },
     {
       "id": "pass-rate-filter-50pct",
@@ -87,6 +95,22 @@
       "metric": "log loss for manager-change matches",
       "threshold": "lower log loss vs full-season xG",
       "status": "pending"
+    },
+    {
+      "id": "congestion-filter",
+      "registered": "2026-03-12",
+      "hypothesis": "Auto-registered by test-signal.ts",
+      "metric": "ROI",
+      "threshold": "TBD",
+      "status": "pending",
+      "backtestStats": {
+        "standaloneROI": -0.0440671971706455,
+        "standaloneCLV": 0.11208690713487002,
+        "standaloneN": 3393,
+        "marginalROI": 0.020308074378730397,
+        "correlationWithBase": 0.3356911287945771,
+        "testedAt": "2026-03-12"
+      }
     }
   ]
 }

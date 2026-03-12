@@ -16,6 +16,10 @@
  *   npx tsx scripts/backtest-eval.ts --no-draws              # exclude draw bets
  *   npx tsx scripts/backtest-eval.ts --max-odds=2.0 --markets=ah --min-edge=0.07
  *
+ * Statistical Significance:
+ *   --bootstrap                      # Run bootstrap + permutation analysis
+ *   --bootstrap --resamples=10000    # Custom resample count
+ *
  * Ted Filters (bet selection from Variance Betting Playbook):
  *   --ted                          # Enable all Ted filters at once
  *   --variance-filter              # Only bet regression candidates (xG ≠ actual goals)
@@ -26,13 +30,15 @@
 
 import { readFileSync, existsSync, readdirSync } from "fs";
 import { join } from "path";
-import { predictMatch } from "../lib/mi-model/predictor";
+import { predictMatch, predictMatchFromLambdas } from "../lib/mi-model/predictor";
 import { devigOdds1X2, devigOdds2Way } from "../lib/mi-model/data-prep";
 import type { MIModelParams } from "../lib/mi-model/types";
+import { isPostInternationalBreak } from "../lib/mi-picks/international-breaks";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 const dataDir = join(projectRoot, "data/football-data-cache");
 const cacheDir = join(projectRoot, "data", "backtest", "solver-cache");
+const gkHistoryDir = join(projectRoot, "data", "backtest", "gk-history");
 
 // ─── CLI args ──────────────────────────────────────────────────────────────
 
@@ -49,6 +55,22 @@ const marketsArg = getArg("markets"); // "ah", "sides", "1x2", "unders", "overs"
 const noDraws = hasFlag("no-draws");
 const reportEdge = getArg("report-edge") ? parseFloat(getArg("report-edge")!) : 0.05;
 
+// ─── GK Adjustment ──────────────────────────────────────────────────────────
+const gkAdjust = hasFlag("gk-adjust");
+
+// ─── Bootstrap Significance Testing ─────────────────────────────────────────
+const bootstrapMode = hasFlag("bootstrap");
+const bootstrapResamples = getArg("resamples") ? parseInt(getArg("resamples")!) : 5000;
+const byLeagueBootstrap = hasFlag("by-league");
+const bySeasonBootstrap = hasFlag("by-season");
+
+// ─── International Break Filter ─────────────────────────────────────────────
+const intlBreakFilter = hasFlag("intl-break");
+
+// ─── Calibration ──────────────────────────────────────────────────────────
+const calibrate = hasFlag("calibrate");
+const calibrateShrink = getArg("calibrate-shrink") ? parseFloat(getArg("calibrate-shrink")!) : 0.90;
+
 // ─── Ted Filters ────────────────────────────────────────────────────────────
 const tedMode = hasFlag("ted");
 const varianceFilter = tedMode || hasFlag("variance-filter");
@@ -59,7 +81,7 @@ const defianceFilter = tedMode || hasFlag("defiance-filter");
 // Variance filter config
 const VARIANCE_LOOKBACK = 10;      // last N matches per team
 const VARIANCE_MIN_GAP = 3.0;      // min goals gap (xG vs actual) to qualify as regression candidate
-const DEFIANCE_STREAK = 8;         // if model disagrees with results for 8+ matches, skip
+const DEFIANCE_STREAK = 10;        // if model disagrees with results for 10+ matches, skip
 
 const LEAGUES = [
   { id: "epl", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
@@ -73,6 +95,99 @@ const LEAGUES = [
 const TEST_SEASON_START = "2022";
 const RESOLVE_INTERVAL_DAYS = 7;
 const EMBARGO_DAYS = 3;
+
+// ─── GK History Data ────────────────────────────────────────────────────────
+
+interface GKHistoryEntry {
+  player: string;
+  team: string;
+  goalsPrevented: number;
+  goalsPreventedPer90: number;
+  matchesPlayed: number;
+}
+
+/**
+ * Load GK history from data/backtest/gk-history/{league}-{season}.json
+ * Returns a map: leagueId -> season key (e.g. "2022") -> team name -> best GK stats
+ */
+function loadGKHistory(): Map<string, Map<string, Map<string, GKHistoryEntry>>> {
+  const map = new Map<string, Map<string, Map<string, GKHistoryEntry>>>();
+  if (!existsSync(gkHistoryDir)) return map;
+
+  const files = readdirSync(gkHistoryDir).filter(f => f.endsWith(".json"));
+  for (const f of files) {
+    try {
+      const data = JSON.parse(readFileSync(join(gkHistoryDir, f), "utf-8"));
+      const leagueId = data.league as string;
+      const seasonName = data.season as string; // "2022/2023"
+      // Map to season start year (2022/2023 → "2022")
+      const seasonKey = seasonName.split("/")[0];
+
+      if (!map.has(leagueId)) map.set(leagueId, new Map());
+      const leagueMap = map.get(leagueId)!;
+      if (!leagueMap.has(seasonKey)) leagueMap.set(seasonKey, new Map());
+      const teamMap = leagueMap.get(seasonKey)!;
+
+      // For each team, keep the GK with the most matches (starter)
+      for (const gk of (data.keepers || []) as GKHistoryEntry[]) {
+        const teamNorm = gk.team.toLowerCase().trim();
+        const existing = teamMap.get(teamNorm);
+        if (!existing || gk.matchesPlayed > existing.matchesPlayed) {
+          teamMap.set(teamNorm, gk);
+        }
+      }
+    } catch { /* skip corrupt */ }
+  }
+  return map;
+}
+
+const GK_IMPACT_PER90 = 0.12;
+const MAX_GK_ADJUSTMENT = 0.15;
+const MIN_GK_MATCHES = 8;
+
+function getGKAdjustment(
+  homeTeam: string,
+  awayTeam: string,
+  leagueId: string,
+  seasonKey: string,
+  gkHistory: Map<string, Map<string, Map<string, GKHistoryEntry>>>,
+): { homeGKAdj: number; awayGKAdj: number } {
+  const teamMap = gkHistory.get(leagueId)?.get(seasonKey);
+  if (!teamMap) return { homeGKAdj: 1.0, awayGKAdj: 1.0 };
+
+  // Find GK for each team (fuzzy match by lowercase)
+  const homeNorm = homeTeam.toLowerCase().trim();
+  const awayNorm = awayTeam.toLowerCase().trim();
+
+  // Try exact match first, then substring match
+  const findGK = (teamName: string): GKHistoryEntry | null => {
+    const norm = teamName.toLowerCase().trim();
+    // Exact match
+    for (const [key, gk] of teamMap) {
+      if (key === norm || key.includes(norm) || norm.includes(key)) {
+        return gk.matchesPlayed >= MIN_GK_MATCHES ? gk : null;
+      }
+    }
+    return null;
+  };
+
+  const homeGK = findGK(homeTeam);
+  const awayGK = findGK(awayTeam);
+
+  let homeGKAdj = 1.0; // Away GK affects home scoring
+  let awayGKAdj = 1.0; // Home GK affects away scoring
+
+  if (awayGK) {
+    const rawAdj = awayGK.goalsPreventedPer90 * GK_IMPACT_PER90;
+    homeGKAdj = 1.0 - Math.max(-MAX_GK_ADJUSTMENT, Math.min(MAX_GK_ADJUSTMENT, rawAdj));
+  }
+  if (homeGK) {
+    const rawAdj = homeGK.goalsPreventedPer90 * GK_IMPACT_PER90;
+    awayGKAdj = 1.0 - Math.max(-MAX_GK_ADJUSTMENT, Math.min(MAX_GK_ADJUSTMENT, rawAdj));
+  }
+
+  return { homeGKAdj, awayGKAdj };
+}
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -142,6 +257,9 @@ if (maxOdds) console.log(`  Max odds cap: ${maxOdds}`);
 if (minEdge > 0) console.log(`  Min edge filter: ${(minEdge * 100).toFixed(0)}%`);
 if (marketsArg) console.log(`  Markets: ${marketsArg}`);
 if (noDraws) console.log(`  Excluding draws`);
+if (gkAdjust) console.log(`  GK PSxG adjustment: ON (impact=${GK_IMPACT_PER90}, cap=±${(MAX_GK_ADJUSTMENT * 100).toFixed(0)}%)`);
+if (calibrate) console.log(`  Calibration shrinkage: ${calibrateShrink} (${((1 - calibrateShrink) * 100).toFixed(0)}% toward prior)`);
+if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
 else {
   if (varianceFilter) console.log(`  Variance filter: ON (gap >= ${VARIANCE_MIN_GAP} goals)`);
@@ -152,6 +270,16 @@ else {
 console.log();
 
 const allBets: BetRecord[] = [];
+
+// Load GK history if needed
+const gkHistory = gkAdjust ? loadGKHistory() : new Map();
+if (gkAdjust) {
+  let totalTeams = 0;
+  for (const [lid, seasons] of gkHistory) {
+    for (const [sk, teams] of seasons) totalTeams += teams.size;
+  }
+  console.log(`  GK history loaded: ${totalTeams} team-season entries`);
+}
 
 for (const league of cachedLeagues) {
   const snapshots = loadSnapshots(league.id);
@@ -174,7 +302,7 @@ for (const league of cachedLeagues) {
   const matchdayDates = [...new Set(testMatches.map((m: any) => m.date))].sort();
 
   let leagueBets = 0;
-  let leagueSkipped = { variance: 0, congestion: 0, early: 0, defiance: 0 };
+  let leagueSkipped = { variance: 0, congestion: 0, early: 0, defiance: 0, intlBreak: 0 };
   let currentParams: MIModelParams | null = null;
 
   // ─── Ted filter: build team match history for variance + congestion ──────
@@ -271,6 +399,9 @@ for (const league of cachedLeagues) {
     }
     if (bestSnap) {
       currentParams = snapshots.get(bestSnap)!;
+      if (calibrate) {
+        currentParams = { ...currentParams, calibrationShrink: calibrateShrink };
+      }
     }
     if (!currentParams) continue;
 
@@ -301,6 +432,20 @@ for (const league of cachedLeagues) {
       continue;
     }
 
+    // ─── International break filter: skip post-break matchdays ────────────
+    if (intlBreakFilter && isPostInternationalBreak(matchday)) {
+      leagueSkipped.intlBreak += dayMatches.filter((m: any) => m.homeGoals != null).length;
+      // Still update team history even for skipped matchdays
+      for (const m of dayMatches) {
+        if (m.homeGoals == null || m.awayGoals == null) continue;
+        if (!currentParams.teams[m.homeTeam] || !currentParams.teams[m.awayTeam]) continue;
+        let pred;
+        try { pred = predictMatch(currentParams, m.homeTeam, m.awayTeam); } catch { continue; }
+        updateTeamHistory(m, pred);
+      }
+      continue;
+    }
+
     for (const m of dayMatches) {
       if (m.homeGoals == null || m.awayGoals == null) continue;
       if (!currentParams.teams[m.homeTeam] || !currentParams.teams[m.awayTeam]) continue;
@@ -308,6 +453,28 @@ for (const league of cachedLeagues) {
       let pred;
       try { pred = predictMatch(currentParams, m.homeTeam, m.awayTeam); }
       catch { continue; }
+
+      // ─── GK PSxG+/- adjustment (post-solve lambda modifier) ──────────
+      if (gkAdjust) {
+        // Determine which season this match belongs to
+        const matchMonth = parseInt(m.date.slice(5, 7));
+        const matchYear = parseInt(m.date.slice(0, 4));
+        const gkSeasonKey = matchMonth >= 7 ? String(matchYear) : String(matchYear - 1);
+        const { homeGKAdj, awayGKAdj } = getGKAdjustment(
+          m.homeTeam, m.awayTeam, league.id, gkSeasonKey, gkHistory,
+        );
+        if (homeGKAdj !== 1.0 || awayGKAdj !== 1.0) {
+          // Re-predict with adjusted lambdas
+          try {
+            pred = predictMatchFromLambdas(
+              m.homeTeam, m.awayTeam,
+              pred.lambdaHome * homeGKAdj,
+              pred.lambdaAway * awayGKAdj,
+              pred.lambda3,
+            );
+          } catch { /* fallback to unadjusted */ }
+        }
+      }
 
       const totalGoals = m.homeGoals + m.awayGoals;
       const season = m.season || "unknown";
@@ -463,9 +630,9 @@ for (const league of cachedLeagues) {
     }
   }
 
-  const skipTotal = leagueSkipped.early + leagueSkipped.variance + leagueSkipped.congestion + leagueSkipped.defiance;
+  const skipTotal = leagueSkipped.early + leagueSkipped.variance + leagueSkipped.congestion + leagueSkipped.defiance + leagueSkipped.intlBreak;
   const skipStr = skipTotal > 0
-    ? ` [skipped: early=${leagueSkipped.early} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}]`
+    ? ` [skipped: early=${leagueSkipped.early} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}${leagueSkipped.intlBreak > 0 ? ` intl=${leagueSkipped.intlBreak}` : ""}]`
     : "";
   console.log(`  ${league.id.toUpperCase()}: ${leagueBets} bets (${snapDates.length} snapshots)${skipStr}`);
 }
@@ -602,6 +769,140 @@ console.log(`\n  ─── SUMMARY ───────────────
 console.log(`  ${filtered.length} bets @ edge >= ${(reportEdge * 100).toFixed(0)}%`);
 console.log(`  CLV: ${fmtPct(overall.clv)}   ROI: ${fmtPct(overall.roi)}   Hit: ${(overall.hitRate * 100).toFixed(1)}%   Avg odds: ${overall.avgOdds.toFixed(2)}   P&L: ${overall.profit >= 0 ? "+" : ""}${overall.profit.toFixed(1)}u`);
 console.log(`  Runtime: ${elapsed}ms\n`);
+
+// ─── Bootstrap Significance Testing ────────────────────────────────────────
+
+if (bootstrapMode) {
+  const { bootstrap, formatBootstrapReport } = require("../lib/simulation/bootstrap") as typeof import("../lib/simulation/bootstrap");
+  const { blockBootstrap } = require("../lib/simulation/block-bootstrap") as typeof import("../lib/simulation/block-bootstrap");
+  const { permutationTestROI, formatPermutationResult } = require("../lib/simulation/permutation") as typeof import("../lib/simulation/permutation");
+  const { deflatedSharpe, formatDSR } = require("../lib/simulation/deflated-sharpe") as typeof import("../lib/simulation/deflated-sharpe");
+
+  console.log(`\n  ─── STATISTICAL SIGNIFICANCE (n=${filtered.length}, resamples=${bootstrapResamples}) ──────\n`);
+
+  // i.i.d. bootstrap
+  const iidReport = bootstrap(filtered, bootstrapResamples);
+  console.log("  i.i.d. Bootstrap:");
+  console.log(formatBootstrapReport(iidReport));
+
+  // Block bootstrap (matchday blocks)
+  console.log("\n  Block Bootstrap (matchday blocks):");
+  const blockReport = blockBootstrap(filtered, bootstrapResamples);
+  console.log(formatBootstrapReport(blockReport));
+
+  // Permutation test — selection-shuffle method
+  // Build pool: all potential bets (no filters) to test if model's selection adds value
+  console.log();
+  const noFilterBets: typeof allBets = [];
+  for (const league of cachedLeagues) {
+    const snapshots2 = loadSnapshots(league.id);
+    const snapDates2 = [...snapshots2.keys()].sort();
+    let rawMatches2: any[] = [];
+    for (const season of league.seasons) {
+      const fp = join(dataDir, `${league.id}-${season}.json`);
+      if (!existsSync(fp)) continue;
+      try { const raw = JSON.parse(readFileSync(fp, "utf-8")); rawMatches2.push(...(raw.matches || [])); } catch { continue; }
+    }
+    rawMatches2.sort((a: any, b: any) => a.date.localeCompare(b.date));
+    const testMatches2 = rawMatches2.filter((m: any) => m.date >= `${TEST_SEASON_START}-07-01`);
+    const matchdayDates2 = [...new Set(testMatches2.map((m: any) => m.date))].sort();
+    let params2: MIModelParams | null = null;
+    for (const md of matchdayDates2) {
+      let bestSnap: string | null = null;
+      for (const sd of snapDates2) { if (sd <= md) bestSnap = sd; else break; }
+      if (bestSnap) params2 = snapshots2.get(bestSnap)!;
+      if (!params2) continue;
+      for (const m of rawMatches2.filter((x: any) => x.date === md)) {
+        if (m.homeGoals == null || m.awayGoals == null) continue;
+        if (!params2.teams[m.homeTeam] || !params2.teams[m.awayTeam]) continue;
+        let pred2;
+        try { pred2 = predictMatch(params2, m.homeTeam, m.awayTeam); } catch { continue; }
+        const totalGoals2 = m.homeGoals + m.awayGoals;
+        const season2 = m.season || "unknown";
+        // Generate bets for all markets with minEdge=0 (the full pool)
+        if (m.pinnacleCloseHome && m.pinnacleCloseDraw && m.pinnacleCloseAway) {
+          const c = devigOdds1X2(m.pinnacleCloseHome, m.pinnacleCloseDraw, m.pinnacleCloseAway);
+          if (c) {
+            for (const s of [
+              { sel: "Home", mp: pred2.probs1X2.home, cp: c.home, odds: m.pinnacleCloseHome, won: m.homeGoals > m.awayGoals },
+              { sel: "Away", mp: pred2.probs1X2.away, cp: c.away, odds: m.pinnacleCloseAway, won: m.awayGoals > m.homeGoals },
+            ]) {
+              const clv = s.mp - s.cp;
+              if (clv > 0 && s.odds <= 3.0) {
+                noFilterBets.push({
+                  league: league.id, season: season2, date: m.date,
+                  homeTeam: m.homeTeam, awayTeam: m.awayTeam,
+                  marketType: "1X2", selection: s.sel,
+                  modelProb: s.mp, closingImpliedProb: s.cp,
+                  clv, closingOdds: s.odds,
+                  homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals: totalGoals2,
+                  won: s.won, profit: s.won ? s.odds - 1 : -1,
+                });
+              }
+            }
+          }
+        }
+        const ahLine2 = m.ahCloseLine ?? m.ahLine;
+        const ahHome2 = m.pinnacleCloseAHHome ?? m.pinnacleAHHome;
+        const ahAway2 = m.pinnacleCloseAHAway ?? m.pinnacleAHAway;
+        if (ahLine2 != null && ahHome2 && ahAway2) {
+          const ahKey = String(ahLine2);
+          const modelAH = pred2.asianHandicap[ahKey];
+          const closingAH = devigOdds2Way(ahHome2, ahAway2);
+          if (modelAH && closingAH) {
+            const goalDiff = m.homeGoals - m.awayGoals;
+            for (const s of [
+              { sel: `Home AH`, mp: modelAH.home, cp: closingAH.prob1, odds: ahHome2, result: goalDiff + ahLine2 },
+              { sel: `Away AH`, mp: modelAH.away, cp: closingAH.prob2, odds: ahAway2, result: -(goalDiff + ahLine2) },
+            ]) {
+              const clv = s.mp - s.cp;
+              if (clv > 0 && s.odds <= 3.0) {
+                const won = s.result > 0;
+                const push = s.result === 0;
+                noFilterBets.push({
+                  league: league.id, season: season2, date: m.date,
+                  homeTeam: m.homeTeam, awayTeam: m.awayTeam,
+                  marketType: "AH", selection: s.sel,
+                  modelProb: s.mp, closingImpliedProb: s.cp,
+                  clv, closingOdds: s.odds,
+                  homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals: totalGoals2,
+                  won, profit: push ? 0 : won ? s.odds - 1 : -1,
+                });
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  console.log(`  Permutation pool: ${noFilterBets.length} unfiltered bets vs ${filtered.length} filtered`);
+  const permROI = permutationTestROI(filtered, bootstrapResamples, 42, noFilterBets);
+  console.log("  Permutation Test (selection-shuffle):");
+  console.log(formatPermutationResult("ROI", permROI));
+
+  // Per-league bootstrap
+  if (byLeagueBootstrap) {
+    const { bootstrapByGroup, formatGroupedBootstrap } = require("../lib/simulation/bootstrap") as typeof import("../lib/simulation/bootstrap");
+    console.log();
+    const leagueReports = bootstrapByGroup(filtered, b => b.league, bootstrapResamples, 42);
+    console.log(formatGroupedBootstrap("Bootstrap by League", leagueReports));
+  }
+
+  // Per-season bootstrap
+  if (bySeasonBootstrap) {
+    const { bootstrapByGroup, formatGroupedBootstrap } = require("../lib/simulation/bootstrap") as typeof import("../lib/simulation/bootstrap");
+    console.log();
+    const seasonReports = bootstrapByGroup(filtered, b => b.season, bootstrapResamples, 42);
+    console.log(formatGroupedBootstrap("Bootstrap by Season", seasonReports));
+  }
+
+  // Deflated Sharpe (use 144 as default trial count for param sweep)
+  console.log();
+  const returns = filtered.map(b => b.profit);
+  const dsrResult = deflatedSharpe(returns, 144);
+  console.log(formatDSR(dsrResult));
+  console.log();
+}
 
 // ─── Pass Rate Table (per league+market win rates for Ted filter) ──────────
 
