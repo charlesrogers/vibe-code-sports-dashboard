@@ -2,8 +2,9 @@
  * Paper Trade Settler — Settle pending bets using match results + Pinnacle closing odds
  *
  * Data sources (in priority order):
- * 1. Local football-data-cache JSON (has pinnacleCloseHome etc. from bulk-download-odds.mjs)
- * 2. Live fetch from football-data.co.uk CSV (PSH/PSD/PSA = Pinnacle odds at kickoff)
+ * 1. Fotmob leagues API — real-time results (no lag)
+ * 2. Local football-data-cache JSON (has pinnacleCloseHome etc. from bulk-download-odds.mjs)
+ * 3. Live fetch from football-data.co.uk CSV (PSH/PSD/PSA = Pinnacle odds at kickoff)
  */
 
 import { readFileSync, existsSync } from "fs";
@@ -11,6 +12,7 @@ import { join } from "path";
 import { loadLedger, saveLedger } from "./storage";
 import type { PaperBet } from "./types";
 import { fetchMatchesWithOdds, type League } from "../football-data-uk";
+import { normalizeTeamName } from "../team-mapping";
 
 const dataDir = join(process.cwd(), "data", "football-data-cache");
 
@@ -23,7 +25,19 @@ const LEAGUE_MAP: Record<string, League> = {
   championship: "championship",
 };
 
+/** Fotmob league IDs for real-time results */
+const FOTMOB_LEAGUE_IDS: Record<string, number> = {
+  epl: 47,
+  championship: 48,
+  "serie-a": 55,
+  "la-liga": 87,
+  bundesliga: 54,
+};
+
 interface MatchResult {
+  homeTeam: string;
+  awayTeam: string;
+  date: string;
   homeGoals: number;
   awayGoals: number;
   pinnacleCloseHome: number;
@@ -31,6 +45,50 @@ interface MatchResult {
   pinnacleCloseAway: number;
   pinnacleCloseOver25: number;
   pinnacleCloseUnder25: number;
+}
+
+// ─── Team name canonicalization ──────────────────────────────────────────────
+// Maps any team name variant (MI, Fotmob, football-data.co.uk CSV) to canonical form
+// so "Betis" ≈ "Real Betis", "Man City" ≈ "Manchester City", "Celta" ≈ "Celta Vigo"
+
+// Raw football-data.co.uk CSV abbreviations → canonical
+// (download-2526.ts stores these raw; they're not in team-mapping.ts)
+const UK_CSV_ALIASES: Record<string, string> = {
+  "Nott'm Forest": "Nottingham Forest",
+  "Sheffield Utd": "Sheffield United",
+  "Sheff Wed": "Sheffield Wednesday",
+  "Sheffield Wed": "Sheffield Wednesday",
+  "Man City": "Manchester City",
+  "Man United": "Manchester United",
+  "Wolves": "Wolverhampton Wanderers",
+  "Ath Madrid": "Atletico Madrid",
+  "Ath Bilbao": "Athletic Bilbao",
+  "Betis": "Real Betis",
+  "Sociedad": "Real Sociedad",
+  "Celta": "Celta Vigo",
+  "Vallecano": "Rayo Vallecano",
+  "Alaves": "Deportivo Alaves",
+  "Dortmund": "Borussia Dortmund",
+  "Leverkusen": "Bayer Leverkusen",
+  "M'gladbach": "Borussia Monchengladbach",
+  "Ein Frankfurt": "Eintracht Frankfurt",
+};
+
+function toCanonical(name: string): string {
+  // 1. Direct CSV alias lookup
+  if (UK_CSV_ALIASES[name]) return UK_CSV_ALIASES[name];
+  // 2. Try each source mapping — team-mapping.ts resolves to canonical
+  for (const source of ["mi", "fotmob", "footballData"] as const) {
+    const canonical = normalizeTeamName(name, source);
+    if (canonical !== name) return canonical;
+  }
+  // Already canonical or unknown — return as-is
+  return name;
+}
+
+/** Build a canonical key for matching across data sources */
+function matchKey(date: string, home: string, away: string): string {
+  return `${date}_${toCanonical(home)}_${toCanonical(away)}`;
 }
 
 /** Load results from local cache */
@@ -43,8 +101,11 @@ function loadCacheResults(league: string): Map<string, MatchResult> {
       const data = JSON.parse(readFileSync(fp, "utf-8"));
       for (const m of data.matches || []) {
         if (m.homeGoals == null) continue;
-        const key = `${m.date}_${m.homeTeam}_${m.awayTeam}`;
+        const key = matchKey(m.date, m.homeTeam, m.awayTeam);
         results.set(key, {
+          homeTeam: m.homeTeam,
+          awayTeam: m.awayTeam,
+          date: m.date,
           homeGoals: m.homeGoals,
           awayGoals: m.awayGoals,
           pinnacleCloseHome: m.pinnacleCloseHome || 0,
@@ -71,8 +132,11 @@ async function fetchFreshResults(league: string): Promise<Map<string, MatchResul
       console.log(`[settler] Fetched ${matches.length} matches from football-data.co.uk: ${league} ${season}`);
       for (const m of matches) {
         if (m.homeGoals == null) continue;
-        const key = `${m.date}_${m.homeTeam}_${m.awayTeam}`;
+        const key = matchKey(m.date, m.homeTeam, m.awayTeam);
         results.set(key, {
+          homeTeam: m.homeTeam,
+          awayTeam: m.awayTeam,
+          date: m.date,
           homeGoals: m.homeGoals,
           awayGoals: m.awayGoals,
           pinnacleCloseHome: m.pinnacleCloseHome || 0,
@@ -89,40 +153,128 @@ async function fetchFreshResults(league: string): Promise<Map<string, MatchResul
   return results;
 }
 
-/** Load results: try cache first, then live fetch to fill gaps */
-async function loadResults(league: string): Promise<Map<string, MatchResult>> {
-  const cache = loadCacheResults(league);
+/** Fetch real-time results from Fotmob leagues API */
+async function fetchFotmobResults(league: string): Promise<Map<string, MatchResult>> {
+  const results = new Map<string, MatchResult>();
+  const fotmobId = FOTMOB_LEAGUE_IDS[league];
+  if (!fotmobId) return results;
 
-  // Check if cache has closing odds for any match
-  let hasCacheCloseOdds = false;
-  for (const [, r] of cache) {
-    if (r.pinnacleCloseHome > 0) { hasCacheCloseOdds = true; break; }
+  try {
+    const res = await fetch(
+      `https://www.fotmob.com/api/leagues?id=${fotmobId}&ccode3=USA`,
+      { headers: { "User-Agent": "Mozilla/5.0 (sports-dashboard settler)" } },
+    );
+    if (!res.ok) {
+      console.warn(`[settler] Fotmob HTTP ${res.status} for league ${league}`);
+      return results;
+    }
+
+    const data = await res.json();
+    const allMatches = data?.fixtures?.allMatches || [];
+
+    for (const m of allMatches) {
+      if (!m.status?.finished) continue;
+
+      const scoreStr = m.status?.scoreStr || "";
+      const parts = scoreStr.split(" - ");
+      if (parts.length !== 2) continue;
+
+      const homeGoals = parseInt(parts[0]);
+      const awayGoals = parseInt(parts[1]);
+      if (isNaN(homeGoals) || isNaN(awayGoals)) continue;
+
+      const homeName = m.home?.name || "";
+      const awayName = m.away?.name || "";
+      if (!homeName || !awayName) continue;
+
+      // Fotmob dates: extract from status.utcTime (ISO) or id pattern
+      let matchDate = "";
+      if (m.status?.utcTime) {
+        matchDate = m.status.utcTime.split("T")[0];
+      }
+      if (!matchDate) continue;
+
+      const key = matchKey(matchDate, homeName, awayName);
+      results.set(key, {
+        homeTeam: homeName,
+        awayTeam: awayName,
+        date: matchDate,
+        homeGoals,
+        awayGoals,
+        // Fotmob doesn't provide Pinnacle closing odds — these get overlaid from football-data
+        pinnacleCloseHome: 0,
+        pinnacleCloseDraw: 0,
+        pinnacleCloseAway: 0,
+        pinnacleCloseOver25: 0,
+        pinnacleCloseUnder25: 0,
+      });
+    }
+
+    console.log(`[settler] Fotmob: ${results.size} finished matches for ${league}`);
+  } catch (e) {
+    console.warn(`[settler] Fotmob fetch failed for ${league}:`, e);
   }
 
-  if (hasCacheCloseOdds) return cache;
+  return results;
+}
 
-  // Cache lacks closing odds — fetch fresh from football-data.co.uk
-  console.log(`[settler] Cache missing closing odds for ${league}, fetching fresh data...`);
-  const fresh = await fetchFreshResults(league);
+/** Load results: Fotmob (real-time) → cache → football-data.co.uk (closing odds) */
+async function loadResults(league: string): Promise<Map<string, MatchResult>> {
+  // 1. Start with Fotmob real-time results (no lag)
+  const fotmob = await fetchFotmobResults(league);
 
-  // Merge: cache results + fresh closing odds
-  for (const [key, freshResult] of fresh) {
-    const cached = cache.get(key);
-    if (cached) {
-      // Overlay closing odds from fresh fetch onto cache results
-      if (freshResult.pinnacleCloseHome > 0) {
-        cached.pinnacleCloseHome = freshResult.pinnacleCloseHome;
-        cached.pinnacleCloseDraw = freshResult.pinnacleCloseDraw;
-        cached.pinnacleCloseAway = freshResult.pinnacleCloseAway;
-        cached.pinnacleCloseOver25 = freshResult.pinnacleCloseOver25;
-        cached.pinnacleCloseUnder25 = freshResult.pinnacleCloseUnder25;
+  // 2. Load local cache (has closing odds if previously downloaded)
+  const cache = loadCacheResults(league);
+
+  // 3. Merge: Fotmob results + cache closing odds overlay
+  const merged = new Map<string, MatchResult>();
+
+  // Add all Fotmob results first
+  for (const [key, result] of fotmob) {
+    merged.set(key, result);
+  }
+
+  // Overlay cache data: add missing matches and overlay closing odds
+  for (const [key, cacheResult] of cache) {
+    const existing = merged.get(key);
+    if (existing) {
+      // Overlay closing odds from cache onto Fotmob result
+      if (cacheResult.pinnacleCloseHome > 0) {
+        existing.pinnacleCloseHome = cacheResult.pinnacleCloseHome;
+        existing.pinnacleCloseDraw = cacheResult.pinnacleCloseDraw;
+        existing.pinnacleCloseAway = cacheResult.pinnacleCloseAway;
+        existing.pinnacleCloseOver25 = cacheResult.pinnacleCloseOver25;
+        existing.pinnacleCloseUnder25 = cacheResult.pinnacleCloseUnder25;
       }
     } else {
-      cache.set(key, freshResult);
+      merged.set(key, cacheResult);
     }
   }
 
-  return cache;
+  // 4. If still missing closing odds, try football-data.co.uk live fetch
+  let hasAnyCloseOdds = false;
+  for (const [, r] of merged) {
+    if (r.pinnacleCloseHome > 0) { hasAnyCloseOdds = true; break; }
+  }
+
+  if (!hasAnyCloseOdds) {
+    console.log(`[settler] No closing odds for ${league}, fetching from football-data.co.uk...`);
+    const fresh = await fetchFreshResults(league);
+    for (const [key, freshResult] of fresh) {
+      const existing = merged.get(key);
+      if (existing && freshResult.pinnacleCloseHome > 0) {
+        existing.pinnacleCloseHome = freshResult.pinnacleCloseHome;
+        existing.pinnacleCloseDraw = freshResult.pinnacleCloseDraw;
+        existing.pinnacleCloseAway = freshResult.pinnacleCloseAway;
+        existing.pinnacleCloseOver25 = freshResult.pinnacleCloseOver25;
+        existing.pinnacleCloseUnder25 = freshResult.pinnacleCloseUnder25;
+      } else if (!existing) {
+        merged.set(key, freshResult);
+      }
+    }
+  }
+
+  return merged;
 }
 
 /** Extract 1X2 selection from AH selection (e.g. "Home -0.5" → "Home") */
@@ -153,9 +305,12 @@ export async function settlePendingBets(): Promise<{ settled: number; results: {
     const results = leagueResults.get(bet.league);
     if (!results) continue;
 
-    const key = `${bet.matchDate}_${bet.homeTeam}_${bet.awayTeam}`;
+    const key = matchKey(bet.matchDate, bet.homeTeam, bet.awayTeam);
     const result = results.get(key);
-    if (!result) continue; // result not available yet
+    if (!result) {
+      console.log(`[settler] No result for: ${bet.matchDate} ${bet.homeTeam} vs ${bet.awayTeam} (key: ${key})`);
+      continue;
+    }
 
     bet.homeGoals = result.homeGoals;
     bet.awayGoals = result.awayGoals;

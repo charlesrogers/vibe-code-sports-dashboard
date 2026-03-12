@@ -47,7 +47,12 @@
       "edge": 0.186,
       "pinnacleOdds": 1.76,
       "fairOdds": 1.36,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "1-1",
+        "outcome": "win",
+        "profit": 0.76
+      }
     },
     {
       "match": "Bayer Leverkusen v Arsenal",
@@ -157,7 +162,12 @@
       "edge": 0.059,
       "pinnacleOdds": 1.9,
       "fairOdds": 1.75,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "1-0",
+        "outcome": "push",
+        "profit": 0
+      }
     },
     {
       "match": "Coventry City v Preston North End",
@@ -167,7 +177,12 @@
       "edge": 0.059,
       "pinnacleOdds": 2.27,
       "fairOdds": 2.16,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "3-0",
+        "outcome": "loss",
+        "profit": -1
+      }
     },
     {
       "match": "Leicester v Queens Park Rangers",

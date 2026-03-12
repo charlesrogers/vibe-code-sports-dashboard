@@ -56,7 +56,12 @@
       "edge": 0.213,
       "pinnacleOdds": 1.87,
       "fairOdds": 1.37,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "1-0",
+        "outcome": "win",
+        "profit": 0.87
+      }
     },
     {
       "match": "Sheffield Wednesday v Watford",
@@ -66,7 +71,12 @@
       "edge": 0.169,
       "pinnacleOdds": 1.76,
       "fairOdds": 1.4,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "1-1",
+        "outcome": "win",
+        "profit": 0.76
+      }
     },
     {
       "match": "West Bromwich Albion v Southampton",
@@ -76,7 +86,12 @@
       "edge": 0.147,
       "pinnacleOdds": 1.97,
       "fairOdds": 1.57,
-      "signal": "model_only"
+      "signal": "model_only",
+      "result": {
+        "score": "1-1",
+        "outcome": "loss",
+        "profit": -1
+      }
     },
     {
       "match": "Paris Saint Germain v Chelsea",
