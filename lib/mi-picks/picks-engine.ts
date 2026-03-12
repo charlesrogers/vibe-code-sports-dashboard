@@ -29,6 +29,7 @@ import {
   tedReasonLabel,
   DEFAULT_TED_CONFIG,
   type TedFilterConfig,
+  checkPassRate,
 } from "./ted-filters";
 
 const projectRoot = join(process.cwd());
@@ -38,6 +39,12 @@ const liveOddsDir = join(projectRoot, "data", "live-odds");
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
+export interface BookOddsEntry {
+  book: string;
+  bookKey: string;
+  odds: number;
+}
+
 export interface PickValueBet {
   marketType: "1X2" | "AH";
   selection: string;
@@ -46,7 +53,8 @@ export interface PickValueBet {
   marketProb: number;
   edge: number;
   fairOdds: number;
-  marketOdds: number;
+  marketOdds: number;         // Pinnacle/sharp book odds (used for edge calc)
+  bestBooks: BookOddsEntry[]; // Top books sorted by odds (best first), max 5
 }
 
 export interface Pick {
@@ -222,6 +230,26 @@ function getBestSpreadOdds(match: LiveOddsMatch): { home: number; away: number; 
   if (avgHome <= 1 || avgAway <= 1) return null;
 
   return { home: avgHome, away: avgAway, line: bestLine };
+}
+
+/** Get top N bookmakers offering best odds for a 1X2 selection */
+function getBestBooksFor1X2(match: LiveOddsMatch, selection: "Home" | "Draw" | "Away", maxBooks: number = 5): BookOddsEntry[] {
+  const field = selection === "Home" ? "homeOdds" : selection === "Away" ? "awayOdds" : "drawOdds";
+  return match.bookmakers
+    .filter(b => (b as any)[field] > 1)
+    .map(b => ({ book: b.bookmaker, bookKey: b.bookmakerKey, odds: (b as any)[field] as number }))
+    .sort((a, b) => b.odds - a.odds)
+    .slice(0, maxBooks);
+}
+
+/** Get top N bookmakers offering best odds for AH spread selection */
+function getBestBooksForSpread(match: LiveOddsMatch, side: "home" | "away", maxBooks: number = 5): BookOddsEntry[] {
+  const field = side === "home" ? "spreadHome" : "spreadAway";
+  return match.bookmakers
+    .filter(b => (b as any)[field] > 1 && b.spreadLine != null)
+    .map(b => ({ book: b.bookmaker, bookKey: b.bookmakerKey, odds: (b as any)[field] as number }))
+    .sort((a, b) => b.odds - a.odds)
+    .slice(0, maxBooks);
 }
 
 // ─── Team name normalization (Odds API → football-data-cache) ───────────────
@@ -475,6 +503,7 @@ export async function generatePicks(
               edge: Math.round(edge * 1000) / 1000,
               fairOdds: Math.round((1 / s.mp) * 100) / 100,
               marketOdds: s.odds,
+              bestBooks: getBestBooksFor1X2(match, s.sel as "Home" | "Draw" | "Away"),
             });
           }
         }
@@ -494,6 +523,7 @@ export async function generatePicks(
             ]) {
               const edge = side.mp - side.cp;
               if (edge < tedConfig.minEdge || side.odds > tedConfig.maxOdds) continue;
+              const ahSide = side.sel.startsWith("Home") ? "home" as const : "away" as const;
               valueBets.push({
                 marketType: "AH",
                 ahLine: spreadOdds.line,
@@ -503,6 +533,7 @@ export async function generatePicks(
                 edge: Math.round(edge * 1000) / 1000,
                 fairOdds: Math.round((1 / side.mp) * 100) / 100,
                 marketOdds: side.odds,
+                bestBooks: getBestBooksForSpread(match, ahSide),
               });
             }
           }
@@ -518,10 +549,18 @@ export async function generatePicks(
         tedConfig,
       );
 
-      // Determine verdict: BET if has value + passes Ted filters
-      const hasValue = valueBets.length > 0;
+      // Filter out value bets that fail pass rate threshold
+      const passRateFiltered = valueBets.filter(vb => {
+        const pr = checkPassRate(league.id, vb.marketType, vb.selection);
+        return pr.pass; // allow if no data or hit rate >= threshold
+      });
+
+      // Determine verdict: BET if has value + passes Ted filters + passes pass rate
+      const hasValue = passRateFiltered.length > 0;
       const tedVerdict = (hasValue && tedResult.pass) ? "BET" as const : "PASS" as const;
-      const bestEdge = valueBets.length > 0 ? Math.max(...valueBets.map(v => v.edge)) : 0;
+      const bestEdge = passRateFiltered.length > 0
+        ? Math.max(...passRateFiltered.map(v => v.edge))
+        : (valueBets.length > 0 ? Math.max(...valueBets.map(v => v.edge)) : 0);
 
       // Assign grade
       let grade: "A" | "B" | "C" | null = null;

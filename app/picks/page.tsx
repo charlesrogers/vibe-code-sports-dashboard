@@ -2,6 +2,12 @@
 
 import { useState, useEffect } from "react";
 
+interface BookOddsEntry {
+  book: string;
+  bookKey: string;
+  odds: number;
+}
+
 interface PickValueBet {
   marketType: "1X2" | "AH";
   selection: string;
@@ -11,6 +17,7 @@ interface PickValueBet {
   edge: number;
   fairOdds: number;
   marketOdds: number;
+  bestBooks?: BookOddsEntry[];
 }
 
 interface VarianceSummary {
@@ -357,25 +364,47 @@ function PickCard({ pick }: { pick: Pick }) {
       {/* Ted assessment */}
       <TedAssessmentPanel pick={pick} />
 
-      {/* Value bets */}
+      {/* Value bets with best books */}
       {pick.valueBets.length > 0 && (
         <div className="mb-2">
           {pick.valueBets.map((vb, i) => (
-            <div key={i} className="flex items-center justify-between rounded bg-green-900/20 border border-green-900/30 px-2 py-1 mb-1 text-xs">
-              <div className="flex items-center gap-1.5">
-                <span className={`inline-block rounded px-1 py-0.5 text-[9px] font-bold ${
-                  vb.marketType === "AH"
-                    ? "bg-purple-900/50 text-purple-400 border border-purple-800"
-                    : "bg-zinc-800 text-zinc-500 border border-zinc-700"
-                }`}>
-                  {vb.marketType}
+            <div key={i} className="rounded bg-green-900/20 border border-green-900/30 px-2 py-1.5 mb-1">
+              <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center gap-1.5">
+                  <span className={`inline-block rounded px-1 py-0.5 text-[9px] font-bold ${
+                    vb.marketType === "AH"
+                      ? "bg-purple-900/50 text-purple-400 border border-purple-800"
+                      : "bg-zinc-800 text-zinc-500 border border-zinc-700"
+                  }`}>
+                    {vb.marketType}
+                  </span>
+                  <span className="font-semibold text-green-400">{vb.selection}</span>
+                </div>
+                <span className="text-zinc-400">
+                  Edge: <span className="text-green-400 font-mono">+{(vb.edge * 100).toFixed(1)}%</span>
+                  <span className="ml-2 text-zinc-600">Pinnacle: {vb.marketOdds.toFixed(2)}</span>
                 </span>
-                <span className="font-semibold text-green-400">{vb.selection}</span>
               </div>
-              <span className="text-zinc-400">
-                Edge: <span className="text-green-400 font-mono">+{(vb.edge * 100).toFixed(1)}%</span>
-                <span className="ml-2 text-zinc-600">@ {vb.marketOdds.toFixed(2)}</span>
-              </span>
+              {/* Best books for this bet */}
+              {vb.bestBooks && vb.bestBooks.length > 0 && (
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {vb.bestBooks.slice(0, 5).map((bb, j) => {
+                    const isBest = j === 0;
+                    const beatsPinnacle = bb.odds > vb.marketOdds;
+                    return (
+                      <span key={j} className={`inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] font-mono ${
+                        isBest
+                          ? "bg-yellow-900/30 text-yellow-400 border border-yellow-800"
+                          : beatsPinnacle
+                            ? "bg-green-900/20 text-green-500 border border-green-900/40"
+                            : "bg-zinc-900 text-zinc-500 border border-zinc-800"
+                      }`}>
+                        {bb.book} <span className="font-bold">{bb.odds.toFixed(2)}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           ))}
         </div>

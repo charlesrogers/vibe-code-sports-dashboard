@@ -1,5 +1,37 @@
 import type { PaperBet, PaperTradeStats } from "./types";
 
+function buildBreakdown(
+  settled: PaperBet[],
+  keyFn: (b: PaperBet) => string,
+): Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }> {
+  const groups: Record<string, { n: number; wins: number; profit: number; staked: number; clvSum: number; clvCount: number }> = {};
+
+  for (const b of settled) {
+    const k = keyFn(b);
+    if (!groups[k]) groups[k] = { n: 0, wins: 0, profit: 0, staked: 0, clvSum: 0, clvCount: 0 };
+    const g = groups[k];
+    g.n++;
+    if (b.status === "won") g.wins++;
+    g.profit += b.profit || 0;
+    g.staked += b.stake || 20;
+    if (b.clv != null) { g.clvSum += b.clv; g.clvCount++; }
+  }
+
+  const result: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }> = {};
+  for (const [k, g] of Object.entries(groups)) {
+    const losses = g.n - g.wins; // approximate: pushes counted as non-wins
+    result[k] = {
+      n: g.n,
+      roi: g.staked > 0 ? Math.round((g.profit / g.staked) * 10000) / 100 : 0,
+      clv: g.clvCount > 0 ? Math.round((g.clvSum / g.clvCount) * 10000) / 100 : 0,
+      profit: Math.round(g.profit * 100) / 100,
+      staked: Math.round(g.staked * 100) / 100,
+      hitRate: g.n > 0 ? Math.round((g.wins / g.n) * 10000) / 100 : 0,
+    };
+  }
+  return result;
+}
+
 export function computeStats(bets: PaperBet[]): PaperTradeStats {
   // Exclude superseded bets — they were replaced by better-odds versions
   const activeBets = bets.filter(b => b.status !== "superseded");
@@ -10,36 +42,12 @@ export function computeStats(bets: PaperBet[]): PaperTradeStats {
   const pushes = settled.filter(b => b.status === "push");
 
   const totalProfit = settled.reduce((s, b) => s + (b.profit || 0), 0);
-  const totalStaked = settled.reduce((s, b) => s + (b.stake || 10), 0);
+  const totalStaked = settled.reduce((s, b) => s + (b.stake || 20), 0);
 
-  // By league
-  const byLeague: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number }> = {};
-  for (const b of settled) {
-    if (!byLeague[b.league]) byLeague[b.league] = { n: 0, roi: 0, clv: 0, profit: 0, staked: 0 };
-    byLeague[b.league].n++;
-    byLeague[b.league].profit += b.profit || 0;
-    byLeague[b.league].staked += b.stake || 10;
-  }
-  for (const [league, v] of Object.entries(byLeague)) {
-    v.roi = v.staked > 0 ? Math.round((v.profit / v.staked) * 10000) / 100 : 0;
-    const leagueBets = settled.filter(b => b.league === league);
-    v.clv = leagueBets.length > 0 ? leagueBets.reduce((s, b) => s + (b.clv || 0), 0) / leagueBets.length : 0;
-  }
-
-  // By grade
-  const byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number }> = {};
-  for (const b of settled) {
-    const g = b.confidenceGrade || "none";
-    if (!byGrade[g]) byGrade[g] = { n: 0, roi: 0, clv: 0, profit: 0, staked: 0 };
-    byGrade[g].n++;
-    byGrade[g].profit += b.profit || 0;
-    byGrade[g].staked += b.stake || 10;
-  }
-  for (const [g, v] of Object.entries(byGrade)) {
-    v.roi = v.staked > 0 ? Math.round((v.profit / v.staked) * 10000) / 100 : 0;
-    const gradeBets = settled.filter(b => (b.confidenceGrade || "none") === g);
-    v.clv = gradeBets.length > 0 ? gradeBets.reduce((s, b) => s + (b.clv || 0), 0) / gradeBets.length : 0;
-  }
+  // Breakdowns
+  const byLeague = buildBreakdown(settled, b => b.league);
+  const byGrade = buildBreakdown(settled, b => b.confidenceGrade || "none");
+  const byMarketType = buildBreakdown(settled, b => b.marketType);
 
   // Daily P&L
   const dailyMap = new Map<string, { profit: number; bets: number }>();
@@ -76,6 +84,7 @@ export function computeStats(bets: PaperBet[]): PaperTradeStats {
       : 0,
     byLeague,
     byGrade,
+    byMarketType,
     dailyPnL,
   };
 }

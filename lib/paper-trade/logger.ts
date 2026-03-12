@@ -35,7 +35,11 @@ export async function logPicks(
 
   // 2. Generate picks using the fresh odds
   const { picks } = await generatePicks(leagues);
-  const betPicks = picks.filter(p => p.tedVerdict === "BET");
+  // Only bet matches within Ted's window (6 days out max)
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() + PAPER_CONFIG.maxDaysOut);
+  const cutoffStr = cutoff.toISOString().split("T")[0];
+  const betPicks = picks.filter(p => p.tedVerdict === "BET" && p.date <= cutoffStr);
 
   const evalHour = new Date().getUTCHours();
   const newBets: PaperBet[] = [];
@@ -46,9 +50,13 @@ export async function logPicks(
       const id = `${pick.date}_${pick.homeTeam}_vs_${pick.awayTeam}_${vb.marketType}_${vb.selection}_T${String(evalHour).padStart(2, "0")}`
         .replace(/\s+/g, "_");
 
-      // Apply slippage: odds degrade by ~1% (line moves against you)
+      // Best book: use bestBooks[0] from the value bet (best available odds)
+      const topBook = vb.bestBooks?.[0];
+      const bestBookOdds = topBook?.odds || vb.marketOdds;
+
+      // Apply slippage to the best available odds (line moves against you)
       const executionOdds = Math.round(
-        (1 + (vb.marketOdds - 1) * (1 - PAPER_CONFIG.slippage)) * 1000
+        (1 + (bestBookOdds - 1) * (1 - PAPER_CONFIG.slippage)) * 1000
       ) / 1000;
 
       // Flat stake per Ted's playbook (2% of bankroll = $20/unit)
@@ -70,6 +78,8 @@ export async function logPicks(
         executionOdds,
         edge: vb.edge,
         confidenceGrade: pick.grade,
+        bestBook: topBook?.book,
+        bestBookOdds: topBook?.odds,
         oddsTimestamp,
         evalWindow: evalHour,
         status: "pending",

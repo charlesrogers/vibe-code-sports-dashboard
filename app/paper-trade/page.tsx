@@ -5,10 +5,11 @@ import { useState, useEffect } from "react";
 interface PaperBet {
   id: string; createdAt: string; matchDate: string; league: string;
   homeTeam: string; awayTeam: string; marketType: string; selection: string;
-  stake: number; modelProb: number; marketOdds: number; edge: number;
+  stake: number; modelProb: number; marketOdds: number; executionOdds: number; edge: number;
   confidenceGrade: "A" | "B" | "C" | null; status: string;
   settledAt?: string; homeGoals?: number; awayGoals?: number;
   profit?: number; closingOdds?: number; clv?: number;
+  bestBook?: string; bestBookOdds?: number;
 }
 
 interface DailyPnL { date: string; profit: number; cumProfit: number; bets: number; }
@@ -17,8 +18,9 @@ interface Stats {
   totalBets: number; settledBets: number; pendingBets: number;
   wins: number; losses: number; pushes: number; hitRate: number;
   totalProfit: number; roi: number; avgEdge: number; avgCLV: number;
-  byLeague: Record<string, { n: number; roi: number; clv: number; profit: number }>;
-  byGrade: Record<string, { n: number; roi: number; clv: number; profit: number }>;
+  byLeague: Record<string, { n: number; roi: number; clv: number; profit: number; hitRate: number }>;
+  byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; hitRate: number }>;
+  byMarketType: Record<string, { n: number; roi: number; clv: number; profit: number; hitRate: number }>;
   dailyPnL: DailyPnL[];
 }
 
@@ -201,6 +203,24 @@ export default function PaperTradePage() {
         </div>
       )}
 
+      {/* Market type breakdown */}
+      {stats && Object.keys(stats.byMarketType || {}).length > 0 && (
+        <div className="mb-6">
+          <h3 className="mb-2 text-sm font-semibold text-zinc-300">By Market Type</h3>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {Object.entries(stats.byMarketType).map(([mt, s]) => (
+              <div key={mt} className="rounded bg-zinc-900 border border-zinc-800 p-3">
+                <div className="text-xs text-zinc-500">{mt}</div>
+                <div className={`text-lg font-bold ${s.roi >= 0 ? "text-green-400" : "text-red-400"}`}>
+                  {fmtPct(s.roi)}
+                </div>
+                <div className="text-[10px] text-zinc-600">{s.n} bets | Hit: {s.hitRate.toFixed(0)}% | CLV: {fmtPct(s.clv)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Status filter */}
       <div className="mb-3 flex gap-2">
         {["all", "pending", "won", "lost", "push"].map(s => (
@@ -231,7 +251,9 @@ export default function PaperTradePage() {
                 <th className="py-2 text-left">Match</th>
                 <th className="py-2 text-left">League</th>
                 <th className="py-2 text-left">Pick</th>
+                <th className="py-2 text-right">Conf.</th>
                 <th className="py-2 text-right">Odds</th>
+                <th className="py-2 text-left">Best Book</th>
                 <th className="py-2 text-right">Edge</th>
                 <th className="py-2 text-center">Grade</th>
                 <th className="py-2 text-center">Status</th>
@@ -246,7 +268,15 @@ export default function PaperTradePage() {
                   <td className="py-1.5">{bet.homeTeam} vs {bet.awayTeam}</td>
                   <td className="py-1.5">{LEAGUE_LABELS[bet.league] || bet.league}</td>
                   <td className="py-1.5 font-semibold">{bet.selection}</td>
+                  <td className="py-1.5 text-right font-mono text-purple-400">{(bet.modelProb * 100).toFixed(1)}%</td>
                   <td className="py-1.5 text-right font-mono">{bet.marketOdds.toFixed(2)}</td>
+                  <td className="py-1.5 text-left">
+                    {bet.bestBook ? (
+                      <span className="text-yellow-400 text-[10px]">{bet.bestBook} <span className="font-mono">{bet.bestBookOdds?.toFixed(2)}</span></span>
+                    ) : (
+                      <span className="text-zinc-600">—</span>
+                    )}
+                  </td>
                   <td className="py-1.5 text-right font-mono text-blue-400">{fmtPct(bet.edge * 100)}</td>
                   <td className="py-1.5 text-center">{bet.confidenceGrade || "—"}</td>
                   <td className="py-1.5 text-center"><StatusBadge status={bet.status} /></td>

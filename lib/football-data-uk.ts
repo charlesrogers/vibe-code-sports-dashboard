@@ -47,6 +47,12 @@ export interface MatchWithOdds {
   pinnacleUnder25: number;
   avgOver25: number;
   avgUnder25: number;
+  // Pinnacle closing odds (PSCH/PSCD/PSCA columns)
+  pinnacleCloseHome: number;
+  pinnacleCloseDraw: number;
+  pinnacleCloseAway: number;
+  pinnacleCloseOver25: number;
+  pinnacleCloseUnder25: number;
 }
 
 function parseFloat2(val: string): number {
@@ -182,6 +188,20 @@ function normalizeUKTeamName(name: string): string {
     "Watford": "Watford",
     "West Brom": "West Brom",
     "Wigan": "Wigan",
+    // La Liga teams
+    "Ath Madrid": "Atletico Madrid",
+    "Ath Bilbao": "Athletic Bilbao",
+    "Betis": "Real Betis",
+    "Sociedad": "Real Sociedad",
+    "Vallecano": "Rayo Vallecano",
+    "La Coruna": "Deportivo La Coruna",
+    // Bundesliga teams
+    "Dortmund": "Borussia Dortmund",
+    "M'gladbach": "Monchengladbach",
+    "Leverkusen": "Bayer Leverkusen",
+    "Ein Frankfurt": "Eintracht Frankfurt",
+    "Mainz": "Mainz 05",
+    "FC Koln": "FC Cologne",
   };
   return ukMap[name] ?? name;
 }
@@ -197,13 +217,18 @@ const SEASON_CODES: Record<string, string> = {
   "2018-19": "1819",
 };
 
-export type League = "serieA" | "serieB" | "epl" | "championship";
+export type League = "serieA" | "serieB" | "epl" | "championship" | "laLiga" | "bundesliga" | "ligue1" | "serie-a" | "la-liga";
 
-const LEAGUE_FILES: Record<League, string> = {
+const LEAGUE_FILES: Record<string, string> = {
   serieA: "I1",
+  "serie-a": "I1",
   serieB: "I2",
   epl: "E0",
   championship: "E1",
+  laLiga: "SP1",
+  "la-liga": "SP1",
+  bundesliga: "D1",
+  ligue1: "F1",
 };
 
 export async function fetchMatchesWithOdds(season: string, league: League = "serieA"): Promise<MatchWithOdds[]> {
@@ -263,6 +288,12 @@ export async function fetchMatchesWithOdds(season: string, league: League = "ser
         pinnacleUnder25: parseFloat2(r["P<2.5"]),
         avgOver25: parseFloat2(r["Avg>2.5"]),
         avgUnder25: parseFloat2(r["Avg<2.5"]),
+        // Pinnacle closing odds (PSCH/PSCD/PSCA) — fall back to PSH/PSD/PSA if close not available
+        pinnacleCloseHome: parseFloat2(r.PSCH) || parseFloat2(r.PSH),
+        pinnacleCloseDraw: parseFloat2(r.PSCD) || parseFloat2(r.PSD),
+        pinnacleCloseAway: parseFloat2(r.PSCA) || parseFloat2(r.PSA),
+        pinnacleCloseOver25: parseFloat2(r["PC>2.5"]) || parseFloat2(r["P>2.5"]),
+        pinnacleCloseUnder25: parseFloat2(r["PC<2.5"]) || parseFloat2(r["P<2.5"]),
       }));
   } catch (e) {
     console.warn(`Failed to fetch football-data.co.uk for ${season}:`, e);

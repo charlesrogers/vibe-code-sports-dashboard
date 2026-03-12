@@ -6,6 +6,7 @@ export const PAPER_CONFIG = {
   bankroll: 1000,      // $1000 starting capital
   unitSize: 20,        // $20 flat stake (2% of bankroll, 50 units)
   slippage: 0.01,      // 1% odds degradation (line moves against you)
+  maxDaysOut: 6,       // only bet matches within 6 days (Ted's Tue→Sun window)
 } as const;
 
 export interface PaperBet {
@@ -24,6 +25,8 @@ export interface PaperBet {
   executionOdds: number;  // marketOdds after slippage — what you actually got
   edge: number;
   confidenceGrade: "A" | "B" | "C" | null;
+  bestBook?: string;       // book offering best odds at time of logging
+  bestBookOdds?: number;   // odds at that book (pre-slippage)
   oddsTimestamp?: string;
   evalWindow?: number;
   status: BetStatus;
@@ -53,7 +56,8 @@ export interface PaperTradeStats {
   roi: number;
   avgEdge: number;
   avgCLV: number;
-  byLeague: Record<string, { n: number; roi: number; clv: number; profit: number }>;
-  byGrade: Record<string, { n: number; roi: number; clv: number; profit: number }>;
+  byLeague: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
+  byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
+  byMarketType: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   dailyPnL: { date: string; profit: number; cumProfit: number; bets: number }[];
 }
