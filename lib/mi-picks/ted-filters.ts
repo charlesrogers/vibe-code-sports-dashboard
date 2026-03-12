@@ -42,7 +42,7 @@ export const DEFAULT_TED_CONFIG: TedFilterConfig = {
   skipEarlyMatchdays: 5,
   congestionDays: 8,
   congestionMatchCount: 3,
-  maxOdds: 2.5,
+  maxOdds: 2.0,  // backtest: 2.0 = +2.0% ROI vs 2.5 = +0.3%, 3.0 = -1.7%
   minEdge: 0.07,
   noDraws: true,
 };
