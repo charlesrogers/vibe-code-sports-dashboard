@@ -307,25 +307,14 @@ export function prepareMarketMatches(
   const result: MarketMatch[] = [];
   let skipped = 0;
 
-  let fallbackUsed = 0;
-
   for (const m of matches) {
-    // Pick odds source: Pinnacle closing → Pinnacle opening → avg closing → avg opening
+    // Pick odds source: Pinnacle closing → Pinnacle opening
     let homeOdds = useClosing ? (m.pinnacleCloseHome || m.pinnacleHome) : m.pinnacleHome;
     let drawOdds = useClosing ? (m.pinnacleCloseDraw || m.pinnacleDraw) : m.pinnacleDraw;
     let awayOdds = useClosing ? (m.pinnacleCloseAway || m.pinnacleAway) : m.pinnacleAway;
 
-    // Fallback to avg/max odds when Pinnacle not available (e.g., recent in-season matches)
     if (!homeOdds || !drawOdds || !awayOdds) {
-      const fallbackHome = (m as any).avgCloseHome || (m as any).avgHome || (m as any).maxHome;
-      const fallbackDraw = (m as any).avgCloseDraw || (m as any).avgDraw || (m as any).maxDraw;
-      const fallbackAway = (m as any).avgCloseAway || (m as any).avgAway || (m as any).maxAway;
-      if (fallbackHome && fallbackDraw && fallbackAway) {
-        homeOdds = fallbackHome;
-        drawOdds = fallbackDraw;
-        awayOdds = fallbackAway;
-        fallbackUsed++;
-      } else if (requirePinnacle) {
+      if (requirePinnacle) {
         skipped++;
         continue;
       }
@@ -351,12 +340,6 @@ export function prepareMarketMatches(
     const rawAHLine = useClosing ? (m.ahCloseLine ?? m.ahLine) : m.ahLine;
     let ahHomeOdds = useClosing ? (m.pinnacleCloseAHHome || m.pinnacleAHHome) : m.pinnacleAHHome;
     let ahAwayOdds = useClosing ? (m.pinnacleCloseAHAway || m.pinnacleAHAway) : m.pinnacleAHAway;
-    // Fallback to avg AH odds
-    if ((!ahHomeOdds || !ahAwayOdds) && rawAHLine != null) {
-      ahHomeOdds = ahHomeOdds || (m as any).avgCloseAHHome || (m as any).avgAHHome;
-      ahAwayOdds = ahAwayOdds || (m as any).avgCloseAHAway || (m as any).avgAHAway;
-    }
-
     if (rawAHLine != null && ahHomeOdds && ahAwayOdds) {
       const ahProbs = devigOdds2Way(ahHomeOdds, ahAwayOdds);
       if (ahProbs) {
@@ -422,7 +405,7 @@ export function prepareMarketMatches(
   }
 
   const recentCount = result.filter(m => m.recentForm).length;
-  console.log(`[data-prep] Prepared ${result.length} matches (skipped ${skipped} without valid odds, ${fallbackUsed} used avg/max fallback)`);
+  console.log(`[data-prep] Prepared ${result.length} matches (skipped ${skipped} without valid Pinnacle odds)`);
   console.log(`[data-prep] Matches with AH data: ${result.filter(m => m.ahLine != null).length}`);
   console.log(`[data-prep] Matches with xG data: ${result.filter(m => m.xG != null).length}`);
   console.log(`[data-prep] Recent form tagged: ${recentCount}`);
