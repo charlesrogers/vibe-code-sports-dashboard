@@ -10,6 +10,7 @@ import { join } from "path";
 import { predictMatch, predictMatchFromLambdas } from "../mi-model/predictor";
 import { fetchInjuriesForTeams, enrichWithMinutes } from "../injuries";
 import { fetchGKStats, fetchPlayerMinutes, getStartingGK, buildMinutesLookup, type GKStats, type PlayerMinutes } from "../gk-psxg";
+import { fetchManagersForTeams, type ManagerInfo } from "../manager-changes";
 import { adjustLambdas } from "./injury-adjust";
 import { devigOdds1X2, devigOdds2Way } from "../mi-model/data-prep";
 import type { MIModelParams, MatchPrediction } from "../mi-model/types";
@@ -109,6 +110,16 @@ export interface Pick {
   gkContext?: {
     home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
     away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
+  };
+  strengthOfSchedule?: {
+    home: { avgOpponentElo: number; last5Opponents: string[] } | null;
+    away: { avgOpponentElo: number; last5Opponents: string[] } | null;
+    leagueAvgElo: number;
+  };
+  managerContext?: {
+    home: ManagerInfo | null;
+    away: ManagerInfo | null;
+    recentChanges: boolean; // true if either team has a new/mid-season manager
   };
 }
 
@@ -321,6 +332,48 @@ function normalizeTeamName(name: string): string {
   return TEAM_NAME_MAP[name] || name;
 }
 
+// ─── Strength of Schedule ────────────────────────────────────────────────────
+
+interface SoSData {
+  avgOpponentElo: number;
+  last5Opponents: string[];
+}
+
+function computeTeamSoS(
+  team: string,
+  playedMatches: any[],
+  eloMap: Map<string, number>,
+  lastN: number = 5,
+): SoSData | null {
+  // Find this team's recent matches (most recent N)
+  const teamMatches = playedMatches
+    .filter(m => m.homeTeam === team || m.awayTeam === team)
+    .slice(-lastN);
+
+  if (teamMatches.length === 0) return null;
+
+  const opponents: string[] = [];
+  let eloSum = 0;
+  let eloCount = 0;
+
+  for (const m of teamMatches) {
+    const opp = m.homeTeam === team ? m.awayTeam : m.homeTeam;
+    opponents.push(opp);
+    const oppElo = eloMap.get(opp);
+    if (oppElo) {
+      eloSum += oppElo;
+      eloCount++;
+    }
+  }
+
+  if (eloCount === 0) return null;
+
+  return {
+    avgOpponentElo: Math.round(eloSum / eloCount),
+    last5Opponents: opponents,
+  };
+}
+
 // ─── Main Engine ────────────────────────────────────────────────────────────
 
 export async function generatePicks(
@@ -417,6 +470,20 @@ export async function generatePicks(
     } catch (e) {
       console.log(`[picks] GK/minutes fetch failed for ${league.id}: ${e instanceof Error ? e.message : String(e)}`);
     }
+
+    // Fetch manager data from Fotmob
+    let managerMap = new Map<string, ManagerInfo | null>();
+    try {
+      managerMap = await fetchManagersForTeams(allTeamNames, league.id);
+    } catch (e) {
+      console.log(`[picks] Manager fetch failed for ${league.id}: ${e instanceof Error ? e.message : String(e)}`);
+    }
+
+    // Compute league average Elo for SoS context
+    const allEloValues = [...eloMap.values()];
+    const leagueAvgElo = allEloValues.length > 0
+      ? Math.round(allEloValues.reduce((s, v) => s + v, 0) / allEloValues.length)
+      : 1500;
 
     let leagueMatches = 0;
     let leagueBets = 0;
@@ -682,6 +749,21 @@ export async function generatePicks(
             away: awayGK ? { player: awayGK.player, goalsPrevented: awayGK.goalsPrevented, goalsPreventedPer90: awayGK.goalsPreventedPer90, matchesPlayed: awayGK.matchesPlayed } : null,
           } : undefined;
         })() : undefined,
+        strengthOfSchedule: (() => {
+          const homeSoS = computeTeamSoS(homeTeam, playedMatches, eloMap);
+          const awaySoS = computeTeamSoS(awayTeam, playedMatches, eloMap);
+          return (homeSoS || awaySoS) ? { home: homeSoS, away: awaySoS, leagueAvgElo } : undefined;
+        })(),
+        managerContext: (() => {
+          const homeMgr = managerMap.get(homeTeam) ?? null;
+          const awayMgr = managerMap.get(awayTeam) ?? null;
+          if (!homeMgr && !awayMgr) return undefined;
+          return {
+            home: homeMgr,
+            away: awayMgr,
+            recentChanges: (homeMgr?.isNewThisSeason || homeMgr?.isMidSeasonChange || awayMgr?.isNewThisSeason || awayMgr?.isMidSeasonChange) ?? false,
+          };
+        })(),
       });
     }
 

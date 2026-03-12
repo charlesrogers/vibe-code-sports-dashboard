@@ -79,6 +79,16 @@ interface Pick {
     home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
     away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
   };
+  strengthOfSchedule?: {
+    home: { avgOpponentElo: number; last5Opponents: string[] } | null;
+    away: { avgOpponentElo: number; last5Opponents: string[] } | null;
+    leagueAvgElo: number;
+  };
+  managerContext?: {
+    home: { name: string; isNewThisSeason: boolean; isMidSeasonChange: boolean; seasonRecord: { win: number; draw: number; loss: number } | null; previousManager: string | null } | null;
+    away: { name: string; isNewThisSeason: boolean; isMidSeasonChange: boolean; seasonRecord: { win: number; draw: number; loss: number } | null; previousManager: string | null } | null;
+    recentChanges: boolean;
+  };
 }
 
 interface PicksSummary {
@@ -279,6 +289,63 @@ function GKRow({ pick }: { pick: Pick }) {
   );
 }
 
+function SoSRow({ pick }: { pick: Pick }) {
+  if (!pick.strengthOfSchedule) return null;
+  const { home, away, leagueAvgElo } = pick.strengthOfSchedule;
+  if (!home && !away) return null;
+
+  function sosLabel(avgElo: number, leagueAvg: number) {
+    const diff = avgElo - leagueAvg;
+    if (diff > 40) return { label: "Hard", color: "text-red-400" };
+    if (diff > 15) return { label: "Above avg", color: "text-orange-400" };
+    if (diff < -40) return { label: "Easy", color: "text-green-400" };
+    if (diff < -15) return { label: "Below avg", color: "text-blue-400" };
+    return { label: "Avg", color: "text-zinc-400" };
+  }
+
+  return (
+    <div className="mb-2 flex items-center gap-2 rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1.5 text-[10px]">
+      <span className="text-zinc-500 font-semibold uppercase">SoS</span>
+      <div className="flex-1 flex items-center gap-3">
+        {home ? (() => {
+          const s = sosLabel(home.avgOpponentElo, leagueAvgElo);
+          return (
+            <span className="inline-flex items-center gap-0.5">
+              <span className="text-zinc-500">{pick.homeTeam.split(" ")[0]}:</span>
+              <span className={`font-mono ${s.color}`}>{home.avgOpponentElo}</span>
+              <span className="text-zinc-600">({s.label})</span>
+            </span>
+          );
+        })() : <span className="text-zinc-700">--</span>}
+        {away ? (() => {
+          const s = sosLabel(away.avgOpponentElo, leagueAvgElo);
+          return (
+            <span className="inline-flex items-center gap-0.5">
+              <span className="text-zinc-500">{pick.awayTeam.split(" ")[0]}:</span>
+              <span className={`font-mono ${s.color}`}>{away.avgOpponentElo}</span>
+              <span className="text-zinc-600">({s.label})</span>
+            </span>
+          );
+        })() : <span className="text-zinc-700">--</span>}
+        <span className="text-zinc-700">avg {leagueAvgElo}</span>
+      </div>
+    </div>
+  );
+}
+
+function ManagerTag({ mgr, team }: { mgr: { name: string; isNewThisSeason: boolean; isMidSeasonChange: boolean; seasonRecord: { win: number; draw: number; loss: number } | null; previousManager: string | null }; team: string }) {
+  if (!mgr.isNewThisSeason && !mgr.isMidSeasonChange) return null;
+  const label = mgr.isMidSeasonChange ? "Mid-season change" : "New this season";
+  const record = mgr.seasonRecord ? `W${mgr.seasonRecord.win} D${mgr.seasonRecord.draw} L${mgr.seasonRecord.loss}` : "";
+  return (
+    <div className="rounded border border-amber-800 bg-amber-900/30 px-2 py-1 text-[10px] text-amber-400">
+      <span className="font-semibold">{team}</span>: {mgr.name} ({label})
+      {mgr.previousManager && <span className="text-zinc-500 ml-1">replaced {mgr.previousManager}</span>}
+      {record && <span className="text-zinc-500 ml-1">{record}</span>}
+    </div>
+  );
+}
+
 function TedAssessmentPanel({ pick }: { pick: Pick }) {
   const [expanded, setExpanded] = useState(false);
   if (!pick.tedAssessment) return null;
@@ -395,6 +462,17 @@ function PickCard({ pick }: { pick: Pick }) {
 
       {/* GK PSxG+/- */}
       <GKRow pick={pick} />
+
+      {/* Strength of Schedule */}
+      <SoSRow pick={pick} />
+
+      {/* Manager changes */}
+      {pick.managerContext?.recentChanges && (
+        <div className="mb-2 space-y-1">
+          {pick.managerContext.home && <ManagerTag mgr={pick.managerContext.home} team={pick.homeTeam} />}
+          {pick.managerContext.away && <ManagerTag mgr={pick.managerContext.away} team={pick.awayTeam} />}
+        </div>
+      )}
 
       {/* Ted assessment */}
       <TedAssessmentPanel pick={pick} />
