@@ -17,6 +17,10 @@ export interface PlayerUnavailability {
   marketValue: number | null;
   seasonGoals: number;
   seasonAssists: number;
+  minutesPlayed?: number;     // from Fotmob player minutes data
+  minutesPct?: number;        // % of possible minutes (0-100)
+  isBenchPlayer: boolean;     // < 15% minutes after 5+ matchdays
+  pricedIn: boolean;          // long-term absence, already reflected in market line
 }
 
 export interface TeamInjuryReport {
@@ -131,10 +135,17 @@ const SERIE_A_TEAM_IDS = FOTMOB_TEAM_IDS["serie-a"];
 // Market value threshold for "key player" (in euros)
 const KEY_PLAYER_VALUE_THRESHOLD = 15_000_000;
 
+/** Threshold: players with < 15% of possible minutes are bench players */
+const BENCH_MINUTES_PCT = 15;
+
 function classifySeverity(
-  totalOut: number,
-  keyPlayersOut: number
+  unavailable: PlayerUnavailability[],
 ): TeamInjuryReport["severity"] {
+  // Filter out bench players and priced-in (long-term) absences
+  const impactful = unavailable.filter(p => !p.isBenchPlayer && !p.pricedIn);
+  const totalOut = impactful.length;
+  const keyPlayersOut = impactful.filter(p => p.isKeyPlayer).length;
+
   // Ted's framework:
   // "4-5 injured players is notable. 7-8+ is a major factor."
   // "Two first-choice center-backs missing is worse than six squad players."
@@ -143,6 +154,17 @@ function classifySeverity(
   if (keyPlayersOut >= 2 || totalOut >= 5) return "major";
   if (keyPlayersOut >= 1 || totalOut >= 3) return "moderate";
   return "minor";
+}
+
+/**
+ * Check if an expected return string indicates a long-term absence
+ * that the market has already priced in.
+ */
+function isLongTermAbsence(expectedReturn: string): boolean {
+  const lower = expectedReturn.toLowerCase();
+  if (lower.includes("out for season") || lower.includes("end of season")) return true;
+  if (lower.includes("unknown") && lower.includes("long")) return true;
+  return false;
 }
 
 function buildSummary(report: {
@@ -169,6 +191,35 @@ function buildSummary(report: {
   }
 
   return parts.join(" ");
+}
+
+/**
+ * Enrich injury list with minutes data to identify bench players.
+ * minutesLookup: team → player name → { minutes, matchesPlayed }
+ * totalMatchdays: how many matchdays have been played this season
+ */
+export function enrichWithMinutes(
+  unavailable: PlayerUnavailability[],
+  minutesLookup: Map<string, { minutes: number; matchesPlayed: number }> | null,
+  totalMatchdays: number,
+): void {
+  if (!minutesLookup || totalMatchdays < 5) return; // too early to judge
+
+  const maxPossibleMinutes = totalMatchdays * 90;
+
+  for (const p of unavailable) {
+    const playerKey = p.name.toLowerCase();
+    const mins = minutesLookup.get(playerKey);
+    if (mins) {
+      p.minutesPlayed = mins.minutes;
+      p.minutesPct = maxPossibleMinutes > 0
+        ? Math.round((mins.minutes / maxPossibleMinutes) * 10000) / 100
+        : 0;
+      p.isBenchPlayer = p.minutesPct < BENCH_MINUTES_PCT;
+    }
+    // If player not found in minutes data and has 0 minutes, they may be a youth/reserve
+    // Keep isBenchPlayer as false (default) — absence of data shouldn't downgrade severity
+  }
 }
 
 async function fetchTeamInjuries(
@@ -207,14 +258,17 @@ async function fetchTeamInjuries(
       for (const player of section?.members || []) {
         const injury = player?.injury;
         if (injury) {
+          const expReturn = injury.expectedReturn || "Unknown";
           unavailable.push({
             name: player.name || "Unknown",
             type: "injury",
-            expectedReturn: injury.expectedReturn || "Unknown",
+            expectedReturn: expReturn,
             isKeyPlayer: (player.marketValue || 0) >= KEY_PLAYER_VALUE_THRESHOLD,
             marketValue: player.marketValue || null,
             seasonGoals: player.seasonGoals || 0,
             seasonAssists: player.seasonAssists || 0,
+            isBenchPlayer: false,  // enriched later by enrichWithMinutes()
+            pricedIn: isLongTermAbsence(expReturn),
           });
         }
       }
@@ -228,14 +282,17 @@ async function fetchTeamInjuries(
       // Only add if not already in the injury list
       const alreadyListed = unavailable.some((p) => p.name === u.name);
       if (!alreadyListed) {
+        const expReturn2 = u?.unavailability?.expectedReturn || "Unknown";
         unavailable.push({
           name: u.name || "Unknown",
           type: unavailType === "suspension" ? "suspension" : unavailType === "injury" ? "injury" : "other",
-          expectedReturn: u?.unavailability?.expectedReturn || "Unknown",
+          expectedReturn: expReturn2,
           isKeyPlayer: (u.marketValue || 0) >= KEY_PLAYER_VALUE_THRESHOLD,
           marketValue: u.marketValue || null,
           seasonGoals: u?.performance?.seasonGoals || 0,
           seasonAssists: u?.performance?.seasonAssists || 0,
+          isBenchPlayer: false,
+          pricedIn: isLongTermAbsence(expReturn2),
         });
       } else if (unavailType === "suspension") {
         // Update type if it was listed as injury but is actually suspended
@@ -251,7 +308,7 @@ async function fetchTeamInjuries(
     const totalOut = unavailable.length;
     const keyPlayersOut = unavailable.filter((p) => p.isKeyPlayer).length;
 
-    const severity = classifySeverity(totalOut, keyPlayersOut);
+    const severity = classifySeverity(unavailable);
 
     const report: TeamInjuryReport = {
       team: teamName,

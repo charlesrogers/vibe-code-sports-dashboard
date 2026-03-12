@@ -14,6 +14,21 @@ interface PaperBet {
 
 interface DailyPnL { date: string; profit: number; cumProfit: number; bets: number; }
 
+interface RollingWindow {
+  n: number; hitRate: number; roi: number; avgCLV: number;
+  profit: number; oldestDate: string; newestDate: string;
+}
+
+interface DriftAlert {
+  type: string; severity: "warning" | "critical"; message: string;
+}
+
+interface DriftIndicators {
+  rolling30: RollingWindow | null;
+  rolling50: RollingWindow | null;
+  alerts: DriftAlert[];
+}
+
 interface Stats {
   totalBets: number; settledBets: number; pendingBets: number;
   wins: number; losses: number; pushes: number; hitRate: number;
@@ -22,6 +37,7 @@ interface Stats {
   byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; hitRate: number }>;
   byMarketType: Record<string, { n: number; roi: number; clv: number; profit: number; hitRate: number }>;
   dailyPnL: DailyPnL[];
+  driftIndicators?: DriftIndicators;
 }
 
 const LEAGUE_LABELS: Record<string, string> = {
@@ -181,6 +197,57 @@ export default function PaperTradePage() {
           <div className="flex justify-between text-[10px] text-zinc-600 mt-1">
             <span>{stats.dailyPnL[0]?.date}</span>
             <span>{stats.dailyPnL[stats.dailyPnL.length - 1]?.date}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Drift Indicators */}
+      {stats?.driftIndicators && (stats.driftIndicators.rolling30 || stats.driftIndicators.alerts.length > 0) && (
+        <div className="mb-6">
+          {/* Alerts */}
+          {stats.driftIndicators.alerts.length > 0 && (
+            <div className="mb-3 space-y-1">
+              {stats.driftIndicators.alerts.map((alert, i) => (
+                <div key={i} className={`rounded border px-3 py-2 text-xs ${
+                  alert.severity === "critical"
+                    ? "bg-red-900/20 border-red-800 text-red-400"
+                    : "bg-yellow-900/20 border-yellow-800 text-yellow-400"
+                }`}>
+                  {alert.severity === "critical" ? "!!" : "!"} {alert.message}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Rolling windows */}
+          <h3 className="mb-2 text-sm font-semibold text-zinc-300">Rolling Performance</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {[stats.driftIndicators.rolling30, stats.driftIndicators.rolling50].map((window, i) => {
+              if (!window) return null;
+              return (
+                <div key={i} className="rounded bg-zinc-900 border border-zinc-800 p-3">
+                  <div className="text-xs text-zinc-500 mb-2">Last {window.n} bets ({window.oldestDate} — {window.newestDate})</div>
+                  <div className="grid grid-cols-4 gap-2 text-center">
+                    <div>
+                      <div className={`text-sm font-bold ${window.roi >= 0 ? "text-green-400" : "text-red-400"}`}>{fmtPct(window.roi)}</div>
+                      <div className="text-[9px] text-zinc-600">ROI</div>
+                    </div>
+                    <div>
+                      <div className={`text-sm font-bold ${window.avgCLV >= 0 ? "text-blue-400" : "text-red-400"}`}>{fmtPct(window.avgCLV)}</div>
+                      <div className="text-[9px] text-zinc-600">CLV</div>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-white">{window.hitRate.toFixed(0)}%</div>
+                      <div className="text-[9px] text-zinc-600">Hit Rate</div>
+                    </div>
+                    <div>
+                      <div className={`text-sm font-bold ${window.profit >= 0 ? "text-green-400" : "text-red-400"}`}>{window.profit >= 0 ? "+" : ""}{window.profit.toFixed(1)}u</div>
+                      <div className="text-[9px] text-zinc-600">P&L</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

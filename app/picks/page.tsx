@@ -75,6 +75,10 @@ interface Pick {
     home: { xGFor: number; xGAgainst: number; overperformance: number } | null;
     away: { xGFor: number; xGAgainst: number; overperformance: number } | null;
   };
+  gkContext?: {
+    home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
+    away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
+  };
 }
 
 interface PicksSummary {
@@ -247,6 +251,34 @@ function XgRow({ pick }: { pick: Pick }) {
   );
 }
 
+function GKIndicator({ gk, team }: { gk: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number }; team: string }) {
+  const gp = gk.goalsPrevented;
+  const color = gp > 2 ? "text-green-400" : gp < -2 ? "text-red-400" : "text-zinc-400";
+  const label = gp > 2 ? "Elite" : gp < -2 ? "Poor" : "Avg";
+  return (
+    <span className="inline-flex items-center gap-0.5">
+      <span className="text-zinc-500">{team}:</span>
+      <span className={`font-mono ${color}`}>{gp > 0 ? "+" : ""}{gp.toFixed(1)}</span>
+      <span className="text-zinc-600">({label})</span>
+    </span>
+  );
+}
+
+function GKRow({ pick }: { pick: Pick }) {
+  if (!pick.gkContext) return null;
+  const { home, away } = pick.gkContext;
+  if (!home && !away) return null;
+  return (
+    <div className="mb-2 flex items-center gap-2 rounded border border-zinc-800 bg-zinc-900/50 px-2 py-1.5 text-[10px]">
+      <span className="text-zinc-500 font-semibold uppercase">GK</span>
+      <div className="flex-1 flex items-center gap-3">
+        {home ? <GKIndicator gk={home} team={pick.homeTeam.split(" ")[0]} /> : <span className="text-zinc-700">--</span>}
+        {away ? <GKIndicator gk={away} team={pick.awayTeam.split(" ")[0]} /> : <span className="text-zinc-700">--</span>}
+      </div>
+    </div>
+  );
+}
+
 function TedAssessmentPanel({ pick }: { pick: Pick }) {
   const [expanded, setExpanded] = useState(false);
   if (!pick.tedAssessment) return null;
@@ -360,6 +392,9 @@ function PickCard({ pick }: { pick: Pick }) {
 
       {/* xG stats */}
       <XgRow pick={pick} />
+
+      {/* GK PSxG+/- */}
+      <GKRow pick={pick} />
 
       {/* Ted assessment */}
       <TedAssessmentPanel pick={pick} />

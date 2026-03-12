@@ -67,9 +67,19 @@ interface MatchEval {
   tedCorrect: boolean | null; // null if Ted had no signal
 }
 
+interface BrierDecomposition {
+  reliability: number;    // lower is better — measures calibration error
+  resolution: number;     // higher is better — measures ability to separate outcomes
+  uncertainty: number;    // fixed for dataset — base rate entropy
+  brier: number;          // = reliability - resolution + uncertainty
+}
+
 interface ModelScore {
   logLoss: number;
   brier: number;
+  rps: number;            // Ranked Probability Score — proper scoring for ordered outcomes
+  ece: number;            // Expected Calibration Error — single-number calibration metric
+  brierDecomposition: BrierDecomposition;
   accuracy: number;
   calibration: { bucket: string; predicted: number; actual: number; count: number }[];
 }
@@ -133,6 +143,88 @@ function buildCalibration(
     .filter((b) => b.count >= 3);
 }
 
+/**
+ * Ranked Probability Score for ordered outcomes (H, D, A).
+ * RPS = (1/(K-1)) * Σ (cumP_k - cumA_k)² where K=3 outcomes.
+ * Uses ordering: Home < Draw < Away (standard for football).
+ * Lower is better. Range: [0, 1].
+ */
+function rpsContrib(
+  probs: { home: number; draw: number; away: number },
+  result: "H" | "D" | "A"
+): number {
+  // Cumulative predicted: [P(H), P(H)+P(D)]
+  const cumP = [probs.home, probs.home + probs.draw];
+  // Cumulative actual: [I(H), I(H)+I(D)]
+  const actH = result === "H" ? 1 : 0;
+  const actD = result === "D" ? 1 : 0;
+  const cumA = [actH, actH + actD];
+  return 0.5 * ((cumP[0] - cumA[0]) ** 2 + (cumP[1] - cumA[1]) ** 2);
+}
+
+/**
+ * Brier score decomposition (Murphy 1973).
+ * Brier = Reliability - Resolution + Uncertainty
+ * - Reliability: avg squared deviation of predicted prob from observed frequency within bins (lower = better calibrated)
+ * - Resolution: avg squared deviation of bin frequency from overall base rate (higher = better discrimination)
+ * - Uncertainty: base rate entropy (fixed for the dataset)
+ */
+function computeBrierDecomposition(
+  predictions: { prob: number; hit: boolean }[]
+): BrierDecomposition {
+  const n = predictions.length;
+  const overallRate = predictions.filter(p => p.hit).length / n;
+
+  // 10 equal-width bins
+  const bins: { predicted: number[]; actual: number[] }[] = [];
+  for (let i = 0; i < 10; i++) bins.push({ predicted: [], actual: [] });
+
+  for (const p of predictions) {
+    const idx = Math.min(9, Math.floor(p.prob * 10));
+    bins[idx].predicted.push(p.prob);
+    bins[idx].actual.push(p.hit ? 1 : 0);
+  }
+
+  let reliability = 0;
+  let resolution = 0;
+
+  for (const bin of bins) {
+    const nk = bin.actual.length;
+    if (nk === 0) continue;
+    const avgPred = bin.predicted.reduce((s, v) => s + v, 0) / nk;
+    const obsRate = bin.actual.reduce((s, v) => s + v, 0) / nk;
+    reliability += (nk / n) * (avgPred - obsRate) ** 2;
+    resolution += (nk / n) * (obsRate - overallRate) ** 2;
+  }
+
+  const uncertainty = overallRate * (1 - overallRate);
+  const brier = reliability - resolution + uncertainty;
+
+  return {
+    reliability: Math.round(reliability * 10000) / 10000,
+    resolution: Math.round(resolution * 10000) / 10000,
+    uncertainty: Math.round(uncertainty * 10000) / 10000,
+    brier: Math.round(brier * 10000) / 10000,
+  };
+}
+
+/**
+ * Expected Calibration Error — weighted average of |predicted - actual| across bins.
+ * Single number summarizing calibration quality. Lower is better.
+ */
+function computeECE(
+  calibration: { predicted: number; actual: number; count: number }[]
+): number {
+  const totalCount = calibration.reduce((s, b) => s + b.count, 0);
+  if (totalCount === 0) return 0;
+  let ece = 0;
+  for (const bin of calibration) {
+    // predicted and actual are already in percentage (0-100), convert to 0-1
+    ece += (bin.count / totalCount) * Math.abs(bin.predicted / 100 - bin.actual / 100);
+  }
+  return Math.round(ece * 10000) / 10000;
+}
+
 function scoreModel(
   matchEvals: MatchEval[],
   getProbs: (m: MatchEval) => { home: number; draw: number; away: number },
@@ -141,6 +233,7 @@ function scoreModel(
   const n = matchEvals.length;
   let llSum = 0;
   let brierSum = 0;
+  let rpsSum = 0;
   let correctCount = 0;
   const calData: { prob: number; hit: boolean }[] = [];
 
@@ -148,17 +241,25 @@ function scoreModel(
     const probs = getProbs(m);
     llSum += getLogLossForResult(probs, m.actualResult);
     brierSum += brierContrib(probs, m.actualResult);
+    rpsSum += rpsContrib(probs, m.actualResult);
     if (getCorrect(m)) correctCount++;
     calData.push({ prob: probs.home, hit: m.actualResult === "H" });
     calData.push({ prob: probs.draw, hit: m.actualResult === "D" });
     calData.push({ prob: probs.away, hit: m.actualResult === "A" });
   }
 
+  const calibration = buildCalibration(calData);
+  const brierDecomposition = computeBrierDecomposition(calData);
+  const ece = computeECE(calibration);
+
   return {
     logLoss: Math.round((llSum / n) * 1000) / 1000,
     brier: Math.round((brierSum / n) * 10000) / 10000,
+    rps: Math.round((rpsSum / n) * 10000) / 10000,
+    ece,
+    brierDecomposition,
     accuracy: Math.round((correctCount / n) * 1000) / 10,
-    calibration: buildCalibration(calData),
+    calibration,
   };
 }
 
@@ -267,6 +368,7 @@ function scoreModelWithTed(
   const n = matchEvals.length;
   let llSum = 0;
   let brierSum = 0;
+  let rpsSum = 0;
   let correctCount = 0;
   const calData: { prob: number; hit: boolean }[] = [];
 
@@ -275,17 +377,25 @@ function scoreModelWithTed(
     const adjusted = applyTedOverlay(base, m.ted);
     llSum += getLogLossForResult(adjusted, m.actualResult);
     brierSum += brierContrib(adjusted, m.actualResult);
+    rpsSum += rpsContrib(adjusted, m.actualResult);
     if (predictedResult(adjusted) === m.actualResult) correctCount++;
     calData.push({ prob: adjusted.home, hit: m.actualResult === "H" });
     calData.push({ prob: adjusted.draw, hit: m.actualResult === "D" });
     calData.push({ prob: adjusted.away, hit: m.actualResult === "A" });
   }
 
+  const calibration = buildCalibration(calData);
+  const brierDecomposition = computeBrierDecomposition(calData);
+  const ece = computeECE(calibration);
+
   return {
     logLoss: Math.round((llSum / n) * 1000) / 1000,
     brier: Math.round((brierSum / n) * 10000) / 10000,
+    rps: Math.round((rpsSum / n) * 10000) / 10000,
+    ece,
+    brierDecomposition,
     accuracy: Math.round((correctCount / n) * 1000) / 10,
-    calibration: buildCalibration(calData),
+    calibration,
   };
 }
 
@@ -535,74 +645,45 @@ function buildResultFromEvals(
     marketTedScore = scoreModelWithTed(matchesWithMarket, (m) => m.market!);
   }
 
+  // Helper for building overlay comparison entries
+  function overlayEntry(model: string, base: ModelScore, withTed: ModelScore) {
+    return {
+      model,
+      base: { logLoss: base.logLoss, brier: base.brier, rps: base.rps, ece: base.ece, accuracy: base.accuracy },
+      withTed: { logLoss: withTed.logLoss, brier: withTed.brier, rps: withTed.rps, ece: withTed.ece, accuracy: withTed.accuracy },
+      delta: {
+        logLoss: Math.round((withTed.logLoss - base.logLoss) * 1000) / 1000,
+        brier: Math.round((withTed.brier - base.brier) * 10000) / 10000,
+        rps: Math.round((withTed.rps - base.rps) * 10000) / 10000,
+        accuracy: Math.round((withTed.accuracy - base.accuracy) * 10) / 10,
+      },
+    };
+  }
+
   // Build Ted overlay comparison
   const tedOverlayComparison = [
-    {
-      model: "Dixon-Coles",
-      base: { logLoss: dcScore.logLoss, brier: dcScore.brier, accuracy: dcScore.accuracy },
-      withTed: { logLoss: dcTedScore.logLoss, brier: dcTedScore.brier, accuracy: dcTedScore.accuracy },
-      delta: {
-        logLoss: Math.round((dcTedScore.logLoss - dcScore.logLoss) * 1000) / 1000,
-        brier: Math.round((dcTedScore.brier - dcScore.brier) * 10000) / 10000,
-        accuracy: Math.round((dcTedScore.accuracy - dcScore.accuracy) * 10) / 10,
-      },
-    },
-    {
-      model: "ELO",
-      base: { logLoss: eloScore.logLoss, brier: eloScore.brier, accuracy: eloScore.accuracy },
-      withTed: { logLoss: eloTedScore.logLoss, brier: eloTedScore.brier, accuracy: eloTedScore.accuracy },
-      delta: {
-        logLoss: Math.round((eloTedScore.logLoss - eloScore.logLoss) * 1000) / 1000,
-        brier: Math.round((eloTedScore.brier - eloScore.brier) * 10000) / 10000,
-        accuracy: Math.round((eloTedScore.accuracy - eloScore.accuracy) * 10) / 10,
-      },
-    },
-    {
-      model: "Bayesian Poisson",
-      base: { logLoss: bayesScore.logLoss, brier: bayesScore.brier, accuracy: bayesScore.accuracy },
-      withTed: { logLoss: bayesTedScore.logLoss, brier: bayesTedScore.brier, accuracy: bayesTedScore.accuracy },
-      delta: {
-        logLoss: Math.round((bayesTedScore.logLoss - bayesScore.logLoss) * 1000) / 1000,
-        brier: Math.round((bayesTedScore.brier - bayesScore.brier) * 10000) / 10000,
-        accuracy: Math.round((bayesTedScore.accuracy - bayesScore.accuracy) * 10) / 10,
-      },
-    },
-    {
-      model: "Composite",
-      base: { logLoss: compositeScore.logLoss, brier: compositeScore.brier, accuracy: compositeScore.accuracy },
-      withTed: { logLoss: compositeTedScore.logLoss, brier: compositeTedScore.brier, accuracy: compositeTedScore.accuracy },
-      delta: {
-        logLoss: Math.round((compositeTedScore.logLoss - compositeScore.logLoss) * 1000) / 1000,
-        brier: Math.round((compositeTedScore.brier - compositeScore.brier) * 10000) / 10000,
-        accuracy: Math.round((compositeTedScore.accuracy - compositeScore.accuracy) * 10) / 10,
-      },
-    },
-    // Market + Ted overlay (only if market data available)
-    ...(marketScore && marketTedScore ? [{
-      model: "Market",
-      base: { logLoss: marketScore.logLoss, brier: marketScore.brier, accuracy: marketScore.accuracy },
-      withTed: { logLoss: marketTedScore.logLoss, brier: marketTedScore.brier, accuracy: marketTedScore.accuracy },
-      delta: {
-        logLoss: Math.round((marketTedScore.logLoss - marketScore.logLoss) * 1000) / 1000,
-        brier: Math.round((marketTedScore.brier - marketScore.brier) * 10000) / 10000,
-        accuracy: Math.round((marketTedScore.accuracy - marketScore.accuracy) * 10) / 10,
-      },
-    }] : []),
+    overlayEntry("Dixon-Coles", dcScore, dcTedScore),
+    overlayEntry("ELO", eloScore, eloTedScore),
+    overlayEntry("Bayesian Poisson", bayesScore, bayesTedScore),
+    overlayEntry("Composite", compositeScore, compositeTedScore),
+    ...(marketScore && marketTedScore ? [overlayEntry("Market", marketScore, marketTedScore)] : []),
   ];
 
   // Rank all variants (base + with-Ted) by Log Loss
+  function rankEntry(model: string, s: ModelScore) {
+    return { model, logLoss: s.logLoss, brier: s.brier, rps: s.rps, ece: s.ece, accuracy: s.accuracy };
+  }
   const ranking = [
-    { model: "Composite", logLoss: compositeScore.logLoss, brier: compositeScore.brier, accuracy: compositeScore.accuracy },
-    { model: "Composite + Ted", logLoss: compositeTedScore.logLoss, brier: compositeTedScore.brier, accuracy: compositeTedScore.accuracy },
-    { model: "Dixon-Coles", logLoss: dcScore.logLoss, brier: dcScore.brier, accuracy: dcScore.accuracy },
-    { model: "Dixon-Coles + Ted", logLoss: dcTedScore.logLoss, brier: dcTedScore.brier, accuracy: dcTedScore.accuracy },
-    { model: "ELO", logLoss: eloScore.logLoss, brier: eloScore.brier, accuracy: eloScore.accuracy },
-    { model: "ELO + Ted", logLoss: eloTedScore.logLoss, brier: eloTedScore.brier, accuracy: eloTedScore.accuracy },
-    { model: "Bayesian Poisson", logLoss: bayesScore.logLoss, brier: bayesScore.brier, accuracy: bayesScore.accuracy },
-    { model: "Bayesian + Ted", logLoss: bayesTedScore.logLoss, brier: bayesTedScore.brier, accuracy: bayesTedScore.accuracy },
-    // Include Market and Market + Ted in ranking if available
-    ...(marketScore ? [{ model: "Market (Closing Line)", logLoss: marketScore.logLoss, brier: marketScore.brier, accuracy: marketScore.accuracy }] : []),
-    ...(marketTedScore ? [{ model: "Market + Ted", logLoss: marketTedScore.logLoss, brier: marketTedScore.brier, accuracy: marketTedScore.accuracy }] : []),
+    rankEntry("Composite", compositeScore),
+    rankEntry("Composite + Ted", compositeTedScore),
+    rankEntry("Dixon-Coles", dcScore),
+    rankEntry("Dixon-Coles + Ted", dcTedScore),
+    rankEntry("ELO", eloScore),
+    rankEntry("ELO + Ted", eloTedScore),
+    rankEntry("Bayesian Poisson", bayesScore),
+    rankEntry("Bayesian + Ted", bayesTedScore),
+    ...(marketScore ? [rankEntry("Market (Closing Line)", marketScore)] : []),
+    ...(marketTedScore ? [rankEntry("Market + Ted", marketTedScore)] : []),
   ].sort((a, b) => a.logLoss - b.logLoss);
 
   const result: Record<string, unknown> = {
@@ -634,6 +715,9 @@ function buildResultFromEvals(
       metrics: {
         logLoss: "Primary — penalizes confident wrong predictions heavily (Mack #1)",
         brier: "Calibration quality — lower is better (Mack #2)",
+        rps: "Ranked Probability Score — proper scoring for ordered outcomes (H/D/A). Rewards correct probability ordering.",
+        ece: "Expected Calibration Error — weighted avg |predicted - actual| across bins. Lower = better calibrated.",
+        brierDecomposition: "Murphy 1973: Brier = Reliability - Resolution + Uncertainty. Reliability = calibration error (lower better). Resolution = discrimination ability (higher better). Uncertainty = dataset base rate (fixed).",
         accuracy: "Classification rate — least important per Mack (#3)",
       },
       sampleSizeWarning: `${matchEvals.length} matches evaluated. Mack: 'We'd want hundreds if not thousands of games before reasonable conclusions.'`,

@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "description": "Signal graveyard & pre-registration log. Every hypothesis MUST be registered here BEFORE testing. Prevents overfitting by tracking the denominator of tried signals.",
+    "rules": [
+      "Register hypothesis BEFORE running any backtest or evaluation",
+      "Include specific metric and threshold for success",
+      "Update status after testing — never delete failed entries",
+      "Statuses: pending (not yet tested), accepted (passed threshold, deployed), rejected (failed threshold), graveyard (was deployed, later removed)"
+    ]
+  },
+  "signals": [
+    {
+      "id": "odds-cap-2.0",
+      "registered": "2026-03-10",
+      "hypothesis": "Capping maxOdds at 2.0 improves ROI vs 2.5 or 3.0",
+      "metric": "backtest ROI delta vs no cap",
+      "threshold": "+1pp ROI",
+      "status": "accepted",
+      "result": "2.0 cap: +2.0% ROI, +33.2u. vs 2.5: +0.3%, vs 3.0: -1.7%. Clear winner.",
+      "deployed": "2026-03-10",
+      "deployedIn": "lib/mi-picks/ted-filters.ts → DEFAULT_TED_CONFIG.maxOdds = 2.0"
+    },
+    {
+      "id": "pass-rate-filter-50pct",
+      "registered": "2026-03-10",
+      "hypothesis": "Filtering out league/market/direction combos with <50% historical hit rate improves ROI",
+      "metric": "backtest ROI for filtered vs unfiltered bets",
+      "threshold": "filtered subset ROI > unfiltered ROI",
+      "status": "accepted",
+      "result": "1X2 bets filtered out (low hit rates). AH bets kept. 23/24 combos pass at 50% threshold. Only Serie A AH Home fails (49.1%).",
+      "deployed": "2026-03-10",
+      "deployedIn": "lib/mi-picks/ted-filters.ts → checkPassRate(), lib/mi-picks/picks-engine.ts"
+    },
+    {
+      "id": "variance-regression-filter",
+      "registered": "2026-03-08",
+      "hypothesis": "Requiring at least one team to be a regression candidate (xG divergence >= 3.0 goals over 10 matches) improves bet quality",
+      "metric": "backtest hit rate for variance-filtered vs unfiltered",
+      "threshold": "+2pp hit rate",
+      "status": "accepted",
+      "result": "Core Ted filter. Regression candidates show higher CLV and hit rates in backtest.",
+      "deployed": "2026-03-08",
+      "deployedIn": "lib/mi-picks/ted-filters.ts → isRegressionCandidate()"
+    },
+    {
+      "id": "congestion-filter-3in8",
+      "registered": "2026-03-08",
+      "hypothesis": "Filtering out matches where a team plays 3+ times in 8 days improves ROI (fatigued teams are unpredictable)",
+      "metric": "backtest ROI for congested vs non-congested matches",
+      "threshold": "congested matches ROI < 0",
+      "status": "accepted",
+      "result": "Part of Ted's core filter set. Congested matches show degraded model accuracy.",
+      "deployed": "2026-03-08",
+      "deployedIn": "lib/mi-picks/ted-filters.ts → isCongested()"
+    },
+    {
+      "id": "injury-lambda-multiplier",
+      "registered": "2026-03-09",
+      "hypothesis": "Adjusting match lambdas by 0.90x (crisis) or 0.95x (major) for injured teams improves prediction accuracy",
+      "metric": "log loss for injury-adjusted vs unadjusted predictions",
+      "threshold": "lower log loss on injury-affected matches",
+      "status": "accepted",
+      "result": "Conservative multipliers deployed. Crisis (3+ key players out): 0.90x, Major (2+ key): 0.95x.",
+      "deployed": "2026-03-09",
+      "deployedIn": "lib/mi-picks/injury-adjust.ts"
+    },
+    {
+      "id": "gk-psxg-regression-adj",
+      "registered": "2026-03-11",
+      "hypothesis": "Adjusting defensive regression expectation based on goalkeeper PSxG+/- improves AH hit rate (poor GK = less regression expected)",
+      "metric": "AH hit rate delta for GK-adjusted vs unadjusted regression",
+      "threshold": "+2pp AH hit rate",
+      "status": "pending"
+    },
+    {
+      "id": "strength-of-schedule-display",
+      "registered": "2026-03-11",
+      "hypothesis": "Showing opponent SOS context on picks page helps human decision-making (qualitative — no backtest metric)",
+      "metric": "qualitative user assessment",
+      "threshold": "N/A — display only",
+      "status": "pending"
+    },
+    {
+      "id": "manager-change-xg-window",
+      "registered": "2026-03-11",
+      "hypothesis": "Using only post-manager-change xG data (when available) improves prediction accuracy for affected teams",
+      "metric": "log loss for manager-change matches",
+      "threshold": "lower log loss vs full-season xG",
+      "status": "pending"
+    }
+  ]
+}

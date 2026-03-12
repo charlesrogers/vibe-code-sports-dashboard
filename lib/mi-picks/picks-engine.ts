@@ -8,7 +8,8 @@
 import { readFileSync, existsSync, readdirSync } from "fs";
 import { join } from "path";
 import { predictMatch, predictMatchFromLambdas } from "../mi-model/predictor";
-import { fetchInjuriesForTeams } from "../injuries";
+import { fetchInjuriesForTeams, enrichWithMinutes } from "../injuries";
+import { fetchGKStats, fetchPlayerMinutes, getStartingGK, buildMinutesLookup, type GKStats, type PlayerMinutes } from "../gk-psxg";
 import { adjustLambdas } from "./injury-adjust";
 import { devigOdds1X2, devigOdds2Way } from "../mi-model/data-prep";
 import type { MIModelParams, MatchPrediction } from "../mi-model/types";
@@ -104,6 +105,10 @@ export interface Pick {
   xg?: {
     home: { xGFor: number; xGAgainst: number; overperformance: number } | null;
     away: { xGFor: number; xGAgainst: number; overperformance: number } | null;
+  };
+  gkContext?: {
+    home: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
+    away: { player: string; goalsPrevented: number; goalsPreventedPer90: number; matchesPlayed: number } | null;
   };
 }
 
@@ -387,6 +392,32 @@ export async function generatePicks(
       console.log(`[picks] Injury fetch failed for ${league.id}: ${e instanceof Error ? e.message : String(e)}`);
     }
 
+    // Fetch GK stats + player minutes from Fotmob
+    let gkStats: GKStats[] = [];
+    let playerMins: PlayerMinutes[] = [];
+    let minutesLookup = new Map<string, Map<string, { minutes: number; matchesPlayed: number }>>();
+    try {
+      [gkStats, playerMins] = await Promise.all([
+        fetchGKStats(league.id),
+        fetchPlayerMinutes(league.id),
+      ]);
+      minutesLookup = buildMinutesLookup(playerMins);
+
+      // Enrich injury reports with minutes data (marks bench players)
+      const totalMatchdays = seasonMatchdayCount;
+      for (const report of injuryMap.values()) {
+        const teamKey = report.team.toLowerCase()
+          .replace(/\s+(fc|afc|cf|sc|ssc)$/i, "")
+          .replace(/^(fc|afc|cf|sc|ssc)\s+/i, "")
+          .replace(/\band\b/g, "&")
+          .trim();
+        const teamMins = minutesLookup.get(teamKey) ?? null;
+        enrichWithMinutes(report.unavailable, teamMins, totalMatchdays);
+      }
+    } catch (e) {
+      console.log(`[picks] GK/minutes fetch failed for ${league.id}: ${e instanceof Error ? e.message : String(e)}`);
+    }
+
     let leagueMatches = 0;
     let leagueBets = 0;
     let leagueEdgeSum = 0;
@@ -643,6 +674,14 @@ export async function generatePicks(
           home: homeXgData ? { xGFor: homeXgData.xGFor, xGAgainst: homeXgData.xGAgainst, overperformance: homeXgData.overperformance } : null,
           away: awayXgData ? { xGFor: awayXgData.xGFor, xGAgainst: awayXgData.xGAgainst, overperformance: awayXgData.overperformance } : null,
         } : undefined,
+        gkContext: gkStats.length > 0 ? (() => {
+          const homeGK = getStartingGK(homeTeam, gkStats, playerMins);
+          const awayGK = getStartingGK(awayTeam, gkStats, playerMins);
+          return (homeGK || awayGK) ? {
+            home: homeGK ? { player: homeGK.player, goalsPrevented: homeGK.goalsPrevented, goalsPreventedPer90: homeGK.goalsPreventedPer90, matchesPlayed: homeGK.matchesPlayed } : null,
+            away: awayGK ? { player: awayGK.player, goalsPrevented: awayGK.goalsPrevented, goalsPreventedPer90: awayGK.goalsPreventedPer90, matchesPlayed: awayGK.matchesPlayed } : null,
+          } : undefined;
+        })() : undefined,
       });
     }
 

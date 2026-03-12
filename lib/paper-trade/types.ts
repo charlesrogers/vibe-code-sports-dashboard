@@ -60,4 +60,27 @@ export interface PaperTradeStats {
   byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   byMarketType: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   dailyPnL: { date: string; profit: number; cumProfit: number; bets: number }[];
+  driftIndicators?: DriftIndicators;
+}
+
+export interface DriftIndicators {
+  rolling30: RollingWindow | null;   // last 30 settled bets
+  rolling50: RollingWindow | null;   // last 50 settled bets
+  alerts: DriftAlert[];
+}
+
+export interface RollingWindow {
+  n: number;
+  hitRate: number;        // % (0-100)
+  roi: number;            // %
+  avgCLV: number;         // %
+  profit: number;         // units
+  oldestDate: string;
+  newestDate: string;
+}
+
+export interface DriftAlert {
+  type: "clv_negative" | "roi_negative" | "hit_rate_low" | "clv_declining";
+  severity: "warning" | "critical";
+  message: string;
 }
