@@ -23,14 +23,14 @@ import { fetchApiFootballXg } from "@/lib/xg-api-football";
 const FOTMOB_LEAGUE_IDS: Record<string, number> = {
   premierLeague: 47,
   serieA: 55,
-  serieB: 53,
+  serieB: 86,
   laLiga: 87,
   bundesliga: 54,
   ligue1: 53,
 };
 
-// Which leagues to accumulate by default
-const DEFAULT_LEAGUES = ["premierLeague"];
+// Which leagues to accumulate by default — all active model leagues
+const DEFAULT_LEAGUES = ["premierLeague", "serieA", "serieB", "laLiga", "bundesliga", "ligue1"];
 
 const HEADERS = {
   "User-Agent":
