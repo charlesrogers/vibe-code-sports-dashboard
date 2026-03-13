@@ -48,6 +48,7 @@ function getArg(name: string): string | null {
 }
 const hasFlag = (name: string) => process.argv.includes(`--${name}`);
 
+const outputName = getArg("output"); // --output=experiment-name → writes to data/experiments/{name}.json
 const leagueFilter = getArg("leagues")?.split(",") ?? null;
 const maxOdds = getArg("max-odds") ? parseFloat(getArg("max-odds")!) : null;
 const minEdge = getArg("min-edge") ? parseFloat(getArg("min-edge")!) : 0.00;
@@ -769,6 +770,52 @@ console.log(`\n  ─── SUMMARY ───────────────
 console.log(`  ${filtered.length} bets @ edge >= ${(reportEdge * 100).toFixed(0)}%`);
 console.log(`  CLV: ${fmtPct(overall.clv)}   ROI: ${fmtPct(overall.roi)}   Hit: ${(overall.hitRate * 100).toFixed(1)}%   Avg odds: ${overall.avgOdds.toFixed(2)}   P&L: ${overall.profit >= 0 ? "+" : ""}${overall.profit.toFixed(1)}u`);
 console.log(`  Runtime: ${elapsed}ms\n`);
+
+// ─── Export to data/experiments/ (--output flag) ─────────────────────────────
+
+if (outputName) {
+  const { writeFileSync: writeExpFs, mkdirSync: mkExpFs, existsSync: existsExpFs } = require("fs") as typeof import("fs");
+  const expDir = join(projectRoot, "data", "experiments");
+  if (!existsExpFs(expDir)) mkExpFs(expDir, { recursive: true });
+
+  // Per-league summary
+  const leagueIds = [...new Set(filtered.map(b => b.league))];
+  const byLeagueExport: Record<string, { n: number; roi: number; clv: number; hitRate: number; profit: number }> = {};
+  for (const lid of leagueIds) {
+    const s = summarize(filtered.filter(b => b.league === lid));
+    byLeagueExport[lid] = { n: s.n, roi: s.roi, clv: s.clv, hitRate: s.hitRate, profit: s.profit };
+  }
+
+  const exportData = {
+    createdAt: new Date().toISOString(),
+    config: {
+      leagues: leagueFilter,
+      maxOdds,
+      minEdge,
+      markets: marketsArg,
+      noDraws,
+      tedMode,
+      varianceFilter,
+      congestionFilter,
+      defianceFilter,
+      gkAdjust,
+      reportEdge,
+    },
+    summary: {
+      totalBets: filtered.length,
+      roi: overall.roi,
+      clv: overall.clv,
+      hitRate: overall.hitRate,
+      profit: overall.profit,
+      avgOdds: overall.avgOdds,
+    },
+    byLeague: byLeagueExport,
+  };
+
+  const expPath = join(expDir, `${outputName}.json`);
+  writeExpFs(expPath, JSON.stringify(exportData, null, 2));
+  console.log(`  Exported experiment → ${expPath}\n`);
+}
 
 // ─── Bootstrap Significance Testing ────────────────────────────────────────
 
