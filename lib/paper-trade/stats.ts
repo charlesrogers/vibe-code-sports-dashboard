@@ -32,6 +32,38 @@ function buildBreakdown(
   return result;
 }
 
+function buildSignalBreakdown(
+  settled: PaperBet[],
+): Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }> {
+  const groups: Record<string, { n: number; wins: number; profit: number; staked: number; clvSum: number; clvCount: number }> = {};
+
+  for (const b of settled) {
+    const signals = b.activeSignals ?? ["untagged"];
+    for (const sig of signals) {
+      if (!groups[sig]) groups[sig] = { n: 0, wins: 0, profit: 0, staked: 0, clvSum: 0, clvCount: 0 };
+      const g = groups[sig];
+      g.n++;
+      if (b.status === "won") g.wins++;
+      g.profit += b.profit || 0;
+      g.staked += b.stake || 20;
+      if (b.clv != null) { g.clvSum += b.clv; g.clvCount++; }
+    }
+  }
+
+  const result: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }> = {};
+  for (const [k, g] of Object.entries(groups)) {
+    result[k] = {
+      n: g.n,
+      roi: g.staked > 0 ? Math.round((g.profit / g.staked) * 10000) / 100 : 0,
+      clv: g.clvCount > 0 ? Math.round((g.clvSum / g.clvCount) * 10000) / 100 : 0,
+      profit: Math.round(g.profit * 100) / 100,
+      staked: Math.round(g.staked * 100) / 100,
+      hitRate: g.n > 0 ? Math.round((g.wins / g.n) * 10000) / 100 : 0,
+    };
+  }
+  return result;
+}
+
 export function computeStats(bets: PaperBet[]): PaperTradeStats {
   // Exclude superseded bets — they were replaced by better-odds versions
   const activeBets = bets.filter(b => b.status !== "superseded");
@@ -48,6 +80,9 @@ export function computeStats(bets: PaperBet[]): PaperTradeStats {
   const byLeague = buildBreakdown(settled, b => b.league);
   const byGrade = buildBreakdown(settled, b => b.confidenceGrade || "none");
   const byMarketType = buildBreakdown(settled, b => b.marketType);
+
+  // Signal breakdown — one bet can appear in multiple signal groups
+  const bySignal = buildSignalBreakdown(settled);
 
   // Daily P&L
   const dailyMap = new Map<string, { profit: number; bets: number }>();
@@ -88,6 +123,7 @@ export function computeStats(bets: PaperBet[]): PaperTradeStats {
     byLeague,
     byGrade,
     byMarketType,
+    bySignal,
     dailyPnL,
     driftIndicators,
   };

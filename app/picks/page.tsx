@@ -93,6 +93,7 @@ interface Pick {
     away: { name: string; isNewThisSeason: boolean; isMidSeasonChange: boolean; seasonRecord: { win: number; draw: number; loss: number } | null; previousManager: string | null } | null;
     recentChanges: boolean;
   };
+  activeSignals?: string[];
   isPostBreak?: boolean;
   isDerby?: boolean;
 }
@@ -596,6 +597,16 @@ function PickCard({ pick, onLogBet, loggingId, isLogged, clvLookup }: PickCardPr
               )}
               {/* CLV feedback after settlement */}
               {clvData && <CLVBadge clv={clvData.clv} status={clvData.status} profit={clvData.profit} />}
+              {/* Active signal tags */}
+              {pick.activeSignals && pick.activeSignals.length > 0 && pick.tedVerdict === "BET" && (
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {pick.activeSignals.map((sig, j) => (
+                    <span key={j} className="inline-block rounded px-1 py-0.5 text-[9px] font-mono bg-zinc-800 text-zinc-400 border border-zinc-700">
+                      {sig}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
             );
           })}
@@ -709,6 +720,7 @@ export default function PicksPage() {
           grade: pick.grade,
           bestBook: vb.bestBooks?.[0]?.book,
           bestBookOdds: vb.bestBooks?.[0]?.odds,
+          activeSignals: pick.activeSignals,
         }),
       });
       if (!res.ok) throw new Error(`API returned ${res.status}`);

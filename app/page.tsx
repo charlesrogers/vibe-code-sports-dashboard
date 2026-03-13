@@ -8,6 +8,7 @@ import RollingROI from "./components/dashboard/rolling-roi";
 import BetJournal from "./components/dashboard/bet-journal";
 import WeeklyDigest from "./components/dashboard/weekly-digest";
 import TodayChecklist from "./components/dashboard/today-checklist";
+import SignalHealth from "./components/dashboard/signal-health";
 import type { ModelHealthReport } from "@/lib/model-health-monitor";
 
 interface DailyPnL {
@@ -146,6 +147,9 @@ export default function DashboardPage() {
 
       {/* Today's checklist — the daily workflow */}
       <TodayChecklist pendingBets={stats?.pendingBets ?? 0} />
+
+      {/* Signal Health — per-signal CLV attribution */}
+      <SignalHealth />
 
       {/* Health Card — the stop/go signal */}
       {health && (

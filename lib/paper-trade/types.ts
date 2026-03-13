@@ -36,6 +36,7 @@ export interface PaperBet {
   profit?: number;
   closingOdds?: number;
   clv?: number;
+  activeSignals?: string[];
 }
 
 export interface PaperTradeLedger {
@@ -59,6 +60,7 @@ export interface PaperTradeStats {
   byLeague: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   byGrade: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   byMarketType: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
+  bySignal: Record<string, { n: number; roi: number; clv: number; profit: number; staked: number; hitRate: number }>;
   dailyPnL: { date: string; profit: number; cumProfit: number; bets: number }[];
   driftIndicators?: DriftIndicators;
 }

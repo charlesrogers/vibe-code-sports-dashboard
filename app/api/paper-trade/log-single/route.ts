@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
       homeTeam, awayTeam, league, matchDate,
       marketType, selection, ahLine,
       odds, modelProb, edge, grade, bestBook, bestBookOdds,
+      activeSignals,
     } = body;
 
     if (!homeTeam || !awayTeam || !marketType || !selection || !odds) {
@@ -47,6 +48,7 @@ export async function POST(request: NextRequest) {
       oddsTimestamp: now.toISOString(),
       evalWindow: hour,
       status: "pending",
+      ...(Array.isArray(activeSignals) && activeSignals.length > 0 && { activeSignals }),
     };
 
     const result = await appendBets([bet]);

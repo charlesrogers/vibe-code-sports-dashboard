@@ -83,6 +83,7 @@ export async function logPicks(
         oddsTimestamp,
         evalWindow: evalHour,
         status: "pending",
+        ...(pick.activeSignals && { activeSignals: pick.activeSignals }),
       });
     }
   }

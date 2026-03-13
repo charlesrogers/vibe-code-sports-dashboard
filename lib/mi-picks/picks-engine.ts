@@ -125,6 +125,7 @@ export interface Pick {
     away: ManagerInfo | null;
     recentChanges: boolean; // true if either team has a new/mid-season manager
   };
+  activeSignals?: string[];
   isPostBreak?: boolean;
   isDerby?: boolean;
 }
@@ -687,12 +688,12 @@ export async function generatePicks(
         ? Math.max(...passRateFiltered.map(v => v.edge))
         : (valueBets.length > 0 ? Math.max(...valueBets.map(v => v.edge)) : 0);
 
-      // Assign grade
+      // Assign grade (homeVar/awayVar computed below for signal attribution)
       let grade: "A" | "B" | "C" | null = null;
+      const homeVarGrade = getVarianceSummary(homeTeam, teamHistory, tedConfig);
+      const awayVarGrade = getVarianceSummary(awayTeam, teamHistory, tedConfig);
       if (tedVerdict === "BET") {
-        const homeVar = getVarianceSummary(homeTeam, teamHistory, tedConfig);
-        const awayVar = getVarianceSummary(awayTeam, teamHistory, tedConfig);
-        const bothVariance = (homeVar?.isCandidate || false) && (awayVar?.isCandidate || false);
+        const bothVariance = (homeVarGrade?.isCandidate || false) && (awayVarGrade?.isCandidate || false);
 
         if (bestEdge >= 0.10 && bothVariance) grade = "A";
         else if (bestEdge >= 0.07) grade = "B";
@@ -711,6 +712,47 @@ export async function generatePicks(
         reason = "No value bets above threshold";
       } else if (!tedResult.pass) {
         reason = tedReasonLabel(tedResult.reason);
+      }
+
+      // Collect active signal IDs for attribution
+      const activeSignals: string[] = [];
+      // Core variance regression signal
+      if (homeVarGrade?.isCandidate || awayVarGrade?.isCandidate) {
+        activeSignals.push("variance-regression");
+      }
+      // Congestion filter (passed = not congested)
+      if (tedResult.pass) {
+        activeSignals.push("congestion-filter");
+      }
+      // Odds cap filter (all value bets within max odds)
+      if (passRateFiltered.length > 0 && passRateFiltered.every(vb => vb.marketOdds <= tedConfig.maxOdds)) {
+        activeSignals.push("odds-cap-2.0");
+      }
+      // Pass rate filter
+      if (passRateFiltered.length > 0) {
+        activeSignals.push("pass-rate-filter");
+      }
+      // Injury lambda adjustment
+      if (injuryAdjusted) {
+        activeSignals.push("injury-lambda");
+      }
+      // GK PSxG adjustment
+      if (gkAdjusted) {
+        activeSignals.push("gk-psxg-adj");
+      }
+      // Ted assessment positive/negative factors
+      if (tedAssessmentData) {
+        for (const f of tedAssessmentData.positiveFactors) {
+          if (f.includes("underlying quality")) activeSignals.push("P1");
+          else if (f.includes("defensive underperformance")) activeSignals.push("P2");
+          else if (f.includes("due to regress")) activeSignals.push("P3");
+          else if (f.includes("fragile attack")) activeSignals.push("P4");
+          else if (f.includes("dam will break")) activeSignals.push("P5");
+          else if (f.includes("extreme variance gap")) activeSignals.push("P6");
+          else if (f.includes("average quality")) activeSignals.push("P7");
+          else if (f.includes("injury crisis")) activeSignals.push("P8");
+          else if (f.includes("double variance")) activeSignals.push("P9");
+        }
       }
 
       allPicks.push({
@@ -736,8 +778,8 @@ export async function generatePicks(
         tedReasonLabel: reason || "",
         grade,
         bestEdge: Math.round(bestEdge * 1000) / 10,
-        homeVariance: getVarianceSummary(homeTeam, teamHistory, tedConfig),
-        awayVariance: getVarianceSummary(awayTeam, teamHistory, tedConfig),
+        homeVariance: homeVarGrade,
+        awayVariance: awayVarGrade,
         injuries: (homeInjuries || awayInjuries) ? {
           home: homeInjuries ? { severity: homeInjuries.severity, summary: homeInjuries.summary, totalOut: homeInjuries.totalOut } : null,
           away: awayInjuries ? { severity: awayInjuries.severity, summary: awayInjuries.summary, totalOut: awayInjuries.totalOut } : null,
@@ -785,6 +827,7 @@ export async function generatePicks(
           away: awayMgr,
           recentChanges: (homeMgr?.isNewThisSeason || homeMgr?.isMidSeasonChange || awayMgr?.isNewThisSeason || awayMgr?.isMidSeasonChange) ?? false,
         } : undefined,
+        activeSignals: activeSignals.length > 0 ? activeSignals : undefined,
         isPostBreak: isPostInternationalBreak(matchDate) || undefined,
         isDerby: checkDerby(homeTeam, awayTeam, league.id) || undefined,
       });
