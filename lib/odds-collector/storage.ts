@@ -17,6 +17,8 @@ import type { SchedulerState } from "./scheduler";
 export interface OddsStorage {
   saveSnapshots(league: string, snapshots: OddsSnapshot[]): Promise<void>;
   loadSnapshots(league: string, fromDate?: string, toDate?: string): Promise<OddsSnapshot[]>;
+  saveLiveOdds(league: string, matches: OddsSnapshot[]): Promise<void>;
+  loadLiveOdds(league: string): Promise<OddsSnapshot[]>;
   loadSchedulerState(): Promise<SchedulerState>;
   saveSchedulerState(state: SchedulerState): Promise<void>;
 }
@@ -89,6 +91,31 @@ class FileStorage implements OddsStorage {
     }
 
     return all.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+  }
+
+  async saveLiveOdds(league: string, matches: OddsSnapshot[]): Promise<void> {
+    const { writeFileSync, mkdirSync, existsSync } = require("fs");
+    const { join } = require("path");
+    const liveDir = join(process.cwd(), "data", "live-odds");
+    if (!existsSync(liveDir)) mkdirSync(liveDir, { recursive: true });
+    const today = new Date().toISOString().split("T")[0];
+    const filePath = join(liveDir, `${league}-live-${today}.json`);
+    writeFileSync(filePath, JSON.stringify(matches, null, 2));
+  }
+
+  async loadLiveOdds(league: string): Promise<OddsSnapshot[]> {
+    const { readFileSync, readdirSync, existsSync } = require("fs");
+    const { join } = require("path");
+    const liveDir = join(process.cwd(), "data", "live-odds");
+    if (!existsSync(liveDir)) return [];
+    const files = (readdirSync(liveDir) as string[])
+      .filter((f: string) => f.startsWith(`${league}-live-`) && f.endsWith(".json"))
+      .sort()
+      .reverse();
+    if (files.length === 0) return [];
+    try {
+      return JSON.parse(readFileSync(join(liveDir, files[0]), "utf-8"));
+    } catch { return []; }
   }
 
   async loadSchedulerState(): Promise<SchedulerState> {
@@ -201,6 +228,14 @@ class BlobStorage implements OddsStorage {
     } catch {
       return [];
     }
+  }
+
+  async saveLiveOdds(league: string, matches: OddsSnapshot[]): Promise<void> {
+    await this.writeBlob(`live-odds/${league}-latest.json`, matches);
+  }
+
+  async loadLiveOdds(league: string): Promise<OddsSnapshot[]> {
+    return this.readBlob<OddsSnapshot[]>(`live-odds/${league}-latest.json`, []);
   }
 
   async loadSchedulerState(): Promise<SchedulerState> {

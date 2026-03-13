@@ -26,7 +26,7 @@
  */
 
 import { normalizeTeamName } from "../team-mapping";
-import { type OddsSnapshot, type BookmakerOdds, saveSnapshots } from "./store";
+import { type OddsSnapshot, type BookmakerOdds, saveSnapshots, saveLiveOdds } from "./store";
 
 const BASE_URL = "https://api.the-odds-api.com/v4";
 
@@ -398,6 +398,7 @@ export async function collectAndSaveOdds(
 
   if (allSnapshots.length > 0) {
     await saveSnapshots(league, allSnapshots);
+    await saveLiveOdds(league, allSnapshots);
   }
 
   return {
@@ -600,6 +601,7 @@ export async function collectDeepOdds(
 
   if (allSnapshots.length > 0) {
     await saveSnapshots(league, allSnapshots);
+    await saveLiveOdds(league, allSnapshots);
   }
 
   return { saved: allSnapshots.length, deepEvents: deepCount, requestsUsed };

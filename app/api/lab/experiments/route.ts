@@ -1,29 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync } from "fs";
-import { join } from "path";
-
-const experimentsDir = join(process.cwd(), "data", "experiments");
-const registryPath = join(process.cwd(), "data", "signal-registry.json");
-
-function readRegistrySafe(): { signals: Array<{ id: string; status: string; [key: string]: unknown }> } | null {
-  try {
-    if (!existsSync(registryPath)) return null;
-    return JSON.parse(readFileSync(registryPath, "utf-8"));
-  } catch {
-    return null;
-  }
-}
+import { getLabStorage } from "@/lib/lab/storage";
 
 export async function GET() {
   try {
-    if (!existsSync(experimentsDir)) {
-      return NextResponse.json({ experiments: [] });
+    const storage = getLabStorage();
+    const ids = await storage.listExperiments();
+    const experiments = [];
+    for (const id of ids) {
+      const data = await storage.loadExperiment(id);
+      if (data) experiments.push({ id, ...data });
     }
-    const files = readdirSync(experimentsDir).filter(f => f.endsWith(".json"));
-    const experiments = files.map(f => {
-      const data = JSON.parse(readFileSync(join(experimentsDir, f), "utf-8"));
-      return { id: f.replace(".json", ""), ...data };
-    });
     return NextResponse.json({ experiments });
   } catch {
     return NextResponse.json({ experiments: [] });
@@ -31,15 +17,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const registry = readRegistrySafe();
-  if (!registry) {
-    return NextResponse.json(
-      { error: "Lab mutations require local dev server" },
-      { status: 501 }
-    );
-  }
-
   try {
+    const storage = getLabStorage();
     const body = await request.json();
     const { name, hypothesis, metric, threshold } = body;
 
@@ -47,6 +26,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "name and hypothesis required" }, { status: 400 });
     }
 
+    const registry = await storage.loadRegistry();
     const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
     if (registry.signals.some((s) => s.id === id)) {
@@ -63,15 +43,7 @@ export async function POST(request: NextRequest) {
     };
 
     registry.signals.push(entry);
-
-    try {
-      writeFileSync(registryPath, JSON.stringify(registry, null, 2));
-    } catch {
-      return NextResponse.json(
-        { error: "Lab mutations require local dev server" },
-        { status: 501 }
-      );
-    }
+    await storage.saveRegistry(registry);
 
     return NextResponse.json({ created: entry });
   } catch (e: unknown) {
@@ -81,15 +53,8 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  const registry = readRegistrySafe();
-  if (!registry) {
-    return NextResponse.json(
-      { error: "Lab mutations require local dev server" },
-      { status: 501 }
-    );
-  }
-
   try {
+    const storage = getLabStorage();
     const body = await request.json();
     const { id, status } = body;
 
@@ -102,21 +67,14 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: `Invalid status. Must be: ${validStatuses.join(", ")}` }, { status: 400 });
     }
 
+    const registry = await storage.loadRegistry();
     const signal = registry.signals.find((s) => s.id === id);
     if (!signal) {
       return NextResponse.json({ error: `Signal "${id}" not found` }, { status: 404 });
     }
 
     signal.status = status;
-
-    try {
-      writeFileSync(registryPath, JSON.stringify(registry, null, 2));
-    } catch {
-      return NextResponse.json(
-        { error: "Lab mutations require local dev server" },
-        { status: 501 }
-      );
-    }
+    await storage.saveRegistry(registry);
 
     return NextResponse.json({ updated: signal });
   } catch (e: unknown) {

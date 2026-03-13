@@ -36,11 +36,11 @@ import {
 } from "./ted-filters";
 import { isPostInternationalBreak } from "./international-breaks";
 import { isDerby as checkDerby } from "./derbies";
+import { loadLiveOdds as loadLiveOddsFromStore } from "../odds-collector/store";
 
 const projectRoot = join(process.cwd());
 const paramsDir = join(projectRoot, "data", "mi-params", "latest");
 const dataDir = join(projectRoot, "data", "football-data-cache");
-const liveOddsDir = join(projectRoot, "data", "live-odds");
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -181,17 +181,19 @@ interface LiveOddsMatch {
   }[];
 }
 
-function loadLiveOdds(oddsApiKey: string): LiveOddsMatch[] {
-  if (!existsSync(liveOddsDir)) return [];
+async function loadLiveOdds(oddsApiKey: string): Promise<LiveOddsMatch[]> {
+  // Use the storage adapter (Blob on Vercel, file locally)
+  const snapshots = await loadLiveOddsFromStore(oddsApiKey);
+  if (snapshots.length > 0) return snapshots as unknown as LiveOddsMatch[];
 
-  // Find the most recent live odds file for this league
+  // Fallback: read from local filesystem (legacy format)
+  const liveOddsDir = join(process.cwd(), "data", "live-odds");
+  if (!existsSync(liveOddsDir)) return [];
   const files = readdirSync(liveOddsDir)
     .filter(f => f.startsWith(`${oddsApiKey}-live-`) && f.endsWith(".json"))
     .sort()
     .reverse();
-
   if (files.length === 0) return [];
-
   try {
     return JSON.parse(readFileSync(join(liveOddsDir, files[0]), "utf-8"));
   } catch { return []; }
@@ -436,7 +438,7 @@ export async function generatePicks(
     }
 
     // Load upcoming fixtures from live odds
-    const liveOdds = loadLiveOdds(league.oddsApiKey);
+    const liveOdds = await loadLiveOdds(league.oddsApiKey);
     const now = new Date();
 
     // Filter to upcoming matches only (commence time in the future)

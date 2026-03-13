@@ -1,15 +1,11 @@
 import { NextResponse } from "next/server";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
+import { getLabStorage } from "@/lib/lab/storage";
 
 export async function GET() {
-  const registryPath = join(process.cwd(), "data", "signal-registry.json");
   try {
-    if (!existsSync(registryPath)) {
-      return NextResponse.json({ signals: [] });
-    }
-    const data = JSON.parse(readFileSync(registryPath, "utf-8"));
-    return NextResponse.json({ signals: data.signals || [] });
+    const storage = getLabStorage();
+    const registry = await storage.loadRegistry();
+    return NextResponse.json({ signals: registry.signals || [] });
   } catch {
     return NextResponse.json({ signals: [] });
   }

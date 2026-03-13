@@ -7,6 +7,7 @@ import BankrollChart from "./components/dashboard/bankroll-chart";
 import RollingROI from "./components/dashboard/rolling-roi";
 import BetJournal from "./components/dashboard/bet-journal";
 import WeeklyDigest from "./components/dashboard/weekly-digest";
+import TodayChecklist from "./components/dashboard/today-checklist";
 import type { ModelHealthReport } from "@/lib/model-health-monitor";
 
 interface DailyPnL {
@@ -142,6 +143,9 @@ export default function DashboardPage() {
           {actionMsg.text}
         </div>
       )}
+
+      {/* Today's checklist — the daily workflow */}
+      <TodayChecklist pendingBets={stats?.pendingBets ?? 0} />
 
       {/* Health Card — the stop/go signal */}
       {health && (

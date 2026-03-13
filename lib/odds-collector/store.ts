@@ -74,6 +74,20 @@ export async function saveSnapshots(league: string, snapshots: OddsSnapshot[]): 
 }
 
 /**
+ * Save latest live odds for a league (used by picks engine)
+ */
+export async function saveLiveOdds(league: string, matches: OddsSnapshot[]): Promise<void> {
+  await getStorage().saveLiveOdds(league, matches);
+}
+
+/**
+ * Load latest live odds for a league
+ */
+export async function loadLiveOdds(league: string): Promise<OddsSnapshot[]> {
+  return getStorage().loadLiveOdds(league);
+}
+
+/**
  * Load all snapshots for a league in a date range
  */
 export async function loadSnapshots(

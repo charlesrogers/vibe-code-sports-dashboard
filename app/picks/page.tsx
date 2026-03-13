@@ -651,6 +651,12 @@ export default function PicksPage() {
   const [showPass, setShowPass] = useState(false);
   const [ledger, setLedger] = useState<LedgerBet[]>([]);
   const [loggingId, setLoggingId] = useState<string | null>(null);
+  const [actionMsg, setActionMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
+  const showAction = useCallback((text: string, type: "success" | "error") => {
+    setActionMsg({ text, type });
+    setTimeout(() => setActionMsg(null), 4000);
+  }, []);
 
   const loadLedger = useCallback(async () => {
     try {
@@ -705,17 +711,18 @@ export default function PicksPage() {
           bestBookOdds: vb.bestBooks?.[0]?.odds,
         }),
       });
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
       const data = await res.json();
       if (data.error) {
-        alert(`Error: ${data.error}`);
+        showAction(data.error, "error");
       } else if (data.added > 0) {
-        alert("Bet logged!");
+        showAction("Bet logged!", "success");
         await loadLedger();
       } else {
-        alert("Already logged (skipped)");
+        showAction("Already logged (skipped)", "success");
       }
     } catch (e: unknown) {
-      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+      showAction(e instanceof Error ? e.message : "Unknown error", "error");
     } finally {
       setLoggingId(null);
     }
@@ -777,6 +784,13 @@ export default function PicksPage() {
 
   return (
     <div>
+      {/* Action feedback toast */}
+      {actionMsg && (
+        <div className={`mb-4 rounded-lg border px-4 py-2 text-sm ${actionMsg.type === "success" ? "border-green-800 bg-green-900/30 text-green-400" : "border-red-800 bg-red-900/30 text-red-400"}`}>
+          {actionMsg.text}
+        </div>
+      )}
+
       <div className="mb-4 text-sm text-zinc-400">
         MI-BP model picks with Ted variance filters. Backtest: +2.8% ROI across 4 leagues, 3 seasons.
       </div>
