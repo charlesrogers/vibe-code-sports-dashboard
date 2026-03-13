@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface BookOddsEntry {
   book: string;
@@ -399,7 +399,38 @@ function TedAssessmentPanel({ pick }: { pick: Pick }) {
   );
 }
 
-function PickCard({ pick }: { pick: Pick }) {
+function CLVBadge({ clv, status, profit }: { clv?: number; status: string; profit?: number }) {
+  if (status === "pending") return null;
+  return (
+    <div className="mt-1 flex items-center gap-2 text-[10px]">
+      <span className={`rounded px-1.5 py-0.5 font-bold border ${
+        status === "won" ? "bg-green-900/30 text-green-400 border-green-800" :
+        status === "lost" ? "bg-red-900/30 text-red-400 border-red-800" :
+        "bg-zinc-800 text-zinc-400 border-zinc-700"
+      }`}>{status.toUpperCase()}</span>
+      {profit != null && (
+        <span className={`font-mono ${profit >= 0 ? "text-green-400" : "text-red-400"}`}>
+          {profit >= 0 ? "+" : ""}{profit.toFixed(1)}u
+        </span>
+      )}
+      {clv != null && (
+        <span className={`font-mono ${clv >= 0 ? "text-blue-400" : "text-red-400"}`}>
+          CLV: {clv >= 0 ? "+" : ""}{(clv * 100).toFixed(1)}%
+        </span>
+      )}
+    </div>
+  );
+}
+
+interface PickCardProps {
+  pick: Pick;
+  onLogBet?: (pick: Pick, vb: PickValueBet) => void;
+  loggingId?: string | null;
+  isLogged?: (pick: Pick, vb: PickValueBet) => boolean;
+  clvLookup?: Map<string, { clv?: number; status: string; profit?: number }>;
+}
+
+function PickCard({ pick, onLogBet, loggingId, isLogged, clvLookup }: PickCardProps) {
   const kickoff = new Date(pick.kickoff);
   const timeStr = kickoff.toLocaleString("en-US", {
     weekday: "short",
@@ -503,7 +534,12 @@ function PickCard({ pick }: { pick: Pick }) {
       {/* Value bets with best books */}
       {pick.valueBets.length > 0 && (
         <div className="mb-2">
-          {pick.valueBets.map((vb, i) => (
+          {pick.valueBets.map((vb, i) => {
+            const betKey = `${pick.matchId}_${vb.marketType}_${vb.selection}`;
+            const logged = isLogged?.(pick, vb);
+            const clvKey = `${pick.homeTeam}_${pick.awayTeam}_${pick.date}_${vb.marketType}_${vb.selection}`;
+            const clvData = clvLookup?.get(clvKey);
+            return (
             <div key={i} className="rounded bg-green-900/20 border border-green-900/30 px-2 py-1.5 mb-1">
               <div className="flex items-center justify-between text-xs">
                 <div className="flex items-center gap-1.5">
@@ -516,10 +552,27 @@ function PickCard({ pick }: { pick: Pick }) {
                   </span>
                   <span className="font-semibold text-green-400">{vb.selection}</span>
                 </div>
-                <span className="text-zinc-400">
-                  Edge: <span className="text-green-400 font-mono">+{(vb.edge * 100).toFixed(1)}%</span>
-                  <span className="ml-2 text-zinc-600">Pinnacle: {vb.marketOdds.toFixed(2)}</span>
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-400">
+                    Edge: <span className="text-green-400 font-mono">+{(vb.edge * 100).toFixed(1)}%</span>
+                    <span className="ml-2 text-zinc-600">Pinnacle: {vb.marketOdds.toFixed(2)}</span>
+                  </span>
+                  {pick.tedVerdict === "BET" && onLogBet && (
+                    logged ? (
+                      <span className="rounded bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-500 border border-zinc-700">
+                        Logged
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => onLogBet(pick, vb)}
+                        disabled={loggingId === betKey}
+                        className="rounded bg-blue-900/50 border border-blue-700 px-2 py-0.5 text-[10px] text-blue-400 hover:bg-blue-900/70 disabled:opacity-50"
+                      >
+                        {loggingId === betKey ? "..." : "Log Bet"}
+                      </button>
+                    )
+                  )}
+                </div>
               </div>
               {/* Best books for this bet */}
               {vb.bestBooks && vb.bestBooks.length > 0 && (
@@ -541,8 +594,11 @@ function PickCard({ pick }: { pick: Pick }) {
                   })}
                 </div>
               )}
+              {/* CLV feedback after settlement */}
+              {clvData && <CLVBadge clv={clvData.clv} status={clvData.status} profit={clvData.profit} />}
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -572,6 +628,17 @@ function PickCard({ pick }: { pick: Pick }) {
   );
 }
 
+interface LedgerBet {
+  homeTeam: string;
+  awayTeam: string;
+  matchDate: string;
+  marketType: string;
+  selection: string;
+  status: string;
+  clv?: number;
+  profit?: number;
+}
+
 export default function PicksPage() {
   const [picks, setPicks] = useState<Pick[]>([]);
   const [summary, setSummary] = useState<PicksSummary | null>(null);
@@ -582,25 +649,97 @@ export default function PicksPage() {
   const [marketFilter, setMarketFilter] = useState<string>("all");
   const [consensusFilter, setConsensusFilter] = useState<string>("all");
   const [showPass, setShowPass] = useState(false);
+  const [ledger, setLedger] = useState<LedgerBet[]>([]);
+  const [loggingId, setLoggingId] = useState<string | null>(null);
+
+  const loadLedger = useCallback(async () => {
+    try {
+      const res = await fetch("/api/paper-trade");
+      const data = await res.json();
+      setLedger((data.ledger || []).filter((b: LedgerBet) => b.status !== "superseded"));
+    } catch { /* ignore */ }
+  }, []);
 
   useEffect(() => {
     async function load() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch("/api/mi-picks");
-        const data = await res.json();
+        const [picksRes] = await Promise.all([
+          fetch("/api/mi-picks"),
+          loadLedger(),
+        ]);
+        const data = await picksRes.json();
         if (data.error) throw new Error(data.error);
         setPicks(data.picks || []);
         setSummary(data.summary || null);
-      } catch (e: any) {
-        setError(e.message);
+      } catch (e: unknown) {
+        setError(e instanceof Error ? e.message : "Unknown error");
       } finally {
         setLoading(false);
       }
     }
     load();
-  }, []);
+  }, [loadLedger]);
+
+  const logBet = async (pick: Pick, vb: PickValueBet) => {
+    const key = `${pick.matchId}_${vb.marketType}_${vb.selection}`;
+    setLoggingId(key);
+    try {
+      const res = await fetch("/api/paper-trade/log-single", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          homeTeam: pick.homeTeam,
+          awayTeam: pick.awayTeam,
+          league: pick.league,
+          matchDate: pick.date,
+          marketType: vb.marketType,
+          selection: vb.selection,
+          ahLine: vb.ahLine,
+          odds: vb.bestBooks?.[0]?.odds || vb.marketOdds,
+          modelProb: vb.modelProb,
+          edge: vb.edge,
+          grade: pick.grade,
+          bestBook: vb.bestBooks?.[0]?.book,
+          bestBookOdds: vb.bestBooks?.[0]?.odds,
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        alert(`Error: ${data.error}`);
+      } else if (data.added > 0) {
+        alert("Bet logged!");
+        await loadLedger();
+      } else {
+        alert("Already logged (skipped)");
+      }
+    } catch (e: unknown) {
+      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+    } finally {
+      setLoggingId(null);
+    }
+  };
+
+  // Build CLV lookup: homeTeam+awayTeam+matchDate+marketType+selection → {clv, status, profit}
+  const clvLookup = new Map<string, { clv?: number; status: string; profit?: number }>();
+  for (const b of ledger) {
+    const key = `${b.homeTeam}_${b.awayTeam}_${b.matchDate}_${b.marketType}_${b.selection}`;
+    if (b.status !== "pending") {
+      clvLookup.set(key, { clv: b.clv, status: b.status, profit: b.profit });
+    }
+  }
+
+  // Check if a bet is already logged
+  const isLogged = (pick: Pick, vb: PickValueBet) => {
+    return ledger.some(b =>
+      b.homeTeam === pick.homeTeam &&
+      b.awayTeam === pick.awayTeam &&
+      b.matchDate === pick.date &&
+      b.marketType === vb.marketType &&
+      b.selection === vb.selection
+    );
+  };
 
   const filtered = picks.filter(p => {
     if (leagueFilter !== "all" && p.league !== leagueFilter) return false;
@@ -758,7 +897,14 @@ export default function PicksPage() {
       ) : (
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map(pick => (
-            <PickCard key={pick.matchId} pick={pick} />
+            <PickCard
+              key={pick.matchId}
+              pick={pick}
+              onLogBet={logBet}
+              loggingId={loggingId}
+              isLogged={isLogged}
+              clvLookup={clvLookup}
+            />
           ))}
         </div>
       )}
