@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Serie A Predictor",
-  description: "Dixon-Coles match prediction model for Italian Serie A",
+  title: "Sports Dashboard",
+  description: "MI Bivariate Poisson + Dixon-Coles + Elo betting model",
 };
 
 export default function RootLayout({
@@ -32,13 +32,13 @@ export default function RootLayout({
         <div className="min-h-screen bg-zinc-950 text-white">
           <GlobalDataBanner />
           <header className="border-b border-zinc-800 px-6 py-4">
-            <h1 className="text-2xl font-bold">Serie A Predictor</h1>
+            <h1 className="text-2xl font-bold">Sports Dashboard</h1>
             <p className="text-sm text-zinc-400">
-              Dixon-Coles model with xG integration
+              MI Bivariate Poisson + Dixon-Coles + Elo
             </p>
           </header>
           <Nav />
-          <main className="mx-auto max-w-5xl px-4 py-6">
+          <main className="mx-auto max-w-7xl px-4 py-6">
             {children}
           </main>
         </div>

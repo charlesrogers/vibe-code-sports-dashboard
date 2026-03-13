@@ -1,162 +1,193 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import SeasonSelector from "./components/season-selector";
-import LeagueSelector from "./components/league-selector";
+import { useState, useEffect, useCallback } from "react";
+import HealthCard from "./components/dashboard/health-card";
+import HealthDiagnostics from "./components/dashboard/health-diagnostics";
+import BankrollChart from "./components/dashboard/bankroll-chart";
+import RollingROI from "./components/dashboard/rolling-roi";
+import BetJournal from "./components/dashboard/bet-journal";
+import WeeklyDigest from "./components/dashboard/weekly-digest";
+import type { ModelHealthReport } from "@/lib/model-health-monitor";
 
-interface StandingRow {
-  position: number;
-  team: string;
-  attack: number;
-  defense: number;
-  overall: number;
-  elo: number;
+interface DailyPnL {
+  date: string;
+  profit: number;
+  cumProfit: number;
+  bets: number;
 }
 
-export default function StandingsPage() {
-  const [teams, setTeams] = useState<StandingRow[]>([]);
-  const [season, setSeason] = useState("2025-26");
-  const [league, setLeague] = useState("serieA");
+interface Stats {
+  totalBets: number;
+  settledBets: number;
+  pendingBets: number;
+  wins: number;
+  losses: number;
+  pushes: number;
+  hitRate: number;
+  totalProfit: number;
+  roi: number;
+  avgEdge: number;
+  avgCLV: number;
+  dailyPnL: DailyPnL[];
+}
+
+interface PaperBet {
+  id: string;
+  createdAt: string;
+  matchDate: string;
+  league: string;
+  homeTeam: string;
+  awayTeam: string;
+  marketType: string;
+  selection: string;
+  stake: number;
+  modelProb: number;
+  marketOdds: number;
+  executionOdds: number;
+  edge: number;
+  confidenceGrade: "A" | "B" | "C" | null;
+  status: string;
+  profit?: number;
+  clv?: number;
+  bestBook?: string;
+  bestBookOdds?: number;
+}
+
+function fmtPct(v: number): string {
+  return `${v >= 0 ? "+" : ""}${v.toFixed(1)}%`;
+}
+
+export default function DashboardPage() {
+  const [health, setHealth] = useState<ModelHealthReport | null>(null);
+  const [bets, setBets] = useState<PaperBet[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [matchCount, setMatchCount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [logging, setLogging] = useState(false);
+  const [settling, setSettling] = useState(false);
 
-  useEffect(() => {
-    async function load() {
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/model?season=${season}&league=${league}`);
-        if (!res.ok) throw new Error("Failed to load model");
-        const data = await res.json();
-        setMatchCount(data.matchCount || 0);
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [healthRes, tradeRes] = await Promise.all([
+        fetch("/api/model-health"),
+        fetch("/api/paper-trade"),
+      ]);
+      const healthData = await healthRes.json();
+      const tradeData = await tradeRes.json();
 
-        const { params, elo } = data;
-        const eloMap = new Map(elo.map((e: any) => [e.team, e.rating]));
+      if (tradeData.error) throw new Error(tradeData.error);
 
-        const rows: StandingRow[] = Object.keys(params.attack)
-          .map((team, i) => ({
-            position: i + 1,
-            team,
-            attack: params.attack[team],
-            defense: params.defense[team],
-            overall: params.attack[team] / params.defense[team],
-            elo: (eloMap.get(team) as number) || 1500,
-          }))
-          .sort((a, b) => b.overall - a.overall)
-          .map((row, i) => ({ ...row, position: i + 1 }));
-
-        setTeams(rows);
-      } catch (e: any) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
+      setHealth(healthData.error ? null : healthData);
+      setBets(tradeData.ledger || []);
+      setStats(tradeData.stats || null);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Failed to load data");
+    } finally {
+      setLoading(false);
     }
-    load();
-  }, [season, league]);
+  }, []);
 
-  if (loading) return <div className="py-20 text-center text-zinc-500">Fitting Dixon-Coles model for {season}...</div>;
+  useEffect(() => { loadData(); }, [loadData]);
+
+  const triggerLog = async () => {
+    setLogging(true);
+    try {
+      const res = await fetch("/api/paper-trade/log", { method: "POST" });
+      const data = await res.json();
+      alert(`Logged ${data.logged || data.added || 0} new bets, skipped ${data.skipped || 0}`);
+      await loadData();
+    } catch (e: unknown) {
+      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+    } finally {
+      setLogging(false);
+    }
+  };
+
+  const triggerSettle = async () => {
+    setSettling(true);
+    try {
+      const res = await fetch("/api/paper-trade/settle", { method: "POST" });
+      const data = await res.json();
+      alert(`Settled ${data.settled || 0} bets`);
+      await loadData();
+    } catch (e: unknown) {
+      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+    } finally {
+      setSettling(false);
+    }
+  };
+
+  if (loading) return <div className="py-20 text-center text-zinc-500">Loading dashboard...</div>;
   if (error) return <div className="py-20 text-center text-red-400">{error}</div>;
 
+  const activeBets = bets.filter(b => b.status !== "superseded");
+
   return (
-    <div>
-      {/* Season selector */}
-      <div className="mb-4 flex items-center gap-3">
-        <LeagueSelector value={league} onChange={setLeague} />
-        <SeasonSelector value={season} onChange={setSeason} />
-        <span className="text-xs text-zinc-500">{matchCount} matches &middot; {teams.length} teams</span>
-      </div>
+    <div className="space-y-6">
+      {/* Health Card — the stop/go signal */}
+      {health && (
+        <div>
+          <HealthCard report={health} />
+          <HealthDiagnostics report={health} />
+        </div>
+      )}
 
-      {/* Summary Cards */}
-      <div className="mb-6 grid grid-cols-4 gap-3">
-        <div className="rounded-xl bg-zinc-900 p-4 text-center">
-          <div className="text-2xl font-bold text-blue-400">{teams.length}</div>
-          <div className="text-xs text-zinc-500">Teams</div>
-        </div>
-        <div className="rounded-xl bg-zinc-900 p-4 text-center">
-          <div className="text-2xl font-bold text-green-400">
-            {teams.length > 0 ? teams[0].team : "-"}
+      {/* KPI Cards */}
+      {stats && (
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className="text-2xl font-bold text-white">{stats.totalBets}</div>
+            <div className="text-[10px] text-zinc-500 uppercase">Total Bets</div>
+            <div className="text-[10px] text-yellow-500">{stats.pendingBets} pending</div>
           </div>
-          <div className="text-xs text-zinc-500">Strongest (DC)</div>
-        </div>
-        <div className="rounded-xl bg-zinc-900 p-4 text-center">
-          <div className="text-2xl font-bold text-purple-400">
-            {teams.length > 0 ? teams.sort((a, b) => b.attack - a.attack)[0].team : "-"}
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className={`text-2xl font-bold ${stats.roi >= 0 ? "text-green-400" : "text-red-400"}`}>
+              {fmtPct(stats.roi)}
+            </div>
+            <div className="text-[10px] text-zinc-500 uppercase">ROI</div>
           </div>
-          <div className="text-xs text-zinc-500">Best Attack</div>
-        </div>
-        <div className="rounded-xl bg-zinc-900 p-4 text-center">
-          <div className="text-2xl font-bold text-yellow-400">
-            {teams.length > 0 ? [...teams].sort((a, b) => a.defense - b.defense)[0].team : "-"}
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className={`text-2xl font-bold ${stats.totalProfit >= 0 ? "text-green-400" : "text-red-400"}`}>
+              {stats.totalProfit >= 0 ? "+" : ""}{stats.totalProfit.toFixed(1)}u
+            </div>
+            <div className="text-[10px] text-zinc-500 uppercase">P&L</div>
           </div>
-          <div className="text-xs text-zinc-500">Best Defense</div>
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className="text-2xl font-bold text-blue-400">{fmtPct(stats.avgCLV)}</div>
+            <div className="text-[10px] text-zinc-500 uppercase">Avg CLV</div>
+          </div>
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className="text-2xl font-bold text-white">{(stats.hitRate * 100).toFixed(0)}%</div>
+            <div className="text-[10px] text-zinc-500 uppercase">Hit Rate</div>
+            <div className="text-[10px] text-zinc-600">{stats.wins}W / {stats.losses}L</div>
+          </div>
+          <div className="rounded-lg bg-zinc-900 border border-zinc-800 p-3 text-center">
+            <div className="text-2xl font-bold text-white">{fmtPct(stats.avgEdge)}</div>
+            <div className="text-[10px] text-zinc-500 uppercase">Avg Edge</div>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Rankings Table */}
-      <div className="rounded-xl bg-zinc-900 overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-zinc-800 text-zinc-400">
-              <th className="px-4 py-3 text-left">#</th>
-              <th className="px-4 py-3 text-left">Team</th>
-              <th className="px-4 py-3 text-center">Attack</th>
-              <th className="px-4 py-3 text-center">Defense</th>
-              <th className="px-4 py-3 text-center">Overall</th>
-              <th className="px-4 py-3 text-center">ELO</th>
-              <th className="px-4 py-3 text-left">Att/Def</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...teams].sort((a, b) => b.overall - a.overall).map((team, i) => (
-              <tr
-                key={team.team}
-                className={`border-b border-zinc-800/50 ${
-                  i < 4 ? "bg-blue-500/5" : i >= teams.length - 3 ? "bg-red-500/5" : ""
-                }`}
-              >
-                <td className="px-4 py-3 text-zinc-500">{i + 1}</td>
-                <td className="px-4 py-3 font-medium">{team.team}</td>
-                <td className="px-4 py-3 text-center">
-                  <span className={team.attack > 1.15 ? "text-green-400" : team.attack < 0.85 ? "text-red-400" : "text-zinc-300"}>
-                    {team.attack.toFixed(2)}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <span className={team.defense < 0.85 ? "text-green-400" : team.defense > 1.15 ? "text-red-400" : "text-zinc-300"}>
-                    {team.defense.toFixed(2)}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-center font-bold">
-                  {team.overall.toFixed(2)}
-                </td>
-                <td className="px-4 py-3 text-center text-zinc-400">
-                  {team.elo}
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex h-3 w-32 overflow-hidden rounded-full bg-zinc-800">
-                    <div
-                      className="bg-green-500"
-                      style={{ width: `${Math.min(100, (team.attack / 2) * 100)}%` }}
-                    />
-                  </div>
-                  <div className="mt-1 flex h-3 w-32 overflow-hidden rounded-full bg-zinc-800">
-                    <div
-                      className="bg-red-500"
-                      style={{ width: `${Math.min(100, (team.defense / 2) * 100)}%` }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {/* Charts row */}
+      {stats && (
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <BankrollChart dailyPnL={stats.dailyPnL} />
+          <RollingROI bets={activeBets} />
+        </div>
+      )}
 
-      <p className="mt-4 text-xs text-zinc-600">
-        Attack &gt; 1.0 = above average scoring. Defense &lt; 1.0 = better than average defending.
-        Overall = attack / defense ratio. Top 4 highlighted blue (CL), bottom 3 red (relegation).
-      </p>
+      {/* Weekly digest */}
+      <WeeklyDigest bets={activeBets} />
+
+      {/* Bet Journal */}
+      <BetJournal
+        bets={activeBets}
+        onLog={triggerLog}
+        onSettle={triggerSettle}
+        logging={logging}
+        settling={settling}
+      />
     </div>
   );
 }

@@ -4,19 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/", label: "Standings" },
+  { href: "/", label: "Dashboard" },
   { href: "/picks", label: "Picks" },
-  { href: "/mi-performance", label: "MI Backtest" },
-  { href: "/paper-trade", label: "Paper Trade" },
-  { href: "/models", label: "Models" },
-  { href: "/ensemble", label: "Predictions" },
-  { href: "/live-bets", label: "Live Bets" },
-  { href: "/backtest", label: "Backtest" },
-  { href: "/predictor", label: "Predictor" },
-  { href: "/ted", label: "Ted" },
-  { href: "/ted-benchmark", label: "Ted vs Ted" },
-  { href: "/value", label: "Value Bets" },
-  { href: "/xg", label: "xG" },
+  { href: "/lab", label: "Lab" },
   { href: "/data", label: "Data" },
 ];
 
