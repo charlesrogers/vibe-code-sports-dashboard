@@ -114,6 +114,7 @@ const LEAGUE_LABELS: Record<string, string> = {
   bundesliga: "Bundesliga",
   "serie-a": "Serie A",
   "serie-b": "Serie B",
+  "ligue-1": "Ligue 1",
 };
 
 function GradeBadge({ grade }: { grade: "A" | "B" | "C" | null }) {
@@ -835,7 +836,7 @@ export default function PicksPage() {
       <div className="mb-4 flex flex-wrap gap-2">
         <div className="flex items-center gap-1">
           <span className="text-xs text-zinc-500 mr-1">League:</span>
-          {["all", "epl", "la-liga", "bundesliga", "serie-a"].map(l => (
+          {["all", "epl", "la-liga", "bundesliga", "serie-a", "serie-b", "ligue-1"].map(l => (
             <button
               key={l}
               onClick={() => setLeagueFilter(l)}

@@ -1,0 +1,204 @@
+{
+  "teams": {
+    "Pescara": {
+      "team": "Pescara",
+      "attack": 1.0697674418604652,
+      "defense": 1.461928934010152,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Cesena": {
+      "team": "Cesena",
+      "attack": 0.930232558139535,
+      "defense": 0.8451776649746192,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Empoli": {
+      "team": "Empoli",
+      "attack": 1.0697674418604652,
+      "defense": 1.1878172588832485,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Padova": {
+      "team": "Padova",
+      "attack": 0.930232558139535,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Virtus Entella": {
+      "team": "Virtus Entella",
+      "attack": 0.86046511627907,
+      "defense": 0.982233502538071,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Juve Stabia": {
+      "team": "Juve Stabia",
+      "attack": 0.86046511627907,
+      "defense": 0.8451776649746192,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Monza": {
+      "team": "Monza",
+      "attack": 0.930232558139535,
+      "defense": 0.7081218274111675,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Mantova": {
+      "team": "Mantova",
+      "attack": 1.0697674418604652,
+      "defense": 1.2563451776649746,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Palermo": {
+      "team": "Palermo",
+      "attack": 1.1395348837209305,
+      "defense": 0.8451776649746192,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Reggiana": {
+      "team": "Reggiana",
+      "attack": 1.0000000000000002,
+      "defense": 1.1878172588832485,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Spezia": {
+      "team": "Spezia",
+      "attack": 1.1395348837209305,
+      "defense": 0.913705583756345,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Carrarese": {
+      "team": "Carrarese",
+      "attack": 1.0000000000000002,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Venezia": {
+      "team": "Venezia",
+      "attack": 1.1395348837209305,
+      "defense": 0.913705583756345,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Bari": {
+      "team": "Bari",
+      "attack": 0.930232558139535,
+      "defense": 1.119289340101523,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Catanzaro": {
+      "team": "Catanzaro",
+      "attack": 0.86046511627907,
+      "defense": 0.913705583756345,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Sudtirol": {
+      "team": "Sudtirol",
+      "attack": 1.0000000000000002,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Frosinone": {
+      "team": "Frosinone",
+      "attack": 1.0697674418604652,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Avellino": {
+      "team": "Avellino",
+      "attack": 1.0000000000000002,
+      "defense": 1.1878172588832485,
+      "ppg": 0,
+      "matchesUsed": 9
+    },
+    "Sampdoria": {
+      "team": "Sampdoria",
+      "attack": 0.930232558139535,
+      "defense": 0.982233502538071,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Modena": {
+      "team": "Modena",
+      "attack": 0.930232558139535,
+      "defense": 0.7766497461928934,
+      "ppg": 0,
+      "matchesUsed": 47
+    },
+    "Brescia": {
+      "team": "Brescia",
+      "attack": 1.0000000000000002,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Pisa": {
+      "team": "Pisa",
+      "attack": 1.0697674418604652,
+      "defense": 0.7766497461928934,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Salernitana": {
+      "team": "Salernitana",
+      "attack": 0.86046511627907,
+      "defense": 0.8451776649746192,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Cittadella": {
+      "team": "Cittadella",
+      "attack": 0.7209302325581397,
+      "defense": 1.0507614213197967,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Sassuolo": {
+      "team": "Sassuolo",
+      "attack": 1.3488372093023258,
+      "defense": 0.982233502538071,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Cosenza": {
+      "team": "Cosenza",
+      "attack": 0.86046511627907,
+      "defense": 1.119289340101523,
+      "ppg": 0,
+      "matchesUsed": 38
+    },
+    "Cremonese": {
+      "team": "Cremonese",
+      "attack": 1.2790697674418607,
+      "defense": 0.8451776649746192,
+      "ppg": 0,
+      "matchesUsed": 38
+    }
+  },
+  "homeAdvantage": 1.2210526315789474,
+  "correlation": 0.020000000000000004,
+  "avgGoalRate": 1.168421052631579,
+  "leagueId": "serie-b",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 5,
+    "finalLoss": 0.7548974509926123,
+    "converged": true
+  },
+  "driftFactor": 0
+}

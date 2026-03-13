@@ -29,6 +29,9 @@ const TARGETS: Target[] = [
   { season: "2025-26", code: "2526", league: "bundesliga",   leagueFile: "D1",  label: "Bundesliga 2025-26" },
   { season: "2025-26", code: "2526", league: "ligue-1",      leagueFile: "F1",  label: "Ligue 1 2025-26" },
   { season: "2025-26", code: "2526", league: "serie-a",      leagueFile: "I1",  label: "Serie A 2025-26" },
+  // Serie B
+  { season: "2024-25", code: "2425", league: "serie-b",      leagueFile: "I2",  label: "Serie B 2024-25" },
+  { season: "2025-26", code: "2526", league: "serie-b",      leagueFile: "I2",  label: "Serie B 2025-26" },
 ];
 
 // ─── CSV Parsing (same as backfill-historical.ts) ────────────────────────────

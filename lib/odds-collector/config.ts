@@ -152,6 +152,16 @@ export const DEFAULT_CONFIG: CollectionConfig = {
       })),
       pollsPerDay: 2,
     },
+    {
+      key: "ligue1",
+      label: "Ligue 1",
+      enabled: true,
+      markets: AVAILABLE_MARKETS.map((m) => ({
+        ...m,
+        enabled: m.key === "h2h",
+      })),
+      pollsPerDay: 2,
+    },
   ],
   priorityBooks: [
     "pinnacle",    // Sharpest book — THE benchmark

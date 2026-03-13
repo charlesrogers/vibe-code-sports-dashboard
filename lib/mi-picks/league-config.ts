@@ -16,6 +16,8 @@ export const MI_LEAGUES: LeagueConfig[] = [
   { id: "la-liga", oddsApiKey: "laLiga", label: "La Liga", currentSeason: "2025-26", previousSeason: "2024-25" },
   { id: "bundesliga", oddsApiKey: "bundesliga", label: "Bundesliga", currentSeason: "2025-26", previousSeason: "2024-25" },
   { id: "serie-a", oddsApiKey: "serieA", label: "Serie A", currentSeason: "2025-26", previousSeason: "2024-25" },
+  { id: "serie-b", oddsApiKey: "serieB", label: "Serie B", currentSeason: "2025-26", previousSeason: "2024-25" },
+  { id: "ligue-1", oddsApiKey: "ligue1", label: "Ligue 1", currentSeason: "2025-26", previousSeason: "2024-25" },
 ];
 
 export function getLeague(id: string): LeagueConfig | undefined {

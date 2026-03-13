@@ -1,0 +1,162 @@
+{
+  "teams": {
+    "Rennes": {
+      "team": "Rennes",
+      "attack": 1.1245901639344262,
+      "defense": 0.9933993399339935,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Marseille": {
+      "team": "Marseille",
+      "attack": 1.4,
+      "defense": 0.8547854785478549,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Lens": {
+      "team": "Lens",
+      "attack": 1.262295081967213,
+      "defense": 0.8547854785478549,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Lyon": {
+      "team": "Lyon",
+      "attack": 1.1245901639344262,
+      "defense": 0.7854785478547857,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Monaco": {
+      "team": "Monaco",
+      "attack": 1.3311475409836064,
+      "defense": 0.9933993399339935,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Le Havre": {
+      "team": "Le Havre",
+      "attack": 0.780327868852459,
+      "defense": 1.062706270627063,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Nice": {
+      "team": "Nice",
+      "attack": 1.0557377049180325,
+      "defense": 1.062706270627063,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Toulouse": {
+      "team": "Toulouse",
+      "attack": 0.9180327868852458,
+      "defense": 0.8547854785478549,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Brest": {
+      "team": "Brest",
+      "attack": 0.9868852459016392,
+      "defense": 1.062706270627063,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Lille": {
+      "team": "Lille",
+      "attack": 1.1934426229508195,
+      "defense": 0.8547854785478549,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Angers": {
+      "team": "Angers",
+      "attack": 0.7114754098360655,
+      "defense": 1.062706270627063,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Paris FC": {
+      "team": "Paris FC",
+      "attack": 0.9868852459016392,
+      "defense": 1.062706270627063,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "Auxerre": {
+      "team": "Auxerre",
+      "attack": 0.780327868852459,
+      "defense": 0.9933993399339935,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Lorient": {
+      "team": "Lorient",
+      "attack": 0.9180327868852458,
+      "defense": 0.9933993399339935,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "Metz": {
+      "team": "Metz",
+      "attack": 0.780327868852459,
+      "defense": 1.270627062706271,
+      "ppg": 0,
+      "matchesUsed": 17
+    },
+    "Strasbourg": {
+      "team": "Strasbourg",
+      "attack": 1.0557377049180325,
+      "defense": 0.9240924092409243,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Nantes": {
+      "team": "Nantes",
+      "attack": 0.780327868852459,
+      "defense": 1.1320132013201323,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Paris SG": {
+      "team": "Paris SG",
+      "attack": 1.6065573770491803,
+      "defense": 0.5775577557755776,
+      "ppg": 0,
+      "matchesUsed": 51
+    },
+    "Reims": {
+      "team": "Reims",
+      "attack": 0.7114754098360655,
+      "defense": 0.9933993399339935,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "St Etienne": {
+      "team": "St Etienne",
+      "attack": 0.8491803278688523,
+      "defense": 1.3399339933993402,
+      "ppg": 0,
+      "matchesUsed": 34
+    },
+    "Montpellier": {
+      "team": "Montpellier",
+      "attack": 0.6426229508196719,
+      "defense": 1.270627062706271,
+      "ppg": 0,
+      "matchesUsed": 34
+    }
+  },
+  "homeAdvantage": 1.2736842105263158,
+  "correlation": 0.020000000000000004,
+  "avgGoalRate": 1.2947368421052632,
+  "leagueId": "ligue-1",
+  "season": "2025-26",
+  "convergenceInfo": {
+    "iterations": 5,
+    "finalLoss": 0.7941251382917972,
+    "converged": true
+  },
+  "driftFactor": 0
+}

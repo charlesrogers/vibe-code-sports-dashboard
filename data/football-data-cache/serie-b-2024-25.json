@@ -1,11 +1,11 @@
 {
   "league": "serie-b",
   "season": "2024-25",
-  "fetchedAt": "2026-03-10T17:43:20.109Z",
+  "fetchedAt": "2026-03-13T07:29:50.153Z",
   "matchCount": 380,
   "matches": [
     {
-      "id": "it-serie-b-2024-25-2024-08-16-Brescia-Palermo",
+      "id": "uk-serie-b-2024-25-2024-08-16-Brescia-Palermo",
       "date": "2024-08-16",
       "homeTeam": "Brescia",
       "awayTeam": "Palermo",
@@ -70,7 +70,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-17-Bari-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-08-17-Bari-Juve Stabia",
       "date": "2024-08-17",
       "homeTeam": "Bari",
       "awayTeam": "Juve Stabia",
@@ -135,7 +135,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-17-Pisa-Spezia",
+      "id": "uk-serie-b-2024-25-2024-08-17-Pisa-Spezia",
       "date": "2024-08-17",
       "homeTeam": "Pisa",
       "awayTeam": "Spezia",
@@ -200,7 +200,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-17-Salernitana-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-08-17-Salernitana-Cittadella",
       "date": "2024-08-17",
       "homeTeam": "Salernitana",
       "awayTeam": "Cittadella",
@@ -265,7 +265,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-17-Sudtirol-Modena",
+      "id": "uk-serie-b-2024-25-2024-08-17-Sudtirol-Modena",
       "date": "2024-08-17",
       "homeTeam": "Sudtirol",
       "awayTeam": "Modena",
@@ -330,7 +330,7 @@
       "pinnacleCloseUnder25": 1.37
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-18-Catanzaro-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-08-18-Catanzaro-Sassuolo",
       "date": "2024-08-18",
       "homeTeam": "Catanzaro",
       "awayTeam": "Sassuolo",
@@ -395,7 +395,7 @@
       "pinnacleCloseUnder25": 1.93
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-18-Cesena-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-08-18-Cesena-Carrarese",
       "date": "2024-08-18",
       "homeTeam": "Cesena",
       "awayTeam": "Carrarese",
@@ -460,7 +460,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-18-Cosenza-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-08-18-Cosenza-Cremonese",
       "date": "2024-08-18",
       "homeTeam": "Cosenza",
       "awayTeam": "Cremonese",
@@ -525,7 +525,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-18-Frosinone-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-08-18-Frosinone-Sampdoria",
       "date": "2024-08-18",
       "homeTeam": "Frosinone",
       "awayTeam": "Sampdoria",
@@ -590,7 +590,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-18-Reggiana-Mantova",
+      "id": "uk-serie-b-2024-25-2024-08-18-Reggiana-Mantova",
       "date": "2024-08-18",
       "homeTeam": "Reggiana",
       "awayTeam": "Mantova",
@@ -655,7 +655,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-23-Modena-Bari",
+      "id": "uk-serie-b-2024-25-2024-08-23-Modena-Bari",
       "date": "2024-08-23",
       "homeTeam": "Modena",
       "awayTeam": "Bari",
@@ -720,7 +720,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Sudtirol-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-08-24-Sudtirol-Salernitana",
       "date": "2024-08-24",
       "homeTeam": "Sudtirol",
       "awayTeam": "Salernitana",
@@ -785,7 +785,7 @@
       "pinnacleCloseUnder25": 1.56
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Brescia-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-08-24-Brescia-Cittadella",
       "date": "2024-08-24",
       "homeTeam": "Brescia",
       "awayTeam": "Cittadella",
@@ -850,7 +850,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Cremonese-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-08-24-Cremonese-Carrarese",
       "date": "2024-08-24",
       "homeTeam": "Cremonese",
       "awayTeam": "Carrarese",
@@ -915,7 +915,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Pisa-Palermo",
+      "id": "uk-serie-b-2024-25-2024-08-24-Pisa-Palermo",
       "date": "2024-08-24",
       "homeTeam": "Pisa",
       "awayTeam": "Palermo",
@@ -980,7 +980,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Sampdoria-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-08-24-Sampdoria-Reggiana",
       "date": "2024-08-24",
       "homeTeam": "Sampdoria",
       "awayTeam": "Reggiana",
@@ -1045,7 +1045,7 @@
       "pinnacleCloseUnder25": 1.73
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Sassuolo-Cesena",
+      "id": "uk-serie-b-2024-25-2024-08-24-Sassuolo-Cesena",
       "date": "2024-08-24",
       "homeTeam": "Sassuolo",
       "awayTeam": "Cesena",
@@ -1110,7 +1110,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-24-Spezia-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-08-24-Spezia-Frosinone",
       "date": "2024-08-24",
       "homeTeam": "Spezia",
       "awayTeam": "Frosinone",
@@ -1175,7 +1175,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-25-Catanzaro-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-08-25-Catanzaro-Juve Stabia",
       "date": "2024-08-25",
       "homeTeam": "Catanzaro",
       "awayTeam": "Juve Stabia",
@@ -1240,7 +1240,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-25-Mantova-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-08-25-Mantova-Cosenza",
       "date": "2024-08-25",
       "homeTeam": "Mantova",
       "awayTeam": "Cosenza",
@@ -1305,7 +1305,7 @@
       "pinnacleCloseUnder25": 1.73
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Bari-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-08-27-Bari-Sassuolo",
       "date": "2024-08-27",
       "homeTeam": "Bari",
       "awayTeam": "Sassuolo",
@@ -1370,7 +1370,7 @@
       "pinnacleCloseUnder25": 1.83
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Carrarese-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-08-27-Carrarese-Sudtirol",
       "date": "2024-08-27",
       "homeTeam": "Carrarese",
       "awayTeam": "Sudtirol",
@@ -1435,7 +1435,7 @@
       "pinnacleCloseUnder25": 1.47
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Cittadella-Pisa",
+      "id": "uk-serie-b-2024-25-2024-08-27-Cittadella-Pisa",
       "date": "2024-08-27",
       "homeTeam": "Cittadella",
       "awayTeam": "Pisa",
@@ -1500,7 +1500,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Cremonese-Palermo",
+      "id": "uk-serie-b-2024-25-2024-08-27-Cremonese-Palermo",
       "date": "2024-08-27",
       "homeTeam": "Cremonese",
       "awayTeam": "Palermo",
@@ -1565,7 +1565,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Frosinone-Modena",
+      "id": "uk-serie-b-2024-25-2024-08-27-Frosinone-Modena",
       "date": "2024-08-27",
       "homeTeam": "Frosinone",
       "awayTeam": "Modena",
@@ -1630,7 +1630,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Reggiana-Brescia",
+      "id": "uk-serie-b-2024-25-2024-08-27-Reggiana-Brescia",
       "date": "2024-08-27",
       "homeTeam": "Reggiana",
       "awayTeam": "Brescia",
@@ -1695,7 +1695,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-27-Salernitana-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-08-27-Salernitana-Sampdoria",
       "date": "2024-08-27",
       "homeTeam": "Salernitana",
       "awayTeam": "Sampdoria",
@@ -1760,7 +1760,7 @@
       "pinnacleCloseUnder25": 1.82
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-28-Cesena-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-08-28-Cesena-Catanzaro",
       "date": "2024-08-28",
       "homeTeam": "Cesena",
       "awayTeam": "Catanzaro",
@@ -1825,7 +1825,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-28-Cosenza-Spezia",
+      "id": "uk-serie-b-2024-25-2024-08-28-Cosenza-Spezia",
       "date": "2024-08-28",
       "homeTeam": "Cosenza",
       "awayTeam": "Spezia",
@@ -1890,7 +1890,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-28-Juve Stabia-Mantova",
+      "id": "uk-serie-b-2024-25-2024-08-28-Juve Stabia-Mantova",
       "date": "2024-08-28",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Mantova",
@@ -1955,7 +1955,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-31-Sampdoria-Bari",
+      "id": "uk-serie-b-2024-25-2024-08-31-Sampdoria-Bari",
       "date": "2024-08-31",
       "homeTeam": "Sampdoria",
       "awayTeam": "Bari",
@@ -2020,7 +2020,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-31-Modena-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-08-31-Modena-Cittadella",
       "date": "2024-08-31",
       "homeTeam": "Modena",
       "awayTeam": "Cittadella",
@@ -2085,7 +2085,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-31-Pisa-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-08-31-Pisa-Reggiana",
       "date": "2024-08-31",
       "homeTeam": "Pisa",
       "awayTeam": "Reggiana",
@@ -2150,7 +2150,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-31-Sassuolo-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-08-31-Sassuolo-Cremonese",
       "date": "2024-08-31",
       "homeTeam": "Sassuolo",
       "awayTeam": "Cremonese",
@@ -2215,7 +2215,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2024-08-31-Sudtirol-Brescia",
+      "id": "uk-serie-b-2024-25-2024-08-31-Sudtirol-Brescia",
       "date": "2024-08-31",
       "homeTeam": "Sudtirol",
       "awayTeam": "Brescia",
@@ -2280,7 +2280,7 @@
       "pinnacleCloseUnder25": 1.44
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-01-Catanzaro-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-09-01-Catanzaro-Carrarese",
       "date": "2024-09-01",
       "homeTeam": "Catanzaro",
       "awayTeam": "Carrarese",
@@ -2345,7 +2345,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-01-Frosinone-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-09-01-Frosinone-Juve Stabia",
       "date": "2024-09-01",
       "homeTeam": "Frosinone",
       "awayTeam": "Juve Stabia",
@@ -2410,7 +2410,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-01-Mantova-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-09-01-Mantova-Salernitana",
       "date": "2024-09-01",
       "homeTeam": "Mantova",
       "awayTeam": "Salernitana",
@@ -2475,7 +2475,7 @@
       "pinnacleCloseUnder25": 2.1
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-01-Palermo-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-09-01-Palermo-Cosenza",
       "date": "2024-09-01",
       "homeTeam": "Palermo",
       "awayTeam": "Cosenza",
@@ -2540,7 +2540,7 @@
       "pinnacleCloseUnder25": 1.92
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-01-Spezia-Cesena",
+      "id": "uk-serie-b-2024-25-2024-09-01-Spezia-Cesena",
       "date": "2024-09-01",
       "homeTeam": "Spezia",
       "awayTeam": "Cesena",
@@ -2605,7 +2605,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-13-Cesena-Modena",
+      "id": "uk-serie-b-2024-25-2024-09-13-Cesena-Modena",
       "date": "2024-09-13",
       "homeTeam": "Cesena",
       "awayTeam": "Modena",
@@ -2670,7 +2670,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-14-Bari-Mantova",
+      "id": "uk-serie-b-2024-25-2024-09-14-Bari-Mantova",
       "date": "2024-09-14",
       "homeTeam": "Bari",
       "awayTeam": "Mantova",
@@ -2735,7 +2735,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-14-Brescia-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-09-14-Brescia-Frosinone",
       "date": "2024-09-14",
       "homeTeam": "Brescia",
       "awayTeam": "Frosinone",
@@ -2800,7 +2800,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-14-Cittadella-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-09-14-Cittadella-Catanzaro",
       "date": "2024-09-14",
       "homeTeam": "Cittadella",
       "awayTeam": "Catanzaro",
@@ -2865,7 +2865,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-14-Cremonese-Spezia",
+      "id": "uk-serie-b-2024-25-2024-09-14-Cremonese-Spezia",
       "date": "2024-09-14",
       "homeTeam": "Cremonese",
       "awayTeam": "Spezia",
@@ -2930,7 +2930,7 @@
       "pinnacleCloseUnder25": 1.84
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-14-Juve Stabia-Palermo",
+      "id": "uk-serie-b-2024-25-2024-09-14-Juve Stabia-Palermo",
       "date": "2024-09-14",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Palermo",
@@ -2995,7 +2995,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-15-Carrarese-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-09-15-Carrarese-Sassuolo",
       "date": "2024-09-15",
       "homeTeam": "Carrarese",
       "awayTeam": "Sassuolo",
@@ -3060,7 +3060,7 @@
       "pinnacleCloseUnder25": 1.95
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-15-Cosenza-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-09-15-Cosenza-Sampdoria",
       "date": "2024-09-15",
       "homeTeam": "Cosenza",
       "awayTeam": "Sampdoria",
@@ -3125,7 +3125,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-15-Reggiana-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-09-15-Reggiana-Sudtirol",
       "date": "2024-09-15",
       "homeTeam": "Reggiana",
       "awayTeam": "Sudtirol",
@@ -3190,7 +3190,7 @@
       "pinnacleCloseUnder25": 1.45
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-15-Salernitana-Pisa",
+      "id": "uk-serie-b-2024-25-2024-09-15-Salernitana-Pisa",
       "date": "2024-09-15",
       "homeTeam": "Salernitana",
       "awayTeam": "Pisa",
@@ -3255,7 +3255,7 @@
       "pinnacleCloseUnder25": 1.83
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-20-Catanzaro-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-09-20-Catanzaro-Cremonese",
       "date": "2024-09-20",
       "homeTeam": "Catanzaro",
       "awayTeam": "Cremonese",
@@ -3320,7 +3320,7 @@
       "pinnacleCloseUnder25": 1.93
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Cosenza-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-09-21-Cosenza-Sassuolo",
       "date": "2024-09-21",
       "homeTeam": "Cosenza",
       "awayTeam": "Sassuolo",
@@ -3385,7 +3385,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Palermo-Cesena",
+      "id": "uk-serie-b-2024-25-2024-09-21-Palermo-Cesena",
       "date": "2024-09-21",
       "homeTeam": "Palermo",
       "awayTeam": "Cesena",
@@ -3450,7 +3450,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Pisa-Brescia",
+      "id": "uk-serie-b-2024-25-2024-09-21-Pisa-Brescia",
       "date": "2024-09-21",
       "homeTeam": "Pisa",
       "awayTeam": "Brescia",
@@ -3515,7 +3515,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Reggiana-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-09-21-Reggiana-Salernitana",
       "date": "2024-09-21",
       "homeTeam": "Reggiana",
       "awayTeam": "Salernitana",
@@ -3580,7 +3580,7 @@
       "pinnacleCloseUnder25": 1.82
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Sampdoria-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-09-21-Sampdoria-Sudtirol",
       "date": "2024-09-21",
       "homeTeam": "Sampdoria",
       "awayTeam": "Sudtirol",
@@ -3645,7 +3645,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-21-Modena-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-09-21-Modena-Juve Stabia",
       "date": "2024-09-21",
       "homeTeam": "Modena",
       "awayTeam": "Juve Stabia",
@@ -3710,7 +3710,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-22-Frosinone-Bari",
+      "id": "uk-serie-b-2024-25-2024-09-22-Frosinone-Bari",
       "date": "2024-09-22",
       "homeTeam": "Frosinone",
       "awayTeam": "Bari",
@@ -3775,7 +3775,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-22-Mantova-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-09-22-Mantova-Cittadella",
       "date": "2024-09-22",
       "homeTeam": "Mantova",
       "awayTeam": "Cittadella",
@@ -3840,7 +3840,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-22-Spezia-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-09-22-Spezia-Carrarese",
       "date": "2024-09-22",
       "homeTeam": "Spezia",
       "awayTeam": "Carrarese",
@@ -3905,7 +3905,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-27-Cittadella-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-09-27-Cittadella-Frosinone",
       "date": "2024-09-27",
       "homeTeam": "Cittadella",
       "awayTeam": "Frosinone",
@@ -3970,7 +3970,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-28-Bari-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-09-28-Bari-Cosenza",
       "date": "2024-09-28",
       "homeTeam": "Bari",
       "awayTeam": "Cosenza",
@@ -4035,7 +4035,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-28-Carrarese-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-09-28-Carrarese-Reggiana",
       "date": "2024-09-28",
       "homeTeam": "Carrarese",
       "awayTeam": "Reggiana",
@@ -4100,7 +4100,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-28-Sassuolo-Spezia",
+      "id": "uk-serie-b-2024-25-2024-09-28-Sassuolo-Spezia",
       "date": "2024-09-28",
       "homeTeam": "Sassuolo",
       "awayTeam": "Spezia",
@@ -4165,7 +4165,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-29-Cesena-Mantova",
+      "id": "uk-serie-b-2024-25-2024-09-29-Cesena-Mantova",
       "date": "2024-09-29",
       "homeTeam": "Cesena",
       "awayTeam": "Mantova",
@@ -4230,7 +4230,7 @@
       "pinnacleCloseUnder25": 2.05
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-29-Juve Stabia-Pisa",
+      "id": "uk-serie-b-2024-25-2024-09-29-Juve Stabia-Pisa",
       "date": "2024-09-29",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Pisa",
@@ -4295,7 +4295,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-29-Modena-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-09-29-Modena-Sampdoria",
       "date": "2024-09-29",
       "homeTeam": "Modena",
       "awayTeam": "Sampdoria",
@@ -4360,7 +4360,7 @@
       "pinnacleCloseUnder25": 1.56
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-29-Salernitana-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-09-29-Salernitana-Catanzaro",
       "date": "2024-09-29",
       "homeTeam": "Salernitana",
       "awayTeam": "Catanzaro",
@@ -4425,7 +4425,7 @@
       "pinnacleCloseUnder25": 1.89
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-30-Sudtirol-Palermo",
+      "id": "uk-serie-b-2024-25-2024-09-30-Sudtirol-Palermo",
       "date": "2024-09-30",
       "homeTeam": "Sudtirol",
       "awayTeam": "Palermo",
@@ -4490,7 +4490,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-09-30-Brescia-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-09-30-Brescia-Cremonese",
       "date": "2024-09-30",
       "homeTeam": "Brescia",
       "awayTeam": "Cremonese",
@@ -4555,7 +4555,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-04-Sampdoria-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-10-04-Sampdoria-Juve Stabia",
       "date": "2024-10-04",
       "homeTeam": "Sampdoria",
       "awayTeam": "Juve Stabia",
@@ -4620,7 +4620,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-05-Frosinone-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-10-05-Frosinone-Carrarese",
       "date": "2024-10-05",
       "homeTeam": "Frosinone",
       "awayTeam": "Carrarese",
@@ -4685,7 +4685,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-05-Pisa-Cesena",
+      "id": "uk-serie-b-2024-25-2024-10-05-Pisa-Cesena",
       "date": "2024-10-05",
       "homeTeam": "Pisa",
       "awayTeam": "Cesena",
@@ -4750,7 +4750,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-05-Sassuolo-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-10-05-Sassuolo-Cittadella",
       "date": "2024-10-05",
       "homeTeam": "Sassuolo",
       "awayTeam": "Cittadella",
@@ -4815,7 +4815,7 @@
       "pinnacleCloseUnder25": 1.95
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-05-Spezia-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-10-05-Spezia-Reggiana",
       "date": "2024-10-05",
       "homeTeam": "Spezia",
       "awayTeam": "Reggiana",
@@ -4880,7 +4880,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-06-Catanzaro-Modena",
+      "id": "uk-serie-b-2024-25-2024-10-06-Catanzaro-Modena",
       "date": "2024-10-06",
       "homeTeam": "Catanzaro",
       "awayTeam": "Modena",
@@ -4945,7 +4945,7 @@
       "pinnacleCloseUnder25": 1.49
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-06-Cosenza-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-10-06-Cosenza-Sudtirol",
       "date": "2024-10-06",
       "homeTeam": "Cosenza",
       "awayTeam": "Sudtirol",
@@ -5010,7 +5010,7 @@
       "pinnacleCloseUnder25": 1.49
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-06-Cremonese-Bari",
+      "id": "uk-serie-b-2024-25-2024-10-06-Cremonese-Bari",
       "date": "2024-10-06",
       "homeTeam": "Cremonese",
       "awayTeam": "Bari",
@@ -5075,7 +5075,7 @@
       "pinnacleCloseUnder25": 1.84
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-06-Mantova-Brescia",
+      "id": "uk-serie-b-2024-25-2024-10-06-Mantova-Brescia",
       "date": "2024-10-06",
       "homeTeam": "Mantova",
       "awayTeam": "Brescia",
@@ -5140,7 +5140,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-06-Palermo-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-10-06-Palermo-Salernitana",
       "date": "2024-10-06",
       "homeTeam": "Palermo",
       "awayTeam": "Salernitana",
@@ -5205,7 +5205,7 @@
       "pinnacleCloseUnder25": 1.91
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-18-Bari-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-10-18-Bari-Catanzaro",
       "date": "2024-10-18",
       "homeTeam": "Bari",
       "awayTeam": "Catanzaro",
@@ -5270,7 +5270,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-19-Cittadella-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-10-19-Cittadella-Cosenza",
       "date": "2024-10-19",
       "homeTeam": "Cittadella",
       "awayTeam": "Cosenza",
@@ -5335,7 +5335,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-19-Modena-Palermo",
+      "id": "uk-serie-b-2024-25-2024-10-19-Modena-Palermo",
       "date": "2024-10-19",
       "homeTeam": "Modena",
       "awayTeam": "Palermo",
@@ -5400,7 +5400,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-19-Salernitana-Spezia",
+      "id": "uk-serie-b-2024-25-2024-10-19-Salernitana-Spezia",
       "date": "2024-10-19",
       "homeTeam": "Salernitana",
       "awayTeam": "Spezia",
@@ -5465,7 +5465,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-19-Sudtirol-Pisa",
+      "id": "uk-serie-b-2024-25-2024-10-19-Sudtirol-Pisa",
       "date": "2024-10-19",
       "homeTeam": "Sudtirol",
       "awayTeam": "Pisa",
@@ -5530,7 +5530,7 @@
       "pinnacleCloseUnder25": 1.42
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-19-Brescia-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-10-19-Brescia-Sassuolo",
       "date": "2024-10-19",
       "homeTeam": "Brescia",
       "awayTeam": "Sassuolo",
@@ -5595,7 +5595,7 @@
       "pinnacleCloseUnder25": 2.1
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-20-Carrarese-Mantova",
+      "id": "uk-serie-b-2024-25-2024-10-20-Carrarese-Mantova",
       "date": "2024-10-20",
       "homeTeam": "Carrarese",
       "awayTeam": "Mantova",
@@ -5660,7 +5660,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-20-Juve Stabia-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-10-20-Juve Stabia-Cremonese",
       "date": "2024-10-20",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Cremonese",
@@ -5725,7 +5725,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-20-Reggiana-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-10-20-Reggiana-Frosinone",
       "date": "2024-10-20",
       "homeTeam": "Reggiana",
       "awayTeam": "Frosinone",
@@ -5790,7 +5790,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-20-Cesena-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-10-20-Cesena-Sampdoria",
       "date": "2024-10-20",
       "homeTeam": "Cesena",
       "awayTeam": "Sampdoria",
@@ -5855,7 +5855,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-25-Spezia-Bari",
+      "id": "uk-serie-b-2024-25-2024-10-25-Spezia-Bari",
       "date": "2024-10-25",
       "homeTeam": "Spezia",
       "awayTeam": "Bari",
@@ -5920,7 +5920,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Cesena-Brescia",
+      "id": "uk-serie-b-2024-25-2024-10-26-Cesena-Brescia",
       "date": "2024-10-26",
       "homeTeam": "Cesena",
       "awayTeam": "Brescia",
@@ -5985,7 +5985,7 @@
       "pinnacleCloseUnder25": 2.07
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Cosenza-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-10-26-Cosenza-Juve Stabia",
       "date": "2024-10-26",
       "homeTeam": "Cosenza",
       "awayTeam": "Juve Stabia",
@@ -6050,7 +6050,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Cremonese-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-10-26-Cremonese-Salernitana",
       "date": "2024-10-26",
       "homeTeam": "Cremonese",
       "awayTeam": "Salernitana",
@@ -6115,7 +6115,7 @@
       "pinnacleCloseUnder25": 2.03
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Palermo-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-10-26-Palermo-Reggiana",
       "date": "2024-10-26",
       "homeTeam": "Palermo",
       "awayTeam": "Reggiana",
@@ -6180,7 +6180,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Carrarese-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-10-26-Carrarese-Cittadella",
       "date": "2024-10-26",
       "homeTeam": "Carrarese",
       "awayTeam": "Cittadella",
@@ -6245,7 +6245,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-26-Sassuolo-Modena",
+      "id": "uk-serie-b-2024-25-2024-10-26-Sassuolo-Modena",
       "date": "2024-10-26",
       "homeTeam": "Sassuolo",
       "awayTeam": "Modena",
@@ -6310,7 +6310,7 @@
       "pinnacleCloseUnder25": 1.96
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-27-Catanzaro-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-10-27-Catanzaro-Sudtirol",
       "date": "2024-10-27",
       "homeTeam": "Catanzaro",
       "awayTeam": "Sudtirol",
@@ -6375,7 +6375,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-27-Frosinone-Pisa",
+      "id": "uk-serie-b-2024-25-2024-10-27-Frosinone-Pisa",
       "date": "2024-10-27",
       "homeTeam": "Frosinone",
       "awayTeam": "Pisa",
@@ -6440,7 +6440,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-27-Sampdoria-Mantova",
+      "id": "uk-serie-b-2024-25-2024-10-27-Sampdoria-Mantova",
       "date": "2024-10-27",
       "homeTeam": "Sampdoria",
       "awayTeam": "Mantova",
@@ -6505,7 +6505,7 @@
       "pinnacleCloseUnder25": 1.99
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Bari-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-10-29-Bari-Carrarese",
       "date": "2024-10-29",
       "homeTeam": "Bari",
       "awayTeam": "Carrarese",
@@ -6570,7 +6570,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Brescia-Spezia",
+      "id": "uk-serie-b-2024-25-2024-10-29-Brescia-Spezia",
       "date": "2024-10-29",
       "homeTeam": "Brescia",
       "awayTeam": "Spezia",
@@ -6635,7 +6635,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Juve Stabia-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-10-29-Juve Stabia-Sassuolo",
       "date": "2024-10-29",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Sassuolo",
@@ -6700,7 +6700,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Modena-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-10-29-Modena-Cremonese",
       "date": "2024-10-29",
       "homeTeam": "Modena",
       "awayTeam": "Cremonese",
@@ -6765,7 +6765,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Reggiana-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-10-29-Reggiana-Cosenza",
       "date": "2024-10-29",
       "homeTeam": "Reggiana",
       "awayTeam": "Cosenza",
@@ -6830,7 +6830,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-29-Salernitana-Cesena",
+      "id": "uk-serie-b-2024-25-2024-10-29-Salernitana-Cesena",
       "date": "2024-10-29",
       "homeTeam": "Salernitana",
       "awayTeam": "Cesena",
@@ -6895,7 +6895,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-30-Sudtirol-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-10-30-Sudtirol-Frosinone",
       "date": "2024-10-30",
       "homeTeam": "Sudtirol",
       "awayTeam": "Frosinone",
@@ -6960,7 +6960,7 @@
       "pinnacleCloseUnder25": 1.44
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-30-Cittadella-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-10-30-Cittadella-Sampdoria",
       "date": "2024-10-30",
       "homeTeam": "Cittadella",
       "awayTeam": "Sampdoria",
@@ -7025,7 +7025,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-30-Mantova-Palermo",
+      "id": "uk-serie-b-2024-25-2024-10-30-Mantova-Palermo",
       "date": "2024-10-30",
       "homeTeam": "Mantova",
       "awayTeam": "Palermo",
@@ -7090,7 +7090,7 @@
       "pinnacleCloseUnder25": 1.96
     },
     {
-      "id": "it-serie-b-2024-25-2024-10-30-Pisa-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-10-30-Pisa-Catanzaro",
       "date": "2024-10-30",
       "homeTeam": "Pisa",
       "awayTeam": "Catanzaro",
@@ -7155,7 +7155,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-02-Bari-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-11-02-Bari-Reggiana",
       "date": "2024-11-02",
       "homeTeam": "Bari",
       "awayTeam": "Reggiana",
@@ -7220,7 +7220,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-02-Carrarese-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-11-02-Carrarese-Juve Stabia",
       "date": "2024-11-02",
       "homeTeam": "Carrarese",
       "awayTeam": "Juve Stabia",
@@ -7285,7 +7285,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-02-Spezia-Modena",
+      "id": "uk-serie-b-2024-25-2024-11-02-Spezia-Modena",
       "date": "2024-11-02",
       "homeTeam": "Spezia",
       "awayTeam": "Modena",
@@ -7350,7 +7350,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Catanzaro-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-11-03-Catanzaro-Frosinone",
       "date": "2024-11-03",
       "homeTeam": "Catanzaro",
       "awayTeam": "Frosinone",
@@ -7415,7 +7415,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Cesena-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-11-03-Cesena-Sudtirol",
       "date": "2024-11-03",
       "homeTeam": "Cesena",
       "awayTeam": "Sudtirol",
@@ -7480,7 +7480,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Cosenza-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-11-03-Cosenza-Salernitana",
       "date": "2024-11-03",
       "homeTeam": "Cosenza",
       "awayTeam": "Salernitana",
@@ -7545,7 +7545,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Cremonese-Pisa",
+      "id": "uk-serie-b-2024-25-2024-11-03-Cremonese-Pisa",
       "date": "2024-11-03",
       "homeTeam": "Cremonese",
       "awayTeam": "Pisa",
@@ -7610,7 +7610,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Palermo-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-11-03-Palermo-Cittadella",
       "date": "2024-11-03",
       "homeTeam": "Palermo",
       "awayTeam": "Cittadella",
@@ -7675,7 +7675,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Sampdoria-Brescia",
+      "id": "uk-serie-b-2024-25-2024-11-03-Sampdoria-Brescia",
       "date": "2024-11-03",
       "homeTeam": "Sampdoria",
       "awayTeam": "Brescia",
@@ -7740,7 +7740,7 @@
       "pinnacleCloseUnder25": 1.86
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-03-Sassuolo-Mantova",
+      "id": "uk-serie-b-2024-25-2024-11-03-Sassuolo-Mantova",
       "date": "2024-11-03",
       "homeTeam": "Sassuolo",
       "awayTeam": "Mantova",
@@ -7805,7 +7805,7 @@
       "pinnacleCloseUnder25": 2.39
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-08-Frosinone-Palermo",
+      "id": "uk-serie-b-2024-25-2024-11-08-Frosinone-Palermo",
       "date": "2024-11-08",
       "homeTeam": "Frosinone",
       "awayTeam": "Palermo",
@@ -7870,7 +7870,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-09-Brescia-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-11-09-Brescia-Cosenza",
       "date": "2024-11-09",
       "homeTeam": "Brescia",
       "awayTeam": "Cosenza",
@@ -7935,7 +7935,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-09-Modena-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-11-09-Modena-Carrarese",
       "date": "2024-11-09",
       "homeTeam": "Modena",
       "awayTeam": "Carrarese",
@@ -8000,7 +8000,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-09-Pisa-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-11-09-Pisa-Sampdoria",
       "date": "2024-11-09",
       "homeTeam": "Pisa",
       "awayTeam": "Sampdoria",
@@ -8065,7 +8065,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-09-Sudtirol-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-11-09-Sudtirol-Sassuolo",
       "date": "2024-11-09",
       "homeTeam": "Sudtirol",
       "awayTeam": "Sassuolo",
@@ -8130,7 +8130,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-09-Mantova-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-11-09-Mantova-Cremonese",
       "date": "2024-11-09",
       "homeTeam": "Mantova",
       "awayTeam": "Cremonese",
@@ -8195,7 +8195,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-10-Cittadella-Cesena",
+      "id": "uk-serie-b-2024-25-2024-11-10-Cittadella-Cesena",
       "date": "2024-11-10",
       "homeTeam": "Cittadella",
       "awayTeam": "Cesena",
@@ -8260,7 +8260,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-10-Juve Stabia-Spezia",
+      "id": "uk-serie-b-2024-25-2024-11-10-Juve Stabia-Spezia",
       "date": "2024-11-10",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Spezia",
@@ -8325,7 +8325,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-10-Reggiana-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-11-10-Reggiana-Catanzaro",
       "date": "2024-11-10",
       "homeTeam": "Reggiana",
       "awayTeam": "Catanzaro",
@@ -8390,7 +8390,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-10-Salernitana-Bari",
+      "id": "uk-serie-b-2024-25-2024-11-10-Salernitana-Bari",
       "date": "2024-11-10",
       "homeTeam": "Salernitana",
       "awayTeam": "Bari",
@@ -8455,7 +8455,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-22-Cosenza-Modena",
+      "id": "uk-serie-b-2024-25-2024-11-22-Cosenza-Modena",
       "date": "2024-11-22",
       "homeTeam": "Cosenza",
       "awayTeam": "Modena",
@@ -8520,7 +8520,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-23-Carrarese-Pisa",
+      "id": "uk-serie-b-2024-25-2024-11-23-Carrarese-Pisa",
       "date": "2024-11-23",
       "homeTeam": "Carrarese",
       "awayTeam": "Pisa",
@@ -8585,7 +8585,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-23-Catanzaro-Mantova",
+      "id": "uk-serie-b-2024-25-2024-11-23-Catanzaro-Mantova",
       "date": "2024-11-23",
       "homeTeam": "Catanzaro",
       "awayTeam": "Mantova",
@@ -8650,7 +8650,7 @@
       "pinnacleCloseUnder25": 1.8
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-23-Juve Stabia-Brescia",
+      "id": "uk-serie-b-2024-25-2024-11-23-Juve Stabia-Brescia",
       "date": "2024-11-23",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Brescia",
@@ -8715,7 +8715,7 @@
       "pinnacleCloseUnder25": 1.84
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-23-Sassuolo-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-11-23-Sassuolo-Salernitana",
       "date": "2024-11-23",
       "homeTeam": "Sassuolo",
       "awayTeam": "Salernitana",
@@ -8780,7 +8780,7 @@
       "pinnacleCloseUnder25": 1.96
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-23-Cesena-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-11-23-Cesena-Reggiana",
       "date": "2024-11-23",
       "homeTeam": "Cesena",
       "awayTeam": "Reggiana",
@@ -8845,7 +8845,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-24-Bari-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-11-24-Bari-Cittadella",
       "date": "2024-11-24",
       "homeTeam": "Bari",
       "awayTeam": "Cittadella",
@@ -8910,7 +8910,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-24-Cremonese-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-11-24-Cremonese-Frosinone",
       "date": "2024-11-24",
       "homeTeam": "Cremonese",
       "awayTeam": "Frosinone",
@@ -8975,7 +8975,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-24-Spezia-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-11-24-Spezia-Sudtirol",
       "date": "2024-11-24",
       "homeTeam": "Spezia",
       "awayTeam": "Sudtirol",
@@ -9040,7 +9040,7 @@
       "pinnacleCloseUnder25": 1.44
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-24-Palermo-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-11-24-Palermo-Sampdoria",
       "date": "2024-11-24",
       "homeTeam": "Palermo",
       "awayTeam": "Sampdoria",
@@ -9105,7 +9105,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-29-Reggiana-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-11-29-Reggiana-Sassuolo",
       "date": "2024-11-29",
       "homeTeam": "Reggiana",
       "awayTeam": "Sassuolo",
@@ -9170,7 +9170,7 @@
       "pinnacleCloseUnder25": 2
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-30-Brescia-Bari",
+      "id": "uk-serie-b-2024-25-2024-11-30-Brescia-Bari",
       "date": "2024-11-30",
       "homeTeam": "Brescia",
       "awayTeam": "Bari",
@@ -9235,7 +9235,7 @@
       "pinnacleCloseUnder25": 1.77
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-30-Cittadella-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-11-30-Cittadella-Juve Stabia",
       "date": "2024-11-30",
       "homeTeam": "Cittadella",
       "awayTeam": "Juve Stabia",
@@ -9300,7 +9300,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-30-Sampdoria-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-11-30-Sampdoria-Catanzaro",
       "date": "2024-11-30",
       "homeTeam": "Sampdoria",
       "awayTeam": "Catanzaro",
@@ -9365,7 +9365,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-30-Sudtirol-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-11-30-Sudtirol-Cremonese",
       "date": "2024-11-30",
       "homeTeam": "Sudtirol",
       "awayTeam": "Cremonese",
@@ -9430,7 +9430,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-11-30-Mantova-Modena",
+      "id": "uk-serie-b-2024-25-2024-11-30-Mantova-Modena",
       "date": "2024-11-30",
       "homeTeam": "Mantova",
       "awayTeam": "Modena",
@@ -9495,7 +9495,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-01-Frosinone-Cesena",
+      "id": "uk-serie-b-2024-25-2024-12-01-Frosinone-Cesena",
       "date": "2024-12-01",
       "homeTeam": "Frosinone",
       "awayTeam": "Cesena",
@@ -9560,7 +9560,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-01-Palermo-Spezia",
+      "id": "uk-serie-b-2024-25-2024-12-01-Palermo-Spezia",
       "date": "2024-12-01",
       "homeTeam": "Palermo",
       "awayTeam": "Spezia",
@@ -9625,7 +9625,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-01-Pisa-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-12-01-Pisa-Cosenza",
       "date": "2024-12-01",
       "homeTeam": "Pisa",
       "awayTeam": "Cosenza",
@@ -9690,7 +9690,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-01-Salernitana-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-12-01-Salernitana-Carrarese",
       "date": "2024-12-01",
       "homeTeam": "Salernitana",
       "awayTeam": "Carrarese",
@@ -9755,7 +9755,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-06-Juve Stabia-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-12-06-Juve Stabia-Sudtirol",
       "date": "2024-12-06",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Sudtirol",
@@ -9820,7 +9820,7 @@
       "pinnacleCloseUnder25": 1.4
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-07-Bari-Cesena",
+      "id": "uk-serie-b-2024-25-2024-12-07-Bari-Cesena",
       "date": "2024-12-07",
       "homeTeam": "Bari",
       "awayTeam": "Cesena",
@@ -9885,7 +9885,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-07-Carrarese-Palermo",
+      "id": "uk-serie-b-2024-25-2024-12-07-Carrarese-Palermo",
       "date": "2024-12-07",
       "homeTeam": "Carrarese",
       "awayTeam": "Palermo",
@@ -9950,7 +9950,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-07-Mantova-Pisa",
+      "id": "uk-serie-b-2024-25-2024-12-07-Mantova-Pisa",
       "date": "2024-12-07",
       "homeTeam": "Mantova",
       "awayTeam": "Pisa",
@@ -10015,7 +10015,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-07-Modena-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-12-07-Modena-Salernitana",
       "date": "2024-12-07",
       "homeTeam": "Modena",
       "awayTeam": "Salernitana",
@@ -10080,7 +10080,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-07-Cosenza-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-12-07-Cosenza-Frosinone",
       "date": "2024-12-07",
       "homeTeam": "Cosenza",
       "awayTeam": "Frosinone",
@@ -10145,7 +10145,7 @@
       "pinnacleCloseUnder25": 1.59
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-08-Catanzaro-Brescia",
+      "id": "uk-serie-b-2024-25-2024-12-08-Catanzaro-Brescia",
       "date": "2024-12-08",
       "homeTeam": "Catanzaro",
       "awayTeam": "Brescia",
@@ -10210,7 +10210,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-08-Cremonese-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-12-08-Cremonese-Reggiana",
       "date": "2024-12-08",
       "homeTeam": "Cremonese",
       "awayTeam": "Reggiana",
@@ -10275,7 +10275,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-08-Spezia-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-12-08-Spezia-Cittadella",
       "date": "2024-12-08",
       "homeTeam": "Spezia",
       "awayTeam": "Cittadella",
@@ -10340,7 +10340,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-08-Sassuolo-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-12-08-Sassuolo-Sampdoria",
       "date": "2024-12-08",
       "homeTeam": "Sassuolo",
       "awayTeam": "Sampdoria",
@@ -10405,7 +10405,7 @@
       "pinnacleCloseUnder25": 2.14
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-13-Pisa-Bari",
+      "id": "uk-serie-b-2024-25-2024-12-13-Pisa-Bari",
       "date": "2024-12-13",
       "homeTeam": "Pisa",
       "awayTeam": "Bari",
@@ -10470,7 +10470,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-14-Cesena-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-12-14-Cesena-Cosenza",
       "date": "2024-12-14",
       "homeTeam": "Cesena",
       "awayTeam": "Cosenza",
@@ -10535,7 +10535,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-14-Frosinone-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-12-14-Frosinone-Sassuolo",
       "date": "2024-12-14",
       "homeTeam": "Frosinone",
       "awayTeam": "Sassuolo",
@@ -10600,7 +10600,7 @@
       "pinnacleCloseUnder25": 1.86
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-14-Reggiana-Modena",
+      "id": "uk-serie-b-2024-25-2024-12-14-Reggiana-Modena",
       "date": "2024-12-14",
       "homeTeam": "Reggiana",
       "awayTeam": "Modena",
@@ -10665,7 +10665,7 @@
       "pinnacleCloseUnder25": 1.52
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-14-Sudtirol-Mantova",
+      "id": "uk-serie-b-2024-25-2024-12-14-Sudtirol-Mantova",
       "date": "2024-12-14",
       "homeTeam": "Sudtirol",
       "awayTeam": "Mantova",
@@ -10730,7 +10730,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-14-Sampdoria-Spezia",
+      "id": "uk-serie-b-2024-25-2024-12-14-Sampdoria-Spezia",
       "date": "2024-12-14",
       "homeTeam": "Sampdoria",
       "awayTeam": "Spezia",
@@ -10795,7 +10795,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-15-Brescia-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-12-15-Brescia-Carrarese",
       "date": "2024-12-15",
       "homeTeam": "Brescia",
       "awayTeam": "Carrarese",
@@ -10860,7 +10860,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-15-Cittadella-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-12-15-Cittadella-Cremonese",
       "date": "2024-12-15",
       "homeTeam": "Cittadella",
       "awayTeam": "Cremonese",
@@ -10925,7 +10925,7 @@
       "pinnacleCloseUnder25": 1.8
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-15-Palermo-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-12-15-Palermo-Catanzaro",
       "date": "2024-12-15",
       "homeTeam": "Palermo",
       "awayTeam": "Catanzaro",
@@ -10990,7 +10990,7 @@
       "pinnacleCloseUnder25": 2.06
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-15-Salernitana-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-12-15-Salernitana-Juve Stabia",
       "date": "2024-12-15",
       "homeTeam": "Salernitana",
       "awayTeam": "Juve Stabia",
@@ -11055,7 +11055,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-20-Salernitana-Brescia",
+      "id": "uk-serie-b-2024-25-2024-12-20-Salernitana-Brescia",
       "date": "2024-12-20",
       "homeTeam": "Salernitana",
       "awayTeam": "Brescia",
@@ -11120,7 +11120,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Bari-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-12-21-Bari-Sudtirol",
       "date": "2024-12-21",
       "homeTeam": "Bari",
       "awayTeam": "Sudtirol",
@@ -11185,7 +11185,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Carrarese-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-12-21-Carrarese-Cosenza",
       "date": "2024-12-21",
       "homeTeam": "Carrarese",
       "awayTeam": "Cosenza",
@@ -11250,7 +11250,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Mantova-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-12-21-Mantova-Frosinone",
       "date": "2024-12-21",
       "homeTeam": "Mantova",
       "awayTeam": "Frosinone",
@@ -11315,7 +11315,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Sassuolo-Palermo",
+      "id": "uk-serie-b-2024-25-2024-12-21-Sassuolo-Palermo",
       "date": "2024-12-21",
       "homeTeam": "Sassuolo",
       "awayTeam": "Palermo",
@@ -11380,7 +11380,7 @@
       "pinnacleCloseUnder25": 2.11
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Catanzaro-Spezia",
+      "id": "uk-serie-b-2024-25-2024-12-21-Catanzaro-Spezia",
       "date": "2024-12-21",
       "homeTeam": "Catanzaro",
       "awayTeam": "Spezia",
@@ -11445,7 +11445,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Cittadella-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-12-21-Cittadella-Reggiana",
       "date": "2024-12-21",
       "homeTeam": "Cittadella",
       "awayTeam": "Reggiana",
@@ -11510,7 +11510,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-21-Modena-Pisa",
+      "id": "uk-serie-b-2024-25-2024-12-21-Modena-Pisa",
       "date": "2024-12-21",
       "homeTeam": "Modena",
       "awayTeam": "Pisa",
@@ -11575,7 +11575,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-22-Juve Stabia-Cesena",
+      "id": "uk-serie-b-2024-25-2024-12-22-Juve Stabia-Cesena",
       "date": "2024-12-22",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Cesena",
@@ -11640,7 +11640,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-22-Cremonese-Sampdoria",
+      "id": "uk-serie-b-2024-25-2024-12-22-Cremonese-Sampdoria",
       "date": "2024-12-22",
       "homeTeam": "Cremonese",
       "awayTeam": "Sampdoria",
@@ -11705,7 +11705,7 @@
       "pinnacleCloseUnder25": 1.82
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Pisa-Sassuolo",
+      "id": "uk-serie-b-2024-25-2024-12-26-Pisa-Sassuolo",
       "date": "2024-12-26",
       "homeTeam": "Pisa",
       "awayTeam": "Sassuolo",
@@ -11770,7 +11770,7 @@
       "pinnacleCloseUnder25": 1.94
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Brescia-Modena",
+      "id": "uk-serie-b-2024-25-2024-12-26-Brescia-Modena",
       "date": "2024-12-26",
       "homeTeam": "Brescia",
       "awayTeam": "Modena",
@@ -11835,7 +11835,7 @@
       "pinnacleCloseUnder25": 1.52
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Cesena-Cremonese",
+      "id": "uk-serie-b-2024-25-2024-12-26-Cesena-Cremonese",
       "date": "2024-12-26",
       "homeTeam": "Cesena",
       "awayTeam": "Cremonese",
@@ -11900,7 +11900,7 @@
       "pinnacleCloseUnder25": 1.56
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Cosenza-Catanzaro",
+      "id": "uk-serie-b-2024-25-2024-12-26-Cosenza-Catanzaro",
       "date": "2024-12-26",
       "homeTeam": "Cosenza",
       "awayTeam": "Catanzaro",
@@ -11965,7 +11965,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Frosinone-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-12-26-Frosinone-Salernitana",
       "date": "2024-12-26",
       "homeTeam": "Frosinone",
       "awayTeam": "Salernitana",
@@ -12030,7 +12030,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Reggiana-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2024-12-26-Reggiana-Juve Stabia",
       "date": "2024-12-26",
       "homeTeam": "Reggiana",
       "awayTeam": "Juve Stabia",
@@ -12095,7 +12095,7 @@
       "pinnacleCloseUnder25": 1.39
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Spezia-Mantova",
+      "id": "uk-serie-b-2024-25-2024-12-26-Spezia-Mantova",
       "date": "2024-12-26",
       "homeTeam": "Spezia",
       "awayTeam": "Mantova",
@@ -12160,7 +12160,7 @@
       "pinnacleCloseUnder25": 1.98
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Sudtirol-Cittadella",
+      "id": "uk-serie-b-2024-25-2024-12-26-Sudtirol-Cittadella",
       "date": "2024-12-26",
       "homeTeam": "Sudtirol",
       "awayTeam": "Cittadella",
@@ -12225,7 +12225,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Palermo-Bari",
+      "id": "uk-serie-b-2024-25-2024-12-26-Palermo-Bari",
       "date": "2024-12-26",
       "homeTeam": "Palermo",
       "awayTeam": "Bari",
@@ -12290,7 +12290,7 @@
       "pinnacleCloseUnder25": 1.89
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-26-Sampdoria-Carrarese",
+      "id": "uk-serie-b-2024-25-2024-12-26-Sampdoria-Carrarese",
       "date": "2024-12-26",
       "homeTeam": "Sampdoria",
       "awayTeam": "Carrarese",
@@ -12355,7 +12355,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Cremonese-Brescia",
+      "id": "uk-serie-b-2024-25-2024-12-29-Cremonese-Brescia",
       "date": "2024-12-29",
       "homeTeam": "Cremonese",
       "awayTeam": "Brescia",
@@ -12420,7 +12420,7 @@
       "pinnacleCloseUnder25": 1.91
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Bari-Spezia",
+      "id": "uk-serie-b-2024-25-2024-12-29-Bari-Spezia",
       "date": "2024-12-29",
       "homeTeam": "Bari",
       "awayTeam": "Spezia",
@@ -12485,7 +12485,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Carrarese-Cesena",
+      "id": "uk-serie-b-2024-25-2024-12-29-Carrarese-Cesena",
       "date": "2024-12-29",
       "homeTeam": "Carrarese",
       "awayTeam": "Cesena",
@@ -12550,7 +12550,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Mantova-Reggiana",
+      "id": "uk-serie-b-2024-25-2024-12-29-Mantova-Reggiana",
       "date": "2024-12-29",
       "homeTeam": "Mantova",
       "awayTeam": "Reggiana",
@@ -12615,7 +12615,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Modena-Sudtirol",
+      "id": "uk-serie-b-2024-25-2024-12-29-Modena-Sudtirol",
       "date": "2024-12-29",
       "homeTeam": "Modena",
       "awayTeam": "Sudtirol",
@@ -12680,7 +12680,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Sassuolo-Cosenza",
+      "id": "uk-serie-b-2024-25-2024-12-29-Sassuolo-Cosenza",
       "date": "2024-12-29",
       "homeTeam": "Sassuolo",
       "awayTeam": "Cosenza",
@@ -12745,7 +12745,7 @@
       "pinnacleCloseUnder25": 2.14
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Catanzaro-Salernitana",
+      "id": "uk-serie-b-2024-25-2024-12-29-Catanzaro-Salernitana",
       "date": "2024-12-29",
       "homeTeam": "Catanzaro",
       "awayTeam": "Salernitana",
@@ -12810,7 +12810,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Cittadella-Palermo",
+      "id": "uk-serie-b-2024-25-2024-12-29-Cittadella-Palermo",
       "date": "2024-12-29",
       "homeTeam": "Cittadella",
       "awayTeam": "Palermo",
@@ -12875,7 +12875,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Juve Stabia-Frosinone",
+      "id": "uk-serie-b-2024-25-2024-12-29-Juve Stabia-Frosinone",
       "date": "2024-12-29",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Frosinone",
@@ -12940,7 +12940,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2024-12-29-Sampdoria-Pisa",
+      "id": "uk-serie-b-2024-25-2024-12-29-Sampdoria-Pisa",
       "date": "2024-12-29",
       "homeTeam": "Sampdoria",
       "awayTeam": "Pisa",
@@ -13005,7 +13005,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Salernitana-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-01-12-Salernitana-Sassuolo",
       "date": "2025-01-12",
       "homeTeam": "Salernitana",
       "awayTeam": "Sassuolo",
@@ -13070,7 +13070,7 @@
       "pinnacleCloseUnder25": 2.07
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Cosenza-Mantova",
+      "id": "uk-serie-b-2024-25-2025-01-12-Cosenza-Mantova",
       "date": "2025-01-12",
       "homeTeam": "Cosenza",
       "awayTeam": "Mantova",
@@ -13135,7 +13135,7 @@
       "pinnacleCloseUnder25": 1.89
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Frosinone-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-01-12-Frosinone-Cremonese",
       "date": "2025-01-12",
       "homeTeam": "Frosinone",
       "awayTeam": "Cremonese",
@@ -13200,7 +13200,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Palermo-Modena",
+      "id": "uk-serie-b-2024-25-2025-01-12-Palermo-Modena",
       "date": "2025-01-12",
       "homeTeam": "Palermo",
       "awayTeam": "Modena",
@@ -13265,7 +13265,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Reggiana-Bari",
+      "id": "uk-serie-b-2024-25-2025-01-12-Reggiana-Bari",
       "date": "2025-01-12",
       "homeTeam": "Reggiana",
       "awayTeam": "Bari",
@@ -13330,7 +13330,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Spezia-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-01-12-Spezia-Juve Stabia",
       "date": "2025-01-12",
       "homeTeam": "Spezia",
       "awayTeam": "Juve Stabia",
@@ -13395,7 +13395,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Sudtirol-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-01-12-Sudtirol-Catanzaro",
       "date": "2025-01-12",
       "homeTeam": "Sudtirol",
       "awayTeam": "Catanzaro",
@@ -13460,7 +13460,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Cesena-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-01-12-Cesena-Cittadella",
       "date": "2025-01-12",
       "homeTeam": "Cesena",
       "awayTeam": "Cittadella",
@@ -13525,7 +13525,7 @@
       "pinnacleCloseUnder25": 1.59
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-12-Brescia-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-01-12-Brescia-Sampdoria",
       "date": "2025-01-12",
       "homeTeam": "Brescia",
       "awayTeam": "Sampdoria",
@@ -13590,7 +13590,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-13-Pisa-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-01-13-Pisa-Carrarese",
       "date": "2025-01-13",
       "homeTeam": "Pisa",
       "awayTeam": "Carrarese",
@@ -13655,7 +13655,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-17-Sampdoria-Cesena",
+      "id": "uk-serie-b-2024-25-2025-01-17-Sampdoria-Cesena",
       "date": "2025-01-17",
       "homeTeam": "Sampdoria",
       "awayTeam": "Cesena",
@@ -13720,7 +13720,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-18-Cittadella-Mantova",
+      "id": "uk-serie-b-2024-25-2025-01-18-Cittadella-Mantova",
       "date": "2025-01-18",
       "homeTeam": "Cittadella",
       "awayTeam": "Mantova",
@@ -13785,7 +13785,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-18-Cremonese-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-01-18-Cremonese-Cosenza",
       "date": "2025-01-18",
       "homeTeam": "Cremonese",
       "awayTeam": "Cosenza",
@@ -13850,7 +13850,7 @@
       "pinnacleCloseUnder25": 1.8
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-18-Modena-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-01-18-Modena-Frosinone",
       "date": "2025-01-18",
       "homeTeam": "Modena",
       "awayTeam": "Frosinone",
@@ -13915,7 +13915,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-18-Salernitana-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-01-18-Salernitana-Reggiana",
       "date": "2025-01-18",
       "homeTeam": "Salernitana",
       "awayTeam": "Reggiana",
@@ -13980,7 +13980,7 @@
       "pinnacleCloseUnder25": 1.59
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-18-Bari-Brescia",
+      "id": "uk-serie-b-2024-25-2025-01-18-Bari-Brescia",
       "date": "2025-01-18",
       "homeTeam": "Bari",
       "awayTeam": "Brescia",
@@ -14045,7 +14045,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-19-Catanzaro-Pisa",
+      "id": "uk-serie-b-2024-25-2025-01-19-Catanzaro-Pisa",
       "date": "2025-01-19",
       "homeTeam": "Catanzaro",
       "awayTeam": "Pisa",
@@ -14110,7 +14110,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-19-Palermo-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-01-19-Palermo-Juve Stabia",
       "date": "2025-01-19",
       "homeTeam": "Palermo",
       "awayTeam": "Juve Stabia",
@@ -14175,7 +14175,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-19-Sassuolo-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-01-19-Sassuolo-Sudtirol",
       "date": "2025-01-19",
       "homeTeam": "Sassuolo",
       "awayTeam": "Sudtirol",
@@ -14240,7 +14240,7 @@
       "pinnacleCloseUnder25": 1.99
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-19-Carrarese-Spezia",
+      "id": "uk-serie-b-2024-25-2025-01-19-Carrarese-Spezia",
       "date": "2025-01-19",
       "homeTeam": "Carrarese",
       "awayTeam": "Spezia",
@@ -14305,7 +14305,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-24-Spezia-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-01-24-Spezia-Sassuolo",
       "date": "2025-01-24",
       "homeTeam": "Spezia",
       "awayTeam": "Sassuolo",
@@ -14370,7 +14370,7 @@
       "pinnacleCloseUnder25": 1.86
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-25-Cesena-Bari",
+      "id": "uk-serie-b-2024-25-2025-01-25-Cesena-Bari",
       "date": "2025-01-25",
       "homeTeam": "Cesena",
       "awayTeam": "Bari",
@@ -14435,7 +14435,7 @@
       "pinnacleCloseUnder25": 1.59
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-25-Cosenza-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-01-25-Cosenza-Cittadella",
       "date": "2025-01-25",
       "homeTeam": "Cosenza",
       "awayTeam": "Cittadella",
@@ -14500,7 +14500,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-25-Frosinone-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-01-25-Frosinone-Sudtirol",
       "date": "2025-01-25",
       "homeTeam": "Frosinone",
       "awayTeam": "Sudtirol",
@@ -14565,7 +14565,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-25-Juve Stabia-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-01-25-Juve Stabia-Carrarese",
       "date": "2025-01-25",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Carrarese",
@@ -14630,7 +14630,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-25-Mantova-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-01-25-Mantova-Sampdoria",
       "date": "2025-01-25",
       "homeTeam": "Mantova",
       "awayTeam": "Sampdoria",
@@ -14695,7 +14695,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-26-Brescia-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-01-26-Brescia-Catanzaro",
       "date": "2025-01-26",
       "homeTeam": "Brescia",
       "awayTeam": "Catanzaro",
@@ -14760,7 +14760,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-26-Pisa-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-01-26-Pisa-Salernitana",
       "date": "2025-01-26",
       "homeTeam": "Pisa",
       "awayTeam": "Salernitana",
@@ -14825,7 +14825,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-26-Reggiana-Palermo",
+      "id": "uk-serie-b-2024-25-2025-01-26-Reggiana-Palermo",
       "date": "2025-01-26",
       "homeTeam": "Reggiana",
       "awayTeam": "Palermo",
@@ -14890,7 +14890,7 @@
       "pinnacleCloseUnder25": 1.56
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-26-Cremonese-Modena",
+      "id": "uk-serie-b-2024-25-2025-01-26-Cremonese-Modena",
       "date": "2025-01-26",
       "homeTeam": "Cremonese",
       "awayTeam": "Modena",
@@ -14955,7 +14955,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-01-31-Palermo-Pisa",
+      "id": "uk-serie-b-2024-25-2025-01-31-Palermo-Pisa",
       "date": "2025-01-31",
       "homeTeam": "Palermo",
       "awayTeam": "Pisa",
@@ -15020,7 +15020,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-01-Catanzaro-Cesena",
+      "id": "uk-serie-b-2024-25-2025-02-01-Catanzaro-Cesena",
       "date": "2025-02-01",
       "homeTeam": "Catanzaro",
       "awayTeam": "Cesena",
@@ -15085,7 +15085,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-01-Cittadella-Spezia",
+      "id": "uk-serie-b-2024-25-2025-02-01-Cittadella-Spezia",
       "date": "2025-02-01",
       "homeTeam": "Cittadella",
       "awayTeam": "Spezia",
@@ -15150,7 +15150,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-01-Sampdoria-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-02-01-Sampdoria-Cosenza",
       "date": "2025-02-01",
       "homeTeam": "Sampdoria",
       "awayTeam": "Cosenza",
@@ -15215,7 +15215,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-01-Sassuolo-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-02-01-Sassuolo-Juve Stabia",
       "date": "2025-02-01",
       "homeTeam": "Sassuolo",
       "awayTeam": "Juve Stabia",
@@ -15280,7 +15280,7 @@
       "pinnacleCloseUnder25": 1.94
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-01-Modena-Mantova",
+      "id": "uk-serie-b-2024-25-2025-02-01-Modena-Mantova",
       "date": "2025-02-01",
       "homeTeam": "Modena",
       "awayTeam": "Mantova",
@@ -15345,7 +15345,7 @@
       "pinnacleCloseUnder25": 1.86
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-02-Carrarese-Brescia",
+      "id": "uk-serie-b-2024-25-2025-02-02-Carrarese-Brescia",
       "date": "2025-02-02",
       "homeTeam": "Carrarese",
       "awayTeam": "Brescia",
@@ -15410,7 +15410,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-02-Salernitana-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-02-02-Salernitana-Cremonese",
       "date": "2025-02-02",
       "homeTeam": "Salernitana",
       "awayTeam": "Cremonese",
@@ -15475,7 +15475,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-02-Sudtirol-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-02-02-Sudtirol-Reggiana",
       "date": "2025-02-02",
       "homeTeam": "Sudtirol",
       "awayTeam": "Reggiana",
@@ -15540,7 +15540,7 @@
       "pinnacleCloseUnder25": 1.45
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-02-Bari-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-02-02-Bari-Frosinone",
       "date": "2025-02-02",
       "homeTeam": "Bari",
       "awayTeam": "Frosinone",
@@ -15605,7 +15605,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-07-Brescia-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-02-07-Brescia-Salernitana",
       "date": "2025-02-07",
       "homeTeam": "Brescia",
       "awayTeam": "Salernitana",
@@ -15670,7 +15670,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-08-Cosenza-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-02-08-Cosenza-Carrarese",
       "date": "2025-02-08",
       "homeTeam": "Cosenza",
       "awayTeam": "Carrarese",
@@ -15735,7 +15735,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-08-Frosinone-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-02-08-Frosinone-Catanzaro",
       "date": "2025-02-08",
       "homeTeam": "Frosinone",
       "awayTeam": "Catanzaro",
@@ -15800,7 +15800,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-08-Mantova-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-02-08-Mantova-Sassuolo",
       "date": "2025-02-08",
       "homeTeam": "Mantova",
       "awayTeam": "Sassuolo",
@@ -15865,7 +15865,7 @@
       "pinnacleCloseUnder25": 2.16
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-08-Pisa-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-02-08-Pisa-Cittadella",
       "date": "2025-02-08",
       "homeTeam": "Pisa",
       "awayTeam": "Cittadella",
@@ -15930,7 +15930,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-08-Sampdoria-Modena",
+      "id": "uk-serie-b-2024-25-2025-02-08-Sampdoria-Modena",
       "date": "2025-02-08",
       "homeTeam": "Sampdoria",
       "awayTeam": "Modena",
@@ -15995,7 +15995,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-09-Cremonese-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-02-09-Cremonese-Sudtirol",
       "date": "2025-02-09",
       "homeTeam": "Cremonese",
       "awayTeam": "Sudtirol",
@@ -16060,7 +16060,7 @@
       "pinnacleCloseUnder25": 1.86
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-09-Reggiana-Cesena",
+      "id": "uk-serie-b-2024-25-2025-02-09-Reggiana-Cesena",
       "date": "2025-02-09",
       "homeTeam": "Reggiana",
       "awayTeam": "Cesena",
@@ -16125,7 +16125,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-09-Spezia-Palermo",
+      "id": "uk-serie-b-2024-25-2025-02-09-Spezia-Palermo",
       "date": "2025-02-09",
       "homeTeam": "Spezia",
       "awayTeam": "Palermo",
@@ -16190,7 +16190,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-09-Juve Stabia-Bari",
+      "id": "uk-serie-b-2024-25-2025-02-09-Juve Stabia-Bari",
       "date": "2025-02-09",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Bari",
@@ -16255,7 +16255,7 @@
       "pinnacleCloseUnder25": 1.49
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-14-Catanzaro-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-02-14-Catanzaro-Cittadella",
       "date": "2025-02-14",
       "homeTeam": "Catanzaro",
       "awayTeam": "Cittadella",
@@ -16320,7 +16320,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-15-Carrarese-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-02-15-Carrarese-Salernitana",
       "date": "2025-02-15",
       "homeTeam": "Carrarese",
       "awayTeam": "Salernitana",
@@ -16385,7 +16385,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-15-Modena-Spezia",
+      "id": "uk-serie-b-2024-25-2025-02-15-Modena-Spezia",
       "date": "2025-02-15",
       "homeTeam": "Modena",
       "awayTeam": "Spezia",
@@ -16450,7 +16450,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-15-Sassuolo-Brescia",
+      "id": "uk-serie-b-2024-25-2025-02-15-Sassuolo-Brescia",
       "date": "2025-02-15",
       "homeTeam": "Sassuolo",
       "awayTeam": "Brescia",
@@ -16515,7 +16515,7 @@
       "pinnacleCloseUnder25": 2.13
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-15-Sudtirol-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-02-15-Sudtirol-Sampdoria",
       "date": "2025-02-15",
       "homeTeam": "Sudtirol",
       "awayTeam": "Sampdoria",
@@ -16580,7 +16580,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-15-Bari-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-02-15-Bari-Cremonese",
       "date": "2025-02-15",
       "homeTeam": "Bari",
       "awayTeam": "Cremonese",
@@ -16645,7 +16645,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-16-Frosinone-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-02-16-Frosinone-Reggiana",
       "date": "2025-02-16",
       "homeTeam": "Frosinone",
       "awayTeam": "Reggiana",
@@ -16710,7 +16710,7 @@
       "pinnacleCloseUnder25": 1.46
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-16-Juve Stabia-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-02-16-Juve Stabia-Cosenza",
       "date": "2025-02-16",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Cosenza",
@@ -16775,7 +16775,7 @@
       "pinnacleCloseUnder25": 1.56
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-16-Palermo-Mantova",
+      "id": "uk-serie-b-2024-25-2025-02-16-Palermo-Mantova",
       "date": "2025-02-16",
       "homeTeam": "Palermo",
       "awayTeam": "Mantova",
@@ -16840,7 +16840,7 @@
       "pinnacleCloseUnder25": 1.99
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-16-Cesena-Pisa",
+      "id": "uk-serie-b-2024-25-2025-02-16-Cesena-Pisa",
       "date": "2025-02-16",
       "homeTeam": "Cesena",
       "awayTeam": "Pisa",
@@ -16905,7 +16905,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-21-Sampdoria-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-02-21-Sampdoria-Sassuolo",
       "date": "2025-02-21",
       "homeTeam": "Sampdoria",
       "awayTeam": "Sassuolo",
@@ -16970,7 +16970,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-22-Cittadella-Modena",
+      "id": "uk-serie-b-2024-25-2025-02-22-Cittadella-Modena",
       "date": "2025-02-22",
       "homeTeam": "Cittadella",
       "awayTeam": "Modena",
@@ -17035,7 +17035,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-22-Mantova-Bari",
+      "id": "uk-serie-b-2024-25-2025-02-22-Mantova-Bari",
       "date": "2025-02-22",
       "homeTeam": "Mantova",
       "awayTeam": "Bari",
@@ -17100,7 +17100,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-22-Pisa-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-02-22-Pisa-Juve Stabia",
       "date": "2025-02-22",
       "homeTeam": "Pisa",
       "awayTeam": "Juve Stabia",
@@ -17165,7 +17165,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-22-Reggiana-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-02-22-Reggiana-Carrarese",
       "date": "2025-02-22",
       "homeTeam": "Reggiana",
       "awayTeam": "Carrarese",
@@ -17230,7 +17230,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-22-Cremonese-Cesena",
+      "id": "uk-serie-b-2024-25-2025-02-22-Cremonese-Cesena",
       "date": "2025-02-22",
       "homeTeam": "Cremonese",
       "awayTeam": "Cesena",
@@ -17295,7 +17295,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-23-Brescia-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-02-23-Brescia-Sudtirol",
       "date": "2025-02-23",
       "homeTeam": "Brescia",
       "awayTeam": "Sudtirol",
@@ -17360,7 +17360,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-23-Cosenza-Palermo",
+      "id": "uk-serie-b-2024-25-2025-02-23-Cosenza-Palermo",
       "date": "2025-02-23",
       "homeTeam": "Cosenza",
       "awayTeam": "Palermo",
@@ -17425,7 +17425,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-23-Spezia-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-02-23-Spezia-Catanzaro",
       "date": "2025-02-23",
       "homeTeam": "Spezia",
       "awayTeam": "Catanzaro",
@@ -17490,7 +17490,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-23-Salernitana-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-02-23-Salernitana-Frosinone",
       "date": "2025-02-23",
       "homeTeam": "Salernitana",
       "awayTeam": "Frosinone",
@@ -17555,7 +17555,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-02-28-Sudtirol-Spezia",
+      "id": "uk-serie-b-2024-25-2025-02-28-Sudtirol-Spezia",
       "date": "2025-02-28",
       "homeTeam": "Sudtirol",
       "awayTeam": "Spezia",
@@ -17620,7 +17620,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-01-Carrarese-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-03-01-Carrarese-Cremonese",
       "date": "2025-03-01",
       "homeTeam": "Carrarese",
       "awayTeam": "Cremonese",
@@ -17685,7 +17685,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-01-Cesena-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-03-01-Cesena-Salernitana",
       "date": "2025-03-01",
       "homeTeam": "Cesena",
       "awayTeam": "Salernitana",
@@ -17750,7 +17750,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-01-Frosinone-Mantova",
+      "id": "uk-serie-b-2024-25-2025-03-01-Frosinone-Mantova",
       "date": "2025-03-01",
       "homeTeam": "Frosinone",
       "awayTeam": "Mantova",
@@ -17815,7 +17815,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-01-Juve Stabia-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-03-01-Juve Stabia-Cittadella",
       "date": "2025-03-01",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Cittadella",
@@ -17880,7 +17880,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-01-Sassuolo-Pisa",
+      "id": "uk-serie-b-2024-25-2025-03-01-Sassuolo-Pisa",
       "date": "2025-03-01",
       "homeTeam": "Sassuolo",
       "awayTeam": "Pisa",
@@ -17945,7 +17945,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-02-Catanzaro-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-03-02-Catanzaro-Reggiana",
       "date": "2025-03-02",
       "homeTeam": "Catanzaro",
       "awayTeam": "Reggiana",
@@ -18010,7 +18010,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-02-Modena-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-03-02-Modena-Cosenza",
       "date": "2025-03-02",
       "homeTeam": "Modena",
       "awayTeam": "Cosenza",
@@ -18075,7 +18075,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-02-Palermo-Brescia",
+      "id": "uk-serie-b-2024-25-2025-03-02-Palermo-Brescia",
       "date": "2025-03-02",
       "homeTeam": "Palermo",
       "awayTeam": "Brescia",
@@ -18140,7 +18140,7 @@
       "pinnacleCloseUnder25": 1.78
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-02-Bari-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-03-02-Bari-Sampdoria",
       "date": "2025-03-02",
       "homeTeam": "Bari",
       "awayTeam": "Sampdoria",
@@ -18205,7 +18205,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-07-Cosenza-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-03-07-Cosenza-Reggiana",
       "date": "2025-03-07",
       "homeTeam": "Cosenza",
       "awayTeam": "Reggiana",
@@ -18270,7 +18270,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Carrarese-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-03-08-Carrarese-Frosinone",
       "date": "2025-03-08",
       "homeTeam": "Carrarese",
       "awayTeam": "Frosinone",
@@ -18335,7 +18335,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Cremonese-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-03-08-Cremonese-Catanzaro",
       "date": "2025-03-08",
       "homeTeam": "Cremonese",
       "awayTeam": "Catanzaro",
@@ -18400,7 +18400,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Mantova-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-03-08-Mantova-Juve Stabia",
       "date": "2025-03-08",
       "homeTeam": "Mantova",
       "awayTeam": "Juve Stabia",
@@ -18465,7 +18465,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Salernitana-Modena",
+      "id": "uk-serie-b-2024-25-2025-03-08-Salernitana-Modena",
       "date": "2025-03-08",
       "homeTeam": "Salernitana",
       "awayTeam": "Modena",
@@ -18530,7 +18530,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Sampdoria-Palermo",
+      "id": "uk-serie-b-2024-25-2025-03-08-Sampdoria-Palermo",
       "date": "2025-03-08",
       "homeTeam": "Sampdoria",
       "awayTeam": "Palermo",
@@ -18595,7 +18595,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-08-Brescia-Cesena",
+      "id": "uk-serie-b-2024-25-2025-03-08-Brescia-Cesena",
       "date": "2025-03-08",
       "homeTeam": "Brescia",
       "awayTeam": "Cesena",
@@ -18660,7 +18660,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-09-Sassuolo-Bari",
+      "id": "uk-serie-b-2024-25-2025-03-09-Sassuolo-Bari",
       "date": "2025-03-09",
       "homeTeam": "Sassuolo",
       "awayTeam": "Bari",
@@ -18725,7 +18725,7 @@
       "pinnacleCloseUnder25": 1.93
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-09-Spezia-Pisa",
+      "id": "uk-serie-b-2024-25-2025-03-09-Spezia-Pisa",
       "date": "2025-03-09",
       "homeTeam": "Spezia",
       "awayTeam": "Pisa",
@@ -18790,7 +18790,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-09-Cittadella-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-03-09-Cittadella-Sudtirol",
       "date": "2025-03-09",
       "homeTeam": "Cittadella",
       "awayTeam": "Sudtirol",
@@ -18855,7 +18855,7 @@
       "pinnacleCloseUnder25": 1.51
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-14-Palermo-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-03-14-Palermo-Cremonese",
       "date": "2025-03-14",
       "homeTeam": "Palermo",
       "awayTeam": "Cremonese",
@@ -18920,7 +18920,7 @@
       "pinnacleCloseUnder25": 1.8
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-15-Cesena-Spezia",
+      "id": "uk-serie-b-2024-25-2025-03-15-Cesena-Spezia",
       "date": "2025-03-15",
       "homeTeam": "Cesena",
       "awayTeam": "Spezia",
@@ -18985,7 +18985,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-15-Cittadella-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-03-15-Cittadella-Sassuolo",
       "date": "2025-03-15",
       "homeTeam": "Cittadella",
       "awayTeam": "Sassuolo",
@@ -19050,7 +19050,7 @@
       "pinnacleCloseUnder25": 1.82
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-15-Frosinone-Brescia",
+      "id": "uk-serie-b-2024-25-2025-03-15-Frosinone-Brescia",
       "date": "2025-03-15",
       "homeTeam": "Frosinone",
       "awayTeam": "Brescia",
@@ -19115,7 +19115,7 @@
       "pinnacleCloseUnder25": 1.6
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-15-Juve Stabia-Modena",
+      "id": "uk-serie-b-2024-25-2025-03-15-Juve Stabia-Modena",
       "date": "2025-03-15",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Modena",
@@ -19180,7 +19180,7 @@
       "pinnacleCloseUnder25": 1.53
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-15-Bari-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-03-15-Bari-Salernitana",
       "date": "2025-03-15",
       "homeTeam": "Bari",
       "awayTeam": "Salernitana",
@@ -19245,7 +19245,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-16-Pisa-Mantova",
+      "id": "uk-serie-b-2024-25-2025-03-16-Pisa-Mantova",
       "date": "2025-03-16",
       "homeTeam": "Pisa",
       "awayTeam": "Mantova",
@@ -19310,7 +19310,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-16-Reggiana-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-03-16-Reggiana-Sampdoria",
       "date": "2025-03-16",
       "homeTeam": "Reggiana",
       "awayTeam": "Sampdoria",
@@ -19375,7 +19375,7 @@
       "pinnacleCloseUnder25": 1.52
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-16-Sudtirol-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-03-16-Sudtirol-Carrarese",
       "date": "2025-03-16",
       "homeTeam": "Sudtirol",
       "awayTeam": "Carrarese",
@@ -19440,7 +19440,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-16-Catanzaro-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-03-16-Catanzaro-Cosenza",
       "date": "2025-03-16",
       "homeTeam": "Catanzaro",
       "awayTeam": "Cosenza",
@@ -19505,7 +19505,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-28-Spezia-Brescia",
+      "id": "uk-serie-b-2024-25-2025-03-28-Spezia-Brescia",
       "date": "2025-03-28",
       "homeTeam": "Spezia",
       "awayTeam": "Brescia",
@@ -19570,7 +19570,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Cosenza-Pisa",
+      "id": "uk-serie-b-2024-25-2025-03-29-Cosenza-Pisa",
       "date": "2025-03-29",
       "homeTeam": "Cosenza",
       "awayTeam": "Pisa",
@@ -19635,7 +19635,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Mantova-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-03-29-Mantova-Sudtirol",
       "date": "2025-03-29",
       "homeTeam": "Mantova",
       "awayTeam": "Sudtirol",
@@ -19700,7 +19700,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Modena-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-03-29-Modena-Catanzaro",
       "date": "2025-03-29",
       "homeTeam": "Modena",
       "awayTeam": "Catanzaro",
@@ -19765,7 +19765,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Sampdoria-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-03-29-Sampdoria-Frosinone",
       "date": "2025-03-29",
       "homeTeam": "Sampdoria",
       "awayTeam": "Frosinone",
@@ -19830,7 +19830,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Cremonese-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-03-29-Cremonese-Cittadella",
       "date": "2025-03-29",
       "homeTeam": "Cremonese",
       "awayTeam": "Cittadella",
@@ -19895,7 +19895,7 @@
       "pinnacleCloseUnder25": 2.09
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-29-Sassuolo-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-03-29-Sassuolo-Reggiana",
       "date": "2025-03-29",
       "homeTeam": "Sassuolo",
       "awayTeam": "Reggiana",
@@ -19960,7 +19960,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-30-Carrarese-Bari",
+      "id": "uk-serie-b-2024-25-2025-03-30-Carrarese-Bari",
       "date": "2025-03-30",
       "homeTeam": "Carrarese",
       "awayTeam": "Bari",
@@ -20025,7 +20025,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-30-Cesena-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-03-30-Cesena-Juve Stabia",
       "date": "2025-03-30",
       "homeTeam": "Cesena",
       "awayTeam": "Juve Stabia",
@@ -20090,7 +20090,7 @@
       "pinnacleCloseUnder25": 1.54
     },
     {
-      "id": "it-serie-b-2024-25-2025-03-30-Salernitana-Palermo",
+      "id": "uk-serie-b-2024-25-2025-03-30-Salernitana-Palermo",
       "date": "2025-03-30",
       "homeTeam": "Salernitana",
       "awayTeam": "Palermo",
@@ -20155,7 +20155,7 @@
       "pinnacleCloseUnder25": 1.85
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-04-Reggiana-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-04-04-Reggiana-Cremonese",
       "date": "2025-04-04",
       "homeTeam": "Reggiana",
       "awayTeam": "Cremonese",
@@ -20220,7 +20220,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Brescia-Mantova",
+      "id": "uk-serie-b-2024-25-2025-04-05-Brescia-Mantova",
       "date": "2025-04-05",
       "homeTeam": "Brescia",
       "awayTeam": "Mantova",
@@ -20285,7 +20285,7 @@
       "pinnacleCloseUnder25": 1.97
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Cittadella-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-04-05-Cittadella-Carrarese",
       "date": "2025-04-05",
       "homeTeam": "Cittadella",
       "awayTeam": "Carrarese",
@@ -20350,7 +20350,7 @@
       "pinnacleCloseUnder25": 1.67
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Frosinone-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-04-05-Frosinone-Cosenza",
       "date": "2025-04-05",
       "homeTeam": "Frosinone",
       "awayTeam": "Cosenza",
@@ -20415,7 +20415,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Sudtirol-Cesena",
+      "id": "uk-serie-b-2024-25-2025-04-05-Sudtirol-Cesena",
       "date": "2025-04-05",
       "homeTeam": "Sudtirol",
       "awayTeam": "Cesena",
@@ -20480,7 +20480,7 @@
       "pinnacleCloseUnder25": 1.52
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Pisa-Modena",
+      "id": "uk-serie-b-2024-25-2025-04-05-Pisa-Modena",
       "date": "2025-04-05",
       "homeTeam": "Pisa",
       "awayTeam": "Modena",
@@ -20545,7 +20545,7 @@
       "pinnacleCloseUnder25": 1.74
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-05-Juve Stabia-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-04-05-Juve Stabia-Salernitana",
       "date": "2025-04-05",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Salernitana",
@@ -20610,7 +20610,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-06-Catanzaro-Bari",
+      "id": "uk-serie-b-2024-25-2025-04-06-Catanzaro-Bari",
       "date": "2025-04-06",
       "homeTeam": "Catanzaro",
       "awayTeam": "Bari",
@@ -20675,7 +20675,7 @@
       "pinnacleCloseUnder25": 1.7
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-06-Palermo-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-04-06-Palermo-Sassuolo",
       "date": "2025-04-06",
       "homeTeam": "Palermo",
       "awayTeam": "Sassuolo",
@@ -20740,7 +20740,7 @@
       "pinnacleCloseUnder25": 2
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-06-Spezia-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-04-06-Spezia-Sampdoria",
       "date": "2025-04-06",
       "homeTeam": "Spezia",
       "awayTeam": "Sampdoria",
@@ -20805,7 +20805,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-11-Bari-Palermo",
+      "id": "uk-serie-b-2024-25-2025-04-11-Bari-Palermo",
       "date": "2025-04-11",
       "homeTeam": "Bari",
       "awayTeam": "Palermo",
@@ -20870,7 +20870,7 @@
       "pinnacleCloseUnder25": 1.89
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Carrarese-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-04-12-Carrarese-Catanzaro",
       "date": "2025-04-12",
       "homeTeam": "Carrarese",
       "awayTeam": "Catanzaro",
@@ -20935,7 +20935,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Cosenza-Brescia",
+      "id": "uk-serie-b-2024-25-2025-04-12-Cosenza-Brescia",
       "date": "2025-04-12",
       "homeTeam": "Cosenza",
       "awayTeam": "Brescia",
@@ -21000,7 +21000,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Reggiana-Pisa",
+      "id": "uk-serie-b-2024-25-2025-04-12-Reggiana-Pisa",
       "date": "2025-04-12",
       "homeTeam": "Reggiana",
       "awayTeam": "Pisa",
@@ -21065,7 +21065,7 @@
       "pinnacleCloseUnder25": 1.59
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Salernitana-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-04-12-Salernitana-Sudtirol",
       "date": "2025-04-12",
       "homeTeam": "Salernitana",
       "awayTeam": "Sudtirol",
@@ -21130,7 +21130,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Sampdoria-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-04-12-Sampdoria-Cittadella",
       "date": "2025-04-12",
       "homeTeam": "Sampdoria",
       "awayTeam": "Cittadella",
@@ -21195,7 +21195,7 @@
       "pinnacleCloseUnder25": 1.75
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-12-Modena-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-04-12-Modena-Sassuolo",
       "date": "2025-04-12",
       "homeTeam": "Modena",
       "awayTeam": "Sassuolo",
@@ -21260,7 +21260,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-13-Cesena-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-04-13-Cesena-Frosinone",
       "date": "2025-04-13",
       "homeTeam": "Cesena",
       "awayTeam": "Frosinone",
@@ -21325,7 +21325,7 @@
       "pinnacleCloseUnder25": 1.58
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-13-Cremonese-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-04-13-Cremonese-Juve Stabia",
       "date": "2025-04-13",
       "homeTeam": "Cremonese",
       "awayTeam": "Juve Stabia",
@@ -21390,7 +21390,7 @@
       "pinnacleCloseUnder25": 1.93
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-13-Mantova-Spezia",
+      "id": "uk-serie-b-2024-25-2025-04-13-Mantova-Spezia",
       "date": "2025-04-13",
       "homeTeam": "Mantova",
       "awayTeam": "Spezia",
@@ -21455,7 +21455,7 @@
       "pinnacleCloseUnder25": 2.16
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Frosinone-Spezia",
+      "id": "uk-serie-b-2024-25-2025-04-25-Frosinone-Spezia",
       "date": "2025-04-25",
       "homeTeam": "Frosinone",
       "awayTeam": "Spezia",
@@ -21520,7 +21520,7 @@
       "pinnacleCloseUnder25": 1.96
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Bari-Modena",
+      "id": "uk-serie-b-2024-25-2025-04-25-Bari-Modena",
       "date": "2025-04-25",
       "homeTeam": "Bari",
       "awayTeam": "Modena",
@@ -21585,7 +21585,7 @@
       "pinnacleCloseUnder25": 1.71
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Brescia-Pisa",
+      "id": "uk-serie-b-2024-25-2025-04-25-Brescia-Pisa",
       "date": "2025-04-25",
       "homeTeam": "Brescia",
       "awayTeam": "Pisa",
@@ -21650,7 +21650,7 @@
       "pinnacleCloseUnder25": 1.69
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Carrarese-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-04-25-Carrarese-Sampdoria",
       "date": "2025-04-25",
       "homeTeam": "Carrarese",
       "awayTeam": "Sampdoria",
@@ -21715,7 +21715,7 @@
       "pinnacleCloseUnder25": 1.61
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Reggiana-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-04-25-Reggiana-Cittadella",
       "date": "2025-04-25",
       "homeTeam": "Reggiana",
       "awayTeam": "Cittadella",
@@ -21780,7 +21780,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Salernitana-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-04-25-Salernitana-Cosenza",
       "date": "2025-04-25",
       "homeTeam": "Salernitana",
       "awayTeam": "Cosenza",
@@ -21845,7 +21845,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Cremonese-Mantova",
+      "id": "uk-serie-b-2024-25-2025-04-25-Cremonese-Mantova",
       "date": "2025-04-25",
       "homeTeam": "Cremonese",
       "awayTeam": "Mantova",
@@ -21910,7 +21910,7 @@
       "pinnacleCloseUnder25": 2.38
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-25-Cesena-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-04-25-Cesena-Sassuolo",
       "date": "2025-04-25",
       "homeTeam": "Cesena",
       "awayTeam": "Sassuolo",
@@ -21975,7 +21975,7 @@
       "pinnacleCloseUnder25": 1.94
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-27-Catanzaro-Palermo",
+      "id": "uk-serie-b-2024-25-2025-04-27-Catanzaro-Palermo",
       "date": "2025-04-27",
       "homeTeam": "Catanzaro",
       "awayTeam": "Palermo",
@@ -22040,7 +22040,7 @@
       "pinnacleCloseUnder25": 1.98
     },
     {
-      "id": "it-serie-b-2024-25-2025-04-27-Sudtirol-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-04-27-Sudtirol-Juve Stabia",
       "date": "2025-04-27",
       "homeTeam": "Sudtirol",
       "awayTeam": "Juve Stabia",
@@ -22105,7 +22105,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Juve Stabia-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-05-01-Juve Stabia-Catanzaro",
       "date": "2025-05-01",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Catanzaro",
@@ -22170,7 +22170,7 @@
       "pinnacleCloseUnder25": 1.77
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Cosenza-Bari",
+      "id": "uk-serie-b-2024-25-2025-05-01-Cosenza-Bari",
       "date": "2025-05-01",
       "homeTeam": "Cosenza",
       "awayTeam": "Bari",
@@ -22235,7 +22235,7 @@
       "pinnacleCloseUnder25": 1.79
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Mantova-Cesena",
+      "id": "uk-serie-b-2024-25-2025-05-01-Mantova-Cesena",
       "date": "2025-05-01",
       "homeTeam": "Mantova",
       "awayTeam": "Cesena",
@@ -22300,7 +22300,7 @@
       "pinnacleCloseUnder25": 1.93
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Modena-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-05-01-Modena-Reggiana",
       "date": "2025-05-01",
       "homeTeam": "Modena",
       "awayTeam": "Reggiana",
@@ -22365,7 +22365,7 @@
       "pinnacleCloseUnder25": 1.64
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Palermo-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-05-01-Palermo-Sudtirol",
       "date": "2025-05-01",
       "homeTeam": "Palermo",
       "awayTeam": "Sudtirol",
@@ -22430,7 +22430,7 @@
       "pinnacleCloseUnder25": 2.03
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Pisa-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-05-01-Pisa-Frosinone",
       "date": "2025-05-01",
       "homeTeam": "Pisa",
       "awayTeam": "Frosinone",
@@ -22495,7 +22495,7 @@
       "pinnacleCloseUnder25": 1.81
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Sampdoria-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-05-01-Sampdoria-Cremonese",
       "date": "2025-05-01",
       "homeTeam": "Sampdoria",
       "awayTeam": "Cremonese",
@@ -22560,7 +22560,7 @@
       "pinnacleCloseUnder25": 1.92
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Spezia-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-05-01-Spezia-Salernitana",
       "date": "2025-05-01",
       "homeTeam": "Spezia",
       "awayTeam": "Salernitana",
@@ -22625,7 +22625,7 @@
       "pinnacleCloseUnder25": 1.94
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Cittadella-Brescia",
+      "id": "uk-serie-b-2024-25-2025-05-01-Cittadella-Brescia",
       "date": "2025-05-01",
       "homeTeam": "Cittadella",
       "awayTeam": "Brescia",
@@ -22690,7 +22690,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-01-Sassuolo-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-05-01-Sassuolo-Carrarese",
       "date": "2025-05-01",
       "homeTeam": "Sassuolo",
       "awayTeam": "Carrarese",
@@ -22755,7 +22755,7 @@
       "pinnacleCloseUnder25": 2
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Bari-Pisa",
+      "id": "uk-serie-b-2024-25-2025-05-04-Bari-Pisa",
       "date": "2025-05-04",
       "homeTeam": "Bari",
       "awayTeam": "Pisa",
@@ -22820,7 +22820,7 @@
       "pinnacleCloseUnder25": 1.55
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Brescia-Juve Stabia",
+      "id": "uk-serie-b-2024-25-2025-05-04-Brescia-Juve Stabia",
       "date": "2025-05-04",
       "homeTeam": "Brescia",
       "awayTeam": "Juve Stabia",
@@ -22885,7 +22885,7 @@
       "pinnacleCloseUnder25": 1.57
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Carrarese-Modena",
+      "id": "uk-serie-b-2024-25-2025-05-04-Carrarese-Modena",
       "date": "2025-05-04",
       "homeTeam": "Carrarese",
       "awayTeam": "Modena",
@@ -22950,7 +22950,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Catanzaro-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-05-04-Catanzaro-Sampdoria",
       "date": "2025-05-04",
       "homeTeam": "Catanzaro",
       "awayTeam": "Sampdoria",
@@ -23015,7 +23015,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Cesena-Palermo",
+      "id": "uk-serie-b-2024-25-2025-05-04-Cesena-Palermo",
       "date": "2025-05-04",
       "homeTeam": "Cesena",
       "awayTeam": "Palermo",
@@ -23080,7 +23080,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Frosinone-Cittadella",
+      "id": "uk-serie-b-2024-25-2025-05-04-Frosinone-Cittadella",
       "date": "2025-05-04",
       "homeTeam": "Frosinone",
       "awayTeam": "Cittadella",
@@ -23145,7 +23145,7 @@
       "pinnacleCloseUnder25": 1.76
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Reggiana-Spezia",
+      "id": "uk-serie-b-2024-25-2025-05-04-Reggiana-Spezia",
       "date": "2025-05-04",
       "homeTeam": "Reggiana",
       "awayTeam": "Spezia",
@@ -23210,7 +23210,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Salernitana-Mantova",
+      "id": "uk-serie-b-2024-25-2025-05-04-Salernitana-Mantova",
       "date": "2025-05-04",
       "homeTeam": "Salernitana",
       "awayTeam": "Mantova",
@@ -23275,7 +23275,7 @@
       "pinnacleCloseUnder25": 2.07
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Sudtirol-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-05-04-Sudtirol-Cosenza",
       "date": "2025-05-04",
       "homeTeam": "Sudtirol",
       "awayTeam": "Cosenza",
@@ -23340,7 +23340,7 @@
       "pinnacleCloseUnder25": 1.88
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-04-Cremonese-Sassuolo",
+      "id": "uk-serie-b-2024-25-2025-05-04-Cremonese-Sassuolo",
       "date": "2025-05-04",
       "homeTeam": "Cremonese",
       "awayTeam": "Sassuolo",
@@ -23405,7 +23405,7 @@
       "pinnacleCloseUnder25": 2.29
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Cittadella-Bari",
+      "id": "uk-serie-b-2024-25-2025-05-09-Cittadella-Bari",
       "date": "2025-05-09",
       "homeTeam": "Cittadella",
       "awayTeam": "Bari",
@@ -23470,7 +23470,7 @@
       "pinnacleCloseUnder25": 1.62
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Cosenza-Cesena",
+      "id": "uk-serie-b-2024-25-2025-05-09-Cosenza-Cesena",
       "date": "2025-05-09",
       "homeTeam": "Cosenza",
       "awayTeam": "Cesena",
@@ -23535,7 +23535,7 @@
       "pinnacleCloseUnder25": 1.72
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Juve Stabia-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-05-09-Juve Stabia-Reggiana",
       "date": "2025-05-09",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Reggiana",
@@ -23600,7 +23600,7 @@
       "pinnacleCloseUnder25": 1.5
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Mantova-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-05-09-Mantova-Carrarese",
       "date": "2025-05-09",
       "homeTeam": "Mantova",
       "awayTeam": "Carrarese",
@@ -23665,7 +23665,7 @@
       "pinnacleCloseUnder25": 1.87
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Modena-Brescia",
+      "id": "uk-serie-b-2024-25-2025-05-09-Modena-Brescia",
       "date": "2025-05-09",
       "homeTeam": "Modena",
       "awayTeam": "Brescia",
@@ -23730,7 +23730,7 @@
       "pinnacleCloseUnder25": 1.66
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Palermo-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-05-09-Palermo-Frosinone",
       "date": "2025-05-09",
       "homeTeam": "Palermo",
       "awayTeam": "Frosinone",
@@ -23795,7 +23795,7 @@
       "pinnacleCloseUnder25": 2.08
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Pisa-Sudtirol",
+      "id": "uk-serie-b-2024-25-2025-05-09-Pisa-Sudtirol",
       "date": "2025-05-09",
       "homeTeam": "Pisa",
       "awayTeam": "Sudtirol",
@@ -23860,7 +23860,7 @@
       "pinnacleCloseUnder25": 1.68
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Sampdoria-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-05-09-Sampdoria-Salernitana",
       "date": "2025-05-09",
       "homeTeam": "Sampdoria",
       "awayTeam": "Salernitana",
@@ -23925,7 +23925,7 @@
       "pinnacleCloseUnder25": 1.63
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Sassuolo-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-05-09-Sassuolo-Catanzaro",
       "date": "2025-05-09",
       "homeTeam": "Sassuolo",
       "awayTeam": "Catanzaro",
@@ -23990,7 +23990,7 @@
       "pinnacleCloseUnder25": 2.19
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-09-Spezia-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-05-09-Spezia-Cremonese",
       "date": "2025-05-09",
       "homeTeam": "Spezia",
       "awayTeam": "Cremonese",
@@ -24055,7 +24055,7 @@
       "pinnacleCloseUnder25": 1.89
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Brescia-Reggiana",
+      "id": "uk-serie-b-2024-25-2025-05-13-Brescia-Reggiana",
       "date": "2025-05-13",
       "homeTeam": "Brescia",
       "awayTeam": "Reggiana",
@@ -24120,7 +24120,7 @@
       "pinnacleCloseUnder25": 2
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Cittadella-Salernitana",
+      "id": "uk-serie-b-2024-25-2025-05-13-Cittadella-Salernitana",
       "date": "2025-05-13",
       "homeTeam": "Cittadella",
       "awayTeam": "Salernitana",
@@ -24185,7 +24185,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Juve Stabia-Sampdoria",
+      "id": "uk-serie-b-2024-25-2025-05-13-Juve Stabia-Sampdoria",
       "date": "2025-05-13",
       "homeTeam": "Juve Stabia",
       "awayTeam": "Sampdoria",
@@ -24250,7 +24250,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Mantova-Catanzaro",
+      "id": "uk-serie-b-2024-25-2025-05-13-Mantova-Catanzaro",
       "date": "2025-05-13",
       "homeTeam": "Mantova",
       "awayTeam": "Catanzaro",
@@ -24315,7 +24315,7 @@
       "pinnacleCloseUnder25": 2.2
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Modena-Cesena",
+      "id": "uk-serie-b-2024-25-2025-05-13-Modena-Cesena",
       "date": "2025-05-13",
       "homeTeam": "Modena",
       "awayTeam": "Cesena",
@@ -24380,7 +24380,7 @@
       "pinnacleCloseUnder25": 1.65
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Palermo-Carrarese",
+      "id": "uk-serie-b-2024-25-2025-05-13-Palermo-Carrarese",
       "date": "2025-05-13",
       "homeTeam": "Palermo",
       "awayTeam": "Carrarese",
@@ -24445,7 +24445,7 @@
       "pinnacleCloseUnder25": 2.48
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Pisa-Cremonese",
+      "id": "uk-serie-b-2024-25-2025-05-13-Pisa-Cremonese",
       "date": "2025-05-13",
       "homeTeam": "Pisa",
       "awayTeam": "Cremonese",
@@ -24510,7 +24510,7 @@
       "pinnacleCloseUnder25": 1.95
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Sassuolo-Frosinone",
+      "id": "uk-serie-b-2024-25-2025-05-13-Sassuolo-Frosinone",
       "date": "2025-05-13",
       "homeTeam": "Sassuolo",
       "awayTeam": "Frosinone",
@@ -24575,7 +24575,7 @@
       "pinnacleCloseUnder25": 2
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Spezia-Cosenza",
+      "id": "uk-serie-b-2024-25-2025-05-13-Spezia-Cosenza",
       "date": "2025-05-13",
       "homeTeam": "Spezia",
       "awayTeam": "Cosenza",
@@ -24640,7 +24640,7 @@
       "pinnacleCloseUnder25": 2.7
     },
     {
-      "id": "it-serie-b-2024-25-2025-05-13-Sudtirol-Bari",
+      "id": "uk-serie-b-2024-25-2025-05-13-Sudtirol-Bari",
       "date": "2025-05-13",
       "homeTeam": "Sudtirol",
       "awayTeam": "Bari",
