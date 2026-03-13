@@ -111,6 +111,72 @@
         "correlationWithBase": 0.3356911287945771,
         "testedAt": "2026-03-12"
       }
+    },
+    {
+      "id": "venue-specific-xgd",
+      "registered": "2026-03-13",
+      "hypothesis": "Using venue-specific xGD (home team's HOME xGD, away team's AWAY xGD) produces better CLV than blended full-season xGD. This is an architectural decision: Ted ALWAYS uses venue splits. If venue-specific doesn't beat blended, the model should drop the split and simplify.",
+      "metric": "CLV delta: venue-split model vs blended-xGD model on same bet universe",
+      "threshold": "+1pp CLV for venue-split model",
+      "status": "pending",
+      "sourceHypothesis": "H16",
+      "testType": "model-architecture",
+      "notes": "Not a filter — changes how lambdas are computed. A/B backtest: run solver with blended xGD inputs vs venue-split inputs, compare CLV on identical matches."
+    },
+    {
+      "id": "attack-defense-regression-asymmetry",
+      "registered": "2026-03-13",
+      "hypothesis": "Attacking overperformance regresses faster (5-10 matches) than defensive overperformance (15-20 matches). A model that uses different lookback windows per side — shorter for attack fade, longer for defense fade — produces higher CLV than symmetric windows.",
+      "metric": "CLV by regression type: attack-fade bets vs defense-fade bets at various lookback windows (6, 8, 10, 15, 20 matches)",
+      "threshold": "Optimal attack lookback < optimal defense lookback by 5+ matches; combined CLV > symmetric baseline by +0.5pp",
+      "status": "pending",
+      "sourceHypothesis": "H05",
+      "testType": "model-architecture",
+      "notes": "Structural timing signal. If confirmed, changes when the variance-regression filter fires, not just whether it fires. Sweep lookback windows independently for goals-xG (attack) and xGA-conceded (defense) regression candidates."
+    },
+    {
+      "id": "form-window-rolling-vs-expanding",
+      "registered": "2026-03-13",
+      "hypothesis": "Using a rolling last-10 window for xGD inputs produces better CLV than an expanding full-season window. Recent form captures tactical shifts and personnel changes that full-season averages dilute.",
+      "metric": "CLV delta: rolling-10 xGD model vs expanding-window model",
+      "threshold": "+0.5pp CLV for rolling window",
+      "status": "pending",
+      "sourceHypothesis": "H17",
+      "testType": "model-architecture",
+      "notes": "Ted frequently cites 'last 10' trends. Test windows: last 6, 8, 10, 15, full season. The solver currently uses full season — this would change data-prep inputs."
+    },
+    {
+      "id": "edge-sizing-curve",
+      "registered": "2026-03-13",
+      "hypothesis": "CLV increases monotonically with model edge size. There exists a minimum edge threshold below which CLV is zero or negative (vig eats the edge). Mapping the full CLV-vs-edge curve reveals the optimal minimum edge and whether 'large edge = strong bet' holds. Collapses H07 (min edge), H09 (large edge), H10 (no edge) into one test.",
+      "metric": "Mean CLV at edge buckets: 0-2%, 2-5%, 5-7%, 7-10%, 10-15%, 15%+",
+      "threshold": "Monotonically increasing CLV across buckets; CLV turns positive at some identifiable threshold",
+      "status": "pending",
+      "sourceHypothesis": "H07/H09/H10",
+      "testType": "meta-signal",
+      "notes": "Not a filter to deploy — it's a calibration test. Results inform what minEdge should be. If CLV is flat across edge buckets, the model's edge estimates are noise. If it's monotonic, model is well-calibrated and we can set minEdge optimally."
+    },
+    {
+      "id": "line-movement-filter",
+      "registered": "2026-03-13",
+      "hypothesis": "When the closing line has moved 0.25+ goals toward the model's position since opening, remaining CLV is near zero. Bets placed after significant line movement toward you should be filtered out.",
+      "metric": "CLV of bets where line moved 0.25+ toward model vs bets where line was stable or moved against",
+      "threshold": "Post-move CLV < +1% (confirming value is gone); stable-line CLV > +2%",
+      "status": "pending",
+      "sourceHypothesis": "H08",
+      "testType": "filter",
+      "notes": "Requires opening + closing odds data (line-movement.ts signals already built but not registered). Ted's 2nd most referenced signal (151 statements). If confirmed, add as pre-bet filter: skip when sharp money already moved the line your way."
+    },
+    {
+      "id": "double-variance-intersection",
+      "registered": "2026-03-13",
+      "hypothesis": "Teams with BOTH attacking overperformance AND defensive underperformance (goals > xG AND goals_conceded > xGA) produce higher CLV when backed than teams with only one variance type. The intersection of H01+H04 is stronger than either component alone because defense regresses more reliably than attack, so net regression favors the team.",
+      "metric": "CLV of double-variance bets vs single-variance bets",
+      "threshold": "Double-variance CLV > single-variance CLV by +1pp",
+      "status": "pending",
+      "sourceHypothesis": "H06",
+      "testType": "filter-intersection",
+      "notes": "Rare filter — few teams qualify simultaneously. May not reach significance (<50 bets over 3 seasons). If N is too small, mark as inconclusive rather than rejected. Ted described this pattern explicitly for Wrexham/Ipswich/Southampton/Leicester in Mar 2026."
     }
   ]
 }
