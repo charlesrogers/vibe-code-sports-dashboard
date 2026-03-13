@@ -121,6 +121,25 @@ export default function DataSourcesPage() {
         </div>
       )}
 
+      {/* Cron Health */}
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+        <h3 className="mb-3 text-sm font-semibold text-zinc-300">Vercel Crons</h3>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {[
+            { path: "/api/cron-odds", label: "Collect Odds", schedule: "9:00 UTC" },
+            { path: "/api/paper-trade/log", label: "Log Bets", schedule: "12:00 UTC" },
+            { path: "/api/paper-trade/settle", label: "Settle Bets", schedule: "7:00 UTC" },
+            { path: "/api/cron/accumulate-xg", label: "Accumulate xG", schedule: "8:00 UTC" },
+          ].map(cron => (
+            <div key={cron.path} className="rounded border border-zinc-800 bg-zinc-950 p-3">
+              <div className="text-xs font-semibold text-zinc-300">{cron.label}</div>
+              <div className="text-[10px] text-zinc-500 mt-0.5">{cron.schedule} daily</div>
+              <div className="text-[10px] text-zinc-600 mt-0.5 font-mono truncate">{cron.path}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Source cards */}
       <div className="grid gap-4 sm:grid-cols-2">
         {data?.sources.map((source) => (
