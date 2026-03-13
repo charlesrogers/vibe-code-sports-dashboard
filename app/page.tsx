@@ -65,6 +65,12 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
   const [logging, setLogging] = useState(false);
   const [settling, setSettling] = useState(false);
+  const [actionMsg, setActionMsg] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
+  const showAction = useCallback((text: string, type: "success" | "error") => {
+    setActionMsg({ text, type });
+    setTimeout(() => setActionMsg(null), 4000);
+  }, []);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -73,6 +79,9 @@ export default function DashboardPage() {
         fetch("/api/model-health"),
         fetch("/api/paper-trade"),
       ]);
+      if (!healthRes.ok) throw new Error(`Model health API returned ${healthRes.status}`);
+      if (!tradeRes.ok) throw new Error(`Paper trade API returned ${tradeRes.status}`);
+
       const healthData = await healthRes.json();
       const tradeData = await tradeRes.json();
 
@@ -94,11 +103,12 @@ export default function DashboardPage() {
     setLogging(true);
     try {
       const res = await fetch("/api/paper-trade/log", { method: "POST" });
+      if (!res.ok) throw new Error(`Log API returned ${res.status}`);
       const data = await res.json();
-      alert(`Logged ${data.logged || data.added || 0} new bets, skipped ${data.skipped || 0}`);
+      showAction(`Logged ${data.logged || data.added || 0} new bets, skipped ${data.skipped || 0}`, "success");
       await loadData();
     } catch (e: unknown) {
-      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+      showAction(e instanceof Error ? e.message : "Unknown error", "error");
     } finally {
       setLogging(false);
     }
@@ -108,11 +118,12 @@ export default function DashboardPage() {
     setSettling(true);
     try {
       const res = await fetch("/api/paper-trade/settle", { method: "POST" });
+      if (!res.ok) throw new Error(`Settle API returned ${res.status}`);
       const data = await res.json();
-      alert(`Settled ${data.settled || 0} bets`);
+      showAction(`Settled ${data.settled || 0} bets`, "success");
       await loadData();
     } catch (e: unknown) {
-      alert(`Error: ${e instanceof Error ? e.message : "Unknown"}`);
+      showAction(e instanceof Error ? e.message : "Unknown error", "error");
     } finally {
       setSettling(false);
     }
@@ -125,6 +136,13 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      {/* Action feedback toast */}
+      {actionMsg && (
+        <div className={`rounded-lg border px-4 py-2 text-sm ${actionMsg.type === "success" ? "border-green-800 bg-green-900/30 text-green-400" : "border-red-800 bg-red-900/30 text-red-400"}`}>
+          {actionMsg.text}
+        </div>
+      )}
+
       {/* Health Card — the stop/go signal */}
       {health && (
         <div>

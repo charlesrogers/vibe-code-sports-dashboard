@@ -31,26 +31,42 @@ export default function BacktestViewer() {
   const [selected, setSelected] = useState<string | null>(null);
   const [detail, setDetail] = useState<ExperimentResult | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/lab/experiments")
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
       .then(data => {
         setExperiments(data.experiments || []);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((e) => {
+        setError(e instanceof Error ? e.message : "Failed to load experiments");
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
     if (!selected) { setDetail(null); return; }
-    fetch(`/api/lab/experiments/${selected}`)
-      .then(r => r.json())
+    const controller = new AbortController();
+    fetch(`/api/lab/experiments/${selected}`, { signal: controller.signal })
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
       .then(data => setDetail(data))
-      .catch(() => setDetail(null));
+      .catch((e) => {
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        setDetail(null);
+      });
+    return () => controller.abort();
   }, [selected]);
 
   if (loading) return <div className="py-8 text-center text-zinc-500 text-xs">Loading experiments...</div>;
+  if (error) return <div className="py-8 text-center text-red-400 text-xs">{error}</div>;
 
   if (experiments.length === 0) {
     return (

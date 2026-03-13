@@ -96,20 +96,28 @@ export default function ExperimentBoard({ signals, onRefresh }: ExperimentBoardP
   const [formMetric, setFormMetric] = useState("");
   const [formThreshold, setFormThreshold] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const moveSignal = async (id: string, status: string) => {
-    await fetch("/api/lab/experiments", {
+    setErrorMsg(null);
+    const res = await fetch("/api/lab/experiments", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, status }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+      setErrorMsg(data.error || `Failed to move signal (${res.status})`);
+      return;
+    }
     onRefresh();
   };
 
   const addExperiment = async () => {
     if (!formName || !formHypothesis) return;
     setSubmitting(true);
-    await fetch("/api/lab/experiments", {
+    setErrorMsg(null);
+    const res = await fetch("/api/lab/experiments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -119,6 +127,12 @@ export default function ExperimentBoard({ signals, onRefresh }: ExperimentBoardP
         threshold: formThreshold,
       }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
+      setErrorMsg(data.error || `Failed to create experiment (${res.status})`);
+      setSubmitting(false);
+      return;
+    }
     setFormName(""); setFormHypothesis(""); setFormMetric(""); setFormThreshold("");
     setShowForm(false);
     setSubmitting(false);
@@ -171,6 +185,13 @@ export default function ExperimentBoard({ signals, onRefresh }: ExperimentBoardP
             className="rounded bg-green-900/50 border border-green-700 px-4 py-1.5 text-xs text-green-400 hover:bg-green-900/70 disabled:opacity-50">
             {submitting ? "Creating..." : "Register Hypothesis"}
           </button>
+        </div>
+      )}
+
+      {/* Error banner */}
+      {errorMsg && (
+        <div className="mb-3 rounded border border-red-800 bg-red-900/30 px-4 py-2 text-xs text-red-400">
+          {errorMsg}
         </div>
       )}
 

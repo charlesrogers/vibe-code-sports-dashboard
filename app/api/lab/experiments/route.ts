@@ -5,24 +5,40 @@ import { join } from "path";
 const experimentsDir = join(process.cwd(), "data", "experiments");
 const registryPath = join(process.cwd(), "data", "signal-registry.json");
 
-export async function GET() {
-  if (!existsSync(experimentsDir)) {
-    return NextResponse.json({ experiments: [] });
-  }
+function readRegistrySafe(): { signals: Array<{ id: string; status: string; [key: string]: unknown }> } | null {
   try {
+    if (!existsSync(registryPath)) return null;
+    return JSON.parse(readFileSync(registryPath, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
+export async function GET() {
+  try {
+    if (!existsSync(experimentsDir)) {
+      return NextResponse.json({ experiments: [] });
+    }
     const files = readdirSync(experimentsDir).filter(f => f.endsWith(".json"));
     const experiments = files.map(f => {
       const data = JSON.parse(readFileSync(join(experimentsDir, f), "utf-8"));
       return { id: f.replace(".json", ""), ...data };
     });
     return NextResponse.json({ experiments });
-  } catch (e: unknown) {
-    const message = e instanceof Error ? e.message : "Unknown error";
-    return NextResponse.json({ error: message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ experiments: [] });
   }
 }
 
 export async function POST(request: NextRequest) {
+  const registry = readRegistrySafe();
+  if (!registry) {
+    return NextResponse.json(
+      { error: "Lab mutations require local dev server" },
+      { status: 501 }
+    );
+  }
+
   try {
     const body = await request.json();
     const { name, hypothesis, metric, threshold } = body;
@@ -31,16 +47,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "name and hypothesis required" }, { status: 400 });
     }
 
-    // Add to signal registry
-    if (!existsSync(registryPath)) {
-      return NextResponse.json({ error: "signal-registry.json not found" }, { status: 500 });
-    }
-
-    const registry = JSON.parse(readFileSync(registryPath, "utf-8"));
     const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-    // Check for duplicate
-    if (registry.signals.some((s: { id: string }) => s.id === id)) {
+    if (registry.signals.some((s) => s.id === id)) {
       return NextResponse.json({ error: `Signal "${id}" already exists` }, { status: 409 });
     }
 
@@ -54,7 +63,15 @@ export async function POST(request: NextRequest) {
     };
 
     registry.signals.push(entry);
-    writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+
+    try {
+      writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+    } catch {
+      return NextResponse.json(
+        { error: "Lab mutations require local dev server" },
+        { status: 501 }
+      );
+    }
 
     return NextResponse.json({ created: entry });
   } catch (e: unknown) {
@@ -64,6 +81,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  const registry = readRegistrySafe();
+  if (!registry) {
+    return NextResponse.json(
+      { error: "Lab mutations require local dev server" },
+      { status: 501 }
+    );
+  }
+
   try {
     const body = await request.json();
     const { id, status } = body;
@@ -77,14 +102,21 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: `Invalid status. Must be: ${validStatuses.join(", ")}` }, { status: 400 });
     }
 
-    const registry = JSON.parse(readFileSync(registryPath, "utf-8"));
-    const signal = registry.signals.find((s: { id: string }) => s.id === id);
+    const signal = registry.signals.find((s) => s.id === id);
     if (!signal) {
       return NextResponse.json({ error: `Signal "${id}" not found` }, { status: 404 });
     }
 
     signal.status = status;
-    writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+
+    try {
+      writeFileSync(registryPath, JSON.stringify(registry, null, 2));
+    } catch {
+      return NextResponse.json(
+        { error: "Lab mutations require local dev server" },
+        { status: 501 }
+      );
+    }
 
     return NextResponse.json({ updated: signal });
   } catch (e: unknown) {

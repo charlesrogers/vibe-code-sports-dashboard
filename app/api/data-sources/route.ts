@@ -341,7 +341,7 @@ export async function GET() {
 
   // Understat is only critical if BOTH live API AND file cache are broken
   const understatLive = sources.find((s) => s.name === "Understat xG (Live API)");
-  const understatCache = sources.find((s) => s.name === "Understat xG (File Cache)");
+  const understatCache = sources.find((s) => s.name === "Understat xG (Cached Data)");
   const understatFullyDown = understatLive?.status !== "healthy" &&
     (understatCache?.status === "broken" || understatCache?.status === "missing");
 
