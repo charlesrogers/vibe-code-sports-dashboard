@@ -96,6 +96,7 @@ interface Pick {
   activeSignals?: string[];
   isPostBreak?: boolean;
   isDerby?: boolean;
+  seasonMatchday?: number;
 }
 
 interface PicksSummary {
@@ -190,6 +191,15 @@ function InjuryBadge({ severity, team, summary, totalOut }: { severity: string; 
       <span className="ml-1 capitalize">({severity})</span>
       <div className="text-zinc-500 mt-0.5 truncate">{summary}</div>
     </div>
+  );
+}
+
+function LateSeasonBadge({ matchday }: { matchday: number }) {
+  if (!matchday || matchday <= 29) return null;
+  return (
+    <span className="inline-block rounded px-1.5 py-0.5 text-[9px] font-bold border border-amber-300 bg-amber-900/50 text-amber-400 dark:border-amber-600">
+      Late Season (GW {matchday})
+    </span>
   );
 }
 
@@ -464,6 +474,7 @@ function PickCard({ pick, onLogBet, loggingId, isLogged, clvLookup }: PickCardPr
               Derby
             </span>
           )}
+          <LateSeasonBadge matchday={pick.seasonMatchday ?? 0} />
         </div>
         <span className="text-xs text-zinc-600">{timeStr}</span>
       </div>

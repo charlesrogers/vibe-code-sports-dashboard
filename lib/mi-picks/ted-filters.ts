@@ -52,7 +52,7 @@ export const DEFAULT_TED_CONFIG: TedFilterConfig = {
   minEdge: 0.07,
   noDraws: true,
   internationalBreakFilter: false,
-  skipLateMatchdays: 29,  // backtest: GW 30+ has -1.3% ROI vs +14-16% for GW 6-29 (p=0.005)
+  skipLateMatchdays: 0,  // display-only: backtest shows GW 30+ = -1.3% ROI, but user decides
 };
 
 export interface TedFilterResult {

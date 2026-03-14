@@ -128,6 +128,7 @@ export interface Pick {
   activeSignals?: string[];
   isPostBreak?: boolean;
   isDerby?: boolean;
+  seasonMatchday?: number;
 }
 
 export interface PicksSummary {
@@ -864,6 +865,7 @@ export async function generatePicks(
         activeSignals: activeSignals.length > 0 ? activeSignals : undefined,
         isPostBreak: isPostInternationalBreak(matchDate) || undefined,
         isDerby: checkDerby(homeTeam, awayTeam, league.id) || undefined,
+        seasonMatchday: seasonMatchdayCount + 1,
       });
     }
 
