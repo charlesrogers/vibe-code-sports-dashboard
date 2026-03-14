@@ -27,6 +27,7 @@ export interface PaperBet {
   confidenceGrade: "A" | "B" | "C" | null;
   bestBook?: string;       // book offering best odds at time of logging
   bestBookOdds?: number;   // odds at that book (pre-slippage)
+  kickoffTime?: string;   // ISO timestamp from odds API commence_time
   oddsTimestamp?: string;
   evalWindow?: number;
   status: BetStatus;

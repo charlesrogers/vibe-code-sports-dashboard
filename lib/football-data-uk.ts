@@ -217,7 +217,7 @@ const SEASON_CODES: Record<string, string> = {
   "2018-19": "1819",
 };
 
-export type League = "serieA" | "serieB" | "epl" | "championship" | "laLiga" | "bundesliga" | "ligue1" | "serie-a" | "la-liga";
+export type League = "serieA" | "serieB" | "epl" | "championship" | "laLiga" | "bundesliga" | "ligue1" | "serie-a" | "la-liga" | "serie-b" | "ligue-1";
 
 const LEAGUE_FILES: Record<string, string> = {
   serieA: "I1",
@@ -229,6 +229,8 @@ const LEAGUE_FILES: Record<string, string> = {
   "la-liga": "SP1",
   bundesliga: "D1",
   ligue1: "F1",
+  "serie-b": "I2",
+  "ligue-1": "F1",
 };
 
 export async function fetchMatchesWithOdds(season: string, league: League = "serieA"): Promise<MatchWithOdds[]> {

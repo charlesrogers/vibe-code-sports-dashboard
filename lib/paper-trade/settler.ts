@@ -23,6 +23,9 @@ const LEAGUE_MAP: Record<string, League> = {
   "serie-a": "serie-a",
   bundesliga: "bundesliga",
   championship: "championship",
+  "serie-b": "serie-b",
+  "ligue-1": "ligue-1",
+  // UCL: Fotmob-only (football-data.co.uk doesn't cover European competitions)
 };
 
 /** Fotmob league IDs for real-time results */
@@ -32,6 +35,9 @@ const FOTMOB_LEAGUE_IDS: Record<string, number> = {
   "serie-a": 55,
   "la-liga": 87,
   bundesliga: 54,
+  "serie-b": 86,
+  "ligue-1": 53,
+  ucl: 42,
 };
 
 interface MatchResult {

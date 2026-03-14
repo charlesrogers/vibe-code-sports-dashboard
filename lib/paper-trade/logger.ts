@@ -66,6 +66,7 @@ export async function logPicks(
         id,
         createdAt: new Date().toISOString(),
         matchDate: pick.date,
+        kickoffTime: pick.kickoff,
         league: pick.league,
         homeTeam: pick.homeTeam,
         awayTeam: pick.awayTeam,

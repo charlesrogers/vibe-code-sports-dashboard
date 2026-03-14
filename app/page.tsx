@@ -53,6 +53,7 @@ interface PaperBet {
   clv?: number;
   bestBook?: string;
   bestBookOdds?: number;
+  kickoffTime?: string;
 }
 
 function fmtPct(v: number): string {
@@ -100,6 +101,21 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => { loadData(); }, [loadData]);
+
+  // Lazy settle: auto-trigger settlement when finished matches exist
+  useEffect(() => {
+    if (loading || bets.length === 0) return;
+    const now = Date.now();
+    const threeHours = 3 * 60 * 60 * 1000;
+    const needsSettle = bets.some(
+      b => b.status === "pending" && b.kickoffTime && (now - new Date(b.kickoffTime).getTime()) > threeHours
+    );
+    if (needsSettle && !settling) {
+      console.log("[dashboard] Auto-settling finished matches...");
+      triggerSettle();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, bets]);
 
   const triggerLog = async () => {
     setLogging(true);
