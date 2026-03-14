@@ -33,13 +33,13 @@ export interface BenterWeights {
 }
 
 export const BENTER_WEIGHTS: Record<string, BenterWeights> = {
-  "epl":          { market: 0.85, mi: 0.10, elo: 0.05 },
-  "la-liga":      { market: 0.85, mi: 0.10, elo: 0.05 },
-  "bundesliga":   { market: 0.85, mi: 0.10, elo: 0.05 },
-  "serie-a":      { market: 0.80, mi: 0.13, elo: 0.07 },
-  "serie-b":      { market: 0.60, mi: 0.25, elo: 0.15 },
-  "ligue-1":      { market: 0.60, mi: 0.25, elo: 0.15 },
-  "championship": { market: 0.60, mi: 0.25, elo: 0.15 },
+  "epl":          { market: 0.40, mi: 0.45, elo: 0.15 },
+  "la-liga":      { market: 0.40, mi: 0.45, elo: 0.15 },
+  "bundesliga":   { market: 0.40, mi: 0.45, elo: 0.15 },
+  "serie-a":      { market: 0.40, mi: 0.45, elo: 0.15 },
+  "serie-b":      { market: 0.40, mi: 0.45, elo: 0.15 },
+  "ligue-1":      { market: 0.40, mi: 0.45, elo: 0.15 },
+  "championship": { market: 0.40, mi: 0.45, elo: 0.15 },
 };
 
 export function getBenterWeights(leagueId: string): BenterWeights {

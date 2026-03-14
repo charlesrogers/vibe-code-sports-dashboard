@@ -177,6 +177,51 @@
       "sourceHypothesis": "H06",
       "testType": "filter-intersection",
       "notes": "Rare filter — few teams qualify simultaneously. May not reach significance (<50 bets over 3 seasons). If N is too small, mark as inconclusive rather than rejected. Ted described this pattern explicitly for Wrexham/Ipswich/Southampton/Leicester in Mar 2026."
+    },
+    {
+      "id": "benter-boost-1x2",
+      "registered": "2026-03-14",
+      "hypothesis": "Blending MI model probs with 40% devigged closing market odds improves 1X2 ROI by filtering to higher-quality bets (Benter method — market signal enters twice: once in solver KL-divergence, once in output reweighting)",
+      "metric": "backtest ROI delta vs pure MI model (--ted --markets=sides --max-odds=2.5)",
+      "threshold": "+1pp ROI with acceptable hit rate (>50%)",
+      "status": "testing",
+      "result": "+4.3% ROI (889 bets) vs +2.4% baseline (1456 bets). Hit rate dropped 52.6% → 50.5%. Profit +38.1u vs +34.9u. 85% market weight (Mack's rec) destroys edge — CLV collapses to +5.1% with only 3 bets. 40% is the sweet spot.",
+      "sourceHypothesis": "Mack's Benter Boost recommendation",
+      "testType": "model-architecture",
+      "backtestStats": {
+        "standaloneROI": 0.043,
+        "standaloneCLV": 0.073,
+        "standaloneN": 889,
+        "testedAt": "2026-03-14"
+      },
+      "notes": "MI model already extracts market signal via KL-divergence minimization. Double-counting at 85% makes model = market (no edge). 40% preserves model signal while adding calibration. Market weight sweep: 10%→+2.1%, 20%→+1.5%, 30%→+2.2%, 40%→+4.3%, 50%→+0.8%. Next: bootstrap significance test."
+    },
+    {
+      "id": "benter-boost-ah",
+      "registered": "2026-03-14",
+      "hypothesis": "Blending MI model AH probs with 40% devigged closing AH odds improves AH ROI",
+      "metric": "backtest ROI delta for AH bets (--ted --markets=ah --max-odds=2.0)",
+      "threshold": "+1pp ROI",
+      "status": "rejected",
+      "result": "+2.7% ROI (452 bets) vs +3.1% baseline (725 bets). Worse across all edge thresholds. Hit rate dropped 54.2% → 51.8%. AH market already efficient enough that blending adds noise, not signal.",
+      "sourceHypothesis": "Mack's Benter Boost recommendation",
+      "testType": "model-architecture",
+      "backtestStats": {
+        "standaloneROI": 0.027,
+        "standaloneCLV": 0.072,
+        "standaloneN": 452,
+        "testedAt": "2026-03-14"
+      }
+    },
+    {
+      "id": "benter-boost-1x2-bootstrap",
+      "registered": "2026-03-14",
+      "hypothesis": "Benter Boost at 40% market weight for 1X2-only bets produces statistically significant ROI improvement over baseline (not just noise from fewer bets)",
+      "metric": "Bootstrap p-value for ROI difference (Benter 40% vs baseline)",
+      "threshold": "p < 0.10",
+      "status": "pending",
+      "testType": "significance",
+      "notes": "Run: npx tsx scripts/backtest-eval.ts --ted --markets=1x2 --max-odds=2.5 --benter --market-weight=0.40 --bootstrap. If significant, deploy Benter for 1X2 value bets only (not AH)."
     }
   ]
 }
