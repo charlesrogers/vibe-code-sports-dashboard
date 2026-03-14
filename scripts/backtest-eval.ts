@@ -76,6 +76,10 @@ const intlBreakFilter = hasFlag("intl-break");
 const calibrate = hasFlag("calibrate");
 const calibrateShrink = getArg("calibrate-shrink") ? parseFloat(getArg("calibrate-shrink")!) : 0.90;
 
+// ─── Mack Diagnostics ─────────────────────────────────────────────────────
+const showCalibration = hasFlag("calibration");
+const byGameweek = hasFlag("by-gameweek");
+
 // ─── Benter Boost ────────────────────────────────────────────────────────
 // Blend MI model probs with devigged market odds using per-league weights
 // --benter                    Uses per-league defaults from league-config
@@ -212,6 +216,7 @@ interface BetRecord {
   clv: number; closingOdds: number;
   homeGoals: number; awayGoals: number; totalGoals: number;
   won: boolean; profit: number;
+  matchday: number; // season matchday count (1-based)
 }
 
 // ─── Load solver snapshots from cache ───────────────────────────────────────
@@ -579,6 +584,7 @@ for (const league of cachedLeagues) {
               clv, closingOdds: s.odds,
               homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals,
               won: s.won, profit: s.won ? s.odds - 1 : -1,
+              matchday: seasonMatchdayCount,
             });
             leagueBets++;
           }
@@ -625,6 +631,7 @@ for (const league of cachedLeagues) {
               clv, closingOdds: s.odds,
               homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals,
               won, profit: push ? 0 : won ? s.odds - 1 : -1,
+              matchday: seasonMatchdayCount,
             });
             leagueBets++;
           }
@@ -655,6 +662,7 @@ for (const league of cachedLeagues) {
               clv, closingOdds: s.odds,
               homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals,
               won: s.won, profit: s.won ? s.odds - 1 : -1,
+              matchday: seasonMatchdayCount,
             });
             leagueBets++;
           }
@@ -811,6 +819,96 @@ for (const season of seasons) {
   const s = summarize(sb);
   if (s.n < 10) continue;
   console.log(`  ${season.padEnd(12)} n=${String(s.n).padStart(4)}  CLV=${fmtPct(s.clv).padStart(7)}  ROI=${fmtPct(s.roi).padStart(7)}  hit=${(s.hitRate * 100).toFixed(1).padStart(5)}%  odds=${s.avgOdds.toFixed(2)}`);
+}
+
+// ─── By Gameweek ────────────────────────────────────────────────────────────
+
+if (byGameweek) {
+  console.log(`\n  ─── BY GAMEWEEK (sides no draw, edge >= ${(reportEdge * 100).toFixed(0)}%) ────────────────────\n`);
+  console.log("  Gameweek     Bets     CLV       ROI      Hit%    Avg Odds   Profit");
+  console.log("  " + "─".repeat(68));
+
+  const gwBuckets: [number, number, string][] = [
+    [1, 5, "GW 1-5"],
+    [6, 10, "GW 6-10"],
+    [11, 19, "GW 11-19"],
+    [20, 29, "GW 20-29"],
+    [30, 99, "GW 30+"],
+  ];
+
+  for (const [lo, hi, label] of gwBuckets) {
+    const f = sidesNoDraw.filter(b => b.matchday >= lo && b.matchday <= hi);
+    const s = summarize(f);
+    if (s.n === 0) continue;
+    console.log(
+      `  ${label.padStart(9)}    ${String(s.n).padStart(5)}   ${fmtPct(s.clv).padStart(7)}   ${fmtPct(s.roi).padStart(7)}   ${(s.hitRate * 100).toFixed(1).padStart(5)}%   ${s.avgOdds.toFixed(2).padStart(6)}   ${s.profit >= 0 ? "+" : ""}${s.profit.toFixed(1).padStart(7)}u`
+    );
+  }
+}
+
+// ─── Calibration Histogram ──────────────────────────────────────────────────
+
+if (showCalibration) {
+  console.log(`\n  ─── CALIBRATION HISTOGRAM (all bets, edge >= ${(reportEdge * 100).toFixed(0)}%) ──────────────────\n`);
+  console.log("  Predicted     Bets    Actual    Bias     Direction");
+  console.log("  " + "─".repeat(55));
+
+  const calBuckets = Array.from({ length: 10 }, () => ({ count: 0, predSum: 0, wins: 0 }));
+  for (const b of filtered) {
+    const idx = Math.min(9, Math.floor(b.modelProb * 10));
+    calBuckets[idx].count++;
+    calBuckets[idx].predSum += b.modelProb;
+    if (b.won) calBuckets[idx].wins++;
+  }
+
+  let totalBias = 0;
+  let totalBiasCount = 0;
+  for (let i = 0; i < 10; i++) {
+    const c = calBuckets[i];
+    if (c.count < 5) continue;
+    const meanPred = c.predSum / c.count;
+    const actualRate = c.wins / c.count;
+    const bias = actualRate - meanPred;
+    totalBias += bias * c.count;
+    totalBiasCount += c.count;
+    const dir = bias > 0.02 ? "UNDER-conf" : bias < -0.02 ? "OVER-conf" : "OK";
+    console.log(
+      `  ${((i * 10) + "–" + ((i + 1) * 10) + "%").padStart(9)}    ${String(c.count).padStart(5)}   ${(actualRate * 100).toFixed(1).padStart(5)}%   ${(bias > 0 ? "+" : "") + (bias * 100).toFixed(1).padStart(5)}%    ${dir}`
+    );
+  }
+
+  const mace = totalBiasCount > 0
+    ? calBuckets.reduce((sum, c) => {
+        if (c.count < 5) return sum;
+        const meanPred = c.predSum / c.count;
+        const actualRate = c.wins / c.count;
+        return sum + Math.abs(actualRate - meanPred) * c.count;
+      }, 0) / totalBiasCount
+    : 0;
+  const meanBias = totalBiasCount > 0 ? totalBias / totalBiasCount : 0;
+
+  console.log(`\n  Mean Absolute Calibration Error (MACE): ${(mace * 100).toFixed(1)}%`);
+  console.log(`  Directional bias: ${meanBias > 0 ? "+" : ""}${(meanBias * 100).toFixed(1)}% (${meanBias > 0.01 ? "model UNDER-confident — actual hit rate exceeds predictions" : meanBias < -0.01 ? "model OVER-confident — predictions exceed actual hit rate" : "well-calibrated"})`);
+}
+
+// ─── CLV by League × Edge Bucket ────────────────────────────────────────────
+
+{
+  console.log(`\n  ─── CLV BY LEAGUE × EDGE BUCKET ──────────────────────────────────\n`);
+  const lids = cachedLeagues.map(l => l.id);
+  const lColWidth = 10;
+  console.log("  " + "".padEnd(12) + lids.map(l => l.toUpperCase().padStart(lColWidth)).join("") + "OVERALL".padStart(lColWidth));
+  console.log("  " + "─".repeat(12 + (lids.length + 1) * lColWidth));
+
+  for (const [lo, hi, label] of edgeBuckets) {
+    let line = "  " + label.padEnd(12);
+    for (const lid of [...lids, "ALL"]) {
+      const subset = allBets.filter(b => b.clv >= lo && b.clv < hi && (lid === "ALL" || b.league === lid));
+      const s = summarize(subset);
+      line += (s.n > 0 ? `${fmtPct(s.clv)}(${s.n})` : "—").padStart(lColWidth);
+    }
+    console.log(line);
+  }
 }
 
 // ─── Odds distribution ──────────────────────────────────────────────────────

@@ -247,7 +247,7 @@
       "status": "pending",
       "sourceHypothesis": "Mack critique",
       "testType": "meta-signal",
-      "notes": "Stability matrix already shows CLV per league but only for 4 main leagues. Need to add Serie B + Championship data to backtest. If confirmed, implies betting more where the market is softer — not just adjusting model weights. Current data: EPL +9.2%, La Liga +9.8%, Bundesliga +9.1%, Serie A +9.1% — surprisingly similar among top leagues."
+      "notes": "Tested on 4 top leagues: CLV by league × edge bucket shows nearly identical curves (EPL, La Liga, Bundesliga, Serie A all within 0.5pp at every edge level). No soft market effect among top leagues. CANNOT reject or accept until Serie B/Championship solver caches are built. The hypothesis specifically predicts softer leagues have higher CLV — top leagues may all be similarly efficient."
     },
     {
       "id": "elo-ablation",
@@ -277,10 +277,12 @@
       "hypothesis": "The model may have systematic overconfidence or underconfidence bias. If predicted probabilities are off by 5%+, Kelly sizing will be wrong even with positive CLV — the model stakes too much on marginal bets.",
       "metric": "Calibration histogram (predicted prob buckets vs actual win rate), mean absolute calibration error, directional bias",
       "threshold": "Mean absolute calibration error < 3% (well-calibrated), or identify scalar correction factor",
-      "status": "pending",
+      "status": "accepted",
+      "testedAt": "2026-03-14",
       "sourceHypothesis": "Mack critique",
       "testType": "calibration",
-      "notes": "Calibration buckets already computed in lib/backtest/evaluator.ts (10 bins, 0-100%) but NEVER PRINTED to console. Cheapest win — just surface the existing computation. --calibrate flag and tune-calibration.ts script also exist but focus on shrinkage, not bias detection."
+      "result": "CONFIRMED: Model is systematically OVER-CONFIDENT by 6.9%. MACE=6.9% (fails <3% threshold). Every probability bucket shows actual hit rate below predicted: 50-60% bucket predicts 56% but hits 50.3% (-5.9%), 60-70% predicts 65% but hits 56.0% (-7.4%), 70-80% predicts 74% but hits 66.1% (-7.4%). With Kelly sizing this would cause systematic overbetting on marginal bets. A scalar correction of ~0.93x on predicted probabilities would partially fix this.",
+      "notes": "Mack was right — calibration isn't a dashboard feature, it's a bet-sizing input. Next steps: (1) apply scalar correction to model probs, (2) re-run backtest to measure ROI impact, (3) integrate into picks-engine if positive. The --calibrate flag with shrinkage already exists but uses a different mechanism (shrink toward uninformative prior)."
     },
     {
       "id": "timing-gameweek-clv",
@@ -288,10 +290,12 @@
       "hypothesis": "CLV varies by gameweek range due to known distortion windows: early season (team strength uncertain, market relies on stale priors), post-transfer window (squad changes not reflected), manager changes (market over/underreacts), fixture congestion (rotation). Betting more aggressively in high-CLV windows improves ROI.",
       "metric": "CLV by gameweek bucket (GW 1-5, 6-10, 11-19, 20-29, 30+)",
       "threshold": "At least one bucket has CLV > 1.5x the overall mean (actionable timing edge)",
-      "status": "pending",
+      "status": "accepted",
+      "testedAt": "2026-03-14",
       "sourceHypothesis": "Mack critique",
       "testType": "filter",
-      "notes": "Matchday tracking already exists via --skip-early=N and seasonMatchdayCount in backtest-eval.ts. Need to add gameweek bucketing output. The --skip-early=5 filter already captures some of this, but we don't know if later windows are also distorted."
+      "result": "CONFIRMED: Massive late-season collapse. GW 6-10: +8.8% ROI (n=57). GW 11-19: +14.4% ROI (n=123). GW 20-29: +16.0% ROI (n=118). GW 30+: -1.3% ROI (n=867). CLV is flat across all windows (~9.1%), but ROI diverges wildly. 60% of bets fall in GW 30+ where the model breaks even. Mid-season (GW 11-29) is the sweet spot: +15.1% ROI on 241 bets vs -1.3% on 867 late-season bets.",
+      "notes": "CLV doesn't vary by gameweek (all ~9.1%), so the model identifies value consistently. But ROI collapses late season — this suggests late-season variance is higher (dead rubbers, rotation, motivation asymmetry). Actionable: either filter out GW 30+ or reduce stake size. This alone could flip overall ROI from +2.4% to much higher. Needs bootstrap significance test on the GW 30+ subset."
     }
   ]
 }
