@@ -226,6 +226,72 @@
       "result": "i.i.d. bootstrap p=0.093 (barely <0.10) but 95% CI [-2.1%, +10.5%] includes zero. Block bootstrap p=0.118 (>0.10), CI [-2.7%, +11.4%]. Permutation p=0.097. DSR verdict: WEAK. Baseline comparison: p=0.182, CI [-2.7%, +7.4%] — also not significant. Neither variant's ROI is distinguishable from noise. Benter trades higher ROI (+4.3% vs +2.4%) for lower CLV (+7.3% vs +9.3%) and 39% fewer bets (889 vs 1456).",
       "testedAt": "2026-03-14",
       "notes": "Do not deploy Benter Boost for 1X2. The ROI improvement is not statistically significant — CI includes zero and block bootstrap fails p<0.10. The baseline itself isn't significant either (p=0.182), suggesting 1X2 ROI in general needs more data or better filters."
+    },
+    {
+      "id": "zip-zero-inflation",
+      "registered": "2026-03-14",
+      "hypothesis": "Soccer produces more zeros than standard Poisson predicts due to structural suppression (defensive setups, dead rubbers, tactical stalemates). Adding a zero-inflation parameter to the MI Bivariate Poisson solver improves Brier score on totals markets. ZIP fixes the marginal goal distribution — different from Dixon-Coles tau which fixes correlation structure.",
+      "metric": "Brier score delta (ZIP vs standard Poisson) on O/U 2.5 markets",
+      "threshold": "Lower Brier score with ZIP (any improvement)",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "model-architecture",
+      "notes": "ZIP ≠ DC tau correction. Tau fixes correlation between home/away goals in low-scoring games. ZIP fixes the marginal distribution itself. Need both. Requires new solver variant with p_zero parameter. Test on totals markets specifically — that's where wrong goal distribution hurts most."
+    },
+    {
+      "id": "soft-market-clv-by-league",
+      "registered": "2026-03-14",
+      "hypothesis": "CLV varies significantly by league market efficiency. Softer markets (Serie B, Championship) yield 2-3x the CLV of sharp markets (EPL) because the market is further from the prediction ceiling. This is not a weighting adjustment — it's a capital allocation decision.",
+      "metric": "CLV per league at edge >= 5%, tested across all available leagues including Serie B and Championship",
+      "threshold": "At least one league has CLV > 2x the lowest-CLV league",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "meta-signal",
+      "notes": "Stability matrix already shows CLV per league but only for 4 main leagues. Need to add Serie B + Championship data to backtest. If confirmed, implies betting more where the market is softer — not just adjusting model weights. Current data: EPL +9.2%, La Liga +9.8%, Bundesliga +9.1%, Serie A +9.1% — surprisingly similar among top leagues."
+    },
+    {
+      "id": "elo-ablation",
+      "registered": "2026-03-14",
+      "hypothesis": "Elo uses W/L/D outcomes only — a strict subset of what Dixon-Coles already sees (goals). Adding Elo to the MI+DC ensemble may dilute signal rather than add orthogonal information. Ensembles only work if models contribute information no individual model knows.",
+      "metric": "Out-of-sample log loss and CLV: MI+DC vs MI+DC+Elo",
+      "threshold": "MI+DC+Elo must improve log loss by > 0.005 to justify inclusion",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "model-architecture",
+      "notes": "Elo currently always included at 20% weight in ensemble (lib/mi-picks/picks-engine.ts). No --no-elo flag exists. Need to add ablation flag and run A/B test. If Elo hurts or is neutral, remove it to simplify ensemble and strengthen MI+DC signal."
+    },
+    {
+      "id": "empirical-market-efficiency",
+      "registered": "2026-03-14",
+      "hypothesis": "Market efficiency can be measured per league by regressing final match margin against model spread and Pinnacle spread separately. The regression slope coefficients empirically calibrate Benter weights instead of hand-tuning. A slope near 1.0 = well-calibrated market, <1.0 = overconfident market, >1.0 = underconfident.",
+      "metric": "R² and slope coefficients per league (model spread vs Pinnacle spread), coefficient variance across leagues",
+      "threshold": "Slope coefficients differ meaningfully across leagues (range > 0.15)",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "calibration",
+      "notes": "Current Benter weights are hardcoded in lib/mi-picks/league-config.ts (all leagues same: Market 40%, MI 45%, Elo 15%). Mack's method: one regression per league calibrates all weights at once. Requires new script — zero existing margin regression infrastructure."
+    },
+    {
+      "id": "calibration-systematic-bias",
+      "registered": "2026-03-14",
+      "hypothesis": "The model may have systematic overconfidence or underconfidence bias. If predicted probabilities are off by 5%+, Kelly sizing will be wrong even with positive CLV — the model stakes too much on marginal bets.",
+      "metric": "Calibration histogram (predicted prob buckets vs actual win rate), mean absolute calibration error, directional bias",
+      "threshold": "Mean absolute calibration error < 3% (well-calibrated), or identify scalar correction factor",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "calibration",
+      "notes": "Calibration buckets already computed in lib/backtest/evaluator.ts (10 bins, 0-100%) but NEVER PRINTED to console. Cheapest win — just surface the existing computation. --calibrate flag and tune-calibration.ts script also exist but focus on shrinkage, not bias detection."
+    },
+    {
+      "id": "timing-gameweek-clv",
+      "registered": "2026-03-14",
+      "hypothesis": "CLV varies by gameweek range due to known distortion windows: early season (team strength uncertain, market relies on stale priors), post-transfer window (squad changes not reflected), manager changes (market over/underreacts), fixture congestion (rotation). Betting more aggressively in high-CLV windows improves ROI.",
+      "metric": "CLV by gameweek bucket (GW 1-5, 6-10, 11-19, 20-29, 30+)",
+      "threshold": "At least one bucket has CLV > 1.5x the overall mean (actionable timing edge)",
+      "status": "pending",
+      "sourceHypothesis": "Mack critique",
+      "testType": "filter",
+      "notes": "Matchday tracking already exists via --skip-early=N and seasonMatchdayCount in backtest-eval.ts. Need to add gameweek bucketing output. The --skip-early=5 filter already captures some of this, but we don't know if later windows are also distorted."
     }
   ]
 }
