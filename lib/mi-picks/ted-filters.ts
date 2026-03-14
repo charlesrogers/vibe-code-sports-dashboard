@@ -38,6 +38,7 @@ export interface TedFilterConfig {
   minEdge: number;               // min CLV edge (default 0.07)
   noDraws: boolean;              // exclude draw bets (default true)
   internationalBreakFilter: boolean; // skip post-international-break matchdays (default false)
+  skipLateMatchdays: number;  // skip matchdays after this threshold (0 = off)
 }
 
 export const DEFAULT_TED_CONFIG: TedFilterConfig = {
@@ -51,11 +52,12 @@ export const DEFAULT_TED_CONFIG: TedFilterConfig = {
   minEdge: 0.07,
   noDraws: true,
   internationalBreakFilter: false,
+  skipLateMatchdays: 29,  // backtest: GW 30+ has -1.3% ROI vs +14-16% for GW 6-29 (p=0.005)
 };
 
 export interface TedFilterResult {
   pass: boolean;
-  reason: "early_season" | "congestion" | "no_variance" | "defiance" | "international_break" | "low_pass_rate" | null;
+  reason: "early_season" | "late_season" | "congestion" | "no_variance" | "defiance" | "international_break" | "low_pass_rate" | null;
 }
 
 // ─── Team History Builder ───────────────────────────────────────────────────
@@ -191,6 +193,11 @@ export function applyTedFilters(
     return { pass: false, reason: "early_season" };
   }
 
+  // 1b. Skip late season (dead rubbers, rotation, motivation asymmetry)
+  if (config.skipLateMatchdays > 0 && seasonMatchday > config.skipLateMatchdays) {
+    return { pass: false, reason: "late_season" };
+  }
+
   // 2. International break filter
   if (config.internationalBreakFilter && isPostInternationalBreak(matchDate)) {
     return { pass: false, reason: "international_break" };
@@ -227,6 +234,7 @@ export function applyTedFilters(
 export function tedReasonLabel(reason: TedFilterResult["reason"]): string {
   switch (reason) {
     case "early_season": return "Early season — insufficient data";
+    case "late_season": return "Late season — dead rubber window (GW 30+)";
     case "congestion": return "Fixture congestion — team playing 3+ in 8 days";
     case "no_variance": return "No regression candidate — no xG divergence";
     case "defiance": return "Persistent model defiance — structural mismatch";

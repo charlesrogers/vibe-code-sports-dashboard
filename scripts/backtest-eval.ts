@@ -217,7 +217,7 @@ interface BetRecord {
   clv: number; closingOdds: number;
   homeGoals: number; awayGoals: number; totalGoals: number;
   won: boolean; profit: number;
-  matchday: number; // season matchday count (1-based)
+  matchday: number; // season matchday count (1-based, 0 if unknown)
 }
 
 // ─── Load solver snapshots from cache ───────────────────────────────────────
@@ -1070,6 +1070,7 @@ if (bootstrapMode) {
                   clv, closingOdds: s.odds,
                   homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals: totalGoals2,
                   won: s.won, profit: s.won ? s.odds - 1 : -1,
+                  matchday: 0,
                 });
               }
             }
@@ -1100,6 +1101,7 @@ if (bootstrapMode) {
                   clv, closingOdds: s.odds,
                   homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals: totalGoals2,
                   won, profit: push ? 0 : won ? s.odds - 1 : -1,
+                  matchday: 0,
                 });
               }
             }
