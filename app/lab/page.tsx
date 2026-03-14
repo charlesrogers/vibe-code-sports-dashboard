@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import ExperimentBoard from "../components/lab/experiment-board";
 import BacktestViewer from "../components/lab/backtest-viewer";
 import SignalExplorer from "../components/lab/signal-explorer";
+import ReportViewer from "../components/lab/report-viewer";
 
 interface Signal {
   id: string;
@@ -25,7 +26,7 @@ interface Signal {
   };
 }
 
-type Tab = "experiments" | "results" | "signals";
+type Tab = "experiments" | "results" | "signals" | "reports";
 
 export default function LabPage() {
   const [tab, setTab] = useState<Tab>("experiments");
@@ -47,6 +48,7 @@ export default function LabPage() {
     { key: "experiments", label: "Experiments" },
     { key: "results", label: "Results" },
     { key: "signals", label: "Signals" },
+    { key: "reports", label: "Reports" },
   ];
 
   return (
@@ -85,6 +87,9 @@ export default function LabPage() {
           )}
           {tab === "signals" && (
             <SignalExplorer signals={signals} />
+          )}
+          {tab === "reports" && (
+            <ReportViewer />
           )}
         </>
       )}

@@ -29,6 +29,8 @@ export interface LabStorage {
   listExperiments(): Promise<string[]>;
   loadExperiment(id: string): Promise<Record<string, unknown> | null>;
   saveExperiment(id: string, data: Record<string, unknown>): Promise<void>;
+  listReports(): Promise<string[]>;
+  loadReport(name: string): Promise<string | null>;
 }
 
 // ---------------------------------------------------------------------------
@@ -88,6 +90,28 @@ class FileLabStorage implements LabStorage {
     const { join } = require("path");
     if (!existsSync(this.experimentsDir)) mkdirSync(this.experimentsDir, { recursive: true });
     writeFileSync(join(this.experimentsDir, `${id}.json`), JSON.stringify(data, null, 2));
+  }
+
+  async listReports(): Promise<string[]> {
+    const { readdirSync, existsSync } = require("fs");
+    const { join } = require("path");
+    const reportsDir = join(process.cwd(), "data", "reports");
+    if (!existsSync(reportsDir)) return [];
+    return (readdirSync(reportsDir) as string[])
+      .filter((f: string) => f.endsWith(".md"))
+      .map((f: string) => f.replace(".md", ""));
+  }
+
+  async loadReport(name: string): Promise<string | null> {
+    const { readFileSync, existsSync } = require("fs");
+    const { join } = require("path");
+    const filePath = join(process.cwd(), "data", "reports", `${name}.md`);
+    if (!existsSync(filePath)) return null;
+    try {
+      return readFileSync(filePath, "utf-8");
+    } catch {
+      return null;
+    }
   }
 }
 
@@ -159,6 +183,34 @@ class BlobLabStorage implements LabStorage {
 
   async saveExperiment(id: string, data: Record<string, unknown>): Promise<void> {
     await this.writeBlob(`lab/experiments/${id}.json`, data);
+  }
+
+  async listReports(): Promise<string[]> {
+    try {
+      const { list } = await this.getBlobModule();
+      const result = await list({ prefix: "lab/reports/" });
+      return result.blobs
+        .filter(b => b.pathname.endsWith(".md"))
+        .map(b => {
+          const name = b.pathname.split("/").pop() || "";
+          return name.replace(".md", "");
+        });
+    } catch {
+      return [];
+    }
+  }
+
+  async loadReport(name: string): Promise<string | null> {
+    try {
+      const { list } = await this.getBlobModule();
+      const result = await list({ prefix: `lab/reports/${name}.md`, limit: 1 });
+      if (result.blobs.length === 0) return null;
+      const res = await fetch(result.blobs[0].url);
+      if (!res.ok) return null;
+      return await res.text();
+    } catch {
+      return null;
+    }
   }
 }
 
