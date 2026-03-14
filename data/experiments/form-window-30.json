@@ -1,0 +1,54 @@
+{
+  "createdAt": "2026-03-14T11:29:20.070Z",
+  "config": {
+    "leagues": null,
+    "maxOdds": 2,
+    "minEdge": 0.07,
+    "markets": null,
+    "noDraws": true,
+    "tedMode": true,
+    "varianceFilter": true,
+    "congestionFilter": true,
+    "defianceFilter": true,
+    "gkAdjust": false,
+    "reportEdge": 0.05
+  },
+  "summary": {
+    "totalBets": 1211,
+    "roi": 0.0318909991742362,
+    "clv": 0.10955109894275585,
+    "hitRate": 0.5672997522708505,
+    "profit": 38.62000000000003,
+    "avgOdds": 1.8340792733278326
+  },
+  "byLeague": {
+    "epl": {
+      "n": 308,
+      "roi": -0.015162337662337662,
+      "clv": 0.10927215669071905,
+      "hitRate": 0.5324675324675324,
+      "profit": -4.67
+    },
+    "la-liga": {
+      "n": 301,
+      "roi": 0.0809966777408638,
+      "clv": 0.11093812074067673,
+      "hitRate": 0.5980066445182725,
+      "profit": 24.380000000000006
+    },
+    "bundesliga": {
+      "n": 238,
+      "roi": -0.0008403361344537879,
+      "clv": 0.10845400686303155,
+      "hitRate": 0.5546218487394958,
+      "profit": -0.2000000000000015
+    },
+    "serie-a": {
+      "n": 364,
+      "roi": 0.05249999999999991,
+      "clv": 0.10935749610601837,
+      "hitRate": 0.5796703296703297,
+      "profit": 19.109999999999967
+    }
+  }
+}

@@ -142,10 +142,11 @@
       "hypothesis": "Using a rolling last-10 window for xGD inputs produces better CLV than an expanding full-season window. Recent form captures tactical shifts and personnel changes that full-season averages dilute.",
       "metric": "CLV delta: rolling-10 xGD model vs expanding-window model",
       "threshold": "+0.5pp CLV for rolling window",
-      "status": "pending",
+      "status": "rejected",
+      "result": "CLV stable at ~11.0% across ALL windows (6/8/10/15/30/expanding). No CLV delta. ROI varies: N=6 +4.2% (939 bets), N=10 +2.9% (1092 bets), N=15 +3.3% (1162 bets). Expanding = identical to rolling-10. Window size affects selectivity (bet count) not edge quality (CLV). Default N=10 kept — good balance of volume and ROI.",
       "sourceHypothesis": "H17",
       "testType": "model-architecture",
-      "notes": "Ted frequently cites 'last 10' trends. Test windows: last 6, 8, 10, 15, full season. The solver currently uses full season — this would change data-prep inputs."
+      "notes": "Sweep completed 2026-03-14. N=6 most selective (highest ROI per bet) but fewer opportunities. No window provides CLV improvement over default."
     },
     {
       "id": "edge-sizing-curve",
@@ -246,10 +247,12 @@
       "hypothesis": "CLV varies significantly by league market efficiency. Softer markets (Serie B, Championship) yield 2-3x the CLV of sharp markets (EPL) because the market is further from the prediction ceiling. This is not a weighting adjustment — it's a capital allocation decision.",
       "metric": "CLV per league at edge >= 5%, tested across all available leagues including Serie B and Championship",
       "threshold": "At least one league has CLV > 2x the lowest-CLV league",
-      "status": "pending",
+      "status": "rejected",
+      "testedAt": "2026-03-14",
       "sourceHypothesis": "Mack critique",
       "testType": "meta-signal",
-      "notes": "Tested on 4 top leagues: CLV by league × edge bucket shows nearly identical curves (EPL, La Liga, Bundesliga, Serie A all within 0.5pp at every edge level). No soft market effect among top leagues. CANNOT reject or accept until Serie B/Championship solver caches are built. The hypothesis specifically predicts softer leagues have higher CLV — top leagues may all be similarly efficient."
+      "result": "Serie B solver cache generated (5 seasons). CLV across all leagues: EPL ~10.5%, La Liga ~11.1%, Bundesliga ~10.4%, Serie A ~10.8%, Serie B ~11.1%. No league has 2x CLV of another — all within 1pp. Serie B AH market shows strong ROI (+14.7% away, +11.5% home) but CLV is comparable to top leagues. Soft market effect is in ROI (bookmaker vig/liquidity) not in model edge (CLV). Championship still untested.",
+      "notes": "The hypothesis confuses two things: (1) model edge (CLV) which is similar across leagues, and (2) conversion of edge to profit (ROI) which varies by market liquidity/vig. Serie B AH is profitable not because the model has more edge, but because the odds offered are less efficient at pricing in that edge."
     },
     {
       "id": "elo-ablation",
@@ -285,8 +288,8 @@
       "testedAt": "2026-03-14",
       "sourceHypothesis": "Mack critique",
       "testType": "calibration",
-      "result": "CONFIRMED: Model is systematically OVER-CONFIDENT by 6.9%. MACE=6.9% (fails <3% threshold). Every probability bucket shows actual hit rate below predicted: 50-60% bucket predicts 56% but hits 50.3% (-5.9%), 60-70% predicts 65% but hits 56.0% (-7.4%), 70-80% predicts 74% but hits 66.1% (-7.4%). With Kelly sizing this would cause systematic overbetting on marginal bets. A scalar correction of ~0.93x on predicted probabilities would partially fix this.",
-      "notes": "Mack was right — calibration isn't a dashboard feature, it's a bet-sizing input. Next steps: (1) apply scalar correction to model probs, (2) re-run backtest to measure ROI impact, (3) integrate into picks-engine if positive. The --calibrate flag with shrinkage already exists but uses a different mechanism (shrink toward uninformative prior)."
+      "result": "CONFIRMED: Model is systematically OVER-CONFIDENT by 6.9%. MACE=6.9% (fails <3% threshold). However, scalar correction HURTS performance. Shrink=0.85: CLV 10.4% (663 bets), 0.90: CLV 10.7% (775), 0.93: CLV 10.8% (844), 0.95: CLV 10.8% (912). Baseline (no shrink): CLV 11.0% (1092 bets). Every shrinkage value reduces CLV and bet volume. The overconfidence is real but correcting it via uniform-prior shrinkage doesn't help — the model's edge comes from its extreme probability estimates, and dampening them also dampens the signal.",
+      "notes": "Scalar correction tested 2026-03-14. Diagnosis was correct (6.9% overconfident) but the fix is counterproductive. The model's value comes from being confidently wrong in the right direction — shrinking toward uniform kills the bets that actually have edge. May need a different calibration approach (e.g., isotonic regression) rather than uniform shrinkage."
     },
     {
       "id": "timing-gameweek-clv",

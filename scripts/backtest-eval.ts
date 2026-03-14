@@ -113,7 +113,9 @@ const noElo = hasFlag("no-elo");           // exclude Elo from ensemble (MI+DC o
 const venueXgd = hasFlag("venue-xgd");     // use Understat per-match xG instead of MI lambdas
 
 // Variance filter config
-const VARIANCE_LOOKBACK = 10;      // last N matches per team
+const VARIANCE_LOOKBACK = 10;      // default last N matches per team
+const lookbackN = getArg("lookback") ? parseInt(getArg("lookback")!) : VARIANCE_LOOKBACK;
+const windowMode = getArg("window-mode") ?? "rolling";  // "rolling" (trim to N) or "expanding" (keep all, require N min)
 const VARIANCE_MIN_GAP = 3.0;      // min goals gap (xG vs actual) to qualify as regression candidate
 const DEFIANCE_STREAK = 10;        // if model disagrees with results for 10+ matches, skip
 
@@ -124,6 +126,7 @@ const LEAGUES = [
   { id: "serie-a", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
   { id: "ligue-1", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
   { id: "championship", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
+  { id: "serie-b", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
 ];
 
 const TEST_SEASON_START = "2022";
@@ -297,6 +300,7 @@ if (calibrate) console.log(`  Calibration shrinkage: ${calibrateShrink} (${((1 -
 if (benterMode) console.log(`  BENTER BOOST: ON (market weight: ${benterMarketWeight != null ? (benterMarketWeight * 100).toFixed(0) + '%' : 'per-league defaults'})`);
 if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
+console.log(`  Lookback: ${lookbackN} matches (${windowMode} window)`);
 if (ensembleMode) console.log(`  ENSEMBLE: MI + DC${noElo ? '' : ' + Elo'} (equal-weighted consensus)`);
 if (venueXgd) console.log(`  VENUE xGD: using Understat per-match xG (home/away splits) in variance filter`);
 if (skipLateN > 0) console.log(`  LATE-SEASON FILTER: skip matchdays > ${skipLateN}`);
@@ -491,9 +495,11 @@ for (const league of cachedLeagues) {
     }
     hh.matches.push({ date: m.date, expectedGF: expHome, actualGF: m.homeGoals, expectedGA: expAway, actualGA: m.awayGoals });
     ah.matches.push({ date: m.date, expectedGF: expAway, actualGF: m.awayGoals, expectedGA: expHome, actualGA: m.homeGoals });
-    // Trim to lookback
-    if (hh.matches.length > VARIANCE_LOOKBACK) hh.matches.shift();
-    if (ah.matches.length > VARIANCE_LOOKBACK) ah.matches.shift();
+    // Trim to lookback (rolling mode only)
+    if (windowMode === "rolling") {
+      if (hh.matches.length > lookbackN) hh.matches.shift();
+      if (ah.matches.length > lookbackN) ah.matches.shift();
+    }
   }
 
   // Helper: update team history after each match (model pred vs actual)
@@ -531,8 +537,10 @@ for (const league of cachedLeagues) {
       expectedGA: expHome,
       actualGA: m.homeGoals,
     });
-    if (hh.matches.length > VARIANCE_LOOKBACK) hh.matches.shift();
-    if (ah.matches.length > VARIANCE_LOOKBACK) ah.matches.shift();
+    if (windowMode === "rolling") {
+      if (hh.matches.length > lookbackN) hh.matches.shift();
+      if (ah.matches.length > lookbackN) ah.matches.shift();
+    }
 
     // Update defiance tracking
     for (const [team, expG, actG] of [
@@ -679,8 +687,8 @@ for (const league of cachedLeagues) {
       if (varianceFilter) {
         const isRegressionCandidate = (team: string): boolean => {
           const hist = getTeamHist(team);
-          if (hist.matches.length < VARIANCE_LOOKBACK) return false;
-          const recent = hist.matches.slice(-VARIANCE_LOOKBACK);
+          if (hist.matches.length < lookbackN) return false;
+          const recent = hist.matches.slice(-lookbackN);
           // Defensive regression: conceding >> xGA (most reliable per Ted)
           const gaGap = recent.reduce((s, m) => s + (m.actualGA - m.expectedGA), 0);
           // Offensive regression: scoring >> xGF
@@ -736,6 +744,16 @@ for (const league of cachedLeagues) {
                 away: models.reduce((s, p) => s + p.away, 0) / models.length,
               };
             }
+          }
+          // Calibration: shrink toward uniform prior to correct overconfidence
+          if (calibrate) {
+            const prior = 1 / 3;
+            const s = calibrateShrink;
+            modelProbs = {
+              home: s * modelProbs.home + (1 - s) * prior,
+              draw: s * modelProbs.draw + (1 - s) * prior,
+              away: s * modelProbs.away + (1 - s) * prior,
+            };
           }
           // Benter Boost: blend model probs with devigged market odds
           if (benterMode && closingMkt) {
