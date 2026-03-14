@@ -129,10 +129,20 @@ Currently deployed signals (5):
 | `pass-rate-filter` | Skip league/market combos with <50% hit rate | Removes losing segments |
 | `injury-lambda` | 0.90x/0.95x lambda adjustment for key absences | Directional improvement |
 
-Pending signals (7) — registered, not yet fully validated:
+Validated calibration findings (not filters — model quality checks):
+| Finding | Result | Date |
+|---------|--------|------|
+| `edge-sizing-curve` | CLV monotonically increases across 6 edge buckets (0-2% → 15%+). Model is well-calibrated. | 2026-03-14 |
+
+Rejected signals (tested, not deployed):
+| Signal | Result | Date |
+|--------|--------|------|
+| `benter-boost-1x2` | +4.3% ROI vs +2.4% baseline but bootstrap CI includes zero (p=0.093/0.118). Not significant. | 2026-03-14 |
+| `benter-boost-ah` | Worse than baseline across all thresholds. AH market too efficient for blending. | 2026-03-14 |
+
+Pending signals (6) — registered, not yet fully validated:
 - `gk-psxg-regression-adj`, `venue-specific-xgd`, `attack-defense-regression-asymmetry`
-- `form-window-rolling-vs-expanding`, `edge-sizing-curve`, `line-movement-filter`
-- `double-variance-intersection`
+- `form-window-rolling-vs-expanding`, `line-movement-filter`, `double-variance-intersection`
 
 ### 2.6 Live Monitoring
 
@@ -235,7 +245,7 @@ Hit rate alone is meaningless (you can achieve 90% hit rate by betting extreme f
 - Does venue-specific xGD (home/away splits) outperform blended? (H16)
 - Do attack and defense regress at different rates? (H05)
 - Is last-10 rolling better than full-season expanding window? (H17)
-- Does edge size predict CLV in a non-linear way? (meta-signal)
+- ~~Does edge size predict CLV in a non-linear way?~~ **ANSWERED**: CLV increases monotonically with edge size across all 6 buckets. Model is well-calibrated. (2026-03-14)
 - Should we skip bets where the line has moved toward us? (H08)
 - Does "double variance" (both attack and defense diverging) compound the signal? (H06)
 

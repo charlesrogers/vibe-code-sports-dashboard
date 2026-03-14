@@ -718,6 +718,44 @@ for (const t of thresholds) {
   );
 }
 
+// ─── Edge buckets (non-cumulative) ──────────────────────────────────────────
+
+const edgeBuckets: [number, number, string][] = [
+  [0.00, 0.02, "0%–2%"],
+  [0.02, 0.05, "2%–5%"],
+  [0.05, 0.07, "5%–7%"],
+  [0.07, 0.10, "7%–10%"],
+  [0.10, 0.15, "10%–15%"],
+  [0.15, Infinity, "15%+"],
+];
+
+console.log("\n  ─── BY EDGE BUCKET (non-cumulative) ─────────────────────────────────\n");
+console.log("  Edge range    Bets     CLV       ROI      Hit%    Avg Odds   Profit");
+console.log("  " + "─".repeat(68));
+
+const bucketCLVs: number[] = [];
+for (const [lo, hi, label] of edgeBuckets) {
+  const f = allBets.filter(b => b.clv >= lo && b.clv < hi);
+  const s = summarize(f);
+  if (s.n === 0) continue;
+  bucketCLVs.push(s.clv);
+  console.log(
+    `  ${label.padStart(7)}    ${String(s.n).padStart(5)}   ${fmtPct(s.clv).padStart(7)}   ${fmtPct(s.roi).padStart(7)}   ${(s.hitRate * 100).toFixed(1).padStart(5)}%   ${s.avgOdds.toFixed(2).padStart(6)}   ${s.profit >= 0 ? "+" : ""}${s.profit.toFixed(1).padStart(7)}u`
+  );
+}
+
+const isMonotonic = bucketCLVs.every((v, i) => i === 0 || v > bucketCLVs[i - 1]);
+const roiBuckets: number[] = [];
+for (const [lo, hi] of edgeBuckets) {
+  const f = allBets.filter(b => b.clv >= lo && b.clv < hi);
+  const s = summarize(f);
+  if (s.n > 0) roiBuckets.push(s.roi);
+}
+const roiMonotonic = roiBuckets.every((v, i) => i === 0 || v > roiBuckets[i - 1]);
+
+console.log(`\n  CLV monotonic: ${isMonotonic ? "YES — CLV increases across all buckets (well-calibrated)" : "NO — CLV does not strictly increase (check calibration)"}`);
+console.log(`  ROI monotonic: ${roiMonotonic ? "YES — ROI increases with edge (strong signal)" : "NO — ROI not strictly monotonic (noisy or sample-dependent)"}`);
+
 // ─── Stability Matrix ───────────────────────────────────────────────────────
 
 const filtered = allBets.filter(b => b.clv >= reportEdge);

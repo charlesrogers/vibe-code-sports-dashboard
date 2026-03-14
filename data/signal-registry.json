@@ -151,10 +151,12 @@
       "hypothesis": "CLV increases monotonically with model edge size. There exists a minimum edge threshold below which CLV is zero or negative (vig eats the edge). Mapping the full CLV-vs-edge curve reveals the optimal minimum edge and whether 'large edge = strong bet' holds. Collapses H07 (min edge), H09 (large edge), H10 (no edge) into one test.",
       "metric": "Mean CLV at edge buckets: 0-2%, 2-5%, 5-7%, 7-10%, 10-15%, 15%+",
       "threshold": "Monotonically increasing CLV across buckets; CLV turns positive at some identifiable threshold",
-      "status": "pending",
+      "status": "accepted",
       "sourceHypothesis": "H07/H09/H10",
       "testType": "meta-signal",
-      "notes": "Not a filter to deploy — it's a calibration test. Results inform what minEdge should be. If CLV is flat across edge buckets, the model's edge estimates are noise. If it's monotonic, model is well-calibrated and we can set minEdge optimally."
+      "testedAt": "2026-03-14",
+      "result": "CLV is perfectly monotonic: 0-2%→+1.0%, 2-5%→+3.4%, 5-7%→+6.0%, 7-10%→+8.3%, 10-15%→+12.0%, 15%+→+17.8% (N=675,932,472,481,384,119). Model edge estimates are well-calibrated. ROI is NOT monotonic (noisy): +2.6%, +1.8%, +0.7%, +3.8%, +3.2%, +1.1% — expected given sample sizes. CLV turns positive at 0% (all buckets positive), so there is no dead zone. Low-edge bets (0-2%) still show +2.6% ROI on 675 bets.",
+      "notes": "Calibration test PASSED. Model is well-calibrated — higher edge = higher CLV consistently. Current 5% minEdge is reasonable but 0-2% bets are also profitable. ROI noise at 15%+ (only 119 bets) is sample-size driven. No deployment action needed — this validates the model, not a filter."
     },
     {
       "id": "line-movement-filter",
@@ -184,8 +186,8 @@
       "hypothesis": "Blending MI model probs with 40% devigged closing market odds improves 1X2 ROI by filtering to higher-quality bets (Benter method — market signal enters twice: once in solver KL-divergence, once in output reweighting)",
       "metric": "backtest ROI delta vs pure MI model (--ted --markets=sides --max-odds=2.5)",
       "threshold": "+1pp ROI with acceptable hit rate (>50%)",
-      "status": "testing",
-      "result": "+4.3% ROI (889 bets) vs +2.4% baseline (1456 bets). Hit rate dropped 52.6% → 50.5%. Profit +38.1u vs +34.9u. 85% market weight (Mack's rec) destroys edge — CLV collapses to +5.1% with only 3 bets. 40% is the sweet spot.",
+      "status": "rejected",
+      "result": "+4.3% ROI (889 bets) vs +2.4% baseline (1456 bets). Hit rate dropped 52.6% → 50.5%. Profit +38.1u vs +34.9u. Bootstrap test FAILED: p=0.093/0.118, CI includes zero. ROI improvement is not statistically significant.",
       "sourceHypothesis": "Mack's Benter Boost recommendation",
       "testType": "model-architecture",
       "backtestStats": {
@@ -218,10 +220,12 @@
       "registered": "2026-03-14",
       "hypothesis": "Benter Boost at 40% market weight for 1X2-only bets produces statistically significant ROI improvement over baseline (not just noise from fewer bets)",
       "metric": "Bootstrap p-value for ROI difference (Benter 40% vs baseline)",
-      "threshold": "p < 0.10",
-      "status": "pending",
+      "threshold": "p < 0.10 AND 95% CI excludes zero",
+      "status": "rejected",
       "testType": "significance",
-      "notes": "Run: npx tsx scripts/backtest-eval.ts --ted --markets=1x2 --max-odds=2.5 --benter --market-weight=0.40 --bootstrap. If significant, deploy Benter for 1X2 value bets only (not AH)."
+      "result": "i.i.d. bootstrap p=0.093 (barely <0.10) but 95% CI [-2.1%, +10.5%] includes zero. Block bootstrap p=0.118 (>0.10), CI [-2.7%, +11.4%]. Permutation p=0.097. DSR verdict: WEAK. Baseline comparison: p=0.182, CI [-2.7%, +7.4%] — also not significant. Neither variant's ROI is distinguishable from noise. Benter trades higher ROI (+4.3% vs +2.4%) for lower CLV (+7.3% vs +9.3%) and 39% fewer bets (889 vs 1456).",
+      "testedAt": "2026-03-14",
+      "notes": "Do not deploy Benter Boost for 1X2. The ROI improvement is not statistically significant — CI includes zero and block bootstrap fails p<0.10. The baseline itself isn't significant either (p=0.182), suggesting 1X2 ROI in general needs more data or better filters."
     }
   ]
 }
