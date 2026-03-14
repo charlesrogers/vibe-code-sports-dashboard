@@ -293,7 +293,15 @@ export async function settlePendingBets(): Promise<{ settled: number; results: {
   const ledger = await loadLedger();
   const today = new Date().toISOString().split("T")[0];
 
-  const pending = ledger.bets.filter(b => b.status === "pending" && b.matchDate < today);
+  const pending = ledger.bets.filter(b => {
+    if (b.status !== "pending") return false;
+    // If we have kickoff time, settle 3h after kickoff
+    if (b.kickoffTime) {
+      return Date.now() - new Date(b.kickoffTime).getTime() > 3 * 60 * 60 * 1000;
+    }
+    // Otherwise settle any match from today or earlier (Fotmob skips unfinished matches)
+    return b.matchDate <= today;
+  });
   if (pending.length === 0) return { settled: 0, results: [] };
 
   console.log(`[settler] Settling ${pending.length} pending bets...`);
