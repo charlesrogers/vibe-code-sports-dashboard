@@ -1,0 +1,546 @@
+{
+  "league": "laLiga",
+  "scrapedAt": "2026-03-14T11:08:56.158Z",
+  "teams": [
+    {
+      "team": "Barcelona",
+      "home": {
+        "xGFor": 37.98,
+        "xGAgainst": 11.72,
+        "goalsFor": 41,
+        "goalsAgainst": 6,
+        "matches": 13,
+        "xGDiff": 26.26
+      },
+      "away": {
+        "xGFor": 39.78,
+        "xGAgainst": 26.4,
+        "goalsFor": 31,
+        "goalsAgainst": 20,
+        "matches": 14,
+        "xGDiff": 13.38
+      },
+      "overall": {
+        "xGFor": 77.76,
+        "xGAgainst": 38.12,
+        "goalsFor": 72,
+        "goalsAgainst": 26,
+        "matches": 27,
+        "xGDiff": 39.64
+      }
+    },
+    {
+      "team": "Real Madrid",
+      "home": {
+        "xGFor": 35.33,
+        "xGAgainst": 12.18,
+        "goalsFor": 29,
+        "goalsAgainst": 9,
+        "matches": 13,
+        "xGDiff": 23.15
+      },
+      "away": {
+        "xGFor": 28.14,
+        "xGAgainst": 19.74,
+        "goalsFor": 27,
+        "goalsAgainst": 14,
+        "matches": 14,
+        "xGDiff": 8.4
+      },
+      "overall": {
+        "xGFor": 63.47,
+        "xGAgainst": 31.92,
+        "goalsFor": 56,
+        "goalsAgainst": 23,
+        "matches": 27,
+        "xGDiff": 31.55
+      }
+    },
+    {
+      "team": "Atletico Madrid",
+      "home": {
+        "xGFor": 34.37,
+        "xGAgainst": 12.23,
+        "goalsFor": 33,
+        "goalsAgainst": 12,
+        "matches": 14,
+        "xGDiff": 22.14
+      },
+      "away": {
+        "xGFor": 14.38,
+        "xGAgainst": 19.13,
+        "goalsFor": 13,
+        "goalsAgainst": 13,
+        "matches": 13,
+        "xGDiff": -4.75
+      },
+      "overall": {
+        "xGFor": 48.75,
+        "xGAgainst": 31.36,
+        "goalsFor": 46,
+        "goalsAgainst": 25,
+        "matches": 27,
+        "xGDiff": 17.39
+      }
+    },
+    {
+      "team": "Real Betis",
+      "home": {
+        "xGFor": 25.66,
+        "xGAgainst": 16.43,
+        "goalsFor": 25,
+        "goalsAgainst": 15,
+        "matches": 13,
+        "xGDiff": 9.23
+      },
+      "away": {
+        "xGFor": 20,
+        "xGAgainst": 18.7,
+        "goalsFor": 17,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": 1.3
+      },
+      "overall": {
+        "xGFor": 45.66,
+        "xGAgainst": 35.13,
+        "goalsFor": 42,
+        "goalsAgainst": 34,
+        "matches": 27,
+        "xGDiff": 10.53
+      }
+    },
+    {
+      "team": "Villarreal",
+      "home": {
+        "xGFor": 28.89,
+        "xGAgainst": 18.18,
+        "goalsFor": 31,
+        "goalsAgainst": 12,
+        "matches": 14,
+        "xGDiff": 10.71
+      },
+      "away": {
+        "xGFor": 21.06,
+        "xGAgainst": 21.27,
+        "goalsFor": 20,
+        "goalsAgainst": 21,
+        "matches": 14,
+        "xGDiff": -0.21
+      },
+      "overall": {
+        "xGFor": 49.94,
+        "xGAgainst": 39.45,
+        "goalsFor": 51,
+        "goalsAgainst": 33,
+        "matches": 28,
+        "xGDiff": 10.49
+      }
+    },
+    {
+      "team": "Athletic Club",
+      "home": {
+        "xGFor": 23.93,
+        "xGAgainst": 11.34,
+        "goalsFor": 17,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 12.59
+      },
+      "away": {
+        "xGFor": 17.45,
+        "xGAgainst": 20.39,
+        "goalsFor": 13,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -2.94
+      },
+      "overall": {
+        "xGFor": 41.37,
+        "xGAgainst": 31.73,
+        "goalsFor": 30,
+        "goalsAgainst": 37,
+        "matches": 27,
+        "xGDiff": 9.64
+      }
+    },
+    {
+      "team": "Celta Vigo",
+      "home": {
+        "xGFor": 20.81,
+        "xGAgainst": 17.91,
+        "goalsFor": 20,
+        "goalsAgainst": 17,
+        "matches": 14,
+        "xGDiff": 2.9
+      },
+      "away": {
+        "xGFor": 17.5,
+        "xGAgainst": 18.46,
+        "goalsFor": 17,
+        "goalsAgainst": 13,
+        "matches": 13,
+        "xGDiff": -0.96
+      },
+      "overall": {
+        "xGFor": 38.31,
+        "xGAgainst": 36.37,
+        "goalsFor": 37,
+        "goalsAgainst": 30,
+        "matches": 27,
+        "xGDiff": 1.94
+      }
+    },
+    {
+      "team": "Real Sociedad",
+      "home": {
+        "xGFor": 24.03,
+        "xGAgainst": 19.68,
+        "goalsFor": 24,
+        "goalsAgainst": 20,
+        "matches": 13,
+        "xGDiff": 4.35
+      },
+      "away": {
+        "xGFor": 17.39,
+        "xGAgainst": 22.03,
+        "goalsFor": 16,
+        "goalsAgainst": 21,
+        "matches": 14,
+        "xGDiff": -4.64
+      },
+      "overall": {
+        "xGFor": 41.41,
+        "xGAgainst": 41.71,
+        "goalsFor": 40,
+        "goalsAgainst": 41,
+        "matches": 27,
+        "xGDiff": -0.3
+      }
+    },
+    {
+      "team": "Rayo Vallecano",
+      "home": {
+        "xGFor": 22.6,
+        "xGAgainst": 13.44,
+        "goalsFor": 15,
+        "goalsAgainst": 10,
+        "matches": 13,
+        "xGDiff": 9.16
+      },
+      "away": {
+        "xGFor": 16.91,
+        "xGAgainst": 26.49,
+        "goalsFor": 12,
+        "goalsAgainst": 23,
+        "matches": 14,
+        "xGDiff": -9.58
+      },
+      "overall": {
+        "xGFor": 39.51,
+        "xGAgainst": 39.94,
+        "goalsFor": 27,
+        "goalsAgainst": 33,
+        "matches": 27,
+        "xGDiff": -0.43
+      }
+    },
+    {
+      "team": "Alaves",
+      "home": {
+        "xGFor": 21.76,
+        "xGAgainst": 18.67,
+        "goalsFor": 17,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 3.09
+      },
+      "away": {
+        "xGFor": 17.21,
+        "xGAgainst": 22.34,
+        "goalsFor": 9,
+        "goalsAgainst": 22,
+        "matches": 14,
+        "xGDiff": -5.13
+      },
+      "overall": {
+        "xGFor": 38.97,
+        "xGAgainst": 41.01,
+        "goalsFor": 26,
+        "goalsAgainst": 38,
+        "matches": 28,
+        "xGDiff": -2.04
+      }
+    },
+    {
+      "team": "Osasuna",
+      "home": {
+        "xGFor": 22.4,
+        "xGAgainst": 14.93,
+        "goalsFor": 24,
+        "goalsAgainst": 16,
+        "matches": 13,
+        "xGDiff": 7.47
+      },
+      "away": {
+        "xGFor": 12.7,
+        "xGAgainst": 22.32,
+        "goalsFor": 8,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": -9.62
+      },
+      "overall": {
+        "xGFor": 35.1,
+        "xGAgainst": 37.25,
+        "goalsFor": 32,
+        "goalsAgainst": 32,
+        "matches": 27,
+        "xGDiff": -2.15
+      }
+    },
+    {
+      "team": "Espanyol",
+      "home": {
+        "xGFor": 22.74,
+        "xGAgainst": 21.61,
+        "goalsFor": 17,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": 1.13
+      },
+      "away": {
+        "xGFor": 17.53,
+        "xGAgainst": 21.23,
+        "goalsFor": 17,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -3.7
+      },
+      "overall": {
+        "xGFor": 40.27,
+        "xGAgainst": 42.84,
+        "goalsFor": 34,
+        "goalsAgainst": 40,
+        "matches": 27,
+        "xGDiff": -2.57
+      }
+    },
+    {
+      "team": "Valencia",
+      "home": {
+        "xGFor": 23.71,
+        "xGAgainst": 13.94,
+        "goalsFor": 19,
+        "goalsAgainst": 15,
+        "matches": 14,
+        "xGDiff": 9.77
+      },
+      "away": {
+        "xGFor": 13.8,
+        "xGAgainst": 26.23,
+        "goalsFor": 11,
+        "goalsAgainst": 26,
+        "matches": 13,
+        "xGDiff": -12.43
+      },
+      "overall": {
+        "xGFor": 37.52,
+        "xGAgainst": 40.17,
+        "goalsFor": 30,
+        "goalsAgainst": 41,
+        "matches": 27,
+        "xGDiff": -2.65
+      }
+    },
+    {
+      "team": "Getafe",
+      "home": {
+        "xGFor": 10.53,
+        "xGAgainst": 13.99,
+        "goalsFor": 12,
+        "goalsAgainst": 11,
+        "matches": 14,
+        "xGDiff": -3.46
+      },
+      "away": {
+        "xGFor": 11.77,
+        "xGAgainst": 19.43,
+        "goalsFor": 11,
+        "goalsAgainst": 18,
+        "matches": 13,
+        "xGDiff": -7.66
+      },
+      "overall": {
+        "xGFor": 22.3,
+        "xGAgainst": 33.42,
+        "goalsFor": 23,
+        "goalsAgainst": 29,
+        "matches": 27,
+        "xGDiff": -11.12
+      }
+    },
+    {
+      "team": "Girona",
+      "home": {
+        "xGFor": 17.6,
+        "xGAgainst": 25.99,
+        "goalsFor": 13,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -8.39
+      },
+      "away": {
+        "xGFor": 19.61,
+        "xGAgainst": 22.76,
+        "goalsFor": 15,
+        "goalsAgainst": 22,
+        "matches": 14,
+        "xGDiff": -3.15
+      },
+      "overall": {
+        "xGFor": 37.21,
+        "xGAgainst": 48.75,
+        "goalsFor": 28,
+        "goalsAgainst": 43,
+        "matches": 27,
+        "xGDiff": -11.54
+      }
+    },
+    {
+      "team": "Levante",
+      "home": {
+        "xGFor": 20.67,
+        "xGAgainst": 26.83,
+        "goalsFor": 14,
+        "goalsAgainst": 24,
+        "matches": 14,
+        "xGDiff": -6.16
+      },
+      "away": {
+        "xGFor": 17.64,
+        "xGAgainst": 25.04,
+        "goalsFor": 15,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -7.4
+      },
+      "overall": {
+        "xGFor": 38.31,
+        "xGAgainst": 51.88,
+        "goalsFor": 29,
+        "goalsAgainst": 45,
+        "matches": 27,
+        "xGDiff": -13.57
+      }
+    },
+    {
+      "team": "Sevilla",
+      "home": {
+        "xGFor": 16.26,
+        "xGAgainst": 21.36,
+        "goalsFor": 19,
+        "goalsAgainst": 20,
+        "matches": 14,
+        "xGDiff": -5.1
+      },
+      "away": {
+        "xGFor": 13.25,
+        "xGAgainst": 24.78,
+        "goalsFor": 16,
+        "goalsAgainst": 22,
+        "matches": 13,
+        "xGDiff": -11.53
+      },
+      "overall": {
+        "xGFor": 29.51,
+        "xGAgainst": 46.14,
+        "goalsFor": 35,
+        "goalsAgainst": 42,
+        "matches": 27,
+        "xGDiff": -16.63
+      }
+    },
+    {
+      "team": "Mallorca",
+      "home": {
+        "xGFor": 18.75,
+        "xGAgainst": 17.88,
+        "goalsFor": 19,
+        "goalsAgainst": 17,
+        "matches": 13,
+        "xGDiff": 0.87
+      },
+      "away": {
+        "xGFor": 11.83,
+        "xGAgainst": 31.54,
+        "goalsFor": 12,
+        "goalsAgainst": 27,
+        "matches": 14,
+        "xGDiff": -19.71
+      },
+      "overall": {
+        "xGFor": 30.59,
+        "xGAgainst": 49.42,
+        "goalsFor": 31,
+        "goalsAgainst": 44,
+        "matches": 27,
+        "xGDiff": -18.83
+      }
+    },
+    {
+      "team": "Elche",
+      "home": {
+        "xGFor": 24.53,
+        "xGAgainst": 25.91,
+        "goalsFor": 22,
+        "goalsAgainst": 15,
+        "matches": 14,
+        "xGDiff": -1.38
+      },
+      "away": {
+        "xGFor": 9.6,
+        "xGAgainst": 27.23,
+        "goalsFor": 13,
+        "goalsAgainst": 26,
+        "matches": 13,
+        "xGDiff": -17.63
+      },
+      "overall": {
+        "xGFor": 34.12,
+        "xGAgainst": 53.14,
+        "goalsFor": 35,
+        "goalsAgainst": 41,
+        "matches": 27,
+        "xGDiff": -19.02
+      }
+    },
+    {
+      "team": "Real Oviedo",
+      "home": {
+        "xGFor": 12.51,
+        "xGAgainst": 19.09,
+        "goalsFor": 5,
+        "goalsAgainst": 14,
+        "matches": 13,
+        "xGDiff": -6.58
+      },
+      "away": {
+        "xGFor": 15.79,
+        "xGAgainst": 29.56,
+        "goalsFor": 12,
+        "goalsAgainst": 30,
+        "matches": 14,
+        "xGDiff": -13.77
+      },
+      "overall": {
+        "xGFor": 28.3,
+        "xGAgainst": 48.65,
+        "goalsFor": 17,
+        "goalsAgainst": 44,
+        "matches": 27,
+        "xGDiff": -20.35
+      }
+    }
+  ]
+}

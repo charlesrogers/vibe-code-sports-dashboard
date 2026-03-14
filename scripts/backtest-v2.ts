@@ -76,6 +76,7 @@ const LEAGUES = [
   { id: "serie-a", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
   { id: "ligue-1", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
   { id: "championship", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
+  { id: "serie-b", seasons: ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"] },
 ];
 
 // Test window: 2022-23 onward (first 2 seasons are training warmup)

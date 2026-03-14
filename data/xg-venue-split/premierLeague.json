@@ -1,0 +1,546 @@
+{
+  "league": "premierLeague",
+  "scrapedAt": "2026-03-14T11:08:43.092Z",
+  "teams": [
+    {
+      "team": "Arsenal",
+      "home": {
+        "xGFor": 28.77,
+        "xGAgainst": 10.42,
+        "goalsFor": 33,
+        "goalsAgainst": 9,
+        "matches": 14,
+        "xGDiff": 18.35
+      },
+      "away": {
+        "xGFor": 30.06,
+        "xGAgainst": 13.44,
+        "goalsFor": 26,
+        "goalsAgainst": 13,
+        "matches": 16,
+        "xGDiff": 16.62
+      },
+      "overall": {
+        "xGFor": 58.83,
+        "xGAgainst": 23.86,
+        "goalsFor": 59,
+        "goalsAgainst": 22,
+        "matches": 30,
+        "xGDiff": 34.97
+      }
+    },
+    {
+      "team": "Manchester City",
+      "home": {
+        "xGFor": 33.57,
+        "xGAgainst": 16.14,
+        "goalsFor": 36,
+        "goalsAgainst": 11,
+        "matches": 15,
+        "xGDiff": 17.43
+      },
+      "away": {
+        "xGFor": 25.01,
+        "xGAgainst": 18.44,
+        "goalsFor": 23,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 6.57
+      },
+      "overall": {
+        "xGFor": 58.57,
+        "xGAgainst": 34.58,
+        "goalsFor": 59,
+        "goalsAgainst": 27,
+        "matches": 29,
+        "xGDiff": 23.99
+      }
+    },
+    {
+      "team": "Chelsea",
+      "home": {
+        "xGFor": 30.01,
+        "xGAgainst": 21.59,
+        "goalsFor": 23,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 8.42
+      },
+      "away": {
+        "xGFor": 31.54,
+        "xGAgainst": 21.27,
+        "goalsFor": 30,
+        "goalsAgainst": 18,
+        "matches": 15,
+        "xGDiff": 10.27
+      },
+      "overall": {
+        "xGFor": 61.55,
+        "xGAgainst": 42.86,
+        "goalsFor": 53,
+        "goalsAgainst": 34,
+        "matches": 29,
+        "xGDiff": 18.69
+      }
+    },
+    {
+      "team": "Manchester United",
+      "home": {
+        "xGFor": 29.9,
+        "xGAgainst": 14.19,
+        "goalsFor": 27,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 15.71
+      },
+      "away": {
+        "xGFor": 25.51,
+        "xGAgainst": 22.77,
+        "goalsFor": 24,
+        "goalsAgainst": 24,
+        "matches": 15,
+        "xGDiff": 2.74
+      },
+      "overall": {
+        "xGFor": 55.41,
+        "xGAgainst": 36.96,
+        "goalsFor": 51,
+        "goalsAgainst": 40,
+        "matches": 29,
+        "xGDiff": 18.45
+      }
+    },
+    {
+      "team": "Liverpool",
+      "home": {
+        "xGFor": 26.73,
+        "xGAgainst": 14.88,
+        "goalsFor": 26,
+        "goalsAgainst": 16,
+        "matches": 14,
+        "xGDiff": 11.85
+      },
+      "away": {
+        "xGFor": 27.22,
+        "xGAgainst": 22.17,
+        "goalsFor": 22,
+        "goalsAgainst": 23,
+        "matches": 15,
+        "xGDiff": 5.05
+      },
+      "overall": {
+        "xGFor": 53.96,
+        "xGAgainst": 37.05,
+        "goalsFor": 48,
+        "goalsAgainst": 39,
+        "matches": 29,
+        "xGDiff": 16.91
+      }
+    },
+    {
+      "team": "Brentford",
+      "home": {
+        "xGFor": 28.99,
+        "xGAgainst": 18.35,
+        "goalsFor": 24,
+        "goalsAgainst": 15,
+        "matches": 14,
+        "xGDiff": 10.64
+      },
+      "away": {
+        "xGFor": 22.32,
+        "xGAgainst": 24.39,
+        "goalsFor": 20,
+        "goalsAgainst": 25,
+        "matches": 15,
+        "xGDiff": -2.07
+      },
+      "overall": {
+        "xGFor": 51.31,
+        "xGAgainst": 42.74,
+        "goalsFor": 44,
+        "goalsAgainst": 40,
+        "matches": 29,
+        "xGDiff": 8.57
+      }
+    },
+    {
+      "team": "Newcastle United",
+      "home": {
+        "xGFor": 32.98,
+        "xGAgainst": 21.89,
+        "goalsFor": 28,
+        "goalsAgainst": 24,
+        "matches": 15,
+        "xGDiff": 11.09
+      },
+      "away": {
+        "xGFor": 14.42,
+        "xGAgainst": 17.87,
+        "goalsFor": 14,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": -3.45
+      },
+      "overall": {
+        "xGFor": 47.4,
+        "xGAgainst": 39.75,
+        "goalsFor": 42,
+        "goalsAgainst": 43,
+        "matches": 29,
+        "xGDiff": 7.65
+      }
+    },
+    {
+      "team": "Bournemouth",
+      "home": {
+        "xGFor": 24.55,
+        "xGAgainst": 11.28,
+        "goalsFor": 21,
+        "goalsAgainst": 15,
+        "matches": 15,
+        "xGDiff": 13.27
+      },
+      "away": {
+        "xGFor": 25.13,
+        "xGAgainst": 30.82,
+        "goalsFor": 23,
+        "goalsAgainst": 31,
+        "matches": 14,
+        "xGDiff": -5.69
+      },
+      "overall": {
+        "xGFor": 49.68,
+        "xGAgainst": 42.11,
+        "goalsFor": 44,
+        "goalsAgainst": 46,
+        "matches": 29,
+        "xGDiff": 7.57
+      }
+    },
+    {
+      "team": "Crystal Palace",
+      "home": {
+        "xGFor": 27.16,
+        "xGAgainst": 21.27,
+        "goalsFor": 14,
+        "goalsAgainst": 18,
+        "matches": 14,
+        "xGDiff": 5.89
+      },
+      "away": {
+        "xGFor": 21.48,
+        "xGAgainst": 22.48,
+        "goalsFor": 19,
+        "goalsAgainst": 17,
+        "matches": 15,
+        "xGDiff": -1
+      },
+      "overall": {
+        "xGFor": 48.64,
+        "xGAgainst": 43.76,
+        "goalsFor": 33,
+        "goalsAgainst": 35,
+        "matches": 29,
+        "xGDiff": 4.88
+      }
+    },
+    {
+      "team": "Brighton",
+      "home": {
+        "xGFor": 21.27,
+        "xGAgainst": 19.75,
+        "goalsFor": 22,
+        "goalsAgainst": 16,
+        "matches": 15,
+        "xGDiff": 1.52
+      },
+      "away": {
+        "xGFor": 20.84,
+        "xGAgainst": 22.99,
+        "goalsFor": 16,
+        "goalsAgainst": 20,
+        "matches": 14,
+        "xGDiff": -2.15
+      },
+      "overall": {
+        "xGFor": 42.1,
+        "xGAgainst": 42.74,
+        "goalsFor": 38,
+        "goalsAgainst": 36,
+        "matches": 29,
+        "xGDiff": -0.64
+      }
+    },
+    {
+      "team": "Leeds",
+      "home": {
+        "xGFor": 26.53,
+        "xGAgainst": 19.85,
+        "goalsFor": 22,
+        "goalsAgainst": 20,
+        "matches": 15,
+        "xGDiff": 6.68
+      },
+      "away": {
+        "xGFor": 17.3,
+        "xGAgainst": 24.91,
+        "goalsFor": 15,
+        "goalsAgainst": 28,
+        "matches": 14,
+        "xGDiff": -7.61
+      },
+      "overall": {
+        "xGFor": 43.83,
+        "xGAgainst": 44.76,
+        "goalsFor": 37,
+        "goalsAgainst": 48,
+        "matches": 29,
+        "xGDiff": -0.93
+      }
+    },
+    {
+      "team": "Aston Villa",
+      "home": {
+        "xGFor": 20.48,
+        "xGAgainst": 19.8,
+        "goalsFor": 21,
+        "goalsAgainst": 15,
+        "matches": 15,
+        "xGDiff": 0.68
+      },
+      "away": {
+        "xGFor": 18.52,
+        "xGAgainst": 25.03,
+        "goalsFor": 18,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": -6.51
+      },
+      "overall": {
+        "xGFor": 39.01,
+        "xGAgainst": 44.83,
+        "goalsFor": 39,
+        "goalsAgainst": 34,
+        "matches": 29,
+        "xGDiff": -5.82
+      }
+    },
+    {
+      "team": "Everton",
+      "home": {
+        "xGFor": 20.51,
+        "xGAgainst": 21.6,
+        "goalsFor": 18,
+        "goalsAgainst": 19,
+        "matches": 15,
+        "xGDiff": -1.09
+      },
+      "away": {
+        "xGFor": 17.2,
+        "xGAgainst": 22.26,
+        "goalsFor": 16,
+        "goalsAgainst": 14,
+        "matches": 14,
+        "xGDiff": -5.06
+      },
+      "overall": {
+        "xGFor": 37.7,
+        "xGAgainst": 43.86,
+        "goalsFor": 34,
+        "goalsAgainst": 33,
+        "matches": 29,
+        "xGDiff": -6.16
+      }
+    },
+    {
+      "team": "Fulham",
+      "home": {
+        "xGFor": 20.97,
+        "xGAgainst": 20.33,
+        "goalsFor": 24,
+        "goalsAgainst": 18,
+        "matches": 15,
+        "xGDiff": 0.64
+      },
+      "away": {
+        "xGFor": 15.59,
+        "xGAgainst": 25.69,
+        "goalsFor": 16,
+        "goalsAgainst": 25,
+        "matches": 14,
+        "xGDiff": -10.1
+      },
+      "overall": {
+        "xGFor": 36.56,
+        "xGAgainst": 46.01,
+        "goalsFor": 40,
+        "goalsAgainst": 43,
+        "matches": 29,
+        "xGDiff": -9.45
+      }
+    },
+    {
+      "team": "Tottenham",
+      "home": {
+        "xGFor": 18.74,
+        "xGAgainst": 23.7,
+        "goalsFor": 18,
+        "goalsAgainst": 25,
+        "matches": 15,
+        "xGDiff": -4.96
+      },
+      "away": {
+        "xGFor": 15.47,
+        "xGAgainst": 21.53,
+        "goalsFor": 21,
+        "goalsAgainst": 21,
+        "matches": 14,
+        "xGDiff": -6.06
+      },
+      "overall": {
+        "xGFor": 34.21,
+        "xGAgainst": 45.23,
+        "goalsFor": 39,
+        "goalsAgainst": 46,
+        "matches": 29,
+        "xGDiff": -11.02
+      }
+    },
+    {
+      "team": "Nottingham Forest",
+      "home": {
+        "xGFor": 21.56,
+        "xGAgainst": 22.31,
+        "goalsFor": 13,
+        "goalsAgainst": 19,
+        "matches": 14,
+        "xGDiff": -0.75
+      },
+      "away": {
+        "xGFor": 13.5,
+        "xGAgainst": 27.86,
+        "goalsFor": 15,
+        "goalsAgainst": 24,
+        "matches": 15,
+        "xGDiff": -14.36
+      },
+      "overall": {
+        "xGFor": 35.06,
+        "xGAgainst": 50.16,
+        "goalsFor": 28,
+        "goalsAgainst": 43,
+        "matches": 29,
+        "xGDiff": -15.1
+      }
+    },
+    {
+      "team": "West Ham",
+      "home": {
+        "xGFor": 19.51,
+        "xGAgainst": 23.27,
+        "goalsFor": 17,
+        "goalsAgainst": 27,
+        "matches": 14,
+        "xGDiff": -3.76
+      },
+      "away": {
+        "xGFor": 18.12,
+        "xGAgainst": 30.2,
+        "goalsFor": 18,
+        "goalsAgainst": 27,
+        "matches": 15,
+        "xGDiff": -12.08
+      },
+      "overall": {
+        "xGFor": 37.63,
+        "xGAgainst": 53.47,
+        "goalsFor": 35,
+        "goalsAgainst": 54,
+        "matches": 29,
+        "xGDiff": -15.84
+      }
+    },
+    {
+      "team": "Sunderland",
+      "home": {
+        "xGFor": 16.4,
+        "xGAgainst": 20.5,
+        "goalsFor": 22,
+        "goalsAgainst": 13,
+        "matches": 14,
+        "xGDiff": -4.1
+      },
+      "away": {
+        "xGFor": 13.68,
+        "xGAgainst": 26.25,
+        "goalsFor": 8,
+        "goalsAgainst": 21,
+        "matches": 15,
+        "xGDiff": -12.57
+      },
+      "overall": {
+        "xGFor": 30.08,
+        "xGAgainst": 46.74,
+        "goalsFor": 30,
+        "goalsAgainst": 34,
+        "matches": 29,
+        "xGDiff": -16.66
+      }
+    },
+    {
+      "team": "Wolverhampton Wanderers",
+      "home": {
+        "xGFor": 18.36,
+        "xGAgainst": 27.81,
+        "goalsFor": 17,
+        "goalsAgainst": 31,
+        "matches": 16,
+        "xGDiff": -9.45
+      },
+      "away": {
+        "xGFor": 9.56,
+        "xGAgainst": 24.61,
+        "goalsFor": 5,
+        "goalsAgainst": 21,
+        "matches": 14,
+        "xGDiff": -15.05
+      },
+      "overall": {
+        "xGFor": 27.92,
+        "xGAgainst": 52.42,
+        "goalsFor": 22,
+        "goalsAgainst": 52,
+        "matches": 30,
+        "xGDiff": -24.5
+      }
+    },
+    {
+      "team": "Burnley",
+      "home": {
+        "xGFor": 14.5,
+        "xGAgainst": 26.38,
+        "goalsFor": 15,
+        "goalsAgainst": 23,
+        "matches": 14,
+        "xGDiff": -11.88
+      },
+      "away": {
+        "xGFor": 12.82,
+        "xGAgainst": 36.5,
+        "goalsFor": 17,
+        "goalsAgainst": 35,
+        "matches": 15,
+        "xGDiff": -23.68
+      },
+      "overall": {
+        "xGFor": 27.32,
+        "xGAgainst": 62.89,
+        "goalsFor": 32,
+        "goalsAgainst": 58,
+        "matches": 29,
+        "xGDiff": -35.57
+      }
+    }
+  ]
+}

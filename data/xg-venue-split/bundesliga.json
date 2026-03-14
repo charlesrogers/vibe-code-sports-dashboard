@@ -1,0 +1,492 @@
+{
+  "league": "bundesliga",
+  "scrapedAt": "2026-03-14T11:09:05.647Z",
+  "teams": [
+    {
+      "team": "Bayern Munich",
+      "home": {
+        "xGFor": 44.31,
+        "xGAgainst": 13.75,
+        "goalsFor": 52,
+        "goalsAgainst": 13,
+        "matches": 13,
+        "xGDiff": 30.56
+      },
+      "away": {
+        "xGFor": 32.58,
+        "xGAgainst": 14.51,
+        "goalsFor": 40,
+        "goalsAgainst": 11,
+        "matches": 12,
+        "xGDiff": 18.07
+      },
+      "overall": {
+        "xGFor": 76.89,
+        "xGAgainst": 28.26,
+        "goalsFor": 92,
+        "goalsAgainst": 24,
+        "matches": 25,
+        "xGDiff": 48.63
+      }
+    },
+    {
+      "team": "Bayer Leverkusen",
+      "home": {
+        "xGFor": 27.12,
+        "xGAgainst": 10.98,
+        "goalsFor": 25,
+        "goalsAgainst": 11,
+        "matches": 12,
+        "xGDiff": 16.14
+      },
+      "away": {
+        "xGFor": 23.46,
+        "xGAgainst": 22.06,
+        "goalsFor": 23,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": 1.4
+      },
+      "overall": {
+        "xGFor": 50.59,
+        "xGAgainst": 33.04,
+        "goalsFor": 48,
+        "goalsAgainst": 32,
+        "matches": 25,
+        "xGDiff": 17.55
+      }
+    },
+    {
+      "team": "RasenBallsport Leipzig",
+      "home": {
+        "xGFor": 33.97,
+        "xGAgainst": 21.76,
+        "goalsFor": 29,
+        "goalsAgainst": 18,
+        "matches": 13,
+        "xGDiff": 12.21
+      },
+      "away": {
+        "xGFor": 21.1,
+        "xGAgainst": 16.02,
+        "goalsFor": 19,
+        "goalsAgainst": 16,
+        "matches": 12,
+        "xGDiff": 5.08
+      },
+      "overall": {
+        "xGFor": 55.08,
+        "xGAgainst": 37.79,
+        "goalsFor": 48,
+        "goalsAgainst": 34,
+        "matches": 25,
+        "xGDiff": 17.29
+      }
+    },
+    {
+      "team": "Borussia Dortmund",
+      "home": {
+        "xGFor": 23.95,
+        "xGAgainst": 14.78,
+        "goalsFor": 28,
+        "goalsAgainst": 11,
+        "matches": 12,
+        "xGDiff": 9.17
+      },
+      "away": {
+        "xGFor": 22.35,
+        "xGAgainst": 17.85,
+        "goalsFor": 25,
+        "goalsAgainst": 15,
+        "matches": 13,
+        "xGDiff": 4.5
+      },
+      "overall": {
+        "xGFor": 46.3,
+        "xGAgainst": 32.63,
+        "goalsFor": 53,
+        "goalsAgainst": 26,
+        "matches": 25,
+        "xGDiff": 13.67
+      }
+    },
+    {
+      "team": "VfB Stuttgart",
+      "home": {
+        "xGFor": 25.33,
+        "xGAgainst": 16.22,
+        "goalsFor": 21,
+        "goalsAgainst": 12,
+        "matches": 12,
+        "xGDiff": 9.11
+      },
+      "away": {
+        "xGFor": 22.52,
+        "xGAgainst": 21,
+        "goalsFor": 29,
+        "goalsAgainst": 22,
+        "matches": 13,
+        "xGDiff": 1.52
+      },
+      "overall": {
+        "xGFor": 47.85,
+        "xGAgainst": 37.22,
+        "goalsFor": 50,
+        "goalsAgainst": 34,
+        "matches": 25,
+        "xGDiff": 10.63
+      }
+    },
+    {
+      "team": "Hoffenheim",
+      "home": {
+        "xGFor": 24.86,
+        "xGAgainst": 15.4,
+        "goalsFor": 27,
+        "goalsAgainst": 14,
+        "matches": 12,
+        "xGDiff": 9.46
+      },
+      "away": {
+        "xGFor": 22.23,
+        "xGAgainst": 23.84,
+        "goalsFor": 26,
+        "goalsAgainst": 19,
+        "matches": 13,
+        "xGDiff": -1.61
+      },
+      "overall": {
+        "xGFor": 47.08,
+        "xGAgainst": 39.23,
+        "goalsFor": 53,
+        "goalsAgainst": 33,
+        "matches": 25,
+        "xGDiff": 7.85
+      }
+    },
+    {
+      "team": "Eintracht Frankfurt",
+      "home": {
+        "xGFor": 20.28,
+        "xGAgainst": 15.09,
+        "goalsFor": 22,
+        "goalsAgainst": 18,
+        "matches": 12,
+        "xGDiff": 5.19
+      },
+      "away": {
+        "xGFor": 17.55,
+        "xGAgainst": 24.04,
+        "goalsFor": 26,
+        "goalsAgainst": 31,
+        "matches": 13,
+        "xGDiff": -6.49
+      },
+      "overall": {
+        "xGFor": 37.83,
+        "xGAgainst": 39.12,
+        "goalsFor": 48,
+        "goalsAgainst": 49,
+        "matches": 25,
+        "xGDiff": -1.29
+      }
+    },
+    {
+      "team": "Freiburg",
+      "home": {
+        "xGFor": 23.02,
+        "xGAgainst": 13.91,
+        "goalsFor": 24,
+        "goalsAgainst": 15,
+        "matches": 12,
+        "xGDiff": 9.11
+      },
+      "away": {
+        "xGFor": 13.73,
+        "xGAgainst": 24.82,
+        "goalsFor": 13,
+        "goalsAgainst": 27,
+        "matches": 13,
+        "xGDiff": -11.09
+      },
+      "overall": {
+        "xGFor": 36.75,
+        "xGAgainst": 38.73,
+        "goalsFor": 37,
+        "goalsAgainst": 42,
+        "matches": 25,
+        "xGDiff": -1.98
+      }
+    },
+    {
+      "team": "Union Berlin",
+      "home": {
+        "xGFor": 19.28,
+        "xGAgainst": 17.99,
+        "goalsFor": 18,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": 1.29
+      },
+      "away": {
+        "xGFor": 15.97,
+        "xGAgainst": 19.29,
+        "goalsFor": 12,
+        "goalsAgainst": 21,
+        "matches": 12,
+        "xGDiff": -3.32
+      },
+      "overall": {
+        "xGFor": 35.25,
+        "xGAgainst": 37.27,
+        "goalsFor": 30,
+        "goalsAgainst": 42,
+        "matches": 25,
+        "xGDiff": -2.02
+      }
+    },
+    {
+      "team": "Mainz 05",
+      "home": {
+        "xGFor": 26.58,
+        "xGAgainst": 19.32,
+        "goalsFor": 15,
+        "goalsAgainst": 16,
+        "matches": 13,
+        "xGDiff": 7.26
+      },
+      "away": {
+        "xGFor": 16.06,
+        "xGAgainst": 27.34,
+        "goalsFor": 14,
+        "goalsAgainst": 25,
+        "matches": 12,
+        "xGDiff": -11.28
+      },
+      "overall": {
+        "xGFor": 42.64,
+        "xGAgainst": 46.67,
+        "goalsFor": 29,
+        "goalsAgainst": 41,
+        "matches": 25,
+        "xGDiff": -4.03
+      }
+    },
+    {
+      "team": "Borussia M.Gladbach",
+      "home": {
+        "xGFor": 18.66,
+        "xGAgainst": 21.44,
+        "goalsFor": 16,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -2.78
+      },
+      "away": {
+        "xGFor": 18.03,
+        "xGAgainst": 21.35,
+        "goalsFor": 14,
+        "goalsAgainst": 22,
+        "matches": 13,
+        "xGDiff": -3.32
+      },
+      "overall": {
+        "xGFor": 36.69,
+        "xGAgainst": 42.79,
+        "goalsFor": 30,
+        "goalsAgainst": 43,
+        "matches": 26,
+        "xGDiff": -6.1
+      }
+    },
+    {
+      "team": "Werder Bremen",
+      "home": {
+        "xGFor": 19.14,
+        "xGAgainst": 16.33,
+        "goalsFor": 14,
+        "goalsAgainst": 21,
+        "matches": 12,
+        "xGDiff": 2.81
+      },
+      "away": {
+        "xGFor": 14.77,
+        "xGAgainst": 26.08,
+        "goalsFor": 15,
+        "goalsAgainst": 24,
+        "matches": 13,
+        "xGDiff": -11.31
+      },
+      "overall": {
+        "xGFor": 33.91,
+        "xGAgainst": 42.41,
+        "goalsFor": 29,
+        "goalsAgainst": 45,
+        "matches": 25,
+        "xGDiff": -8.5
+      }
+    },
+    {
+      "team": "Hamburger SV",
+      "home": {
+        "xGFor": 20.65,
+        "xGAgainst": 20.6,
+        "goalsFor": 19,
+        "goalsAgainst": 16,
+        "matches": 13,
+        "xGDiff": 0.05
+      },
+      "away": {
+        "xGFor": 12.77,
+        "xGAgainst": 23.25,
+        "goalsFor": 9,
+        "goalsAgainst": 20,
+        "matches": 12,
+        "xGDiff": -10.48
+      },
+      "overall": {
+        "xGFor": 33.42,
+        "xGAgainst": 43.85,
+        "goalsFor": 28,
+        "goalsAgainst": 36,
+        "matches": 25,
+        "xGDiff": -10.43
+      }
+    },
+    {
+      "team": "FC Cologne",
+      "home": {
+        "xGFor": 19.06,
+        "xGAgainst": 21.73,
+        "goalsFor": 22,
+        "goalsAgainst": 21,
+        "matches": 13,
+        "xGDiff": -2.67
+      },
+      "away": {
+        "xGFor": 16.63,
+        "xGAgainst": 25.55,
+        "goalsFor": 12,
+        "goalsAgainst": 22,
+        "matches": 12,
+        "xGDiff": -8.92
+      },
+      "overall": {
+        "xGFor": 35.69,
+        "xGAgainst": 47.28,
+        "goalsFor": 34,
+        "goalsAgainst": 43,
+        "matches": 25,
+        "xGDiff": -11.59
+      }
+    },
+    {
+      "team": "Wolfsburg",
+      "home": {
+        "xGFor": 20.65,
+        "xGAgainst": 23.83,
+        "goalsFor": 20,
+        "goalsAgainst": 28,
+        "matches": 13,
+        "xGDiff": -3.18
+      },
+      "away": {
+        "xGFor": 15.56,
+        "xGAgainst": 24.95,
+        "goalsFor": 14,
+        "goalsAgainst": 27,
+        "matches": 12,
+        "xGDiff": -9.39
+      },
+      "overall": {
+        "xGFor": 36.2,
+        "xGAgainst": 48.79,
+        "goalsFor": 34,
+        "goalsAgainst": 55,
+        "matches": 25,
+        "xGDiff": -12.59
+      }
+    },
+    {
+      "team": "Augsburg",
+      "home": {
+        "xGFor": 17.09,
+        "xGAgainst": 21.74,
+        "goalsFor": 17,
+        "goalsAgainst": 19,
+        "matches": 13,
+        "xGDiff": -4.65
+      },
+      "away": {
+        "xGFor": 16.6,
+        "xGAgainst": 25.56,
+        "goalsFor": 14,
+        "goalsAgainst": 24,
+        "matches": 12,
+        "xGDiff": -8.96
+      },
+      "overall": {
+        "xGFor": 33.69,
+        "xGAgainst": 47.3,
+        "goalsFor": 31,
+        "goalsAgainst": 43,
+        "matches": 25,
+        "xGDiff": -13.61
+      }
+    },
+    {
+      "team": "St. Pauli",
+      "home": {
+        "xGFor": 11.52,
+        "xGAgainst": 17.4,
+        "goalsFor": 13,
+        "goalsAgainst": 18,
+        "matches": 12,
+        "xGDiff": -5.88
+      },
+      "away": {
+        "xGFor": 12.96,
+        "xGAgainst": 28.08,
+        "goalsFor": 10,
+        "goalsAgainst": 24,
+        "matches": 14,
+        "xGDiff": -15.12
+      },
+      "overall": {
+        "xGFor": 24.48,
+        "xGAgainst": 45.49,
+        "goalsFor": 23,
+        "goalsAgainst": 42,
+        "matches": 26,
+        "xGDiff": -21.01
+      }
+    },
+    {
+      "team": "FC Heidenheim",
+      "home": {
+        "xGFor": 18.66,
+        "xGAgainst": 27.55,
+        "goalsFor": 15,
+        "goalsAgainst": 31,
+        "matches": 13,
+        "xGDiff": -8.89
+      },
+      "away": {
+        "xGFor": 14.96,
+        "xGAgainst": 28.53,
+        "goalsFor": 9,
+        "goalsAgainst": 26,
+        "matches": 12,
+        "xGDiff": -13.57
+      },
+      "overall": {
+        "xGFor": 33.62,
+        "xGAgainst": 56.07,
+        "goalsFor": 24,
+        "goalsAgainst": 57,
+        "matches": 25,
+        "xGDiff": -22.45
+      }
+    }
+  ]
+}

@@ -29,6 +29,13 @@
  *
  * Benter Boost (market-weighted ensemble):
  *   --benter                       # Blend MI model with devigged market odds (per-league weights)
+ *
+ * Ensemble / Elo Ablation:
+ *   --ensemble                     # Use MI+DC+Elo consensus (equal-weighted)
+ *   --ensemble --no-elo            # Use MI+DC only (Elo ablation test)
+ *
+ * Venue xGD:
+ *   --venue-xgd                    # Use Understat per-match xG in variance filter (home/away splits)
  */
 
 import { readFileSync, existsSync, readdirSync } from "fs";
@@ -38,6 +45,9 @@ import { devigOdds1X2, devigOdds2Way } from "../lib/mi-model/data-prep";
 import type { MIModelParams } from "../lib/mi-model/types";
 import { isPostInternationalBreak } from "../lib/mi-picks/international-breaks";
 import { getBenterWeights } from "../lib/mi-picks/league-config";
+import { fitDixonColes, predictMatch as dcPredictMatch } from "../lib/models/dixon-coles";
+import { derive1X2 as dcDerive1X2 } from "../lib/betting/markets";
+import { calculateEloRatings, eloWinProbability } from "../lib/models/elo";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 const dataDir = join(projectRoot, "data/football-data-cache");
@@ -94,6 +104,13 @@ const skipEarlyN = getArg("skip-early") ? parseInt(getArg("skip-early")!) : (ted
 const skipLateN = getArg("skip-late") ? parseInt(getArg("skip-late")!) : 0;
 const congestionFilter = tedMode || hasFlag("congestion-filter");
 const defianceFilter = tedMode || hasFlag("defiance-filter");
+
+// ─── Ensemble Mode (Elo Ablation) ─────────────────────────────────────────
+const ensembleMode = hasFlag("ensemble");  // use MI+DC+Elo consensus
+const noElo = hasFlag("no-elo");           // exclude Elo from ensemble (MI+DC only)
+
+// ─── Venue xGD ────────────────────────────────────────────────────────────
+const venueXgd = hasFlag("venue-xgd");     // use Understat per-match xG instead of MI lambdas
 
 // Variance filter config
 const VARIANCE_LOOKBACK = 10;      // last N matches per team
@@ -280,6 +297,8 @@ if (calibrate) console.log(`  Calibration shrinkage: ${calibrateShrink} (${((1 -
 if (benterMode) console.log(`  BENTER BOOST: ON (market weight: ${benterMarketWeight != null ? (benterMarketWeight * 100).toFixed(0) + '%' : 'per-league defaults'})`);
 if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
+if (ensembleMode) console.log(`  ENSEMBLE: MI + DC${noElo ? '' : ' + Elo'} (equal-weighted consensus)`);
+if (venueXgd) console.log(`  VENUE xGD: using Understat per-match xG (home/away splits) in variance filter`);
 if (skipLateN > 0) console.log(`  LATE-SEASON FILTER: skip matchdays > ${skipLateN}`);
 else {
   if (varianceFilter) console.log(`  Variance filter: ON (gap >= ${VARIANCE_MIN_GAP} goals)`);
@@ -290,6 +309,84 @@ else {
 console.log();
 
 const allBets: BetRecord[] = [];
+
+// ─── Understat per-match xG loader (for venue xGD) ──────────────────────────
+
+const UNDERSTAT_LEAGUE_MAP: Record<string, string> = {
+  "epl": "premierLeague", "la-liga": "laLiga",
+  "serie-a": "serieA", "bundesliga": "bundesliga",
+  "ligue-1": "ligue1", "championship": "championship",
+};
+
+// Map Understat team names → football-data-cache team names
+const UNDERSTAT_TEAM_MAP: Record<string, string> = {
+  // EPL
+  "Newcastle United": "Newcastle", "Wolverhampton Wanderers": "Wolverhampton",
+  "Leeds United": "Leeds", "Sheffield United": "Sheffield United",
+  // La Liga
+  "Athletic Club": "Ath Bilbao", "Atletico Madrid": "Ath Madrid",
+  "Celta Vigo": "Celta", "Espanyol": "Espanol",
+  "Rayo Vallecano": "Vallecano", "Real Betis": "Betis",
+  "Real Sociedad": "Sociedad", "Real Valladolid": "Valladolid",
+  // Bundesliga
+  "Bayer Leverkusen": "Leverkusen", "Borussia Dortmund": "Dortmund",
+  "Borussia M.Gladbach": "M'gladbach", "Eintracht Frankfurt": "Ein Frankfurt",
+  "FC Heidenheim": "Heidenheim", "Mainz 05": "Mainz",
+  "RasenBallsport Leipzig": "RB Leipzig", "St. Pauli": "St Pauli",
+  "VfB Stuttgart": "Stuttgart",
+  // Serie A
+  "AC Milan": "Milan", "Inter": "Inter Milan",
+  "Parma Calcio 1913": "Parma", "Hellas Verona": "Hellas Verona",
+};
+
+function normalizeUstTeam(name: string): string {
+  return UNDERSTAT_TEAM_MAP[name] || name;
+}
+
+/**
+ * Load Understat per-match xG from cache files.
+ * Returns Map: "team|date" → { xG, xGA, venue }
+ * Handles both old format (teams.history) and new format (rawHistory).
+ */
+function loadUnderstatMatchXg(
+  leagueId: string,
+  seasons: string[],
+): Map<string, { xG: number; xGA: number; venue: string }> {
+  const map = new Map<string, { xG: number; xGA: number; venue: string }>();
+  const ustLeague = UNDERSTAT_LEAGUE_MAP[leagueId];
+  if (!ustLeague) return map;
+
+  for (const season of seasons) {
+    const ustSeason = season.split("-")[0]; // "2022-23" → "2022"
+    const fp = join(projectRoot, "data", "understat-cache", `${ustLeague}-${ustSeason}.json`);
+    if (!existsSync(fp)) continue;
+
+    try {
+      const data = JSON.parse(readFileSync(fp, "utf-8"));
+
+      if (data.rawHistory) {
+        // New format
+        for (const team of data.rawHistory) {
+          const teamName = normalizeUstTeam(team.team);
+          for (const m of team.matches) {
+            const dateKey = m.date.split(" ")[0];
+            map.set(`${teamName}|${dateKey}`, { xG: m.xG, xGA: m.xGA, venue: m.h_a });
+          }
+        }
+      } else if (data.teams) {
+        // Old format
+        for (const t of Object.values(data.teams) as any[]) {
+          const teamName = normalizeUstTeam(t.title);
+          for (const m of t.history) {
+            const dateKey = m.date.split(" ")[0];
+            map.set(`${teamName}|${dateKey}`, { xG: m.xG, xGA: m.xGA, venue: m.h_a });
+          }
+        }
+      }
+    } catch { /* skip corrupt */ }
+  }
+  return map;
+}
 
 // Load GK history if needed
 const gkHistory = gkAdjust ? loadGKHistory() : new Map();
@@ -316,6 +413,29 @@ for (const league of cachedLeagues) {
     } catch { continue; }
   }
   rawMatches.sort((a: any, b: any) => a.date.localeCompare(b.date));
+
+  // ─── Venue xGD: load Understat per-match xG ─────────────────────────────
+  const matchXg = venueXgd ? loadUnderstatMatchXg(league.id, league.seasons) : null;
+  if (matchXg && matchXg.size > 0) {
+    console.log(`  [venue-xgd] ${league.id}: ${matchXg.size} match-team xG entries loaded`);
+  } else if (venueXgd) {
+    console.log(`  [venue-xgd] ${league.id}: no Understat data found`);
+  }
+
+  // ─── Ensemble: fit DC + Elo on played matches ───────────────────────────
+  let dcParams: ReturnType<typeof fitDixonColes> | null = null;
+  let eloMap = new Map<string, number>();
+  if (ensembleMode) {
+    const playedMatches = rawMatches.filter((m: any) => m.homeGoals != null && m.awayGoals != null);
+    try {
+      dcParams = fitDixonColes(playedMatches);
+      const eloRatings = calculateEloRatings(playedMatches);
+      eloMap = new Map(eloRatings.map(e => [e.team, e.rating]));
+      console.log(`  [ensemble] ${league.id}: DC fit (${Object.keys(dcParams.attack).length} teams), Elo fit (${eloRatings.length} teams)`);
+    } catch (e) {
+      console.log(`  [ensemble] DC/Elo fit failed for ${league.id}: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  }
 
   // Test matches
   const testMatches = rawMatches.filter((m: any) => m.date >= `${TEST_SEASON_START}-07-01`);
@@ -359,11 +479,18 @@ for (const league of cachedLeagues) {
     if (m.homeGoals == null || m.awayGoals == null) continue;
     const hh = getTeamHist(m.homeTeam);
     const ah = getTeamHist(m.awayTeam);
-    // Use simple proxy: avg goals per match as "expected" for pre-test period
-    // (We don't have model params for training period, so just use league avg ~1.35)
-    const avgRate = 1.35;
-    hh.matches.push({ date: m.date, expectedGF: avgRate, actualGF: m.homeGoals, expectedGA: avgRate, actualGA: m.awayGoals });
-    ah.matches.push({ date: m.date, expectedGF: avgRate, actualGF: m.awayGoals, expectedGA: avgRate, actualGA: m.homeGoals });
+    // Use Understat xG if available, otherwise league avg proxy
+    let expHome = 1.35;
+    let expAway = 1.35;
+    if (matchXg) {
+      const homeXg = matchXg.get(`${m.homeTeam}|${m.date}`);
+      if (homeXg && homeXg.venue === "h") {
+        expHome = homeXg.xG;
+        expAway = homeXg.xGA;
+      }
+    }
+    hh.matches.push({ date: m.date, expectedGF: expHome, actualGF: m.homeGoals, expectedGA: expAway, actualGA: m.awayGoals });
+    ah.matches.push({ date: m.date, expectedGF: expAway, actualGF: m.awayGoals, expectedGA: expHome, actualGA: m.homeGoals });
     // Trim to lookback
     if (hh.matches.length > VARIANCE_LOOKBACK) hh.matches.shift();
     if (ah.matches.length > VARIANCE_LOOKBACK) ah.matches.shift();
@@ -371,20 +498,37 @@ for (const league of cachedLeagues) {
 
   // Helper: update team history after each match (model pred vs actual)
   function updateTeamHistory(m: any, pred: any) {
+    let expHome = pred.expectedGoals.home;
+    let expAway = pred.expectedGoals.away;
+
+    // Venue xGD: replace MI lambdas with Understat per-match xG
+    if (matchXg) {
+      const homeXg = matchXg.get(`${m.homeTeam}|${m.date}`);
+      const awayXg = matchXg.get(`${m.awayTeam}|${m.date}`);
+      if (homeXg && homeXg.venue === "h") {
+        expHome = homeXg.xG;    // home team expected goals for
+        expAway = homeXg.xGA;   // home team expected goals against
+      } else if (awayXg && awayXg.venue === "a") {
+        // Fallback: use away team perspective
+        expAway = awayXg.xG;    // away team expected goals for
+        expHome = awayXg.xGA;   // away team expected goals against
+      }
+    }
+
     const hh = getTeamHist(m.homeTeam);
     const ah = getTeamHist(m.awayTeam);
     hh.matches.push({
       date: m.date,
-      expectedGF: pred.expectedGoals.home,
+      expectedGF: expHome,
       actualGF: m.homeGoals,
-      expectedGA: pred.expectedGoals.away,
+      expectedGA: expAway,
       actualGA: m.awayGoals,
     });
     ah.matches.push({
       date: m.date,
-      expectedGF: pred.expectedGoals.away,
+      expectedGF: expAway,
       actualGF: m.awayGoals,
-      expectedGA: pred.expectedGoals.home,
+      expectedGA: expHome,
       actualGA: m.homeGoals,
     });
     if (hh.matches.length > VARIANCE_LOOKBACK) hh.matches.shift();
@@ -392,8 +536,8 @@ for (const league of cachedLeagues) {
 
     // Update defiance tracking
     for (const [team, expG, actG] of [
-      [m.homeTeam, pred.expectedGoals.home + pred.expectedGoals.away, m.homeGoals + m.awayGoals],
-      [m.awayTeam, pred.expectedGoals.away + pred.expectedGoals.home, m.awayGoals + m.homeGoals],
+      [m.homeTeam, expHome + expAway, m.homeGoals + m.awayGoals],
+      [m.awayTeam, expAway + expHome, m.awayGoals + m.homeGoals],
     ] as [string, number, number][]) {
       const th = getTeamHist(team);
       const dir = actG > expG ? "over" as const : "under" as const;
@@ -569,8 +713,31 @@ for (const league of cachedLeagues) {
       if (m.pinnacleCloseHome && m.pinnacleCloseDraw && m.pinnacleCloseAway) {
         const closingMkt = devigOdds1X2(m.pinnacleCloseHome, m.pinnacleCloseDraw, m.pinnacleCloseAway);
         if (closingMkt) {
-          // Benter Boost: blend MI model probs with devigged market odds
+          // Ensemble: blend MI + DC + Elo (before Benter)
           let modelProbs = pred.probs1X2;
+          if (ensembleMode) {
+            const models: { home: number; draw: number; away: number }[] = [pred.probs1X2];
+            try {
+              if (dcParams && dcParams.attack[m.homeTeam] && dcParams.attack[m.awayTeam]) {
+                const dcGrid = dcPredictMatch(m.homeTeam, m.awayTeam, dcParams);
+                const dcProbs = dcDerive1X2(dcGrid);
+                if (dcProbs) models.push(dcProbs);
+              }
+            } catch {}
+            if (!noElo) {
+              const hElo = eloMap.get(m.homeTeam) ?? 1500;
+              const aElo = eloMap.get(m.awayTeam) ?? 1500;
+              models.push(eloWinProbability(hElo, aElo));
+            }
+            if (models.length > 1) {
+              modelProbs = {
+                home: models.reduce((s, p) => s + p.home, 0) / models.length,
+                draw: models.reduce((s, p) => s + p.draw, 0) / models.length,
+                away: models.reduce((s, p) => s + p.away, 0) / models.length,
+              };
+            }
+          }
+          // Benter Boost: blend model probs with devigged market odds
           if (benterMode && closingMkt) {
             const mktW = benterMarketWeight ?? getBenterWeights(league.id).market;
             const mdlW = 1 - mktW;

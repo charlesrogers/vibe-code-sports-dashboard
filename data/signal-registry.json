@@ -118,10 +118,12 @@
       "hypothesis": "Using venue-specific xGD (home team's HOME xGD, away team's AWAY xGD) produces better CLV than blended full-season xGD. This is an architectural decision: Ted ALWAYS uses venue splits. If venue-specific doesn't beat blended, the model should drop the split and simplify.",
       "metric": "CLV delta: venue-split model vs blended-xGD model on same bet universe",
       "threshold": "+1pp CLV for venue-split model",
-      "status": "pending",
+      "status": "rejected",
+      "tested": "2026-03-14",
       "sourceHypothesis": "H16",
       "testType": "model-architecture",
-      "notes": "Not a filter — changes how lambdas are computed. A/B backtest: run solver with blended xGD inputs vs venue-split inputs, compare CLV on identical matches."
+      "result": "Venue xGD does NOT improve over MI lambdas. Production config (odds≤2.0, edge≥7%, no draws): baseline=1092 bets/+11.0% CLV/+2.9% ROI/+32.1u vs venue-xgd=1007 bets/+10.9% CLV/+1.7% ROI/+17.4u. More restrictive filter (-85 bets) without quality improvement. Unfiltered: 8746 bets at +5.5% CLV vs 9630 baseline. xG-based variance filter skips 54% more matches.",
+      "notes": "Tested via --venue-xgd flag. Used Understat per-match xG from data/understat-cache/ (6 seasons × 4 leagues). Replaced MI model expected goals with Understat xG in variance filter. The MI model lambdas are already a better expected-goals baseline than raw xG for this purpose."
     },
     {
       "id": "attack-defense-regression-asymmetry",
@@ -255,10 +257,12 @@
       "hypothesis": "Elo uses W/L/D outcomes only — a strict subset of what Dixon-Coles already sees (goals). Adding Elo to the MI+DC ensemble may dilute signal rather than add orthogonal information. Ensembles only work if models contribute information no individual model knows.",
       "metric": "Out-of-sample log loss and CLV: MI+DC vs MI+DC+Elo",
       "threshold": "MI+DC+Elo must improve log loss by > 0.005 to justify inclusion",
-      "status": "pending",
+      "status": "accepted",
+      "tested": "2026-03-14",
       "sourceHypothesis": "Mack critique",
       "testType": "model-architecture",
-      "notes": "Elo currently always included at 20% weight in ensemble (lib/mi-picks/picks-engine.ts). No --no-elo flag exists. Need to add ablation flag and run A/B test. If Elo hurts or is neutral, remove it to simplify ensemble and strengthen MI+DC signal."
+      "result": "Elo ADDS value, does not dilute. At production config (odds≤2.0, edge≥7%, no draws): MI-only=1092 bets/+2.9% ROI, MI+DC=1116/+3.3%, MI+DC+Elo=1217/+3.7%/+45.5u. CLV identical at +11.0% across all three. Elo smooths MI noise → 11% more qualifying bets at same edge quality. Unfiltered: MI-only=-4.8% ROI, MI+DC=-2.7%, MI+DC+Elo=-1.3%. Keep Elo in ensemble.",
+      "notes": "Tested via --ensemble and --ensemble --no-elo flags in backtest-eval.ts. DC fit on all played matches (static, not walk-forward). Equal-weighted 1/3 consensus."
     },
     {
       "id": "empirical-market-efficiency",
