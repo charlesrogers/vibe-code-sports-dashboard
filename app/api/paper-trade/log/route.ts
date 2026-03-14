@@ -7,7 +7,10 @@ async function handler(request: NextRequest) {
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret) {
     const auth = request.headers.get("authorization");
-    if (auth !== `Bearer ${cronSecret}`) {
+    const origin = request.headers.get("origin") || request.headers.get("referer") || "";
+    const isSameOrigin = origin.includes(request.nextUrl.host);
+
+    if (!isSameOrigin && auth !== `Bearer ${cronSecret}`) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   }
