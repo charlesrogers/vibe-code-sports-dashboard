@@ -91,6 +91,7 @@ const benterMarketWeight = getArg("market-weight") ? parseFloat(getArg("market-w
 const tedMode = hasFlag("ted");
 const varianceFilter = tedMode || hasFlag("variance-filter");
 const skipEarlyN = getArg("skip-early") ? parseInt(getArg("skip-early")!) : (tedMode ? 5 : 0);
+const skipLateN = getArg("skip-late") ? parseInt(getArg("skip-late")!) : 0;
 const congestionFilter = tedMode || hasFlag("congestion-filter");
 const defianceFilter = tedMode || hasFlag("defiance-filter");
 
@@ -279,6 +280,7 @@ if (calibrate) console.log(`  Calibration shrinkage: ${calibrateShrink} (${((1 -
 if (benterMode) console.log(`  BENTER BOOST: ON (market weight: ${benterMarketWeight != null ? (benterMarketWeight * 100).toFixed(0) + '%' : 'per-league defaults'})`);
 if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
+if (skipLateN > 0) console.log(`  LATE-SEASON FILTER: skip matchdays > ${skipLateN}`);
 else {
   if (varianceFilter) console.log(`  Variance filter: ON (gap >= ${VARIANCE_MIN_GAP} goals)`);
   if (skipEarlyN > 0) console.log(`  Skip early: first ${skipEarlyN} matchdays per season`);
@@ -320,7 +322,7 @@ for (const league of cachedLeagues) {
   const matchdayDates = [...new Set(testMatches.map((m: any) => m.date))].sort();
 
   let leagueBets = 0;
-  let leagueSkipped = { variance: 0, congestion: 0, early: 0, defiance: 0, intlBreak: 0 };
+  let leagueSkipped = { variance: 0, congestion: 0, early: 0, late: 0, defiance: 0, intlBreak: 0 };
   let currentParams: MIModelParams | null = null;
 
   // ─── Ted filter: build team match history for variance + congestion ──────
@@ -440,6 +442,19 @@ for (const league of cachedLeagues) {
     if (skipEarlyN > 0 && seasonMatchdayCount <= skipEarlyN) {
       leagueSkipped.early += dayMatches.filter((m: any) => m.homeGoals != null).length;
       // Still update team history even for skipped matchdays
+      for (const m of dayMatches) {
+        if (m.homeGoals == null || m.awayGoals == null) continue;
+        if (!currentParams.teams[m.homeTeam] || !currentParams.teams[m.awayTeam]) continue;
+        let pred;
+        try { pred = predictMatch(currentParams, m.homeTeam, m.awayTeam); } catch { continue; }
+        updateTeamHistory(m, pred);
+      }
+      continue;
+    }
+
+    // ─── Late-season filter: skip matchdays after threshold ────────────
+    if (skipLateN > 0 && seasonMatchdayCount > skipLateN) {
+      leagueSkipped.late += dayMatches.filter((m: any) => m.homeGoals != null).length;
       for (const m of dayMatches) {
         if (m.homeGoals == null || m.awayGoals == null) continue;
         if (!currentParams.teams[m.homeTeam] || !currentParams.teams[m.awayTeam]) continue;
@@ -674,9 +689,9 @@ for (const league of cachedLeagues) {
     }
   }
 
-  const skipTotal = leagueSkipped.early + leagueSkipped.variance + leagueSkipped.congestion + leagueSkipped.defiance + leagueSkipped.intlBreak;
+  const skipTotal = leagueSkipped.early + leagueSkipped.late + leagueSkipped.variance + leagueSkipped.congestion + leagueSkipped.defiance + leagueSkipped.intlBreak;
   const skipStr = skipTotal > 0
-    ? ` [skipped: early=${leagueSkipped.early} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}${leagueSkipped.intlBreak > 0 ? ` intl=${leagueSkipped.intlBreak}` : ""}]`
+    ? ` [skipped: early=${leagueSkipped.early}${leagueSkipped.late > 0 ? ` late=${leagueSkipped.late}` : ""} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}${leagueSkipped.intlBreak > 0 ? ` intl=${leagueSkipped.intlBreak}` : ""}]`
     : "";
   console.log(`  ${league.id.toUpperCase()}: ${leagueBets} bets (${snapDates.length} snapshots)${skipStr}`);
 }

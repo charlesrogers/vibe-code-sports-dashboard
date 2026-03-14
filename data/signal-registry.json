@@ -296,6 +296,19 @@
       "testType": "filter",
       "result": "CONFIRMED: Massive late-season collapse. GW 6-10: +8.8% ROI (n=57). GW 11-19: +14.4% ROI (n=123). GW 20-29: +16.0% ROI (n=118). GW 30+: -1.3% ROI (n=867). CLV is flat across all windows (~9.1%), but ROI diverges wildly. 60% of bets fall in GW 30+ where the model breaks even. Mid-season (GW 11-29) is the sweet spot: +15.1% ROI on 241 bets vs -1.3% on 867 late-season bets.",
       "notes": "CLV doesn't vary by gameweek (all ~9.1%), so the model identifies value consistently. But ROI collapses late season — this suggests late-season variance is higher (dead rubbers, rotation, motivation asymmetry). Actionable: either filter out GW 30+ or reduce stake size. This alone could flip overall ROI from +2.4% to much higher. Needs bootstrap significance test on the GW 30+ subset."
+    },
+    {
+      "id": "late-season-filter",
+      "registered": "2026-03-14",
+      "hypothesis": "Filtering out bets after GW 29 improves ROI by removing the late-season collapse window where dead rubbers, rotation, and motivation asymmetry cause high variance despite stable CLV.",
+      "metric": "ROI delta: --skip-late=29 vs baseline (--ted --markets=sides --max-odds=2.5)",
+      "threshold": "Filtered ROI > baseline ROI by +3pp AND bootstrap p < 0.10",
+      "status": "accepted",
+      "testedAt": "2026-03-14",
+      "sourceHypothesis": "timing-gameweek-clv finding",
+      "testType": "filter",
+      "result": "ROI: +13.9% vs +2.4% baseline (+11.5pp improvement). P&L: +41.6u vs +34.9u (more profit on 298 vs 1456 bets). Bootstrap: i.i.d. p=0.005, block p=0.005, 95% CI [+3.3%, +24.8%] EXCLUDES ZERO. Permutation p=0.008 z=2.37. Hit rate: 58.7% vs 52.6%. CLV stable: +9.0% vs +9.3%. DSR still WEAK (144 trials). La Liga underperforms at -17.2% ROI (n=51) — small sample.",
+      "notes": "Strongest significance result we've seen. The filter removes 80% of bets but increases both ROI and total profit. Caution: (1) only 298 bets — smaller sample, (2) La Liga is negative, (3) DSR flags multiple testing. Consider deploying as soft filter (reduced stake rather than skip) for GW 30+. The 2023-24 season shows +27.7% ROI which may be inflating the aggregate."
     }
   ]
 }
