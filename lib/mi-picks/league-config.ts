@@ -20,6 +20,32 @@ export const MI_LEAGUES: LeagueConfig[] = [
   { id: "ligue-1", oddsApiKey: "ligue1", label: "Ligue 1", currentSeason: "2025-26", previousSeason: "2024-25" },
 ];
 
+/**
+ * Benter Boost: per-league model vs market weights.
+ * Sharper markets (EPL, La Liga, Bundesliga) get higher market weight.
+ * MI weight absorbs the model signal (MI + DC + Elo collapsed for backtest).
+ * Elo weight is a small form correction.
+ */
+export interface BenterWeights {
+  market: number;
+  mi: number;
+  elo: number;
+}
+
+export const BENTER_WEIGHTS: Record<string, BenterWeights> = {
+  "epl":          { market: 0.85, mi: 0.10, elo: 0.05 },
+  "la-liga":      { market: 0.85, mi: 0.10, elo: 0.05 },
+  "bundesliga":   { market: 0.85, mi: 0.10, elo: 0.05 },
+  "serie-a":      { market: 0.80, mi: 0.13, elo: 0.07 },
+  "serie-b":      { market: 0.60, mi: 0.25, elo: 0.15 },
+  "ligue-1":      { market: 0.60, mi: 0.25, elo: 0.15 },
+  "championship": { market: 0.60, mi: 0.25, elo: 0.15 },
+};
+
+export function getBenterWeights(leagueId: string): BenterWeights {
+  return BENTER_WEIGHTS[leagueId] || { market: 0.70, mi: 0.20, elo: 0.10 };
+}
+
 export function getLeague(id: string): LeagueConfig | undefined {
   return MI_LEAGUES.find(l => l.id === id);
 }

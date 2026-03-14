@@ -26,6 +26,9 @@
  *   --skip-early=N                 # Skip first N matchdays per season (default 5 with --ted)
  *   --congestion-filter            # Skip teams playing 3rd match in 8 days
  *   --defiance-filter              # Skip teams persistently defying the model
+ *
+ * Benter Boost (market-weighted ensemble):
+ *   --benter                       # Blend MI model with devigged market odds (per-league weights)
  */
 
 import { readFileSync, existsSync, readdirSync } from "fs";
@@ -34,6 +37,7 @@ import { predictMatch, predictMatchFromLambdas } from "../lib/mi-model/predictor
 import { devigOdds1X2, devigOdds2Way } from "../lib/mi-model/data-prep";
 import type { MIModelParams } from "../lib/mi-model/types";
 import { isPostInternationalBreak } from "../lib/mi-picks/international-breaks";
+import { getBenterWeights } from "../lib/mi-picks/league-config";
 
 const projectRoot = join(import.meta.dirname || __dirname, "..");
 const dataDir = join(projectRoot, "data/football-data-cache");
@@ -71,6 +75,13 @@ const intlBreakFilter = hasFlag("intl-break");
 // ─── Calibration ──────────────────────────────────────────────────────────
 const calibrate = hasFlag("calibrate");
 const calibrateShrink = getArg("calibrate-shrink") ? parseFloat(getArg("calibrate-shrink")!) : 0.90;
+
+// ─── Benter Boost ────────────────────────────────────────────────────────
+// Blend MI model probs with devigged market odds using per-league weights
+// --benter                    Uses per-league defaults from league-config
+// --benter --market-weight=0.3  Override market weight (rest goes to MI model)
+const benterMode = hasFlag("benter");
+const benterMarketWeight = getArg("market-weight") ? parseFloat(getArg("market-weight")!) : null;
 
 // ─── Ted Filters ────────────────────────────────────────────────────────────
 const tedMode = hasFlag("ted");
@@ -260,6 +271,7 @@ if (marketsArg) console.log(`  Markets: ${marketsArg}`);
 if (noDraws) console.log(`  Excluding draws`);
 if (gkAdjust) console.log(`  GK PSxG adjustment: ON (impact=${GK_IMPACT_PER90}, cap=±${(MAX_GK_ADJUSTMENT * 100).toFixed(0)}%)`);
 if (calibrate) console.log(`  Calibration shrinkage: ${calibrateShrink} (${((1 - calibrateShrink) * 100).toFixed(0)}% toward prior)`);
+if (benterMode) console.log(`  BENTER BOOST: ON (market weight: ${benterMarketWeight != null ? (benterMarketWeight * 100).toFixed(0) + '%' : 'per-league defaults'})`);
 if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
 else {
@@ -537,10 +549,21 @@ for (const league of cachedLeagues) {
       if (m.pinnacleCloseHome && m.pinnacleCloseDraw && m.pinnacleCloseAway) {
         const closingMkt = devigOdds1X2(m.pinnacleCloseHome, m.pinnacleCloseDraw, m.pinnacleCloseAway);
         if (closingMkt) {
+          // Benter Boost: blend MI model probs with devigged market odds
+          let modelProbs = pred.probs1X2;
+          if (benterMode && closingMkt) {
+            const mktW = benterMarketWeight ?? getBenterWeights(league.id).market;
+            const mdlW = 1 - mktW;
+            const h = mdlW * modelProbs.home + mktW * closingMkt.home;
+            const d = mdlW * modelProbs.draw + mktW * closingMkt.draw;
+            const a = mdlW * modelProbs.away + mktW * closingMkt.away;
+            const total = h + d + a;
+            modelProbs = { home: h / total, draw: d / total, away: a / total };
+          }
           const sides = [
-            { sel: "Home", mp: pred.probs1X2.home, cp: closingMkt.home, odds: m.pinnacleCloseHome, won: m.homeGoals > m.awayGoals },
-            { sel: "Away", mp: pred.probs1X2.away, cp: closingMkt.away, odds: m.pinnacleCloseAway, won: m.awayGoals > m.homeGoals },
-            { sel: "Draw", mp: pred.probs1X2.draw, cp: closingMkt.draw, odds: m.pinnacleCloseDraw, won: m.homeGoals === m.awayGoals },
+            { sel: "Home", mp: modelProbs.home, cp: closingMkt.home, odds: m.pinnacleCloseHome, won: m.homeGoals > m.awayGoals },
+            { sel: "Away", mp: modelProbs.away, cp: closingMkt.away, odds: m.pinnacleCloseAway, won: m.awayGoals > m.homeGoals },
+            { sel: "Draw", mp: modelProbs.draw, cp: closingMkt.draw, odds: m.pinnacleCloseDraw, won: m.homeGoals === m.awayGoals },
           ];
           for (const s of sides) {
             if (noDraws && s.sel === "Draw") continue;
@@ -571,10 +594,22 @@ for (const league of cachedLeagues) {
         const modelAH = pred.asianHandicap[ahKey];
         const closingAH = devigOdds2Way(ahHome, ahAway);
         if (modelAH && closingAH) {
+          // Benter Boost for AH: blend model AH probs with devigged closing AH
+          let ahModelHome = modelAH.home;
+          let ahModelAway = modelAH.away;
+          if (benterMode) {
+            const mktW = benterMarketWeight ?? getBenterWeights(league.id).market;
+            const mdlW = 1 - mktW;
+            ahModelHome = mdlW * modelAH.home + mktW * closingAH.prob1;
+            ahModelAway = mdlW * modelAH.away + mktW * closingAH.prob2;
+            const ahTotal = ahModelHome + ahModelAway;
+            ahModelHome /= ahTotal;
+            ahModelAway /= ahTotal;
+          }
           const goalDiff = m.homeGoals - m.awayGoals;
           const ahSides = [
-            { sel: `Home AH ${ahLine >= 0 ? "+" : ""}${ahLine}`, mp: modelAH.home, cp: closingAH.prob1, odds: ahHome, result: goalDiff + ahLine },
-            { sel: `Away AH ${-ahLine >= 0 ? "+" : ""}${-ahLine}`, mp: modelAH.away, cp: closingAH.prob2, odds: ahAway, result: -(goalDiff + ahLine) },
+            { sel: `Home AH ${ahLine >= 0 ? "+" : ""}${ahLine}`, mp: ahModelHome, cp: closingAH.prob1, odds: ahHome, result: goalDiff + ahLine },
+            { sel: `Away AH ${-ahLine >= 0 ? "+" : ""}${-ahLine}`, mp: ahModelAway, cp: closingAH.prob2, odds: ahAway, result: -(goalDiff + ahLine) },
           ];
           for (const s of ahSides) {
             const clv = s.mp - s.cp;
