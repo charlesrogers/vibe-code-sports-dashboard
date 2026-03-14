@@ -131,10 +131,12 @@
       "hypothesis": "Attacking overperformance regresses faster (5-10 matches) than defensive overperformance (15-20 matches). A model that uses different lookback windows per side — shorter for attack fade, longer for defense fade — produces higher CLV than symmetric windows.",
       "metric": "CLV by regression type: attack-fade bets vs defense-fade bets at various lookback windows (6, 8, 10, 15, 20 matches)",
       "threshold": "Optimal attack lookback < optimal defense lookback by 5+ matches; combined CLV > symmetric baseline by +0.5pp",
-      "status": "pending",
+      "status": "rejected",
+      "testedAt": "2026-03-14",
+      "result": "CLV identical at +11.0% across all 6 combos (a=6/8 × d=10/15/20). ROI ranges +0.8% to +1.9%, all below symmetric baseline +2.9%. No evidence that attack regresses faster than defense in a way that improves betting edge.",
       "sourceHypothesis": "H05",
       "testType": "model-architecture",
-      "notes": "Structural timing signal. If confirmed, changes when the variance-regression filter fires, not just whether it fires. Sweep lookback windows independently for goals-xG (attack) and xGA-conceded (defense) regression candidates."
+      "notes": "Tested via --attack-lookback and --defense-lookback flags. Asymmetric windows change which bets qualify but don't improve CLV or ROI."
     },
     {
       "id": "form-window-rolling-vs-expanding",
@@ -167,10 +169,12 @@
       "hypothesis": "When the closing line has moved 0.25+ goals toward the model's position since opening, remaining CLV is near zero. Bets placed after significant line movement toward you should be filtered out.",
       "metric": "CLV of bets where line moved 0.25+ toward model vs bets where line was stable or moved against",
       "threshold": "Post-move CLV < +1% (confirming value is gone); stable-line CLV > +2%",
-      "status": "pending",
+      "status": "rejected",
+      "testedAt": "2026-03-14",
+      "result": "INSUFFICIENT DATA. Only 104/1401 bets (7%) have opening odds (pinnacleHome field). Of those, only 3 had line move toward model ≥3pp. Diagnostic: moved-toward CLV 13.3% (n=3), stable CLV 9.4% (n=61), moved-against CLV 9.7% (n=40). Filter has zero impact at any threshold (3/5/7/10pp). Cannot test until opening odds coverage improves.",
       "sourceHypothesis": "H08",
       "testType": "filter",
-      "notes": "Requires opening + closing odds data (line-movement.ts signals already built but not registered). Ted's 2nd most referenced signal (151 statements). If confirmed, add as pre-bet filter: skip when sharp money already moved the line your way."
+      "notes": "The football-data-cache has pinnacleHome (opening) fields but they're mostly null/missing. Need to backfill historical opening odds from The Odds API or alternative source before this signal can be properly tested. Re-test when opening odds coverage > 80%."
     },
     {
       "id": "double-variance-intersection",
@@ -178,10 +182,12 @@
       "hypothesis": "Teams with BOTH attacking overperformance AND defensive underperformance (goals > xG AND goals_conceded > xGA) produce higher CLV when backed than teams with only one variance type. The intersection of H01+H04 is stronger than either component alone because defense regresses more reliably than attack, so net regression favors the team.",
       "metric": "CLV of double-variance bets vs single-variance bets",
       "threshold": "Double-variance CLV > single-variance CLV by +1pp",
-      "status": "pending",
+      "status": "rejected",
+      "testedAt": "2026-03-14",
+      "result": "CLV barely moves (+11.0-11.2%) vs baseline (+11.0%). ROI degrades as gap tightens: gap=1.5 +1.5% (1119 bets), gap=2.0 +1.2% (886), gap=2.5 -2.6% (663), gap=3.0 -5.5% (490). The AND logic removes profitable single-variance bets without improving per-bet quality.",
       "sourceHypothesis": "H06",
       "testType": "filter-intersection",
-      "notes": "Rare filter — few teams qualify simultaneously. May not reach significance (<50 bets over 3 seasons). If N is too small, mark as inconclusive rather than rejected. Ted described this pattern explicitly for Wrexham/Ipswich/Southampton/Leicester in Mar 2026."
+      "notes": "Requiring both attack AND defense variance is too restrictive. Single-variance OR logic is correct — defense-only or attack-only regression candidates are independently profitable."
     },
     {
       "id": "benter-boost-1x2",
@@ -273,10 +279,12 @@
       "hypothesis": "Market efficiency can be measured per league by regressing final match margin against model spread and Pinnacle spread separately. The regression slope coefficients empirically calibrate Benter weights instead of hand-tuning. A slope near 1.0 = well-calibrated market, <1.0 = overconfident market, >1.0 = underconfident.",
       "metric": "R² and slope coefficients per league (model spread vs Pinnacle spread), coefficient variance across leagues",
       "threshold": "Slope coefficients differ meaningfully across leagues (range > 0.15)",
-      "status": "pending",
+      "status": "rejected",
+      "testedAt": "2026-03-14",
+      "result": "Tested via Benter market weight sweep (0.2-0.6 in 0.1 steps). No-Benter baseline is best: CLV +11.0%, ROI +2.6%, 1401 bets, +36.8u. Every Benter weight hurts: mw=0.2 ROI +2.6% but fewer bets (+31.6u), mw=0.4 ROI +1.0% (+8.7u), mw=0.6 ROI -1.0% (-6.6u). Higher market weight = fewer bets + worse ROI. The MI model is better unblended for edge detection.",
       "sourceHypothesis": "Mack critique",
       "testType": "calibration",
-      "notes": "Current Benter weights are hardcoded in lib/mi-picks/league-config.ts (all leagues same: Market 40%, MI 45%, Elo 15%). Mack's method: one regression per league calibrates all weights at once. Requires new script — zero existing margin regression infrastructure."
+      "notes": "Benter blending may still be useful in production picks-engine (where it helps with human-readable confidence), but for pure backtest edge detection, the model alone outperforms any market blend. Regression approach moot since optimal market weight ≈ 0."
     },
     {
       "id": "calibration-systematic-bias",

@@ -112,10 +112,20 @@ const noElo = hasFlag("no-elo");           // exclude Elo from ensemble (MI+DC o
 // ─── Venue xGD ────────────────────────────────────────────────────────────
 const venueXgd = hasFlag("venue-xgd");     // use Understat per-match xG instead of MI lambdas
 
+// ─── Line Movement ──────────────────────────────────────────────────────────
+const lineMoveFilter = hasFlag("line-move-filter");
+const lineMoveDiag = hasFlag("line-move-diagnostic");
+const lineMovePP = getArg("line-move-pp") ? parseFloat(getArg("line-move-pp")!) : 5.0; // percentage points for 1X2
+
 // Variance filter config
 const VARIANCE_LOOKBACK = 10;      // default last N matches per team
 const lookbackN = getArg("lookback") ? parseInt(getArg("lookback")!) : VARIANCE_LOOKBACK;
 const windowMode = getArg("window-mode") ?? "rolling";  // "rolling" (trim to N) or "expanding" (keep all, require N min)
+const attackLookback = getArg("attack-lookback") ? parseInt(getArg("attack-lookback")!) : lookbackN;
+const defenseLookback = getArg("defense-lookback") ? parseInt(getArg("defense-lookback")!) : lookbackN;
+const maxLookback = Math.max(attackLookback, defenseLookback, lookbackN);
+const doubleVariance = hasFlag("double-variance");
+const doubleVarianceGap = getArg("double-variance-gap") ? parseFloat(getArg("double-variance-gap")!) : 2.0;
 const VARIANCE_MIN_GAP = 3.0;      // min goals gap (xG vs actual) to qualify as regression candidate
 const DEFIANCE_STREAK = 10;        // if model disagrees with results for 10+ matches, skip
 
@@ -238,6 +248,7 @@ interface BetRecord {
   homeGoals: number; awayGoals: number; totalGoals: number;
   won: boolean; profit: number;
   matchday: number; // season matchday count (1-based, 0 if unknown)
+  lineMoveDelta?: number; // pp change in implied prob (positive = moved toward model)
 }
 
 // ─── Load solver snapshots from cache ───────────────────────────────────────
@@ -301,6 +312,10 @@ if (benterMode) console.log(`  BENTER BOOST: ON (market weight: ${benterMarketWe
 if (intlBreakFilter) console.log(`  International break filter: ON`);
 if (tedMode) console.log(`  TED MODE: variance + skip-early(${skipEarlyN}) + congestion + defiance`);
 console.log(`  Lookback: ${lookbackN} matches (${windowMode} window)`);
+if (attackLookback !== lookbackN || defenseLookback !== lookbackN) console.log(`  Asymmetric lookback: attack=${attackLookback}, defense=${defenseLookback}`);
+if (doubleVariance) console.log(`  DOUBLE VARIANCE: require both attack AND defense gap >= ${doubleVarianceGap}`);
+if (lineMoveFilter) console.log(`  LINE MOVE FILTER: skip bets where closing moved toward model by >= ${lineMovePP}pp`);
+if (lineMoveDiag) console.log(`  LINE MOVE DIAGNOSTIC: splitting bets by line movement direction`);
 if (ensembleMode) console.log(`  ENSEMBLE: MI + DC${noElo ? '' : ' + Elo'} (equal-weighted consensus)`);
 if (venueXgd) console.log(`  VENUE xGD: using Understat per-match xG (home/away splits) in variance filter`);
 if (skipLateN > 0) console.log(`  LATE-SEASON FILTER: skip matchdays > ${skipLateN}`);
@@ -446,7 +461,7 @@ for (const league of cachedLeagues) {
   const matchdayDates = [...new Set(testMatches.map((m: any) => m.date))].sort();
 
   let leagueBets = 0;
-  let leagueSkipped = { variance: 0, congestion: 0, early: 0, late: 0, defiance: 0, intlBreak: 0 };
+  let leagueSkipped = { variance: 0, congestion: 0, early: 0, late: 0, defiance: 0, intlBreak: 0, lineMove: 0 };
   let currentParams: MIModelParams | null = null;
 
   // ─── Ted filter: build team match history for variance + congestion ──────
@@ -497,8 +512,8 @@ for (const league of cachedLeagues) {
     ah.matches.push({ date: m.date, expectedGF: expAway, actualGF: m.awayGoals, expectedGA: expHome, actualGA: m.homeGoals });
     // Trim to lookback (rolling mode only)
     if (windowMode === "rolling") {
-      if (hh.matches.length > lookbackN) hh.matches.shift();
-      if (ah.matches.length > lookbackN) ah.matches.shift();
+      if (hh.matches.length > maxLookback) hh.matches.shift();
+      if (ah.matches.length > maxLookback) ah.matches.shift();
     }
   }
 
@@ -538,8 +553,8 @@ for (const league of cachedLeagues) {
       actualGA: m.homeGoals,
     });
     if (windowMode === "rolling") {
-      if (hh.matches.length > lookbackN) hh.matches.shift();
-      if (ah.matches.length > lookbackN) ah.matches.shift();
+      if (hh.matches.length > maxLookback) hh.matches.shift();
+      if (ah.matches.length > maxLookback) ah.matches.shift();
     }
 
     // Update defiance tracking
@@ -687,13 +702,20 @@ for (const league of cachedLeagues) {
       if (varianceFilter) {
         const isRegressionCandidate = (team: string): boolean => {
           const hist = getTeamHist(team);
-          if (hist.matches.length < lookbackN) return false;
-          const recent = hist.matches.slice(-lookbackN);
           // Defensive regression: conceding >> xGA (most reliable per Ted)
-          const gaGap = recent.reduce((s, m) => s + (m.actualGA - m.expectedGA), 0);
+          const defSlice = hist.matches.slice(-defenseLookback);
+          const gaGap = defSlice.length >= defenseLookback
+            ? defSlice.reduce((s, m) => s + (m.actualGA - m.expectedGA), 0) : 0;
           // Offensive regression: scoring >> xGF
-          const gfGap = recent.reduce((s, m) => s + (m.actualGF - m.expectedGF), 0);
-          // Either direction counts — abs gap >= threshold
+          const atkSlice = hist.matches.slice(-attackLookback);
+          const gfGap = atkSlice.length >= attackLookback
+            ? atkSlice.reduce((s, m) => s + (m.actualGF - m.expectedGF), 0) : 0;
+          // If neither window is filled, not enough data
+          if (defSlice.length < defenseLookback && atkSlice.length < attackLookback) return false;
+          if (doubleVariance) {
+            const gap = doubleVarianceGap;
+            return Math.abs(gaGap) >= gap && Math.abs(gfGap) >= gap;
+          }
           return Math.abs(gaGap) >= VARIANCE_MIN_GAP || Math.abs(gfGap) >= VARIANCE_MIN_GAP;
         };
         passVariance = isRegressionCandidate(m.homeTeam) || isRegressionCandidate(m.awayTeam);
@@ -765,6 +787,10 @@ for (const league of cachedLeagues) {
             const total = h + d + a;
             modelProbs = { home: h / total, draw: d / total, away: a / total };
           }
+          // Line movement: compute opening implied probs for 1X2
+          const openingMkt = (lineMoveFilter || lineMoveDiag) && m.pinnacleHome && m.pinnacleDraw && m.pinnacleAway
+            ? devigOdds1X2(m.pinnacleHome, m.pinnacleDraw, m.pinnacleAway) : null;
+
           const sides = [
             { sel: "Home", mp: modelProbs.home, cp: closingMkt.home, odds: m.pinnacleCloseHome, won: m.homeGoals > m.awayGoals },
             { sel: "Away", mp: modelProbs.away, cp: closingMkt.away, odds: m.pinnacleCloseAway, won: m.awayGoals > m.homeGoals },
@@ -776,6 +802,21 @@ for (const league of cachedLeagues) {
             const clv = s.mp - s.cp;
             if (clv <= minEdge) continue;
             if (maxOdds && s.odds > maxOdds) continue;
+            // Line movement filter for 1X2
+            if (lineMoveFilter && openingMkt) {
+              const openProb = s.sel === "Home" ? openingMkt.home : s.sel === "Away" ? openingMkt.away : openingMkt.draw;
+              const movePP = (s.cp - openProb) * 100; // positive = market moved toward this side
+              if (movePP >= lineMovePP) {
+                leagueSkipped.lineMove++;
+                continue;
+              }
+            }
+            // Line movement diagnostic: tag bets with movement direction
+            let lineMoveDelta: number | undefined;
+            if (lineMoveDiag && openingMkt) {
+              const openProb = s.sel === "Home" ? openingMkt.home : s.sel === "Away" ? openingMkt.away : openingMkt.draw;
+              lineMoveDelta = (s.cp - openProb) * 100;
+            }
             allBets.push({
               league: league.id, season, date: m.date,
               homeTeam: m.homeTeam, awayTeam: m.awayTeam,
@@ -785,6 +826,7 @@ for (const league of cachedLeagues) {
               homeGoals: m.homeGoals, awayGoals: m.awayGoals, totalGoals,
               won: s.won, profit: s.won ? s.odds - 1 : -1,
               matchday: seasonMatchdayCount,
+              ...(lineMoveDelta !== undefined ? { lineMoveDelta } : {}),
             });
             leagueBets++;
           }
@@ -876,7 +918,7 @@ for (const league of cachedLeagues) {
 
   const skipTotal = leagueSkipped.early + leagueSkipped.late + leagueSkipped.variance + leagueSkipped.congestion + leagueSkipped.defiance + leagueSkipped.intlBreak;
   const skipStr = skipTotal > 0
-    ? ` [skipped: early=${leagueSkipped.early}${leagueSkipped.late > 0 ? ` late=${leagueSkipped.late}` : ""} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}${leagueSkipped.intlBreak > 0 ? ` intl=${leagueSkipped.intlBreak}` : ""}]`
+    ? ` [skipped: early=${leagueSkipped.early}${leagueSkipped.late > 0 ? ` late=${leagueSkipped.late}` : ""} var=${leagueSkipped.variance} cong=${leagueSkipped.congestion} def=${leagueSkipped.defiance}${leagueSkipped.intlBreak > 0 ? ` intl=${leagueSkipped.intlBreak}` : ""}${leagueSkipped.lineMove > 0 ? ` lm=${leagueSkipped.lineMove}` : ""}]`
     : "";
   console.log(`  ${league.id.toUpperCase()}: ${leagueBets} bets (${snapDates.length} snapshots)${skipStr}`);
 }
@@ -1010,6 +1052,33 @@ for (const row of rows) {
 }
 
 // ─── By Season ──────────────────────────────────────────────────────────────
+
+// ─── Line movement diagnostic ─────────────────────────────────────────────
+if (lineMoveDiag) {
+  const withLM = filtered.filter(b => b.lineMoveDelta !== undefined);
+  if (withLM.length > 0) {
+    const movedToward = withLM.filter(b => b.lineMoveDelta! >= 3);
+    const movedAgainst = withLM.filter(b => b.lineMoveDelta! <= -3);
+    const stable = withLM.filter(b => Math.abs(b.lineMoveDelta!) < 3);
+    const summarizeLM = (bets: typeof withLM) => {
+      const n = bets.length;
+      if (n === 0) return { n: 0, clv: 0, roi: 0, profit: 0 };
+      const clv = bets.reduce((s, b) => s + b.clv, 0) / n;
+      const roi = bets.reduce((s, b) => s + b.profit, 0) / n;
+      const profit = bets.reduce((s, b) => s + b.profit, 0);
+      return { n, clv, roi, profit };
+    };
+    console.log(`\n  ─── LINE MOVEMENT DIAGNOSTIC (1X2 bets with opening odds) ────────\n`);
+    console.log(`  Direction         N      CLV       ROI      Profit`);
+    console.log(`  ─────────────────────────────────────────────────────`);
+    for (const [label, bets] of [["Moved toward (≥3pp)", movedToward], ["Stable (±3pp)", stable], ["Moved against (≤-3pp)", movedAgainst]] as const) {
+      const s = summarizeLM(bets as any);
+      console.log(`  ${(label as string).padEnd(22)} ${String(s.n).padStart(4)}   ${(s.clv * 100).toFixed(1).padStart(6)}%   ${(s.roi * 100).toFixed(1).padStart(6)}%   ${s.profit >= 0 ? "+" : ""}${s.profit.toFixed(1).padStart(7)}u`);
+    }
+    const allS = summarizeLM(withLM);
+    console.log(`  ${"All".padEnd(22)} ${String(allS.n).padStart(4)}   ${(allS.clv * 100).toFixed(1).padStart(6)}%   ${(allS.roi * 100).toFixed(1).padStart(6)}%   ${allS.profit >= 0 ? "+" : ""}${allS.profit.toFixed(1).padStart(7)}u`);
+  }
+}
 
 const sidesNoDraw = filtered.filter(b => (b.marketType === "1X2" || b.marketType === "AH") && b.selection !== "Draw");
 console.log(`\n  ─── BY SEASON (sides no draw, edge >= ${(reportEdge * 100).toFixed(0)}%) ──────────────────────\n`);
